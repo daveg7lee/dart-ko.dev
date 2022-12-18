@@ -1,62 +1,56 @@
 ---
 title: Effective Dart
-description: Best practices for building consistent, maintainable, efficient Dart libraries.
+description: 일관되고 지속가능하며 효과적인 Dart 라이브러리를 빌드하는 최고의 관례들
 permalink: /guides/language/effective-dart
 nextpage:
   url: /guides/language/effective-dart/style
   title: Style
 ---
 
-Over the past several years, we've written a ton of Dart code and learned a lot
-about what works well and what doesn't. We're sharing this with you so you can
-write consistent, robust, fast code too. There are two overarching themes:
+지난 몇 년 동안, 우리는 많은 Dart 코드를 작성했고 어떤것이 제대로 작동하는지 아닌지에 대해 많은 것을 배웠습니다.
+우리가 공유하는 정보와 함께라면 일관성있고 견고하며 빠른 코드 작성이 가능할 것입니다.
+두가지 중심이 되는 주제가 있습니다.
 
- 1. **Be consistent.** When it comes to things like formatting, and casing,
-    arguments about which is better are subjective and impossible to resolve.
-    What we do know is that being *consistent* is objectively helpful.
+ 1. **일관되게 작성하세요.** 포매팅(foramtting)과 케이싱(casing)과 같은 것들에 대해,
+    어느 것이 더 나은지에 대한 논쟁은 주관적이며 해결이 불가능합니다.
+    우리가 알고 있는 것은 *일관성*이 객관적으로 도움이 된다는 것입니다.
 
-    If two pieces of code look different it should be because they *are*
-    different in some meaningful way. When a bit of code stands out and catches
-    your eye, it should do so for a useful reason.
+    두 코드 피스가 다르게 느껴진다면, 그것은 그 둘이 어떠한 의미 있는 방식으로 다르기 때문입니다.
+    어떤 코드가 눈길을 끈다면, 그것은 어떤 유용한 이유로 그러할 것입니다.
 
- 2. **Be brief.** Dart was designed to be familiar, so it inherits many of the
-    same statements and expressions as C, Java, JavaScript and other languages.
-    But we created Dart because there is a lot of room to improve on what those
-    languages offer. We added a bunch of features, from string interpolation to
-    initializing formals, to help you express your intent more simply and
-    easily.
+ 2. **간단하게 작성하세요.** Dart는 개발자에게 친숙하도록 디자인 되었습니다. 그렇기 때문에
+    C, Java, JavaScript와 같은 다른 언어들의 statements나 expressions를 물려받았습니다.
+    하지만 우리는 그런 언어들을 개선할 여지가 많이 있기 때문에 Dart를 개발하였습니다.
+    문자열 보간 부터 initializing formals까지, 개발자들의 의도를 간단하고 쉽게 표현하기 위해
+    Dart는 다양한 기능들을 가지고 있습니다.
 
-    If there are multiple ways to say something, you should generally pick the
-    most concise one. This is not to say you should [code golf][] yourself into
-    cramming a whole program into a single line. The goal is code that is
-    *economical*, not *dense*.
+    코드를 표현할 다양한 방법이 있다면, 일반적으로 간결한 것을 선택하는 것이 좋을 것입니다.
+    그것이 모든 프로그램을 한 줄로 표현하도록 [code golf][]하라는 의미는 아닙니다.
+    Dart를 사용하는 개발자들의 목표는 불필요하게 *빽뺵*하지 않고 *실속*있는 코드를 작성하는 것입니다.
 
-[code golf]: https://en.wikipedia.org/wiki/Code_golf
+[code golf]: https://kr.wikipedia.org/wiki/Code_golf
 
-## The guides
+## 가이드
 
-We split the guidelines into a few separate pages for easy digestion:
+가이드를 쉽게 이해하도록 하기 위해 우리는 가이드라인을 몇가지 페이지로 구분하였습니다:
 
-  * **[Style Guide][]** &ndash; This defines the rules for laying out and
-    organizing code, or at least the parts that [dart format] doesn't handle for
-    you. The style guide also specifies how identifiers are formatted:
-    `camelCase`, `using_underscores`, etc.
+  * **[Style Guide][]** &ndash; 이 가이드에서는 코드를 배치하고 구성하는 규칙에 대해 정의하고,
+    [dart format]에서 다루지 않는 것들을 다룹니다. Style guide에서는 
+    `camelCase`, `using_underscores`와 같이 식별자들이 어떻게 포맷되는지 구체적으로 알려줍니다.
+    
+  * **[Documentation Guide][]** &ndash; 이 가이드에서는 주석에 대한 모든 것을
+    알려줍니다. 문서 주석 부터, 일반적인 코드에 대한 주석을 모두 다룹니다.
 
-  * **[Documentation Guide][]** &ndash; This tells you everything you need to
-    know about what goes inside comments. Both doc comments and regular,
-    run-of-the-mill code comments.
+  * **[Usage Guide][]** &ndash; 이 가이드 에서는 기능을 구현하기 위해
+    언어의 기능을 최대한 활용하는 방법에 대해 알려줍니다.
+    Statement나 expression을 여기에서 다룹니다.
 
-  * **[Usage Guide][]** &ndash; This teaches you how to make the best use of
-    language features to implement behavior. If it's in a statement or
-    expression, it's covered here.
+  * **[Design Guide][]** &ndash; 이 가이드는 가장 소프트한 파트이지만, 가장 넓은 범위를
+    다룹니다. 라이브러리를 위한 일관되고 사용 가능한 API를 설계하는 법을 알려줍니다.
+    Type signature나 declaration에 대해 궁금하다면, 이 가이드를 살펴보세요.
 
-  * **[Design Guide][]** &ndash; This is the softest guide, but the one
-    with the widest scope. It covers what we've learned about designing
-    consistent, usable APIs for libraries. If it's in a type signature or
-    declaration, this goes over it.
-
-For links to all the guidelines, see the
-[summary](#summary-of-all-rules).
+모든 가이드의 링크는 다음을 참고하세요
+[요약](#summary-of-all-rules).
 
 [dart format]: /tools/dart-format
 [style guide]: /guides/language/effective-dart/style
@@ -64,77 +58,72 @@ For links to all the guidelines, see the
 [usage guide]: /guides/language/effective-dart/usage
 [design guide]: /guides/language/effective-dart/design
 
-## How to read the guides
+## 가이드 읽는 법
 
-Each guide is broken into a few sections. Sections contain a list of guidelines.
-Each guideline starts with one of these words:
+각 가이드는 여러 개의 섹션으로 구분됩니다. 섹션은 몇 가지의 가이드라인을 가지고 있습니다.
+개별 가이드라인은 아래의 단어 중 하나를 포함합니다:
 
-* **DO** guidelines describe practices that should always be followed. There
-  will almost never be a valid reason to stray from them.
+* **하십시오** 해당 가이드라인들은 항상 지켜져야 하는 관례을 말합니다.
+  이 관례들을 어길 타당한 이유가 거의 없을 겁니다.
 
-* **DON'T** guidelines are the converse: things that are almost never a good
-  idea. Hopefully, we don't have as many of these as other languages do because
-  we have less historical baggage.
+* **하지 마십시오** 대부분의 상황에서 좋지 않는 아이디어에 대한 것으로, 위와 반대되는
+  상황에 대한 가이드라인입니다. Dart의 역사적 부담이 적기 때문에, 우리는 다른 언어들 만큼 이러한
+  지침이 많지 않기를 바랍니다.
 
-* **PREFER** guidelines are practices that you *should* follow. However, there
-  may be circumstances where it makes sense to do otherwise. Just make sure you
-  understand the full implications of ignoring the guideline when you do.
+* **지향 하십시오** 따르는 것이 *바람직한* 관례에 대한 가이드라인 입니다. 그러나,
+  이 지침을 따르지 않아야 하는 상황이 존재할 것입니다. 이 가이드라인을 지키지 않는 것의
+  의미를 충분히 이해했는지 확인하세요.
 
-* **AVOID** guidelines are the dual to "prefer": stuff you shouldn't do but
-  where there may be good reasons to on rare occasions.
+* **피하십시오** "지향"해야하는 가이드 라인과 반대의 상황을 말합니다:
+하지 말아야 할 것들이지만, 드물게 합리적인 이유가 있을 수 있는 것들을 말합니다.
 
-* **CONSIDER** guidelines are practices that you might or might not want to
-  follow, depending on circumstances, precedents, and your own preference.
+* **고려 하십시오** 상황, 전례 그리고 자신의 개인적인 선호도로 인해
+  따를 수도, 그러지 않을 수도 있는 관례들에 대한 가이드라인입니다.
 
-Some guidelines describe an **exception** where the rule does *not* apply. When
-listed, the exceptions may not be exhaustive—you might still need to use
-your judgement on other cases.
+몇몇 가이드라인들은 위의 규칙들이 적용되지 *않는* **예외**들을 포함하고 있습니다. 그런 예외들이 있다면,
+완전하지 않으므로 여러 케이스들에 대해 본인의 판단이 필요합니다.
 
-This sounds like the police are going to beat down your door if you don't have
-your laces tied correctly. Things aren't that bad. Most of the guidelines here
-are common sense and we're all reasonable people. The goal, as always, is nice,
-readable and maintainable code.
+위의 이야기는 당신이 이 가이드라인들을 지키지 않으면 큰일 날 것처럼 느껴질 수 있지만, 그렇게 극단적이진 않습니다.
+위의 가이드라인들의 대부분은 상식적인 것이고 우리는 모두 합리적인 사람들입니다. 
+우리의 목표는 훌륭하고 가독성이 좋으며 지속가능한 코드를 작성하는 것입니다.
 
-The Dart analyzer provides a linter
-to help you write good, consistent code
-that follows these and other guidelines.
-If one or more [linter rules][lints] exist
-that can help you follow a guideline
-then the guideline links to those rules.
-The links use the following format:
+Dart analyzer는 linter를 제공하여 이런 가이드라인들을 지키는 
+훌륭하고 일관적인 코드를 작성 할 수 있게 해줍니다.
+가이드라인들 따르도록 해주는 [linter 규칙][lints]이 존재한다면,
+해당 가이드라인이 규칙과 링크해 줄 것입니다.
+그 링크들은 다음과 같은 형식을 따릅니다:
 
 {% include linter-rule-mention.md rule="unnecessary_getters_setters" %}
 
-To learn how to use the linter,
-see [Enabling linter rules][]
-and the list of [linter rules][lints].
+Linter 사용법을 배우고 싶다면,
+[Linter 규칙 활성화하기][]와
+[linter 규칙][lints]들의 목록을 참고하세요.
 
-[Enabling linter rules]: /guides/language/analysis-options#enabling-linter-rules
+[Linter 규칙 활성화하기]: /guides/language/analysis-options#enabling-linter-rules
 [lints]: /tools/linter-rules
 
-## Glossary
+## 용어 해설
 
-To keep the guidelines brief, we use a few shorthand terms to refer to different
-Dart constructs.
+가이드라인을 간단하게 유지하기 위해, 몇 가지 약칭를 사용하여 Dart의 구조를 나타냅니다.
 
-* A **library member** is a top-level field, getter, setter, or function.
-  Basically, anything at the top level that isn't a type.
+* **라이브러리 멤버**는 getter, setter나 함수 같은 최상위 필드 입니다.
+  기본적으로, 타입이 아닌 최상위 수준의 모든 항목들을 말합니다.
 
-* A **class member** is a constructor, field, getter, setter, function, or
-  operator declared inside a class. Class members can be instance or static,
-  abstract or concrete.
+* **클래스 멤버**는 클래스에 선언되어 있는 생성자, 필드, getter, setter 함수
+  그리고 연산자들을 의미합니다. 클래스 멤버들은 instance 혹은 static일 수 있고,
+  추상적이거나 구체적일 수도 있습니다.
 
-* A **member** is either a library member or a class member.
+* **멤버**는 라이브러리 또는 클래스 멤버를 의미합니다.
 
-* A **variable**, when used generally, refers to top-level variables,
-  parameters, and local variables. It doesn't include static or instance fields.
+* **변수**는 일반적으로 최상위 변수, 파라미터, 지역 변수를 의미합니다.
+  Static 또는 instance 필드를 포함하지 않습니다.
 
-* A **type** is any named type declaration: a class, typedef, or enum.
+* **타입**은 class, typedef, 또는 enum과 같이 이름이 있는 타입 선언을 의미합니다.
 
-* A **property** is a top-level variable, getter (inside a class or at the top
-  level, instance or static), setter (same), or field (instance or static).
-  Roughly any "field-like" named construct.
+* **프로퍼티**는 최상위 변수, getter (클래스 내부 또는 최상위에 위치, instance 또는 static),
+  setter (getter와 동일), 또는 필드 (instance 또는 static)를 의미합니다.
+  거의 모든 "필드 같이" 명명된 구문들을 나타냅니다.
 
-## Summary of all rules
+## 모든 규칙의 요약
 
 {% include_relative toc.md %}
