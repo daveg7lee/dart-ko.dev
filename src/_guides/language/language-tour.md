@@ -1,5 +1,5 @@
 ---
-title: Dart 언어로 떠나는 여행
+title: Dart로 떠나는 여행
 description: Dart 언어의 중요한 기능에 대해 학습합니다.
 short-title: Language tour
 js: [{url: 'https://dartpad.dev/inject_embed.dart.js', defer: true}]
@@ -7,7 +7,7 @@ js: [{url: 'https://dartpad.dev/inject_embed.dart.js', defer: true}]
 <?code-excerpt replace="/ *\/\/\s+ignore_for_file:[^\n]+\n//g; /(^|\n) *\/\/\s+ignore:[^\n]+\n/$1/g; /(\n[^\n]+) *\/\/\s+ignore:[^\n]+\n/$1\n/g; / *\/\/\s+ignore:[^\n]+//g; /([A-Z]\w*)\d\b/$1/g"?>
 
 이 페이지에서는 다른 프로그래밍 언어를 사용 할 줄 안다는 가정 하에 
-변수, 연산자, 클래스 및 라이브러리에 이르는 각 주요 Dart 기능을 사용하는 방법을 보여줍니다. 
+변수, 연산자, 클래스 및 라이브러리에 이르는 각 주요 Dart 기능을 사용하는 방법을 알려드립니다. 
 언어에 대한 간략한 설명을 보고 싶다면, [샘플 페이지](/samples)를 참고하세요!
 
 Dart의 핵심 라이브러리에 대해 학습하고 싶다면 [library tour](/guides/libraries/library-tour)를 참고하세요. 
@@ -29,150 +29,145 @@ Dart의 핵심 라이브러리에 대해 학습하고 싶다면 [library tour](/
 Look for dynamic. Look for code that isn't auto-included (no code-excerpt.)]
 {% endcomment %}
 
-## A basic Dart program
+## 기본적인 Dart 프로그램
 
-The following code uses many of Dart’s most basic features:
+아래 코드는 Dart의 가장 기본적인 기능들을 사용합니다.
 
 <?code-excerpt "misc/test/language_tour/basic_test.dart"?>
 ```dart
-// Define a function.
+// 함수 정의.
 void printInteger(int aNumber) {
-  print('The number is $aNumber.'); // Print to console.
+  print('The number is $aNumber.'); // 콘솔에 프린트.
 }
 
-// This is where the app starts executing.
+// 앱의 실행을 시작하는 부분.
 void main() {
-  var number = 42; // Declare and initialize a variable.
-  printInteger(number); // Call a function.
+  var number = 42; // 변수의 선언과 초기화.
+  printInteger(number); // 함수의 호출.
 }
 ```
 
-Here’s what this program uses that applies to all (or almost all) Dart
-apps:
+아래는 이 프로그램이 사용한 모든 (혹은 거의 모든) Dart 앱에 적용할 수 있는 
+요소들입니다:
 
-<code>// <em>This is a comment.</em> </code>
-:   A single-line comment.
-    Dart also supports multi-line and document comments.
-    For details, see [Comments](#comments).
+<code>// <em>이건 주석입니다.</em> </code>
+:   단일행 주석입니다.
+    Dart에서는 다중행 그리고 문서 주석도 지원합니다.
+    주석에 대해 더 자세히 알고 싶다면, [주석](#comments)을 참고하세요.
 
 `void`
-:   A special type that indicates a value that's never used.
-    Functions like `printInteger()` and `main()` that don't explicitly return a value
-    have the `void` return type.
+:   사용하지 않을 값을 나타내는 특수한 타입입니다.
+    `printInteger()` and `main()` 같이 명시적으로 값을 반환하지 않는 함수들은 
+    `void` 반환 타입을 가집니다.
     
 `int`
-:   Another type, indicating an integer.
-    Some additional [built-in types](#built-in-types)
-    are `String`, `List`, and `bool`.
+:   정수를 나타내는 또 다른 타입입니다.
+    추가적인 [빌트인 타입](#built-in-types)으로
+    `String`, `List`, 및 `bool`이 있습니다.
 
 `42`
-:   A number literal. Number literals are a kind of compile-time constant.
+:   숫자 리터럴 입니다. 숫자 리터럴은 컴파일 타임 상수입니다.
 
 `print()`
-:   A handy way to display output.
+:   산출물을 출력하는 간단한 방법입니다.
 
-`'...'` (or `"..."`)
-:   A string literal.
+`'...'` (또는 `"..."`)
+:   문자열 리터럴입니다.
 
-<code>$<em>variableName</em></code> (or <code>${<em>expression</em>}</code>)
-:   String interpolation: including a variable or expression’s string
-    equivalent inside of a string literal. For more information, see
-    [Strings](#strings).
+<code>$<em>변수이름</em></code> (또는 <code>${<em>표현식</em>}</code>)
+:   문자열 보간(String interpolation): 문자열 리터럴 내부의 변수 또는 표현식의 문자열과
+    동일한 값을 포함합니다. 더 자세한 정보를 원한다면,
+    [Strings](#strings)을 참고하세요.
 
 `main()`
-:   The special, *required*, top-level function where app execution
-    starts. For more information, see
-    [The main() function](#the-main-function).
+:   앱의 실행이 시작되는, 특수하고 필수적인 최상위 함수입니다.
+    더 자세한 정보를 원한다면,
+    [main() 함수](#the-main-function)를 참고하세요.
 
 `var`
-:   A way to declare a variable without specifying its type.
-    The type of this variable (`int`)
-    is determined by its initial value (`42`).
+:   타입을 특정하지 않고 변수를 선언하는 방법입니다.
+    초기 값 (`42`)으로 의해 이 변수의 타입은 (`int`)로 결정됩니다.
 
 
 {{site.alert.note}}
-  This site's code follows the conventions in the
-  [Dart style guide](/guides/language/effective-dart/style).
+  이 사이트의 코드는 [Dart 스타일 가이드](/guides/language/effective-dart/style)의
+  관습을 따릅니다.
 {{site.alert.end}}
 
 
-## Important concepts
+## 주요 컨셉
 
-As you learn about the Dart language, keep these facts and concepts in
-mind:
+Dart 언어를 학습 할 때 다음을 잘 기억해야합니다:
 
--   Everything you can place in a variable is an *object*, and every
-    object is an instance of a *class*. Even numbers, functions, and
-    `null` are objects.
-    With the exception of `null` (if you enable [sound null safety][ns]),
-    all objects inherit from the [`Object`][] class.
+-   변수로 할당 할 수 있는 모든 것은 *객체*이고, 모든 객체는 *클래스*의 instance 입니다.
+    숫자, 함수 그리고 `null`까지 모두 객체입니다.
+    `null`을 제외하고 (만약 [sound null safety][ns])를 활성화했다면),
+     모든 객체들은 [`Object`][] 클래스를 상속받습니다.
 
     {{site.alert.version-note}}
-      [Null safety][ns] was introduced in Dart 2.12.
-      Using null safety requires a [language version][] of at least 2.12.
+      [Null safety][ns]는 in Dart 2.12에 처음 소개되었습니다..
+      null safety를 사용하기 위해서 최소 2.12의 [language version][]이 필요합니다.
     {{site.alert.end}}
 
--   Although Dart is strongly typed, type annotations are optional
-    because Dart can infer types. In the code above, `number`
-    is inferred to be of type `int`.
+-   Dart는 타입에 엄격하지만, 추론할 수 있기 때문에 타입 어노테이션은 자율에 맡깁니다.
+    위의 코드에서 `number`는 `int` 타입으로 추론됩니다.
 
--   If you enable [null safety][ns],
-    variables can’t contain `null` unless you say they can.
-    You can make a variable nullable by
-    putting a question mark (`?`) at the end of its type.
-    For example, a variable of type `int?` might be an integer,
-    or it might be `null`.
-    If you _know_ that an expression never evaluates to `null`
-    but Dart disagrees,
-    you can add `!` to assert that it isn't null
-    (and to throw an exception if it is).
-    An example: `int x = nullableButNotNullInt!`
+-   [Null safety][ns]를 활성화했다면,
+    어떤 변수가 null 값을 갖는 것을 허락하지 않았을 때 
+    그 변수가 null 값을 가질 수 없게 할 수 있습니다.
+    타입의 끝에 물음표 (`?`)를 추가하면 해당 변수를
+    nullable로 만들 수 있습니다.
+    예를 들어, `int?` 타입의 변수는 정수 또는 `null` 값을 가집니다.
+    만약 표현식이 null로 평가되지 않지만 Dart가 이에 동의하지 않는다는 것을
+    *알고* 있다면, `!`을 추가하여 null이 아니라고 주장(assert) 할 수 있습니다
+    (만약 null이라면 예외를 throw 합니다).
+    예시: `int x = nullableButNotNullInt!`
 
--   When you want to explicitly say
-    that any type is allowed, use the type `Object?`
-    (if you've [enabled null safety][ns-enable]), `Object`,
-    or—if you must defer type checking until runtime—the
-    [special type `dynamic`][ObjectVsDynamic].
+-   만약에 어떤 타입이든 적용이 가능하다고 명시하고 싶다면, 
+    `Object?` ([null safety][ns-enable]를 활성화했다면)
+    또는 `Object`를 타입으로 설정해주면 된다.
+    먄약 런타임까지 타입 체킹을 미뤄야 한다면,
+    [특수 타입인 `dynamic`][ObjectVsDynamic]를 사용하세요.
 
--   Dart supports generic types, like `List<int>` (a list of integers)
-    or `List<Object>` (a list of objects of any type).
+-   Dart는 `List<int>` (정수의 리스트)
+    또는 `List<Object>` (아무 타입의 리스트) 같은 제네릭 타입을 지원합니다.
 
--   Dart supports top-level functions (such as `main()`), as well as
-    functions tied to a class or object (*static* and *instance
-    methods*, respectively). You can also create functions within
-    functions (*nested* or *local functions*).
+-   Dart는 클래스나 객체에 묶여있는 함수들 
+    (각각 *static*, *instance* 메소드) 뿐만 아니라, 
+    `main()` 같은 최상위 함수를 지원합니다.
+    *중첩 함수* 또는 *지역 함수*처럼 함수 안에 함수를 생성할 수 있습니다.
 
--   Similarly, Dart supports top-level *variables*, as well as variables
-    tied to a class or object (static and instance variables). Instance
-    variables are sometimes known as *fields* or *properties*.
+-   유사하게, Dart는 클래스나 객체에 묶여있는 변수들 (각각 static, instance 변수)
+    뿐만 아니라, 최상위 *변수* 또한 지원합니다. 
+    Instance 변수들은 *필드*, *프로퍼티* 로도 알려져있습니다.
 
--   Unlike Java, Dart doesn’t have the keywords `public`, `protected`,
-    and `private`. If an identifier starts with an underscore (`_`), it’s
-    private to its library. For details, see
-    [Libraries and visibility](#libraries-and-visibility).
+-   Java와 다르게, Dart는 `public`, `projected` 그리고 `private` 같은 키워드가 없습니다.
+    식별자가 언더 스코어 (`_`)로 시작한다면, 이것은 해당 라이브러리에 귀속된(private) 것입니다.
+    더 자세한 정보를 원한다면, [Libraries and visibility](#libraries-and-visibility)
+    를 참고하세요.
 
--   *Identifiers* can start with a letter or underscore (`_`), followed by any
-    combination of those characters plus digits.
+-   *식별자*는 문자 또는 언더 스코어 (`_`)로 시작 할 수 있고,
+    어떠한 문자와 숫자의 결합이 가능합니다.
 
--   Dart has both *expressions* (which have runtime values) and
-    *statements* (which don't).
-    For example, the [conditional expression](#conditional-expressions)
-    `condition ? expr1 : expr2` has a value of `expr1` or `expr2`.
-    Compare that to an [if-else statement](#if-and-else), which has no value.
-    A statement often contains one or more expressions,
-    but an expression can't directly contain a statement.
+-   Dart는 런타임 값을 가지는 *expression*과
+    그렇지 않은 *statements*를 가지고 있습니다.
+    예를 들어, [conditional expression](#conditional-expressions)인
+    `condition ? expr1 : expr2` 은 `expr1` 또는 `expr2`의 값을 가집니다.
+    위의 expression과 값을 가지지 않는 
+    [if-else statement](#if-and-else)를 비교해봅시다.
+    Statement는 때로 하나 혹은 그 이상의 expression을 포함하지만,
+    expression은 직접적으로 statement를 포함할 수 없습니다.
 
--   Dart tools can report two kinds of problems: _warnings_ and _errors_.
-    Warnings are just indications that your code might not work, but
-    they don’t prevent your program from executing. Errors can be either
-    compile-time or run-time. A compile-time error prevents the code
-    from executing at all; a run-time error results in an
-    [exception](#exceptions) being raised while the code executes.
+-   Dart tools는 두가지 문제를 리포트 해줍니다: _경고_ 그리고 _에러_.
+    경고는 코드가 제대로 작동하지 않을 수도 있다는 것을 의미하지만,
+    프로그램의 실행을 막지 않습니다. 에러는 컴파일 타임 또는 런타임으로 구분됩니다.
+    컴파일 타임 에러는 코드가 실행되는 것을 막습니다;
+    런타임 에러는 코드가 실행되는 동안 [예외](#exceptions)를 발생시킵니다.
 
 
-## Keywords
+## 키워드
 
-The following table lists the words that the Dart language treats specially.
+다음 테이블 리스트는 Dart 언어가 특별히 관리하는 단어들입니다.
 
 {% assign ckw = '&nbsp;<sup title="contextual keyword" alt="contextual keyword">1</sup>' %}
 {% assign bii = '&nbsp;<sup title="built-in-identifier" alt="built-in-identifier">2</sup>' %}
@@ -268,49 +263,48 @@ The following table lists the words that the Dart language treats specially.
 [while]: #while-and-do-while
 [yield]: #generators
 
-Avoid using these words as identifiers.
-However, if necessary, the keywords marked with superscripts can be identifiers:
+이 단어들을 식별자로 사용하는 것을 지양하세요.
+그러나, 만약 필요하다면, 윗첨자로 표시된 단어들은 식별자로 사용이 가능합니다.
 
-* Words with the superscript **1** are **contextual keywords**,
-  which have meaning only in specific places.
-  They're valid identifiers everywhere.
+* **1**로 표시된 단어들은 **맥락적인 키워드(contextual keywords)**로
+  득정한 장소에서만 의미를 가집니다.
+  어디서든 유효한 식별자로 하용이 가능합니다..
 
-* Words with the superscript **2** are **built-in identifiers**.
-  These keywords are valid identifiers in most places,
-  but they can't be used as class or type names, or as import prefixes.
+* **2**로 표시된 단어들은 **빌트인 식별자(built-in identifiers)**로
+  이 키워드들은 거의 모든 곳에서 식별자로 사용이 가능하지만,
+  클래스나 타입의 이름, import prefix로 사용은 불가능합니다.
 
-* Words with the superscript **3** are limited reserved words related to
-  [asynchrony support](#asynchrony-support).
-  You can't use `await` or `yield` as an identifier
-  in any function body marked with `async`, `async*`, or `sync*`.
+* **3**으로 표시된 단어들은 [비동기 지원](#asynchrony-support)과
+  관련된 제한된 단어들 입니다. `await` 또는 `yield`를
+  `async`, `async*`, or `sync*`로 표시된 함수의 바디에서
+  식별자로 사용 할 수 없습니다.
 
-All other words in the table are **reserved words**,
-which can't be identifiers.
+표의 나머지 단어들은 모두  **예약된 단어(reserved words)**들로,
+식별자로 사용이 불가능 합니다.
 
 
-## Variables
+## 변수
 
-Here’s an example of creating a variable and initializing it:
+아래는 변수를 생성하고 초기화하는 예제입니다:
 
 <?code-excerpt "misc/lib/language_tour/variables.dart (var-decl)"?>
 ```dart
 var name = 'Bob';
 ```
 
-Variables store references. The variable called `name` contains a
-reference to a `String` object with a value of “Bob”.
+변수는 레퍼런스(reference)를 저장합니다. `name` 이라는 변수는 "Bob"이라는 값을
+가지고 있는 `String` 객체의 레퍼런스를 포함합니다.
 
-The type of the `name` variable is inferred to be `String`,
-but you can change that type by specifying it.
-If an object isn't restricted to a single type,
-specify the `Object` type (or `dynamic` if necessary).
+`name`의 타입은 `String`으로 추론되지만, 구체적으로 명시하여 타입을 변경 할 수 있습니다.
+만약 객체가 단일 타입으로 제한되지 않는다면,
+`Object` 타입으로 명시하세요 (필요하다면 `dynamic` 사용).
 
 <?code-excerpt "misc/lib/language_tour/variables.dart (type-decl)"?>
 ```dart
 Object name = 'Bob';
 ```
 
-Another option is to explicitly declare the type that would be inferred:
+추론될 타입으로 명시하여 선언하는 방법도 있습니다:
 
 <?code-excerpt "misc/lib/language_tour/variables.dart (static-types)"?>
 ```dart
@@ -318,20 +312,19 @@ String name = 'Bob';
 ```
 
 {{site.alert.note}}
-  This page follows the
-  [style guide recommendation](/guides/language/effective-dart/design#types)
-  of using `var`, rather than type annotations, for local variables.
+  이 페이지에서는 [스타일 가이드 추천](/guides/language/effective-dart/design#types)
+  에 따라 지역 변수에 대해 타입 어노테이션을 하지 않고, `var`을 사용합니다.
 {{site.alert.end}}
 
 
-### Default value
+### 디폴트 값
 
-Uninitialized variables that have a nullable type
-have an initial value of `null`.
-(If you haven't opted into [null safety][ns],
-then every variable has a nullable type.)
-Even variables with numeric types are initially null,
-because numbers—like everything else in Dart—are objects.
+Nullable 타입을 가지는 초기화되지 않은 변수는
+초기 값으로 `null`을 가질 수 있습니다.
+([Null safety][ns]을 사용하지 않는다면,
+모든 변수는 nullable 타입을 가집니다.)
+Dart의 다른 모든 것과 마찬가지로 숫자도 객체이기 때문에,
+숫자 타입의 변수도 처음에는 null 입니다.
 
 <?code-excerpt "misc/test/language_tour/variables_test.dart (var-null-init)"?>
 ```dart
@@ -340,24 +333,23 @@ assert(lineCount == null);
 ```
 
 {{site.alert.note}}
-  Production code ignores the `assert()` call. During development, on the other
-  hand, <code>assert(<em>condition</em>)</code> throws an exception if
-  _condition_ is false. For details, see [Assert](#assert).
+  프로덕션 코드는 `assert()` 호출을 무시합니다. 반면에 개발하는 동안에는, 
+  _조건_이 false라면 <code>assert(<em>조건</em>)</code> 가 예외를
+  throw 합니다. 더 자세한 것은, [Assert](#assert)를 참고하세요.
 {{site.alert.end}}
 
-If you enable null safety, then you must initialize the values
-of non-nullable variables before you use them:
+Null safety를 활성화 했다면, non-nullable 변수를 사용하기 전에
+값들을 초기화해야만합니다:
 
 <?code-excerpt "misc/lib/language_tour/variables.dart (var-ns-init)"?>
 ```dart
 int lineCount = 0;
 ```
 
-You don't have to initialize a local variable where it's declared,
-but you do need to assign it a value before it's used.
-For example, the following code is valid because
-Dart can detect that `lineCount` is non-null by the time
-it's passed to `print()`:
+지역 변수를 선언과 동시에 초기화 할 필요는 없지만,
+사용하기 전에 값을 할당해야 합니다.
+예를 들어, 다음 코드는 `lineCount`가 `print()`로 전달될 때까지
+null이 아님을 알 수 있기 때문에 유효합니다:
 
 <?code-excerpt "misc/lib/language_tour/variables.dart (var-ns-flow)"?>
 ```dart
