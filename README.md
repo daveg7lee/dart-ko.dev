@@ -4,14 +4,14 @@
 [![OpenSSF Scorecard SVG][]][Scorecard Results]
 [![first-timers SVG][]][first-timers]
 
-The https://dart.dev site, built with [Jekyll][] and hosted on [Firebase][].
+we translate https://dart.dev into Korean in this fork!
 
 [We welcome contributions](CONTRIBUTING.md), 
 and we're [first-timer friendly][first-timers]!
 
 ## Getting started
 
-Start by looking for an [issue](https://github.com/dart-lang/site-www/issues)
+Start by looking for an [issue](https://github.com/Coaspe/dart-ko.dev/issues)
 that catches your interest, or create an issue with your proposed change.
 Ask for the issue to be assigned to you.
 
@@ -30,8 +30,8 @@ If you want or need to build, follow the steps below.
 > **Help us improve these instructions!**
 > If you have any problems getting set up to build or performing the
 > actual build, please
-> [edit this README](https://github.com/dart-lang/site-www/edit/main/README.md)
-> or [file an issue](https://github.com/dart-lang/site-www/issues/new?title=README%20issue)
+> [edit this README](https://github.com/Coaspe/dart-ko.dev/edit/main/README.md)
+> or [file an issue](https://github.com/Coaspe/dart-ko.dev/issues/new?title=README%20issue)
 > (or both).
 
 
