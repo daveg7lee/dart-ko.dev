@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 # Run all tests for validating code examples
 set -u
-
 source $TOOL_DIR/utils.sh
 
 EXIT_STATUS=0

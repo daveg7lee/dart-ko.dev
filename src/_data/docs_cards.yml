@@ -1,18 +1,18 @@
 - name: Language samples
-  description: A brief, example-based introduction to the Dart language.
+  description: 간결하고 예제를 기반으로 소개하는 Dart 언어 입문서.
   url: /samples
 - name: Language tour
-  description: A more thorough (yet still example-based) introduction to the Dart language.
+  description: Dart 언어에 대한 보다 철저한 (그러나 여전히 예제를 기반으로한) 입문서.
   url: /guides/language/language-tour
 - name: Effective Dart
-  description: Best practices for building consistent, maintainable, efficient Dart code.
+  description: 일관적이고 지속가능하며 효과적인 Dart 코드를 작성하는 최고의 관례들.
   url: /guides/language/effective-dart
 - name: Library tour
-  description: An example-based introduction to the major features in the Dart SDK's core libraries.
+  description: Dart SDK의 핵심 라이브러리의 주요 기능에 대한 예제 기반의 입문서.
   url: /guides/libraries/library-tour
 - name: Dart SDK
-  description: What's in the SDK, and how to install it.
+  description: SDK에는 무엇이 있는지, 그리고 어떻게 설치하는지 배웁니다.
   url: /tools/sdk
 - name: Futures, async, await
-  description: How to write asynchronous Dart code that uses futures and the async and await keywords.
+  description: Future와 async 그리고 await 키워드를 사용하여 비동기식 Dart 코드 작성법을 배웁니다.
   url: /codelabs/async-await

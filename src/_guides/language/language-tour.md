@@ -1,29 +1,25 @@
 ---
-title: A tour of the Dart language
-description: A tour of all the major Dart language features.
+title: Dart 언어로 떠나는 여행
+description: Dart 언어의 중요한 기능에 대해 학습합니다.
 short-title: Language tour
 js: [{url: 'https://dartpad.dev/inject_embed.dart.js', defer: true}]
 ---
 <?code-excerpt replace="/ *\/\/\s+ignore_for_file:[^\n]+\n//g; /(^|\n) *\/\/\s+ignore:[^\n]+\n/$1/g; /(\n[^\n]+) *\/\/\s+ignore:[^\n]+\n/$1\n/g; / *\/\/\s+ignore:[^\n]+//g; /([A-Z]\w*)\d\b/$1/g"?>
 
-This page shows you how to use each major Dart feature, from
-variables and operators to classes and libraries, with the assumption
-that you already know how to program in another language.
-For a briefer, less complete introduction to the language, see the
-[language samples page](/samples).
+이 페이지에서는 다른 프로그래밍 언어를 사용 할 줄 안다는 가정 하에 
+변수, 연산자, 클래스 및 라이브러리에 이르는 각 주요 Dart 기능을 사용하는 방법을 보여줍니다. 
+언어에 대한 간략한 설명을 보고 싶다면, [샘플 페이지](/samples)를 참고하세요!
 
-To learn more about Dart's core libraries, see the
-[library tour](/guides/libraries/library-tour).
-Whenever you want more details about a language feature,
-consult the [Dart language specification][].
+Dart의 핵심 라이브러리에 대해 학습하고 싶다면 [library tour](/guides/libraries/library-tour)를 참고하세요. 
+언어의 기능에 대한 자세한 정보를 얻고 싶다면 [Dart language specification][]을 참고하세요.
 
 {{site.alert.note}}
-  You can play with most of Dart's language features using DartPad
-  ([learn more](/tools/dartpad)).
-  **<a href="{{site.dartpad}}" target="_blank" rel="noopener">Open
-  DartPad.</a>**
+  DartPad를 사용하여 Dart 언어를 체험해볼 수 있습니다.
+  ([DartPad란?](/tools/dartpad)).
+  **<a href="{{site.dartpad}}" target="_blank" rel="noopener">
+  DartPad 열기</a>**
 
-  This page uses embedded DartPads to display some of the examples.
+  위의 페이지에서 Dart의 활용 예제들을 보여주기 위해 임베디드 DartPads를 사용합니다. 
   {% include dartpads-embedded-troubleshooting.md %}
 {{site.alert.end}}
 

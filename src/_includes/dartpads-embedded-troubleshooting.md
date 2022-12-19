@@ -1,2 +1,1 @@
-If you see empty boxes instead of DartPads, go to the
-[DartPad troubleshooting page](/tools/dartpad/troubleshoot).
+DartPads 대신 빈 박스가 나온다면 [DartPad troubleshooting page](/tools/dartpad/troubleshoot)를 참고하세요.
