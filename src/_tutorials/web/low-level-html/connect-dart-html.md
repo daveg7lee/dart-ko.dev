@@ -407,7 +407,7 @@ assuming that the Dart code is in a file named `main.dart`:
 ```html
 <!DOCTYPE html>
 
-<html>
+<html lang="ko">
   <head>
     <title>A Minimalist App</title>
     <script defer src="main.dart.js"></script>

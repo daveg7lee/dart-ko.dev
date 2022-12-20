@@ -1,10 +1,10 @@
 # Site settings
 title: Dart
 description: Dart는 모든 플랫폰에서 빠른 앱을 개발하기 위해 클라이언트에 최적화된 언어입니다.
-url: https://dart.dev
+url: https://dart-ko.dev
 dev-url: https://dartlang-org-dev.firebaseapp.com
 repo:
-  this: https://github.com/dart-lang/site-www
+  this: https://github.com/Coaspe/dart-ko.dev
   shared: &repo-shared https://github.com/dart-lang/site-shared
 branch: main
 port: 4000
@@ -98,24 +98,24 @@ og_image_vers: "?2"
 alert:
   important: >-
     <aside class="alert alert-warning" role="alert" markdown="1">
-    <i class="fas fa-exclamation-circle"></i> **Important:**
+    <i class="fas fa-exclamation-circle"></i> **중요:**
   info: >-
     <aside class="alert alert-info" role="alert" markdown="1">
     <i class="fas fa-info-circle"></i>
   note: >-
     <aside class="alert alert-info" role="alert" markdown="1">
-    <i class="fas fa-info-circle"></i> **Note:**
+    <i class="fas fa-info-circle"></i> **노트:**
   flutter-note: >-
     <aside class="alert alert-info" role="alert" markdown="1">
     <img src="/assets/img/shared/flutter/icon/64.png" width="24" alt="Flutter logo"> **Flutter note:**
   version-note: >-
     <aside class="alert alert-info" role="alert" markdown="1">
-    <i class="fas fa-code-branch"></i> **Version note:**
+    <i class="fas fa-code-branch"></i> **버전 노트:**
   secondary: >-
     <aside class="alert alert-secondary" role="alert" markdown="1">
   tip: >-
     <aside class="alert alert-success" role="alert" markdown="1">
-    <i class="far fa-lightbulb"></i> **Tip:**
+    <i class="far fa-lightbulb"></i> **팁:**
   warn: >-
     <aside class="alert alert-warning" role="alert" markdown="1">
     <i class="fas fa-exclamation-triangle"></i>

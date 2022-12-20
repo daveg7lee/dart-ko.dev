@@ -11,7 +11,7 @@ js: [{url: 'https://dartpad.dev/inject_embed.dart.js', defer: true}]
 언어에 대한 간략한 설명을 보고 싶다면, [샘플 페이지](/samples)를 참고하세요!
 
 Dart의 핵심 라이브러리에 대해 학습하고 싶다면 [library tour](/guides/libraries/library-tour)를 참고하세요. 
-언어의 기능에 대한 자세한 정보를 얻고 싶다면 [Dart language specification][]을 참고하세요.
+언어의 기능에 대한 자세한 정보를 얻고 싶다면 [Dart 언어 설명서][]을 참고하세요.
 
 {{site.alert.note}}
   DartPad를 사용하여 Dart 언어를 체험해볼 수 있습니다.
@@ -149,14 +149,14 @@ Dart 언어를 학습 할 때 다음을 잘 기억해야합니다:
 -   *식별자*는 문자 또는 언더 스코어 (`_`)로 시작 할 수 있고,
     어떠한 문자와 숫자의 결합이 가능합니다.
 
--   Dart는 런타임 값을 가지는 *expression*과
-    그렇지 않은 *statements*를 가지고 있습니다.
-    예를 들어, [conditional expression](#conditional-expressions)인
+-   Dart는 런타임 값을 가지는 *식 (expression)*과
+    그렇지 않은 *문 (statement)*를 가지고 있습니다.
+    예를 들어, [조건식 (conditional expression)](#conditional-expressions)인
     `condition ? expr1 : expr2` 은 `expr1` 또는 `expr2`의 값을 가집니다.
     위의 expression과 값을 가지지 않는 
-    [if-else statement](#if-and-else)를 비교해봅시다.
-    Statement는 때로 하나 혹은 그 이상의 expression을 포함하지만,
-    expression은 직접적으로 statement를 포함할 수 없습니다.
+    [if-else 문](#if-and-else)를 비교해봅시다.
+    문은 때로 하나 혹은 그 이상의 식을 포함하지만,
+    식은 직접적으로 문을 포함할 수 없습니다.
 
 -   Dart tools는 두가지 문제를 리포트 해줍니다: _경고_ 그리고 _에러_.
     경고는 코드가 제대로 작동하지 않을 수도 있다는 것을 의미하지만,
@@ -369,23 +369,23 @@ the initialization code runs
 the first time the variable is used.
 
 
-### Late variables
+### Late 변수
 
-Dart 2.12 added the `late` modifier, which has two use cases:
+Dart 2.12에서 `late` 수식어가 추가되었습니다. 두 가지 사용례가 있습니다:
 
-* Declaring a non-nullable variable that's initialized after its declaration.
-* Lazily initializing a variable.
+* 선언 이후에 초기회되는 non-nullable 변수를 선언하는 것
+* 변수를 초기화를 지연하는 것
 
-Often Dart's control flow analysis can detect when a non-nullable variable
-is set to a non-null value before it's used,
-but sometimes analysis fails.
-Two common cases are top-level variables and instance variables:
-Dart often can't determine whether they're set,
-so it doesn't try.
+보통 Dart의 제어 흐름 분석기는 non-nullable 변수가
+non-null 값으로 설정되어 있는지 사용하기 전에 알아챌 수 있지만,
+가끔 실패할 때도 있습니다.
+가장 흔히 사용되는 두가지 케이스는 최상위 변수와 인스턴스 변수입니다:
+Dart는 종종 그 변수들이 설정되었는지 판단할 수 없기 때문에,
+시도하지 않습니다.
 
-If you're sure that a variable is set before it's used,
-but Dart disagrees,
-you can fix the error by marking the variable as `late`:
+사용하기 전에 변숫값의 설정이 보장되지만,
+Dart가 동의하지 않는다면,
+해당 변수를 `late`로 표시하여 에러를 해결할 수 있습니다:
 
 <?code-excerpt "misc/lib/language_tour/variables.dart (var-late-top-level)" replace="/late/[!$&!]/g"?>
 ```dart
@@ -1707,7 +1707,7 @@ You can implement many of these [operators as class members](#_operators).
   The notion of operator precedence and associativity
   is an approximation of the truth found in the language grammar.
   You can find the authoritative behavior of Dart's operator relationships
-  in the grammar defined in the [Dart language specification][].
+  in the grammar defined in the [Dart 언어 설명서][].
 {{site.alert.end}}
 
 When you use operators, you create expressions. Here are some examples
@@ -3516,7 +3516,7 @@ In this case, you can use the
 [`covariant` keyword](/guides/language/sound-problems#the-covariant-keyword)
 in a parameter declaration.
 For details, see the 
-[Dart language specification][].
+[Dart 언어 설명서][].
 
 {{site.alert.warning}}
   If you override `==`, you should also override Object's `hashCode` getter.
@@ -4758,7 +4758,7 @@ For advice on how to structure your comments, see
 
 This page summarized the commonly used features in the Dart language.
 More features are being implemented, but we expect that they won’t break
-existing code. For more information, see the [Dart language specification][] and
+existing code. For more information, see the [Dart 언어 설명서][] and
 [Effective Dart](/guides/language/effective-dart).
 
 To learn more about Dart's core libraries, see
@@ -4773,7 +4773,7 @@ To learn more about Dart's core libraries, see
 [dart:html]: {{site.dart-api}}/{{site.data.pkg-vers.SDK.channel}}/dart-html
 [dart:isolate]: {{site.dart-api}}/{{site.data.pkg-vers.SDK.channel}}/dart-isolate
 [dart:math]: {{site.dart-api}}/{{site.data.pkg-vers.SDK.channel}}/dart-math
-[Dart language specification]: /guides/language/spec
+[Dart 언어 설명서]: /guides/language/spec
 [dartdevc]: /tools/dartdevc
 [DON’T use const redundantly]: /guides/language/effective-dart/usage#dont-use-const-redundantly
 [`double`]: {{site.dart-api}}/{{site.data.pkg-vers.SDK.channel}}/dart-core/double-class.html
