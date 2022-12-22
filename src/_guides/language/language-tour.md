@@ -62,7 +62,7 @@ void main() {
     
 `int`
 :   정수를 나타내는 또 다른 타입입니다.
-    추가적인 [빌트인 타입](#built-in-types)으로
+    추가적인 [내장 타입](#built-in-types)으로
     `String`, `List`, 및 `bool`이 있습니다.
 
 `42`
@@ -270,7 +270,7 @@ Dart 언어를 학습 할 때 다음을 잘 기억해야합니다:
   득정한 장소에서만 의미를 가집니다.
   어디서든 유효한 식별자로 하용이 가능합니다..
 
-* **2**로 표시된 단어들은 **빌트인 식별자(built-in identifiers)**로
+* **2**로 표시된 단어들은 **내장 식별자(built-in identifiers)**로
   이 키워드들은 거의 모든 곳에서 식별자로 사용이 가능하지만,
   클래스나 타입의 이름, import prefix로 사용은 불가능합니다.
 
@@ -364,16 +364,15 @@ if (weLikeToCount) {
 print(lineCount);
 ```
 
-Top-level and class variables are lazily initialized;
-the initialization code runs
-the first time the variable is used.
+최상위, 클래스 변수는 지연 초기화 됩니다;
+변수가 처음 사용 될 때, 초기화 코드가 실행됩니다.
 
 
 ### Late 변수
 
 Dart 2.12에서 `late` 수식어가 추가되었습니다. 두 가지 사용례가 있습니다:
 
-* 선언 이후에 초기회되는 non-nullable 변수를 선언하는 것
+* 선언 이후에 초기화되는 non-nullable 변수를 선언하는 것
 * 변수를 초기화를 지연하는 것
 
 보통 Dart의 제어 흐름 분석기는 non-nullable 변수가
@@ -383,7 +382,7 @@ non-null 값으로 설정되어 있는지 사용하기 전에 알아챌 수 있�
 Dart는 종종 그 변수들이 설정되었는지 판단할 수 없기 때문에,
 시도하지 않습니다.
 
-사용하기 전에 변숫값의 설정이 보장되지만,
+변숫값의 설정이 사용 전에 보장되지만,
 Dart가 동의하지 않는다면,
 해당 변수를 `late`로 표시하여 에러를 해결할 수 있습니다:
 
@@ -398,90 +397,90 @@ void main() {
 ```
 
 {{site.alert.warn}}
-  If you fail to initialize a `late` variable,
-  a runtime error occurs when the variable is used.
+  `late` 변수의 초기화를 실패하였다면,
+  해당 변수를 사용 할 때 런타임 에러가 발생합니다.
 {{site.alert.end}}
 
-When you mark a variable as `late` but initialize it at its declaration,
-then the initializer runs the first time the variable is used.
-This lazy initialization is handy in a couple of cases:
+`late`로 표시한 변수를 선언과 동시에 초기화하면,
+변수가 처음 사용될 때 initializer가 실행됩니다.
+지연 초기화는 다음과 같은 상황에 유용합니다:
 
-* The variable might not be needed,
-  and initializing it is costly.
-* You're initializing an instance variable,
-  and its initializer needs access to `this`.
+* 변수가 당장 필요하진 않지만,
+  초기화 비용이 비쌀 때.
+* 인스턴스 변수를 초기화에 initializer가
+  `this`에 대한 접근이 필요할 때.
 
-In the following example,
-if the `temperature` variable is never used,
-then the expensive `readThermometer()` function is never called:
+다음 예제에서,
+`temperature` 변수가 사용되지 않으면,
+비싼 함수인 `readThermometer()`가 호출되지 않습니다:
 
 <?code-excerpt "misc/lib/language_tour/variables.dart (var-late-lazy)" replace="/late/[!$&!]/g"?>
 ```dart
-// This is the program's only call to readThermometer().
-[!late!] String temperature = readThermometer(); // Lazily initialized.
+// 이 프로그램에서 readThermometer()에 대한 유일한 호출입니다.
+[!late!] String temperature = readThermometer(); // 지연 초기화.
 ```
 
 
-### Final and const
+### Final 그리고 const
 
-If you never intend to change a variable, use `final` or `const`, either
-instead of `var` or in addition to a type. A final variable can be set
-only once; a const variable is a compile-time constant. (Const variables
-are implicitly final.)
+변수를 변경할 생각이 없다면, `var` 대신 `final`이나 `const`를 사용하거나,
+지정한 타입에 추가하여 사용하세요.
+final 변수는 오직 한 번만 설정될 수 있습니다; const 변수는 컴파일 타임 상수입니다.
+(const 변수는 내부적으로 final입니다.)
 
 {{site.alert.note}}
-  [Instance variables](#instance-variables) can be `final` but not `const`.
+  [인스턴스 변수](#instance-variables)는 `final`로 설정될 수 있지만, `const`는 될 수 없습니다.
 {{site.alert.end}}
 
-Here's an example of creating and setting a `final` variable:
+다음은 `final` 변수를 생성, 설정하는 예제입니다:
 
 <?code-excerpt "misc/lib/language_tour/variables.dart (final)"?>
 ```dart
-final name = 'Bob'; // Without a type annotation
+final name = 'Bob'; // 타입 어노테이션이 없음
 final String nickname = 'Bobby';
 ```
 
-You can't change the value of a `final` variable:
+`final` 변수의 값은 변경할 수 없습니다:
 
 {:.fails-sa}
 <?code-excerpt "misc/lib/language_tour/variables.dart (cant-assign-to-final)"?>
 ```dart
-name = 'Alice'; // Error: a final variable can only be set once.
+name = 'Alice'; // 에러: final 변수는 한 번만 설정될 수 있습니다.
 ```
 
-Use `const` for variables that you want to be **compile-time constants**. If
-the const variable is at the class level, mark it `static const`.
-Where you declare the variable, set the value to a compile-time constant
-such as a number or string literal, a const
-variable, or the result of an arithmetic operation on constant numbers:
+
+**컴파일 타임 상수**인 변수를 생성할 때 `const`를 사용하세요.
+const 변수가 클래스 레벨의 변수라면, `static const`로 표시하세요.
+변수를 선언할 때, 숫자, 문자열 리터럴, 상수 변수, 
+또는 상수 숫자에 대한 산술 연산의 결과 같은 값들은 컴파일 타임 상수로 선언하세요:
 
 <?code-excerpt "misc/lib/language_tour/variables.dart (const)"?>
 ```dart
-const bar = 1000000; // Unit of pressure (dynes/cm2)
-const double atm = 1.01325 * bar; // Standard atmosphere
+const bar = 1000000; // 압력의 단위(dynes/cm2)
+const double atm = 1.01325 * bar; // 표준 대기
 ```
 
-The `const` keyword isn't just for declaring constant variables.
-You can also use it to create constant _values_,
-as well as to declare constructors that _create_ constant values.
-Any variable can have a constant value.
+`const` 키워드는 상수 변수를 선언할 때만 쓰이는 것이 아닙니다.
+상수 _값_을 만드는 데 사용할 수 있을 뿐만 아니라,
+상수 값을 _만드는_ 생성자를 선언할 수도 있습니다.
+모든 변수는 상수 값을 가질 수 있습니다.
 
 <?code-excerpt "misc/lib/language_tour/variables.dart (const-vs-final)"?>
 ```dart
 var foo = const [];
 final bar = const [];
-const baz = []; // Equivalent to `const []`
+const baz = []; // `const []`와 동일
 ```
 
-You can omit `const` from the initializing expression of a `const` declaration,
-like for `baz` above. For details, see [DON’T use const redundantly][].
+위의 `baz`처럼, `const` 선언의 초기화 식에 `const`를 생략해도 됩니다.
+더 자세히 알고 싶다면, [const를 중복으로 사용하지 마십시오][]를 참고하세요.
 
-You can change the value of a non-final, non-const variable,
-even if it used to have a `const` value:
+이전에 `const` 값을 가지고 있었더라도,
+non-final, non-const 변수의 값을 변경할 수 있습니다.
 
 <?code-excerpt "misc/lib/language_tour/variables.dart (reassign-to-non-final)"?>
 ```dart
-foo = [1, 2, 3]; // Was const []
+foo = [1, 2, 3]; // const [] 였음
 ```
 
 You can't change the value of a `const` variable:
@@ -489,79 +488,77 @@ You can't change the value of a `const` variable:
 {:.fails-sa}
 <?code-excerpt "misc/lib/language_tour/variables.dart (cant-assign-to-const)"?>
 ```dart
-baz = [42]; // Error: Constant variables can't be assigned a value.
+baz = [42]; // 에러: 상수 변수는 값이 할당될 수 없습니다.
 ```
 
-You can define constants that use
-[type checks and casts](#type-test-operators) (`is` and `as`),
-[collection `if`](#collection-operators),
-and [spread operators](#spread-operator) (`...` and `...?`):
+[타입 체크와 캐스트](#type-test-operators) (`is` 그리고 `as`),
+[컬렉션 `if`](#collection-operators),
+그리고 [전개 연산자(spread operator)](#spread-operator) (`...` 그리고 `...?`)를
+사용하는 상수 정의가 가능합니다.:
 
 <?code-excerpt "misc/lib/language_tour/variables.dart (const-dart-25)"?>
 ```dart
-const Object i = 3; // Where i is a const Object with an int value...
-const list = [i as int]; // Use a typecast.
-const map = {if (i is int) i: 'int'}; // Use is and collection if.
-const set = {if (list is List<int>) ...list}; // ...and a spread.
+const Object i = 3; // i는 정수 값을 가지는 const Object입니다.
+const list = [i as int]; // 타입 캐스트를 사용하세요.
+const map = {if (i is int) i: 'int'}; // is와 컬렉션 if를 사용하세요.
+const set = {if (list is List<int>) ...list}; // ...를 사용하여 전개.
 ```
 
 {{site.alert.note}}
-  Although a `final` object cannot be modified,
-  its fields can be changed. 
-  In comparison, a `const` object and its fields
-  cannot be changed: they're _immutable_.
+  `final` 객체는 수정될 수 없지만,
+  객체의 필드는 수정이 가능합니다.
+  반면에, `const` 객체와 객체의 필드는 _불변_하기 때문에
+  변경할 수 없습니다.
 {{site.alert.end}}
 
-For more information on using `const` to create constant values, see
-[Lists](#lists), [Maps](#maps), and [Classes](#classes).
+상수 값을 만들기 위해 `const`를 사용하는 방법에 대한 더 자세한 내용은 
+[Lists](#lists), [Maps](#maps), and [Classes](#classes)을 참고하세요.
 
 
-## Built-in types
+## 내장 타입
 
-The Dart language has special support for the following:
+Dart 언어는 다음과 같은 특수한 내장 타입을 지원합니다:
 
 - [Numbers](#numbers) (`int`, `double`)
 - [Strings](#strings) (`String`)
 - [Booleans](#booleans) (`bool`)
-- [Lists](#lists) (`List`, also known as *arrays*)
+- [Lists](#lists) (`List`, *arrays*로도 부릅니다.)
 - [Sets](#sets) (`Set`)
 - [Maps](#maps) (`Map`)
-- [Runes](#characters) (`Runes`; often replaced by the `characters` API)
+- [Runes](#characters) (`Runes`; 때로 `characters` API로 대체됩니다.)
 - [Symbols](#symbols) (`Symbol`)
-- The value `null` (`Null`)
+- `null` (`Null`)
 
-This support includes the ability to create objects using literals.
-For example, `'this is a string'` is a string literal,
-and `true` is a boolean literal.
+이런 타입들은 리터럴을 사용하여 객체를 생성할 수 있습니다.
+예를 들어, `'this is a string'`은 문자열 리터럴이고,
+`true`는 boolean 리터럴입니다.
 
-Because every variable in Dart refers to an object—an instance of a
-*class*—you can usually use *constructors* to initialize variables. Some
-of the built-in types have their own constructors. For example, you can
-use the `Map()` constructor to create a map.
+Dart의 모든 변수는 객체 (*클래스*의 인스턴스)이기 때문에,
+변수를 초기화 할 때 *생성자*를 사용할 수 있습니다.
+몇몇 내장 타입은 자신만의 생성자를 가지고 있습니다.
+예를 들어, `Map()` 생성자를 사용하여 map을 생성할 수 있습니다.
 
-Some other types also have special roles in the Dart language:
+Dart 언어의 일부 타입들은 특수한 역할을 수행합니다:
 
-* `Object`: The superclass of all Dart classes except `Null`.
-* `Enum`: The superclass of all enums.
-* `Future` and `Stream`: Used in [asynchrony support](#asynchrony-support).
-* `Iterable`: Used in [for-in loops][iteration] and
-  in synchronous [generator functions](#generator).
-* `Never`: Indicates that an expression can never
-  successfully finish evaluating.
-  Most often used for functions that always throw an exception.
-* `dynamic`: Indicates that you want to disable static checking.
-  Usually you should use `Object` or `Object?` instead.
-* `void`: Indicates that a value is never used.
-  Often used as a return type.
+* `Object`: `Null`을 제외한 모든 Dart 클래스의 superclass.
+* `Enum`: 모든 eunm의 superclass.
+* `Future`, `Stream`: [비동기 지원](#asynchrony-support)에서 사용됩니다.
+* `Iterable`: [for-in 루프][iteration] 그리고
+  동기식 [제네레이터 함수](#generator)에서 사용됩니다.
+* `Never`: 식(expression)의 평가(evaluating)를 완료할 수 없음을 나타냅니다.
+  항상 예외를 throw하는 함수에서 보통 사용됩니다.
+* `dynamic`: 정적 타입 체킹의 비활성화를 의미합니다.
+  대개 `Object` 또는 `Object?`를 대신 사용하세요.
+* `void`: 값이 사용되지 않는다는 것을 의미합니다.
+  보통 반환 타입으로 사용됩니다.
 
 {% comment %}
 [TODO: move/add for-in coverage to language tour?]
 {% endcomment %}
 
-The `Object`, `Object?`, `Null`, and `Never` classes
-have special roles in the class hierarchy,
-as described in the [top-and-bottom][] section of
-[Understanding null safety][].
+`Object`, `Object?`, `Null`, 그리고 `Never` 클래스는
+[Understanding null safety][]의 [top-and-bottom][]
+섹션에 묘사되어 있는 것처럼, 클래스 계층에서 특별한 역할을 수행합니다.
 
 {% comment %}
 If we decide to cover `dynamic` more,
@@ -576,33 +573,29 @@ here's a nice example that illustrates what dynamic does:
 
 ### Numbers
 
-Dart numbers come in two flavors:
+Dart의 숫자는 두 가지 유형이 있습니다:
 
 [`int`][]
 
-:   Integer values no larger than 64 bits,
-    [depending on the platform][dart-numbers].
-    On native platforms, values can be from
-    -2<sup>63</sup> to 2<sup>63</sup> - 1.
-    On the web, integer values are represented as JavaScript numbers
-    (64-bit floating-point values with no fractional part)
-    and can be from -2<sup>53</sup> to 2<sup>53</sup> - 1.
+:   [사용하는 플랫폼에 따라서][dart-numbers]
+    정수 값은 64비트 이하로 표현됩니다.
+    네이티브 플랫폼에서는 -2<sup>63</sup> ~ 2<sup>63</sup> - 1
+    까지 표현됩니다.
+    웹에서는, Javascript numbers (가수부가 없는 64-bits 부동소수점 표현)
+    -253 ~ 253 - 1 사이의 수로 표현됩니다.
 
 [`double`][]
 
-:   64-bit (double-precision) floating-point numbers, as specified by
-    the IEEE 754 standard.
+:   IEEE 754 standard를 따라 64-bit (배정도) 부동 소수점 표현을 사용합니다.
 
-Both `int` and `double` are subtypes of [`num`][].
-The num type includes basic operators such as +, -, /, and \*,
-and is also where you’ll find `abs()`,` ceil()`,
-and `floor()`, among other methods.
-(Bitwise operators, such as \>\>, are defined in the `int` class.)
-If num and its subtypes don’t have what you’re looking for, the
-[dart:math][] library might.
+`int` 와 `double`는 모두 [`num`][]의 서브타입입니다.
+num 타입은 +, -, /, * 같은 기본적인 연산자 사용이 가능하고, `abs()`,` ceil()`,
+그리고 `floor()` 같은 함수의 사용도 가능합니다.
+(\>\> 같은 Bitwise 연산자는 `int` 클래스에 정의되어 있습니다.)
+만일 찾고있는 것이 num과 num의 서브타입이 가지고 있지 않다면, [dart:math][]
+라이브러리를 참고하세요.
 
-Integers are numbers without a decimal point. Here are some examples of
-defining integer literals:
+정수는 소수점이 없는 숫자입니다. 다음은 정수 리터럴을 정의하는 예제입니다:
 
 <?code-excerpt "misc/lib/language_tour/built_in_types.dart (integer-literals)"?>
 ```dart
@@ -610,8 +603,7 @@ var x = 1;
 var hex = 0xDEADBEEF;
 ```
 
-If a number includes a decimal, it is a double. Here are some examples
-of defining double literals:
+숫자가 소수점을 가지고 있다면, 그것은 double 입니다. 다음은 double 리터럴을 정의하는 예제입니다:
 
 <?code-excerpt "misc/lib/language_tour/built_in_types.dart (double-literals)"?>
 ```dart
@@ -619,23 +611,23 @@ var y = 1.1;
 var exponents = 1.42e5;
 ```
 
-You can also declare a variable as a num. If you do this, the variable
-can have both integer and double values.
+변수를 num으로 선언할 수도 있습니다. 이렇게 선언하면, 해당 변수는
+정수, double 값을 모두 가질 수 있습니다.
 
 <?code-excerpt "misc/lib/language_tour/built_in_types.dart (declare-num)"?>
 ```dart
-num x = 1; // x can have both int and double values
+num x = 1; // x는 int, double 둘 다 가능합니다.
 x += 2.5;
 ```
 
-Integer literals are automatically converted to doubles when necessary:
+정수 리터럴은 필요하다면, 자동으로 double 변환됩니다:
 
 <?code-excerpt "misc/lib/language_tour/built_in_types.dart (int-to-double)"?>
 ```dart
-double z = 1; // Equivalent to double z = 1.0.
+double z = 1; // double z = 1.0 와 동일합니다.
 ```
 
-Here’s how you turn a string into a number, or vice versa:
+다음은 예제에서 문자열을 숫자로 그리고 그 반대의 변환도 수행합니다.
 
 <?code-excerpt "misc/test/language_tour/built_in_types_test.dart (number-conversion)"?>
 ```dart
@@ -656,10 +648,10 @@ String piAsString = 3.14159.toStringAsFixed(2);
 assert(piAsString == '3.14');
 ```
 
-The `int` type specifies the traditional bitwise shift (`<<`, `>>`, `>>>`),
-complement (`~`), AND (`&`), OR (`|`), and XOR (`^`) operators,
-which are useful for manipulating and masking flags in bit fields.
-For example:
+`int` 타입은 비트 필드에서 플래그를 조작하고 마스킹하는 데 유용한
+전통 비트와이즈 쉬프트 (`<<`, `>>`, `>>>`),
+보수 (`~`), AND (`&`), OR (`|`), 그리고 XOR (`^`) 연산자를 지원합니다.
+예제:
 
 <?code-excerpt "misc/test/language_tour/built_in_types_test.dart (bit-shifting)"?>
 ```dart
@@ -668,13 +660,12 @@ assert((3 | 4) == 7); // 0011 | 0100 == 0111
 assert((3 & 4) == 0); // 0011 & 0100 == 0000
 ```
 
-For more examples, see the
-[bitwise and shift operator](#bitwise-and-shift-operators) section.
+더 많은 예제를 보고 싶다면,
+[비트와이즈와 쉬프트 연산자](#bitwise-and-shift-operators) 섹션을 참고하세요.
 
-Literal numbers are compile-time constants.
-Many arithmetic expressions are also compile-time constants,
-as long as their operands are
-compile-time constants that evaluate to numbers.
+리터럴 숫자는 컴파일 타임 상수입니다.
+피연산자가 숫자를 평가(evaluate)하는 컴파일 타임 상수인 이상,
+산술 표현식(expression)도 컴파일 타임 상수 입니다.
 
 <?code-excerpt "misc/lib/language_tour/built_in_types.dart (const-num)"?>
 ```dart
@@ -683,16 +674,15 @@ const secondsUntilRetry = 5;
 const msUntilRetry = secondsUntilRetry * msPerSecond;
 ```
 
-For more information, see [Numbers in Dart][dart-numbers].
+더 많은 정보를 원한다면, [Dart의 숫자][dart-numbers]를 참고하세요.
 
 [dart-numbers]: /guides/language/numbers
 
 
 ### Strings
 
-A Dart string (`String` object) holds a sequence of UTF-16 code units.
-You can use either
-single or double quotes to create a string:
+Dart의 문자열 (`String` 객체)는 UTRF-16 코드 유닛의 시퀀스를 홀드합니다.
+문자열을 만들 때 작은 따옴표, 큰 따옴표 모두 사용이 가능합니다:
 
 <?code-excerpt "misc/lib/language_tour/built_in_types.dart (quoting)"?>
 ```dart
@@ -702,10 +692,9 @@ var s3 = 'It\'s easy to escape the string delimiter.';
 var s4 = "It's even easier to use the other delimiter.";
 ```
 
-You can put the value of an expression inside a string by using
-`${`*`expression`*`}`. If the expression is an identifier, you can skip
-the {}. To get the string corresponding to an object, Dart calls the
-object’s `toString()` method.
+`${`*`표현식`*`}`을 사용하여 표현식 안에 값을 넣을 수 있습니다.
+표현식이 식별자라면, {}을 생략할 수 있습니다. 객체와 일치하는 문자열을 얻기 위해,
+Dart는 객체의 `toString()` 메소드를 호출합니다.
 
 <?code-excerpt "misc/test/language_tour/built_in_types_test.dart (string-interpolation)"?>
 ```dart
@@ -721,13 +710,12 @@ assert('That deserves all caps. '
 ```
 
 {{site.alert.note}}
-  The `==` operator tests whether two objects are equivalent. Two
-  strings are equivalent if they contain the same sequence of code
-  units.
+  `==` 연산자는 두 객체가 동일한지 테스트합니다.
+  두 문자열이 동일한 코드 유닛의 시퀀스를 포함한다면, 같은 문자열로 판단합니다.
 {{site.alert.end}}
 
-You can concatenate strings using adjacent string literals or the `+`
-operator:
+인접 문자열 리터럴 (adjacent string literal) 또는
+`+` 연산자를 사용해 문자열을 합칠 수 있습니다:
 
 <?code-excerpt "misc/test/language_tour/built_in_types_test.dart (adjacent-string-literals)"?>
 ```dart
@@ -742,8 +730,8 @@ var s2 = 'The + operator ' + 'works, as well.';
 assert(s2 == 'The + operator works, as well.');
 ```
 
-Another way to create a multi-line string: use a triple quote with
-either single or double quotation marks:
+작은 따옴표 또는 큰 따옴표로 Triple quote를 형성해
+멀티 라인 문자열을 만들 수 있습니다.
 
 <?code-excerpt "misc/lib/language_tour/built_in_types.dart (triple-quotes)"?>
 ```dart
@@ -756,28 +744,28 @@ var s2 = """This is also a
 multi-line string.""";
 ```
 
-You can create a “raw” string by prefixing it with `r`:
+`r`을 사용하여 "로우" (raw) 문자열을 생성할 수 있습니다:
 
 <?code-excerpt "misc/lib/language_tour/built_in_types.dart (raw-strings)"?>
 ```dart
 var s = r'In a raw string, not even \n gets special treatment.';
 ```
 
-See [Runes and grapheme clusters](#characters) for details on how
-to express Unicode characters in a string.
+유니코드 문자로 문자열을 표현하는 방법에 대해 자세히 알고 싶다면,
+[Runes and grapheme clusters](#characters)을 참고하세요.
 
-Literal strings are compile-time constants,
-as long as any interpolated expression is a compile-time constant
-that evaluates to null or a numeric, string, or boolean value.
+Null, 숫자, 문자열 또는 boolean 값을 평가하는
+보간된 표현식 (interpolated expression)이
+컴파일 타임 상수인 이상, 리터럴 문자열은 컴파일 타임 상수입니다.
 
 <?code-excerpt "misc/lib/language_tour/built_in_types.dart (string-literals)"?>
 ```dart
-// These work in a const string.
+// 이 값들은 const 문자열로 작동합니다.
 const aConstNum = 0;
 const aConstBool = true;
 const aConstString = 'a constant string';
 
-// These do NOT work in a const string.
+// 이 값들은 const 문자열로 작동하지 않습니다.
 var aNum = 0;
 var aBool = true;
 var aString = 'a string';
@@ -787,36 +775,38 @@ const validConstString = '$aConstNum $aConstBool $aConstString';
 // const invalidConstString = '$aNum $aBool $aString $aConstList';
 ```
 
-For more information on using strings, see
-[Strings and regular expressions](/guides/libraries/library-tour#strings-and-regular-expressions).
+문자열 사용에 대해 더 자세히 알고 싶다면,
+[문자열과 정규 표현식](/guides/libraries/library-tour#strings-and-regular-expressions)을
+참고하세요.
 
 
 ### Booleans
 
-To represent boolean values, Dart has a type named `bool`. Only two
-objects have type bool: the boolean literals `true` and `false`,
-which are both compile-time constants.
+Dart는 Boolean형 타입을 `bool`로 명명하였습니다. 
+컴파일 타임 상수인 Boolean 리터럴:
+`true`와 `false`가 유일한 bool 타입 객체입니다.
 
-Dart's type safety means that you can't use code like
-<code>if (<em>nonbooleanValue</em>)</code> or
-<code>assert (<em>nonbooleanValue</em>)</code>.
-Instead, explicitly check for values, like this:
+Dart의 type safety는
+<code>if (<em>nonbooleanValue</em>)</code> 또는
+<code>assert (<em>nonbooleanValue</em>)</code>
+같은 코드를 사용할 수 없다는 것을 의미합니다.
+대신, 다음과 같이 명시적으로 값을 확인해야합니다.
 
 <?code-excerpt "misc/test/language_tour/built_in_types_test.dart (no-truthy)"?>
 ```dart
-// Check for an empty string.
+// 빈 문자열인지 확인합니다.
 var fullName = '';
 assert(fullName.isEmpty);
 
-// Check for zero.
+// 0인지 확인합니다.
 var hitPoints = 0;
 assert(hitPoints <= 0);
 
-// Check for null.
+// null인지 확인합니다.
 var unicorn;
 assert(unicorn == null);
 
-// Check for NaN.
+// NaN인지 확인합니다.
 var iMeantToDoThis = 0 / 0;
 assert(iMeantToDoThis.isNaN);
 ```
@@ -824,14 +814,13 @@ assert(iMeantToDoThis.isNaN);
 
 ### Lists
 
-Perhaps the most common collection in nearly every programming language
-is the *array*, or ordered group of objects. In Dart, arrays are
-[`List`][] objects, so most people just call them *lists*.
+아마 모든 프로그래밍 언어에서 가장 흔한 컬렉션은 *배열*이나 정렬된 객체의 그룹일 겁니다.
+Dart에서 배열은 [`List`][] 객체로 존재하며, 대부분의 사람들이 *리스트*라고 부릅니다.
 
-Dart list literals are denoted by
-a comma separated list of expressions or values,
-enclosed in square brackets (`[]`).
-Here's a simple Dart list:
+Dart 리스트 리터럴은
+쉼표로 구분된 식 또는 값 목록으로 표시되며,
+대괄호('[]')로 둘러싸여 있습니다.
+다음은 간단한 Dart 리스트입니다:
 
 <?code-excerpt "misc/lib/language_tour/built_in_types.dart (list-literal)"?>
 ```dart
@@ -839,16 +828,17 @@ var list = [1, 2, 3];
 ```
 
 {{site.alert.note}}
-  Dart infers that `list` has type `List<int>`. If you try to add non-integer
-  objects to this list, the analyzer or runtime raises an error. For more
-  information, read about
-  [type inference.](/guides/language/type-system#type-inference)
+  Dart는 위의 `리스트`를 `List<int>` 타입이라고 추정합니다. 정수가 아닌 객체를
+  이 리스트에 추가를 시도하면, analyzer나 런타임이 에러를 발생시킵니다.
+  더 많은 정보를 원한다면,
+  [타입 추론](/guides/language/type-system#type-inference)
+  을 참고하세요.
 {{site.alert.end}}
 
 <a name="trailing-comma"></a>
-You can add a comma after the last item in a Dart collection literal.
-This _trailing comma_ doesn't affect the collection,
-but it can help prevent copy-paste errors.
+Dart 컬렉션 리터럴의 마지막 아이템 뒤에 쉼표를 추가할 수 있습니다.
+이 _trailing comma_ 는 컬렉션에 영향을 미치진 않지만,
+복사-붙여넣기 에러 예방을 도와줍니다.
 
 <?code-excerpt "misc/lib/language_tour/built_in_types.dart (trailing-commas)"?>
 ```dart
@@ -859,10 +849,10 @@ var list = [
 ];
 ```
 
-Lists use zero-based indexing, where 0 is the index of the first value
-and `list.length - 1` is the index of the last value. 
-You can get a list’s length using the `.length` property
-and access a list's values using the subscript operator (`[]`):
+리스트는 0 부터 시작하는 제로 베이스 인덱싱을 사용하고,
+`list.length - 1`가 리스트의 마지막 인덱스입니다.
+`.length` 프로퍼티를 사용하여 리스트의 길이를 구할 수 있고,
+서브스크립트 연산자 (`[]`)를 사용하여 리스트의 값에 접근할 수 있습니다:
 
 <?code-excerpt "misc/test/language_tour/built_in_types_test.dart (list-indexing)"?>
 ```dart
@@ -874,22 +864,23 @@ list[1] = 1;
 assert(list[1] == 1);
 ```
 
-To create a list that's a compile-time constant,
-add `const` before the list literal:
+컴파일 타임 상수인 리스트를 생성하고 싶다면,
+리스트 리터럴 앞에 `const`를 추가하세요:
 
 <?code-excerpt "misc/lib/language_tour/built_in_types.dart (const-list)"?>
 ```dart
 var constantList = const [1, 2, 3];
-// constantList[1] = 1; // This line will cause an error.
+// constantList[1] = 1; // 이 라인은 에러를 발생시킵니다.
 ```
 
 <a id="spread-operator"> </a>
-Dart supports the **spread operator** (`...`) and the
-**null-aware spread operator** (`...?`),
-which provide a concise way to insert multiple values into a collection.
 
-For example, you can use the spread operator (`...`) to insert
-all the values of a list into another list:
+Dart는 컬렉션에 여러 값들을 간편하게 삽입해주는
+**전개 연산자** (`...`)와 **null-aware 전개 연산자**
+를 지원합니다.
+
+예를들면 리스트의 모든 값들을 다른 리스트에 삽입하기 위해
+전개 연산자(...) 를 사용할 수 있습니다.
 
 <?code-excerpt "misc/test/language_tour/built_in_types_test.dart (list-spread)"?>
 ```dart
@@ -898,8 +889,8 @@ var list2 = [0, ...list];
 assert(list2.length == 4);
 ```
 
-If the expression to the right of the spread operator might be null,
-you can avoid exceptions by using a null-aware spread operator (`...?`):
+전개 연산자의 오른편 표현식의 값이 null 일 수 있다면,
+null-aware 전개 연산자 (`...?`)를 사용하여 예외를 피할 수 있습니다:
 
 <?code-excerpt "misc/test/language_tour/built_in_types_test.dart (list-null-spread)"?>
 ```dart
@@ -907,25 +898,23 @@ var list2 = [0, ...?list];
 assert(list2.length == 1);
 ```
 
-For more details and examples of using the spread operator, see the
-[spread operator proposal.][spread proposal]
+더 많은 전개 연산자 예제와 정보를 원한다면,
+[spread operator proposal][spread proposal]을 참고하세요.
 
 <a id="collection-operators"> </a>
-Dart also offers **collection if** and **collection for**,
-which you can use to build collections using conditionals (`if`)
-and repetition (`for`).
+Dart는 조건 (`if`)과 반복 (`for`)을 사용하여
+컬렉션을 빌드할 수 있는 **컬렉션 if** 와 **컬렉션 for**
+을 제공합니다.
 
-Here's an example of using **collection if**
-to create a list with three or four items in it:
+다음은 **컬렉션 if**를 사용하여 3개 또는 4개의 항목이 있는 리스트를 생성한는 예제입니다:
 
 <?code-excerpt "misc/test/language_tour/built_in_types_test.dart (list-if)"?>
 ```dart
 var nav = ['Home', 'Furniture', 'Plants', if (promoActive) 'Outlet'];
 ```
 
-Here's an example of using **collection for**
-to manipulate the items of a list before
-adding them to another list:
+다음은 **컬렉션 for**을 사용하여 리스트 항목을
+다른 목록에 추가하기 전에 해당 항목을 조작하는 예제입니다:
 
 <?code-excerpt "misc/test/language_tour/built_in_types_test.dart (list-for)"?>
 ```dart
@@ -934,16 +923,17 @@ var listOfStrings = ['#0', for (var i in listOfInts) '#$i'];
 assert(listOfStrings[1] == '#1');
 ```
 
-For more details and examples of using collection `if` and `for`, see the
-[control flow collections proposal.][collections proposal]
+컬렉션 `if` 와 `for`에 대한 더 자세한 정보와 예제를 원한다면,
+[control flow collections proposal][collections proposal]을 참고하세요.
 
 [collections proposal]: https://github.com/dart-lang/language/blob/master/accepted/2.3/control-flow-collections/feature-specification.md
 
 [spread proposal]: https://github.com/dart-lang/language/blob/master/accepted/2.3/spread-collections/feature-specification.md
 
-The List type has many handy methods for manipulating lists. For more
-information about lists, see [Generics](#generics) and
-[Collections](/guides/libraries/library-tour#collections).
+List 타입은 리스트를 조작하는 다양하고 간편한 메소드들을 가지고 있습니다.
+리스트에 대한 더 많은 정보를 원한다면,
+[제네릭](#generics) 그리고
+[컬렉션](/guides/libraries/library-tour#collections)을 참고하세요.
 
 
 ### Sets
@@ -4775,7 +4765,7 @@ To learn more about Dart's core libraries, see
 [dart:math]: {{site.dart-api}}/{{site.data.pkg-vers.SDK.channel}}/dart-math
 [Dart 언어 설명서]: /guides/language/spec
 [dartdevc]: /tools/dartdevc
-[DON’T use const redundantly]: /guides/language/effective-dart/usage#dont-use-const-redundantly
+[const를 중복으로 사용하지 마십시오]: /guides/language/effective-dart/usage#dont-use-const-redundantly
 [`double`]: {{site.dart-api}}/{{site.data.pkg-vers.SDK.channel}}/dart-core/double-class.html
 [`Enum`]: {{site.dart-api}}/{{site.data.pkg-vers.SDK.channel}}/dart-core/Enum-class.html
 [`Error`]: {{site.dart-api}}/{{site.data.pkg-vers.SDK.channel}}/dart-core/Error-class.html
