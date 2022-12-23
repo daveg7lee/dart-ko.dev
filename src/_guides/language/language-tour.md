@@ -129,8 +129,8 @@ Dart 언어를 학습 할 때 다음을 잘 기억해야합니다:
     먄약 런타임까지 타입 체킹을 미뤄야 한다면,
     [특수 타입인 `dynamic`][ObjectVsDynamic]를 사용하세요.
 
--   Dart는 `List<int>` (정수의 리스트)
-    또는 `List<Object>` (아무 타입의 리스트) 같은 제네릭 타입을 지원합니다.
+-   Dart는 `List<int>` (정수의 list)
+    또는 `List<Object>` (아무 타입의 list) 같은 제네릭 타입을 지원합니다.
 
 -   Dart는 클래스나 객체에 묶여있는 함수들 
     (각각 *static*, *instance* 메소드) 뿐만 아니라, 
@@ -815,12 +815,12 @@ assert(iMeantToDoThis.isNaN);
 ### Lists
 
 아마 모든 프로그래밍 언어에서 가장 흔한 컬렉션은 *배열*이나 정렬된 객체의 그룹일 겁니다.
-Dart에서 배열은 [`List`][] 객체로 존재하며, 대부분의 사람들이 *리스트*라고 부릅니다.
+Dart에서 배열은 [`List`][] 객체로 존재하며, 대부분의 사람들이 *list*라고 부릅니다.
 
-Dart 리스트 리터럴은
+Dart list 리터럴은
 쉼표로 구분된 식 또는 값 목록으로 표시되며,
 대괄호('[]')로 둘러싸여 있습니다.
-다음은 간단한 Dart 리스트입니다:
+다음은 간단한 Dart list 입니다:
 
 <?code-excerpt "misc/lib/language_tour/built_in_types.dart (list-literal)"?>
 ```dart
@@ -828,8 +828,8 @@ var list = [1, 2, 3];
 ```
 
 {{site.alert.note}}
-  Dart는 위의 `리스트`를 `List<int>` 타입이라고 추정합니다. 정수가 아닌 객체를
-  이 리스트에 추가를 시도하면, analyzer나 런타임이 에러를 발생시킵니다.
+  Dart는 위의 `list`를 `List<int>` 타입이라고 추정합니다. 정수가 아닌 객체를
+  이 list에 추가를 시도하면, analyzer나 런타임이 에러를 발생시킵니다.
   더 많은 정보를 원한다면,
   [타입 추론](/guides/language/type-system#type-inference)
   을 참고하세요.
@@ -850,9 +850,9 @@ var list = [
 ```
 
 리스트는 0 부터 시작하는 제로 베이스 인덱싱을 사용하고,
-`list.length - 1`가 리스트의 마지막 인덱스입니다.
-`.length` 프로퍼티를 사용하여 리스트의 길이를 구할 수 있고,
-서브스크립트 연산자 (`[]`)를 사용하여 리스트의 값에 접근할 수 있습니다:
+`list.length - 1`가 list의 마지막 인덱스입니다.
+`.length` 프로퍼티를 사용하여 list의 길이를 구할 수 있고,
+서브스크립트 연산자 (`[]`)를 사용하여 list의 값에 접근할 수 있습니다:
 
 <?code-excerpt "misc/test/language_tour/built_in_types_test.dart (list-indexing)"?>
 ```dart
@@ -865,7 +865,7 @@ assert(list[1] == 1);
 ```
 
 컴파일 타임 상수인 리스트를 생성하고 싶다면,
-리스트 리터럴 앞에 `const`를 추가하세요:
+list 리터럴 앞에 `const`를 추가하세요:
 
 <?code-excerpt "misc/lib/language_tour/built_in_types.dart (const-list)"?>
 ```dart
@@ -879,7 +879,7 @@ Dart는 컬렉션에 여러 값들을 간편하게 삽입해주는
 **전개 연산자** (`...`)와 **null-aware 전개 연산자**
 를 지원합니다.
 
-예를들면 리스트의 모든 값들을 다른 리스트에 삽입하기 위해
+예를들면 list의 모든 값들을 다른 list에 삽입하기 위해
 전개 연산자(...) 를 사용할 수 있습니다.
 
 <?code-excerpt "misc/test/language_tour/built_in_types_test.dart (list-spread)"?>
@@ -899,7 +899,7 @@ assert(list2.length == 1);
 ```
 
 더 많은 전개 연산자 예제와 정보를 원한다면,
-[spread operator proposal][spread proposal]을 참고하세요.
+[전개 연산자 제안서][spread proposal]을 참고하세요.
 
 <a id="collection-operators"> </a>
 Dart는 조건 (`if`)과 반복 (`for`)을 사용하여
@@ -913,7 +913,7 @@ Dart는 조건 (`if`)과 반복 (`for`)을 사용하여
 var nav = ['Home', 'Furniture', 'Plants', if (promoActive) 'Outlet'];
 ```
 
-다음은 **컬렉션 for**을 사용하여 리스트 항목을
+다음은 **컬렉션 for**을 사용하여 list 항목을
 다른 목록에 추가하기 전에 해당 항목을 조작하는 예제입니다:
 
 <?code-excerpt "misc/test/language_tour/built_in_types_test.dart (list-for)"?>
@@ -938,11 +938,10 @@ List 타입은 리스트를 조작하는 다양하고 간편한 메소드들을 
 
 ### Sets
 
-A set in Dart is an unordered collection of unique items.
-Dart support for sets is provided by set literals and the
-[`Set`][] type.
+Dart의 set은 유니크한 항목들로 이루어진 정렬되지 않은 컬렉션입니다.
+Dart는 set 리터럴과 [`Set`][] 타입을 지원합니다.
 
-Here is a simple Dart set, created using a set literal:
+다음은 set 리터럴을 사용하여 Dart의 set을 생성하는 코드입니다:
 
 <?code-excerpt "misc/lib/language_tour/built_in_types.dart (set-literal)"?>
 ```dart
@@ -950,30 +949,31 @@ var halogens = {'fluorine', 'chlorine', 'bromine', 'iodine', 'astatine'};
 ```
 
 {{site.alert.note}}
-  Dart infers that `halogens` has the type `Set<String>`. If you try to add the
-  wrong type of value to the set, the analyzer or runtime raises an error. For
-  more information, read about
-  [type inference.](/guides/language/type-system#type-inference)
+  Dart는 위의 `halogens`을 `Set<String>` 타입으로 추정합니다. 알맞지 않는 타입을
+  set에 추가하면, analyzer 또는 런타임이 에러를 발생시킵니다.
+  더 많은 정보를 원한다면,
+  [타입 추론](/guides/language/type-system#type-inference)을
+  참고하세요.
 {{site.alert.end}}
 
-To create an empty set, use `{}` preceded by a type argument,
-or assign `{}` to a variable of type `Set`:
+빈 set을 생성하고 싶다면, 타입 인자 앞에 `{}`을 사용하거나,
+`Set` 타입의 변수에 `{}`을 할당하세요:
 
 <?code-excerpt "misc/lib/language_tour/built_in_types.dart (set-vs-map)"?>
 ```dart
 var names = <String>{};
-// Set<String> names = {}; // This works, too.
-// var names = {}; // Creates a map, not a set.
+// Set<String> names = {}; // 이 코드도 작동합니다.
+// var names = {}; // Set이 아닌 map을 생성합니다.
 ```
 
 {{site.alert.info}}
-  **Set or map?** The syntax for map literals is similar to that for set
-  literals. Because map literals came first, `{}` defaults to the `Map` type. If
-  you forget the type annotation on `{}` or the variable it's assigned to, then
-  Dart creates an object of type `Map<dynamic, dynamic>`.
+  **Set 또는 map?** Map 리터럴 문법은 set 리터럴 문법과 유사합니다.
+  Map 리터럴을 우선으로 고려하기 때문에, `{}`의 디폴트는 `Map` 타입입니다.
+  만약 `{}` 또는 이것이 할당될 변수에 타입을 명시하는 것을 잊었다면,
+  Dart는 `Map<dynamic, dynamic>` 타입의 객체를 생성합니다. 
 {{site.alert.end}}
 
-Add items to an existing set using the `add()` or `addAll()` methods:
+`add()` 또는 `addAll()` 메소드를 사용해 존재하는 set에 항목을 추가하세요:
 
 <?code-excerpt "misc/lib/language_tour/built_in_types.dart (set-add-items)"?>
 ```dart
@@ -982,7 +982,7 @@ elements.add('fluorine');
 elements.addAll(halogens);
 ```
 
-Use `.length` to get the number of items in the set:
+Set에 있는 항목들의 수를 알고 싶다면, `.length`를 사용하세요:
 
 <?code-excerpt "misc/test/language_tour/built_in_types_test.dart (set-length)"?>
 ```dart
@@ -992,8 +992,8 @@ elements.addAll(halogens);
 assert(elements.length == 5);
 ```
 
-To create a set that's a compile-time constant,
-add `const` before the set literal:
+컴파일 타임 상수인 set을 생성하고 싶다면,
+set 리터럴 앞에 `const`를 추가하세요:
 
 <?code-excerpt "misc/lib/language_tour/built_in_types.dart (const-set)"?>
 ```dart
@@ -1004,28 +1004,27 @@ final constantSet = const {
   'iodine',
   'astatine',
 };
-// constantSet.add('helium'); // This line will cause an error.
+// constantSet.add('helium'); // 이 라인은 에러를 발생시킵니다.
 ```
 
-Sets support spread operators (`...` and `...?`)
-and collection `if` and `for`,
-just like lists do.
-For more information, see the
-[list spread operator](#spread-operator) and
-[list collection operator](#collection-operators) discussions.
+Set은 list 처럼 전개 연산자 (`...` 그리고 `...?`)와
+컬렉션 `if` and `for`을 지원합니다.
+더 많은 정보를 원한다면,
+[list 전개 연산자](#spread-operator) 그리고
+[list 컬렉션 연산자](#collection-operators)를 참고하세요.
 
-For more information about sets, see
-[Generics](#generics) and
-[Sets](/guides/libraries/library-tour#sets).
+Set에 대한 더 많은 정보를 원한다면,
+[제네릭](#generics) 과
+[Sets](/guides/libraries/library-tour#sets)을 참고하세요.
 
 ### Maps
 
-In general, a map is an object that associates keys and values. Both
-keys and values can be any type of object. Each *key* occurs only once,
-but you can use the same *value* multiple times. Dart support for maps
-is provided by map literals and the [`Map`][] type.
+일반적으로, map은 key와 value로 구성된 객체입니다.
+key와 value 모두 어떤 타입의 객체든 할당이 가능합니다.
+각 *key*들은 유일하지만 *value*는 중복될 수 있습니다.
+Dart는 map 리터럴과 [`Map`][] 타입으로 map을 지원합니다.
 
-Here are a couple of simple Dart maps, created using map literals:
+다음은 map 리터럴을 사용하여 Dart의 map을 생성하는 코드입니다.
 
 <?code-excerpt "misc/lib/language_tour/built_in_types.dart (map-literal)"?>
 ```dart
@@ -1044,13 +1043,15 @@ var nobleGases = {
 ```
 
 {{site.alert.note}}
-  Dart infers that `gifts` has the type `Map<String, String>` and `nobleGases`
-  has the type `Map<int, String>`. If you try to add the wrong type of value to
-  either map, the analyzer or runtime raises an error. For more information,
-  read about [type inference.](/guides/language/type-system#type-inference)
+  Dart는 `gifts`의 타입을 `Map<String, String>`로 그리고
+  `nobleGases`의 타입을 `Map<int, String>`로 추정합니다.
+  Map에 알맞지 않는 타입의 값을 추가하면, analyzer나 런타임이
+  에러를 발생시킵니다. 더 많은 정보를 원한다면,
+  [타입 추론](/guides/language/type-system#type-inference)을
+  참고하세요.
 {{site.alert.end}}
 
-You can create the same objects using a Map constructor:
+Map 생성자를 사용하여 생성하는 것도 가능합니다:
 
 <?code-excerpt "misc/lib/language_tour/built_in_types.dart (map-constructor)"?>
 ```dart
@@ -1066,20 +1067,22 @@ nobleGases[18] = 'argon';
 ```
 
 {{site.alert.note}}
-  If you come from a language like C# or Java, you might expect to see `new Map()` 
-  instead of just `Map()`. In Dart, the `new` keyword is optional.
-  For details, see [Using constructors](#using-constructors).
+  C# 또는 Java를 할 줄 안다면, `Map()` 대신 `new Map()`을
+  기대했을 겁니다. Dart에서 `new` 키워드의 사용은 선택입니다.
+  더 자세한 사항은 [생성자 사용하기](#using-constructors)를 참고하세요.
 {{site.alert.end}}
 
-Add a new key-value pair to an existing map
-using the subscript assignment operator (`[]=`):
+서브스크립트 할당 연산자 (`[]=`)를 사용하여
+기존의 map에 key-value 쌍을 추가하세요:
 
 <?code-excerpt "misc/lib/language_tour/built_in_types.dart (map-add-item)"?>
 ```dart
 var gifts = {'first': 'partridge'};
-gifts['fourth'] = 'calling birds'; // Add a key-value pair
+gifts['fourth'] = 'calling birds'; // key-value 쌍 추가
 ```
 
+
+서브스크립트 연산자 (`[]`)를 사용하여 map에서 원하는 값에 접근하세요:
 Retrieve a value from a map using the subscript operator (`[]`):
 
 <?code-excerpt "misc/test/language_tour/built_in_types_test.dart (map-retrieve-item)"?>
@@ -1088,7 +1091,7 @@ var gifts = {'first': 'partridge'};
 assert(gifts['first'] == 'partridge');
 ```
 
-If you look for a key that isn’t in a map, you get `null` in return:
+Map에 존재하지 않는 key로 접근하면, `null`을 반환합니다:
 
 <?code-excerpt "misc/test/language_tour/built_in_types_test.dart (map-missing-key)"?>
 ```dart
@@ -1096,7 +1099,7 @@ var gifts = {'first': 'partridge'};
 assert(gifts['fifth'] == null);
 ```
 
-Use `.length` to get the number of key-value pairs in the map:
+Map에 있는 key-value 쌍의 개수를 알고 싶다면, `.length`을 사용하세요:
 
 <?code-excerpt "misc/test/language_tour/built_in_types_test.dart (map-length)"?>
 ```dart
@@ -1105,8 +1108,8 @@ gifts['fourth'] = 'calling birds';
 assert(gifts.length == 2);
 ```
 
-To create a map that's a compile-time constant,
-add `const` before the map literal:
+컴파일 타임 상수인 map을 생성하고 싶다면,
+map 리터럴 앞에 `const`를 추가하세요:
 
 <?code-excerpt "misc/lib/language_tour/built_in_types.dart (const-map)"?>
 ```dart
@@ -1116,47 +1119,41 @@ final constantMap = const {
   18: 'argon',
 };
 
-// constantMap[2] = 'Helium'; // This line will cause an error.
+// constantMap[2] = 'Helium'; // 이 라인은 에러를 발생시킵니다.
 ```
 
-Maps support spread operators (`...` and `...?`)
-and collection `if` and `for`, just like lists do.
-For details and examples, see the
-[spread operator proposal][spread proposal] and the
-[control flow collections proposal.][collections proposal]
+Map은 list 처럼 전개 연산자 (`...` 그리고 `...?`)와
+컬렉션 `if` 그리고 `for`을 지원합니다.
+더 자세한 사항과 예제를 보고 싶다면,
+[전개 연산자 제안서][spread proposal] 와
+[흐름 제어 컬렉션 제안서][collections proposal]를 참고하세요.
 
-For more information about maps, see the
-[generics](#generics) section and
-the library tour's coverage of
-the [`Maps` API](/guides/libraries/library-tour#maps).
+Map에 대한 더 많은 정보를 원한다면,
+[제네릭](#generics) 섹션과
+라이브러리 투어의
+[`Maps` API](/guides/libraries/library-tour#maps)를
+참고하세요.
 
 <a id="characters"></a>
-### Runes and grapheme clusters
+### Runes 그리고 grapheme clusters
 
-In Dart, [runes][] expose the Unicode code points of a string.
-You can use the [characters package][]
-to view or manipulate user-perceived characters,
-also known as
-[Unicode (extended) grapheme clusters.][grapheme clusters]
+Dart에서 [runes][]는 문자열의 유니코드 코드 포인트를 나타냅니다.
+[characters package][]를 사용하여
+[Unicode (extended) grapheme clusters][grapheme clusters]
+라고도 부르는 사용자가 인식하는 문자를 보거나 조작할 수 있습니다.
 
-Unicode defines a unique numeric value for each letter, digit,
-and symbol used in all of the world's writing systems.
-Because a Dart string is a sequence of UTF-16 code units,
-expressing Unicode code points within a string requires
-special syntax.
-The usual way to express a Unicode code point is
-`\uXXXX`, where XXXX is a 4-digit hexadecimal value.
-For example, the heart character (♥) is `\u2665`.
-To specify more or less than 4 hex digits,
-place the value in curly brackets.
-For example, the laughing emoji (😆) is `\u{1f606}`.
+유니코드는 세상의 모든 문자, 숫자, 기호 시스템에 대해 고유한 숫자 값을 정의합니다. 
+Dart의 문자열은 UTF-16 코드 단위의 시퀀스이기 때문에
+문자열 내에서 유니코드 코드 포인트를 표현하려면 특별한 문법이 필요합니다.
+유니코드 코드 포인트를 표현하는 가장 흔한 방법은 `\uXXXX` 형태로 나타내는 것이고,
+XXXX는 16진수 4-digit 값입니다. 예를 들면 하트 문자(♥)는 `\u2665`입니다.
+4개의 16진수 보다 적거나, 많이 사용하고 싶다면, 중괄호 안에 값을 넣으면 됩니다.
+예를 들면 웃는 이모지(😆)는 `\u{1f606}`으로 나타냅니다.
 
-If you need to read or write individual Unicode characters,
-use the `characters` getter defined on String
-by the characters package.
-The returned [`Characters`][] object is the string as
-a sequence of grapheme clusters.
-Here's an example of using the characters API:
+만약 유니코드 문자 각각을 읽고 써야한다면,
+characters 패키지에 의해 String에 정의 되어 있는 characters getter를 사용하세요.
+반환된 [`Characters`][] 객체는 graphem clusters의 시퀀스로 이루어진 문자열 입니다.
+아래는 characters API를 사용한 예제 입니다:
 
 <?code-excerpt "misc/lib/language_tour/characters.dart"?>
 ```dart
@@ -1170,7 +1167,7 @@ void main() {
 }
 ```
 
-The output, depending on your environment, looks something like this:
+실행 환경에 따라 출력은 다음과 같습니다:
 
 ```terminal
 $ dart run bin/main.dart
@@ -1179,21 +1176,19 @@ The end of the string: ???
 The last character: 🇩🇰
 ```
 
-For details on using the characters package to manipulate strings,
-see the [example][characters example] and [API reference][characters API]
-for the characters package.
+문자열 조작을 위한 characters 패키지 사용에 대해 더 자세히 알고 싶다면,
+[예제][characters example]와 [API reference][characters API] 를 참고하세요.
 
 
 ### Symbols
 
-A [`Symbol`][] object
-represents an operator or identifier declared in a Dart program. You
-might never need to use symbols, but they're invaluable for APIs that
-refer to identifiers by name, because minification changes identifier
-names but not identifier symbols.
+[`Symbol`][] 객체는 Dart 프로그램에 선언된 연산자나 식별자를 나타냅니다.
+아마 Symbol을 사용할 필요가 없을지도 모릅니다.
+하지만 축소(minification)를 수행하면 식별자의 이름은 변경되지만,
+식별자의 symbol은 변경되지 않기 때문에 symbol은 이름으로 식별자를 참조하는 API에 매우 유용합니다.
 
-To get the symbol for an identifier, use a symbol literal, which is just
-`#` followed by the identifier:
+식별자에 대한 symbol를 가져오려면 symbol 리터럴을 사용하면 됩니다.
+Symbol 리터럴은 `#` 뒤에 식별자를 위치시키면 됩니다:
 
 ```nocode
 #radix
@@ -1221,18 +1216,19 @@ int handleError(String source) {
 ```
 {% endcomment %}
 
-Symbol literals are compile-time constants.
+Symbol 리터럴은 컴파일 타임 상수입니다.
 
 
-## Functions
+## 함수
 
-Dart is a true object-oriented language, so even functions are objects
-and have a type, [Function.][Function API reference]
-This means that functions can be assigned to variables or passed as arguments
-to other functions. You can also call an instance of a Dart class as if
-it were a function. For details, see [Callable classes](#callable-classes).
+Dart는 진정항 객체 지향 언어이므로, 함수도
+[Function.][Function API reference]
+라는 타입을 가지는 객체로 존재합니다.
+이건 함수가 변수나 다른 함수의 인자로 전달할 수 있다는 것을 의미합니다.
+또한 함수인 것처럼 Dart 클래스의 인스턴스를 호출할 수 있습니다.
+더 자세한 사항을 원한다면, [호출가능한 클래스](#callable-classes)를 참고하세요.
 
-Here’s an example of implementing a function:
+다음은 함수를 구현하는 예제입니다:
 
 <?code-excerpt "misc/lib/language_tour/functions.dart (function)"?>
 ```dart
@@ -1241,9 +1237,9 @@ bool isNoble(int atomicNumber) {
 }
 ```
 
-Although Effective Dart recommends
-[type annotations for public APIs](/guides/language/effective-dart/design#do-type-annotate-fields-and-top-level-variables-if-the-type-isnt-obvious),
-the function still works if you omit the types:
+비록 Effective Dart에서
+[public APIs를 위한 타입 어노테이션](/guides/language/effective-dart/design#do-type-annotate-fields-and-top-level-variables-if-the-type-isnt-obvious)
+을 추천하지만, 타입을 생략해도 함수는 제대로 작동합니다:
 
 <?code-excerpt "misc/lib/language_tour/functions.dart (function-omitting-types)"?>
 ```dart
@@ -1252,63 +1248,61 @@ isNoble(atomicNumber) {
 }
 ```
 
-For functions that contain just one expression, you can use a shorthand
-syntax:
+하나의 표현식만 가지는 함수를 선언 할 때 약칭(shorthand) 문법의 사용이 가능합니다:
 
 <?code-excerpt "misc/lib/language_tour/functions.dart (function-shorthand)"?>
 ```dart
 bool isNoble(int atomicNumber) => _nobleGases[atomicNumber] != null;
 ```
 
-The <code>=> <em>expr</em></code> syntax is a shorthand for
-<code>{ return <em>expr</em>; }</code>. The `=>` notation
-is sometimes referred to as _arrow_ syntax.
+<code>=> <em>표현식</em></code> 문법은
+<code>{ return <em>표현식</em>; }</code>의 약칭입니다.
+`=>` 노테이션은 _화살표_ 문법으로도 불립니다.
 
 {{site.alert.note}}
-  Only an *expression*—not a *statement*—can appear between the arrow (=\>) and
-  the semicolon (;). For example, you can’t put an [if statement](#if-and-else)
-  there, but you can use a [conditional expression](#conditional-expressions).
+  *문(statement)*이 아닌 오직 *식(expression)*만이 화살표 (=\>)와
+  세미콜론 (;) 사이에 올 수 있습니다. 예를 들어, [if 문](#if-and-else)은 불가능하지만,
+  [조건식](#conditional-expressions)은 가능합니다.
 {{site.alert.end}}
 
-### Parameters
+### 매개변수
 
-A function can have any number of *required positional* parameters. These can be
-followed either by *named* parameters or by *optional positional* parameters
-(but not both).
+함수는 *required positional* 매개변수를 얼마든지 가질 수 있습니다.
+이 매개변수들은 *named* 매개변수 또는 *optional positional* 매개변수의 뒤에 나올 수 있습니다.
+(둘 다 사용하는 것은 불가능합니다.)
 
 {{site.alert.note}}
-  Some APIs—notably [Flutter][] widget constructors—use only named
-  parameters, even for parameters that are mandatory. See the next section for
-  details.
+  [Flutter][] 위젯 생성자 처럼 몇몇 API들은 필수 매개변수에 대해서도
+  named 매개 변수만 사용합니다. 다음 섹션에서 자세히 살펴봅시다.
 {{site.alert.end}}
 
-You can use [trailing commas][] when you pass arguments to a function
-or when you define function parameters.
+함수에 인자를 넘겨줄 때나 함수의 매개변수를 정의 할 때
+[trailing commas][]를 사용할 수 있습니다.
 
 
-#### Named parameters
+#### Named 매개변수
 
-Named parameters are optional
-unless they're explicitly marked as `required`.
+Named 매개변수는 `required`로 표시되지 않는 이상
+선택적인 매개변수입니다.
 
-When defining a function, use
-<code>{<em>param1</em>, <em>param2</em>, …}</code>
-to specify named parameters.
-If you don't provide a default value
-or mark a named parameter as `required`,
-their types must be nullable
-as their default value will be `null`:
+함수를 정의할 때,
+<code>{<em>매개변수1</em>, <em>매개변수2</em>, …}</code>
+를 사용하여 named 매개변수를 표시하세요.
+디폴트 값을 제공하지 않거나
+named 매개변수를 `required`로 표시하지 않으면
+해당 매개 변수의 타입은 디폴트 값이 `null`이 되므로
+nullable로 지정해야 합니다:
 
 <?code-excerpt "misc/lib/language_tour/functions.dart (specify-named-parameters)"?>
 ```dart
-/// Sets the [bold] and [hidden] flags ...
+/// [bold] 그리고 [hidden] 플래그 설정 ...
 void enableFlags({bool? bold, bool? hidden}) {...}
 ```
 
-When calling a function, 
-you can specify named arguments using
-<code><em>paramName</em>: <em>value</em></code>. 
-For example:
+함수를 호출할 때,
+<code><em>매개변수이름</em>: <em>값</em></code> 을
+사용하여 넘겨줄 named 인자를 특정할 수 있습니다.
+예제:
 
 <?code-excerpt "misc/lib/language_tour/functions.dart (use-named-parameters)"?>
 ```dart
@@ -1316,36 +1310,32 @@ enableFlags(bold: true, hidden: false);
 ```
 
 <a id="default-parameters"></a>
-To define a default value for a named parameter besides `null`,
-use `=` to specify a default value.
-The specified value must be a compile-time constant.
-For example:
+`Null`이 아닌 값으로 named 매개변수의 디폴트 값을 정의하려면 `=`를 사용하세요.
+디폴트 값은 반드시 컴파일 타임 상수로 지정되야합니다.
+예제:
 
 <?code-excerpt "misc/lib/language_tour/functions.dart (named-parameter-default-values)"?>
 ```dart
-/// Sets the [bold] and [hidden] flags ...
+/// [bold] 그리고 [hidden] 플래그 설정 ...
 void enableFlags({bool bold = false, bool hidden = false}) {...}
 
-// bold will be true; hidden will be false.
+// bold는 true로 설정됩니다; hidden은 false로 설정됩니다..
 enableFlags(bold: true);
 ```
-
-If you instead want a named parameter to be mandatory,
-requiring callers to provide a value for the parameter,
-annotate them with `required`:
+Named 매개변수를 호출자가 반드시 값을 전달하게 하고 싶다면,
+`required`로 어노테이트 하세요:
 
 <?code-excerpt "misc/lib/language_tour/functions.dart (required-named-parameters)" replace="/required/[!$&!]/g"?>
 ```dart
 const Scrollbar({super.key, [!required!] Widget child});
 ```
 
-If someone tries to create a `Scrollbar`
-without specifying the `child` argument,
-then the analyzer reports an issue.
+`child` 인자 없이 `Scollbar`의 생성을 시도하면,
+analyzer가 이슈를 보고합니다.
 
 {{site.alert.note}}
-  A parameter marked as `required`
-  can still be nullable:
+  `required`로 표시된 매개변수는
+  여전피 nullable 입니다:
 
   <?code-excerpt "misc/lib/language_tour/functions.dart (required-named-parameters-nullable)" replace="/Widget\?/[!$&!]/g; /ScrollbarTwo/Scrollbar/g;"?>
   ```dart
@@ -1353,10 +1343,10 @@ then the analyzer reports an issue.
   ```
 {{site.alert.end}}
 
-You might want to place positional arguments first,
-but Dart doesn't require it.
-Dart allows named arguments to be placed anywhere in the
-argument list when it suits your API:
+Positional 인자들을 먼저 배치하고 싶을 수 있지만,
+Dart는 그것을 요구하지 않습니다.
+Dart는 named 인자가 API에 적합할 때,
+그것을 인자 목록의 아무 곳에나 배치 할 수 있습니다:
 
 <?code-excerpt "misc/lib/language_tour/functions.dart (named-arguments-anywhere)"?>
 ```dart
@@ -1365,13 +1355,12 @@ repeat(times: 2, () {
 });
 ```
 
-#### Optional positional parameters
+#### Optional positional 매개변수
 
-Wrapping a set of function parameters in `[]`
-marks them as optional positional parameters.
-If you don't provide a default value,
-their types must be nullable
-as their default value will be `null`:
+함수 매개변수들의 세트를 `[]`로 감싸는 것은
+해당 매개변수들을 optional positional 매개변수로 표시합니다.
+디폴트 값을 제공하지 않으면, 매개변수의 디폴트 값이
+`null`이 되므로 타입은 반드시 nullable이 되어야 합니다:
 
 <?code-excerpt "misc/test/language_tour/functions_test.dart (optional-positional-parameters)"?>
 ```dart
@@ -1384,15 +1373,14 @@ String say(String from, String msg, [String? device]) {
 }
 ```
 
-Here’s an example of calling this function
-without the optional parameter:
+다음은 optional 매개변수 없이 함수를 호출하는 예제입니다:
 
 <?code-excerpt "misc/test/language_tour/functions_test.dart (call-without-optional-param)"?>
 ```dart
 assert(say('Bob', 'Howdy') == 'Bob says Howdy');
 ```
 
-And here’s an example of calling this function with the third parameter:
+다음은 3번째 매개변수를 포함하여 함수를 호출하는 예제입니다:
 
 <?code-excerpt "misc/test/language_tour/functions_test.dart (call-with-optional-param)"?>
 ```dart
@@ -1400,10 +1388,9 @@ assert(say('Bob', 'Howdy', 'smoke signal') ==
     'Bob says Howdy with a smoke signal');
 ```
 
-To define a default value for an optional positional parameter besides `null`,
-use `=` to specify a default value.
-The specified value must be a compile-time constant.
-For example:
+`Null`이 아닌 값으로 optional positional 매개변수의 디폴트 값을 정의하려면 `=`를 사용하세요.
+디폴트 값은 반드시 컴파일 타임 상수로 지정되야합니다.
+예제:
 
 <?code-excerpt "misc/test/language_tour/functions_test.dart (optional-positional-param-default)"?>
 ```dart
@@ -1416,13 +1403,12 @@ assert(say('Bob', 'Howdy') == 'Bob says Howdy with a carrier pigeon');
 ```
 
 
-### The main() function
+### main() 함수
 
-Every app must have a top-level `main()` function, which serves as the
-entrypoint to the app. The `main()` function returns `void` and has an
-optional `List<String>` parameter for arguments.
+모든 앱은 엔트리 포인트 역할을 하는 최상위 `main()` 함수를 반드시 가지고 있어야 합니다.
+`main()` 함수는 `void`를 반환하고 optional `List<String>` 매개변수를 인자롤 가집니다.
 
-Here's a simple `main()` function:
+다음은 `main()` 함수의 예제입니다:
 
 <?code-excerpt "misc/test/samples_test.dart (hello-world)"?>
 ```dart
@@ -1431,12 +1417,12 @@ void main() {
 }
 ```
 
-Here's an example of the `main()` function for a command-line app that
-takes arguments:
+다음은 인자를 가지는 커맨드 라인 앱의 `main()` 함수 예제입니다:
 
 <?code-excerpt "misc/test/language_tour/functions_test.dart (main-args)"?>
 ```dart
-// Run the app like this: dart args.dart 1 test
+
+// 다음과 같이 앱을 실행하세요: dart args.dart 1 test
 void main(List<String> arguments) {
   print(arguments);
 
@@ -1446,12 +1432,12 @@ void main(List<String> arguments) {
 }
 ```
 
-You can use the [args library]({{site.pub-pkg}}/args) to
-define and parse command-line arguments.
+커맨드 라인 인자를 정의, 파싱하기 위해
+[args library]({{site.pub-pkg}}/args)를 사용해도 됩니다.
 
-### Functions as first-class objects
+### 일급 객체로서의 함수
 
-You can pass a function as a parameter to another function. For example:
+다음과 같이 다른 함수의 인자로 함수를 넘기는 것이 가능합니다:
 
 <?code-excerpt "misc/lib/language_tour/functions.dart (function-as-param)"?>
 ```dart
@@ -1461,11 +1447,11 @@ void printElement(int element) {
 
 var list = [1, 2, 3];
 
-// Pass printElement as a parameter.
+// printElement를 매개변수로 넘깁니다.
 list.forEach(printElement);
 ```
 
-You can also assign a function to a variable, such as:
+다음과 같이 변수에 함수를 할당하는 것도 가능합니다:
 
 <?code-excerpt "misc/test/language_tour/functions_test.dart (function-as-var)"?>
 ```dart
@@ -1473,22 +1459,19 @@ var loudify = (msg) => '!!! ${msg.toUpperCase()} !!!';
 assert(loudify('hello') == '!!! HELLO !!!');
 ```
 
-This example uses an anonymous function.
-More about those in the next section.
+위 예제에서는 익명 함수를 사용합니다.
+익명 함수에 대해서는 다음 섹션에서 살펴봅시다.
 
-### Anonymous functions
+### 익명 함수
 
-Most functions are named, such as `main()` or `printElement()`.
-You can also create a nameless function
-called an _anonymous function_, or sometimes a _lambda_ or _closure_.
-You might assign an anonymous function to a variable so that,
-for example, you can add or remove it from a collection.
+대부분의 함수들은 `main()`나 `printElement()` 처럼 이름이 있습니다.
+하지만 _익명 함수_, _람다_, _클로져_ 같이 이름이 없는 함수가 있습니다.
+익명 함수를 변수에 선언해서 컬렉션에 추가하고 제거하는 것도 가능합니다.
 
-An anonymous function looks similar
-to a named function—zero or more parameters, separated by commas
-and optional type annotations, between parentheses.
+괄호 안에 콤마로 분리된 매개변수들, optional 타입 어노테이션,
+0개 또는 그 이상의 매개변수 같이 익명 함수가 가지는 특징들이 named 함수와 비슷해보입니다.
 
-The code block that follows contains the function's body:
+다음 코드 블럭은 함수 바디를 포함합니다:
 
 <code>
 ([[<em>Type</em>] <em>param1</em>[, …]]) { <br>
@@ -1496,13 +1479,11 @@ The code block that follows contains the function's body:
 }; <br>
 </code>
 
-The following example defines an anonymous function
-with an untyped parameter, `item`,
-and passes it to the `map` function.
-The function, invoked for each item in the list,
-converts each string to uppercase.
-Then in the anonymous function passed to `forEach`,
-each converted string is printed out alongside its length.
+다음 예제는 타입을 명시하지 않은 매개변수 `item`을 가지는 익명 함수를
+`map` 함수에 넘기는 예제입니다.
+이 함수는 list의 모든 아이템을 순회하며, 각 문자열을 대문자로 변환합니다.
+그 다음 `forEach`로 넘겨지는 익명 함수에서,
+변환된 문자열과 문자열의 길이를 출력합니다.
 
 <?code-excerpt "misc/test/language_tour/functions_test.dart (anonymous-function)"?>
 ```dart
@@ -1514,7 +1495,7 @@ list.map((item) {
 });
 ```
 
-Click **Run** to execute the code.
+코드를 실행하려면 **Run**을 클릭하세요.
 
 <?code-excerpt "misc/test/language_tour/functions_test.dart (anonymous-function-main)"?>
 ```dart:run-dartpad:height-400px:ga_id-anonymous_functions
@@ -1528,10 +1509,10 @@ void main() {
 }
 ```
 
-If the function contains only a single expression or return statement,
-you can shorten it using arrow notation. 
-Paste the following line into DartPad and click **Run**
-to verify that it is functionally equivalent.
+함수가 하나의 표현식이나 반환문을 가진다면,
+화살표 노테이션을 사용하여 이를 줄일 수 있습니다.
+다음 라인을 DartPad에 붙혀넣은 후 **Run**을 클릭하면,
+이것이 기능적으로 동일한지 확인할 수 있습니다.
 
 <?code-excerpt "misc/test/language_tour/functions_test.dart (anon-func)"?>
 ```dart
@@ -1541,15 +1522,13 @@ list
 ```
 
 
-### Lexical scope
+### 렉시컬 스코프 (lexical scope)
 
-Dart is a lexically scoped language, which means that the scope of
-variables is determined statically, simply by the layout of the code.
-You can “follow the curly braces outwards” to see if a variable is in
-scope.
+Dart는 `lexically scoped` 언어로
+변수의 범위가 코드의 레이아웃에 따라 정적으로 결정된다는 것을 의미합니다.
+변수의 범위를 확인하고 싶다면 "중괄호의 끝을 따라가면" 됩니다.
 
-Here is an example of nested functions with variables at each scope
-level:
+다음은 각 스코프 레벨에 있는 변수를 포함하는 중첩 함수의 예제입니다:
 
 <?code-excerpt "misc/test/language_tour/functions_test.dart (nested-functions)"?>
 ```dart
@@ -1573,33 +1552,31 @@ void main() {
 }
 ```
 
-Notice how `nestedFunction()` can use variables from every level, all
-the way up to the top level.
+`nestedFunction()`가 모든 레벨에서 변수를 어떻게 사용할 수 있는지 주목하세요.
+최상위 수준까지 모든 수준의 변수 사용이 가능합니다.
 
 
-### Lexical closures
+### 렉시컬 클로저 (lexical closure)
 
-A *closure* is a function object that has access to variables in its
-lexical scope, even when the function is used outside of its original
-scope.
+*클로저* 는 함수가 이것의 원래 스코프의 밖에서 쓰여졌다고 해도,
+해당 함수 렉시컬 스코프의 변수에 접근 할 수 있는 함수 객체입니다. 
 
-Functions can close over variables defined in surrounding scopes. In the
-following example, `makeAdder()` captures the variable `addBy`. Wherever the
-returned function goes, it remembers `addBy`.
+함수는 주변 스코프에 정의된 변수를 포함합니다.
+다음의 예제에서, `makeAdder()`는 `addBy` 변수를 캡쳐합니다.
+반환된 함수가 가는 곳 마다, `addBy`를 기억합니다.
 
 <?code-excerpt "misc/test/language_tour/functions_test.dart (function-closure)"?>
 ```dart
-/// Returns a function that adds [addBy] to the
-/// function's argument.
+/// [addBy]를 함수의 인자에 더하는 함수를 반환합니다.
 Function makeAdder(int addBy) {
   return (int i) => addBy + i;
 }
 
 void main() {
-  // Create a function that adds 2.
+  // 2를 더하는 함수를 생성합니다.
   var add2 = makeAdder(2);
 
-  // Create a function that adds 4.
+  // 4를 더하는 함수를 생성합니다.
   var add4 = makeAdder(4);
 
   assert(add2(3) == 5);
@@ -1608,52 +1585,49 @@ void main() {
 ```
 
 
-### Testing functions for equality
+### 동등성 테스트 함수
 
-Here's an example of testing top-level functions, static methods, and
-instance methods for equality:
+다음은 최상위 함수, 정적 메소드, 인스턴스 메소드의 동등성을 확인하는 테스트 코드 입니다:
 
 <?code-excerpt "misc/lib/language_tour/function_equality.dart"?>
 ```dart
-void foo() {} // A top-level function
+void foo() {} // 최상위 함수
 
 class A {
-  static void bar() {} // A static method
-  void baz() {} // An instance method
+  static void bar() {} // 정적 메소드
+  void baz() {} // 인스턴스 메소드
 }
 
 void main() {
   Function x;
 
-  // Comparing top-level functions.
+  // 최상위 함수를 비교.
   x = foo;
   assert(foo == x);
 
-  // Comparing static methods.
+  // 정적 메소드를 비교.
   x = A.bar;
   assert(A.bar == x);
 
-  // Comparing instance methods.
-  var v = A(); // Instance #1 of A
-  var w = A(); // Instance #2 of A
+  // 인스턴스 메소드를 비교.
+  var v = A(); // A의 인스턴스 #1
+  var w = A(); // B의 인스턴스 #2
   var y = w;
   x = w.baz;
 
-  // These closures refer to the same instance (#2),
-  // so they're equal.
+  // 두 클로저들은 같은 인스턴스 (#2)를 참조하므로 동일합니다.
   assert(y.baz == x);
 
-  // These closures refer to different instances,
-  // so they're unequal.
+  // 두 클로저들은 다른 인스턴스를 참조하므로 동일하지 않습니다.
   assert(v.baz != w.baz);
 }
 ```
 
 
-### Return values
+### 반환 값
 
-All functions return a value. If no return value is specified, the
-statement `return null;` is implicitly appended to the function body.
+모든 함수는 값을 반환합니다. 반환 값이 명시되어 있지 않으면,
+`return null;`이 암묵적으로 함수의 바디에 추가됩니다.
 
 <?code-excerpt "misc/test/language_tour/functions_test.dart (implicit-return-null)"?>
 ```dart
@@ -1663,7 +1637,7 @@ assert(foo() == null);
 ```
 
 
-## Operators
+## 연산자
 
 Dart supports the operators shown in the following table.
 The table shows Dart's operator associativity 
