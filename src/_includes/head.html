@@ -90,7 +90,6 @@
   <script src="{{ '/assets/js/os-tabs.js' | append: cache_bust }}"></script>
   <script src="{{ '/assets/js/utilities.js' | append: cache_bust }}"></script>
   <script src="{{ '/assets/js/main.js' | append: cache_bust }}"></script>
-  <script defer src="/assets/dash/js/dartpad_picker_main.dart.js"></script>
 
   {% for js in page.js -%}
   <script {% if js.defer %}defer{% endif %} src="{{js.url | default: js}}"></script>
