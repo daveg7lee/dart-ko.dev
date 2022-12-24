@@ -60,7 +60,7 @@
 * <a href='/guides/language/effective-dart/documentation#do-start-doc-comments-with-a-single-sentence-summary'>한 줄 요약과 함께 문서 주석을 시작하십시오.</a>
 * <a href='/guides/language/effective-dart/documentation#do-separate-the-first-sentence-of-a-doc-comment-into-its-own-paragraph'>문서 주석의 문단에서 첫 번째 줄을 분리시키십시오.</a>
 * <a href='/guides/language/effective-dart/documentation#avoid-redundancy-with-the-surrounding-context'>주변 문맥과 중복되는 문장을 피하십시오.</a>
-* <a href='/guides/language/effective-dart/documentation#prefer-starting-function-or-method-comments-with-third-person-verbs'>함수 혹은 메소드 주석을 삼인칭 동사로 시작하는 것을 지향하십시오.</a>
+* <a href='/guides/language/effective-dart/documentation#prefer-starting-function-or-method-comments-with-third-person-verbs'>함수 혹은 메서드 주석을 삼인칭 동사로 시작하는 것을 지향하십시오.</a>
 * <a href='/guides/language/effective-dart/documentation#prefer-starting-a-non-boolean-variable-or-property-comment-with-a-noun-phrase'>Non-boolean 변수나 프로퍼티에 대한 주석은 명사구로 시작하는 것을 지향하십시오.</a>
 * <a href='/guides/language/effective-dart/documentation#prefer-starting-a-boolean-variable-or-property-comment-with-whether-followed-by-a-noun-or-gerund-phrase'>Boolean 변수나 프로퍼티에 대한 주석은 명사구 또는 동명사구가 따라오는 "Whether"와 함께 사용하십시오.</a>
 * <a href='/guides/language/effective-dart/documentation#dont-write-documentation-for-both-the-getter-and-setter-of-a-property'>프로퍼티의 getter와 setter에 대해 모두 문서를 작성하지마십시오.</a>
@@ -182,12 +182,12 @@
 * <a href='/guides/language/effective-dart/design#consider-omitting-the-verb-for-a-named-boolean-parameter'>Named boolean <em>파라미터</em>에 동사를 생략하는 것을 고려하십시오.</a>
 * <a href='/guides/language/effective-dart/design#prefer-the-positive-name-for-a-boolean-property-or-variable'>Boolean 프로퍼티나 변수에 "긍정적인" 이름의 사용을 지향하십시오.</a>
 * <a href='/guides/language/effective-dart/design#prefer-an-imperative-verb-phrase-for-a-function-or-method-whose-main-purpose-is-a-side-effect'>주된 목적이 사이드 이펙트인 함수 또는 메서드에는 명령형 동사구 사용을 지향하십시오.</a>
-* <a href='/guides/language/effective-dart/design#prefer-a-noun-phrase-or-non-imperative-verb-phrase-for-a-function-or-method-if-returning-a-value-is-its-primary-purpose'>함수 또는 메소드의 주된 목적이 값을 반환하는 것이라면, 비명령형 동사구 사용을 지향하십시오.</a>
+* <a href='/guides/language/effective-dart/design#prefer-a-noun-phrase-or-non-imperative-verb-phrase-for-a-function-or-method-if-returning-a-value-is-its-primary-purpose'>함수 또는 메서드의 주된 목적이 값을 반환하는 것이라면, 비명령형 동사구 사용을 지향하십시오.</a>
 * <a href='/guides/language/effective-dart/design#consider-an-imperative-verb-phrase-for-a-function-or-method-if-you-want-to-draw-attention-to-the-work-it-performs'>함수나 메서드가 수행하는 작업에 집중하고 싶다면, 명령형 동사구 사용을 고려하십시오.</a>
-* <a href='/guides/language/effective-dart/design#avoid-starting-a-method-name-with-get'>메소드의 이름을 <code>get</code>로 시작하는 것을 피하십시오.</a>
-* <a href='/guides/language/effective-dart/design#prefer-naming-a-method-to___-if-it-copies-the-objects-state-to-a-new-object'>객체의 상태를 새로운 객체로 복사하는 메소드는 <code>to___()</code>로 명명하는 것을 지향하십시오.</a>
-* <a href='/guides/language/effective-dart/design#prefer-naming-a-method-as___-if-it-returns-a-different-representation-backed-by-the-original-object'>원본 객체가 지원하는 다른 표현을 반환하는 메소드의 경우 <code>as___()</code>로 명명하는 것을 지향하십시오.</a>
-* <a href='/guides/language/effective-dart/design#avoid-describing-the-parameters-in-the-functions-or-methods-name'>함수나 메소드의 이름에 파라미터를 묘사하는 것을 피하십시오.</a>
+* <a href='/guides/language/effective-dart/design#avoid-starting-a-method-name-with-get'>메서드의 이름을 <code>get</code>로 시작하는 것을 피하십시오.</a>
+* <a href='/guides/language/effective-dart/design#prefer-naming-a-method-to___-if-it-copies-the-objects-state-to-a-new-object'>객체의 상태를 새로운 객체로 복사하는 메서드는 <code>to___()</code>로 명명하는 것을 지향하십시오.</a>
+* <a href='/guides/language/effective-dart/design#prefer-naming-a-method-as___-if-it-returns-a-different-representation-backed-by-the-original-object'>원본 객체가 지원하는 다른 표현을 반환하는 메서드의 경우 <code>as___()</code>로 명명하는 것을 지향하십시오.</a>
+* <a href='/guides/language/effective-dart/design#avoid-describing-the-parameters-in-the-functions-or-methods-name'>함수나 메서드의 이름에 파라미터를 묘사하는 것을 피하십시오.</a>
 * <a href='/guides/language/effective-dart/design#do-follow-existing-mnemonic-conventions-when-naming-type-parameters'>타입 파라미터를 명명할 때, 기존에 존재하는 니모닉 컨벤션(mnemonic conventions)을 따르십시오.</a>
 
 **라이브러리**
@@ -219,7 +219,7 @@
 * <a href='/guides/language/effective-dart/design#avoid-using-runtime-type-tests-to-fake-overloading'>가짜 오버로딩에 런타임 타입 테스트를 사용하는 것을 피하십시오.</a>
 * <a href='/guides/language/effective-dart/design#avoid-public-late-final-fields-without-initializers'>Initializers가 없는 public <code>late final</code> 필드 정의를 피하십시오.</a>
 * <a href='/guides/language/effective-dart/design#avoid-returning-nullable-future-stream-and-collection-types'>Nullable <code>Future</code>, <code>Stream</code>, 그리고 컬렉션 타입의 반환을 피하십시오.</a>
-* <a href='/guides/language/effective-dart/design#avoid-returning-this-from-methods-just-to-enable-a-fluent-interface'>원활한 인터페이스의 활성화를 위해 메소드에서 <code>this</code>의 반환을 피하십시오.</a>
+* <a href='/guides/language/effective-dart/design#avoid-returning-this-from-methods-just-to-enable-a-fluent-interface'>원활한 인터페이스의 활성화를 위해 메서드에서 <code>this</code>의 반환을 피하십시오.</a>
 
 **타입**
 

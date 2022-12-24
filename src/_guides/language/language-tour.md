@@ -133,7 +133,7 @@ Dart 언어를 학습 할 때 다음을 잘 기억해야합니다:
     또는 `List<Object>` (아무 타입의 list) 같은 제네릭 타입을 지원합니다.
 
 -   Dart는 클래스나 객체에 묶여있는 함수들 
-    (각각 *static*, *instance* 메소드) 뿐만 아니라, 
+    (각각 *static*, *instance* 메서드) 뿐만 아니라, 
     `main()` 같은 최상위 함수를 지원합니다.
     *중첩 함수* 또는 *지역 함수*처럼 함수 안에 함수를 생성할 수 있습니다.
 
@@ -649,7 +649,7 @@ assert(piAsString == '3.14');
 ```
 
 `int` 타입은 비트 필드에서 플래그를 조작하고 마스킹하는 데 유용한
-전통 비트와이즈 쉬프트 (`<<`, `>>`, `>>>`),
+전통 비트 단위 쉬프트 (`<<`, `>>`, `>>>`),
 보수 (`~`), AND (`&`), OR (`|`), 그리고 XOR (`^`) 연산자를 지원합니다.
 예제:
 
@@ -661,7 +661,7 @@ assert((3 & 4) == 0); // 0011 & 0100 == 0000
 ```
 
 더 많은 예제를 보고 싶다면,
-[비트와이즈와 쉬프트 연산자](#bitwise-and-shift-operators) 섹션을 참고하세요.
+[비트 단위 및 쉬프트 연산자](#bitwise-and-shift-operators) 섹션을 참고하세요.
 
 리터럴 숫자는 컴파일 타임 상수입니다.
 피연산자가 숫자를 평가(evaluate)하는 컴파일 타임 상수인 이상,
@@ -694,7 +694,7 @@ var s4 = "It's even easier to use the other delimiter.";
 
 `${`*`표현식`*`}`을 사용하여 표현식 안에 값을 넣을 수 있습니다.
 표현식이 식별자라면, {}을 생략할 수 있습니다. 객체와 일치하는 문자열을 얻기 위해,
-Dart는 객체의 `toString()` 메소드를 호출합니다.
+Dart는 객체의 `toString()` 메서드를 호출합니다.
 
 <?code-excerpt "misc/test/language_tour/built_in_types_test.dart (string-interpolation)"?>
 ```dart
@@ -930,7 +930,7 @@ assert(listOfStrings[1] == '#1');
 
 [spread proposal]: https://github.com/dart-lang/language/blob/master/accepted/2.3/spread-collections/feature-specification.md
 
-List 타입은 리스트를 조작하는 다양하고 간편한 메소드들을 가지고 있습니다.
+List 타입은 리스트를 조작하는 다양하고 간편한 메서드들을 가지고 있습니다.
 리스트에 대한 더 많은 정보를 원한다면,
 [제네릭](#generics) 그리고
 [컬렉션](/guides/libraries/library-tour#collections)을 참고하세요.
@@ -973,7 +973,7 @@ var names = <String>{};
   Dart는 `Map<dynamic, dynamic>` 타입의 객체를 생성합니다. 
 {{site.alert.end}}
 
-`add()` 또는 `addAll()` 메소드를 사용해 존재하는 set에 항목을 추가하세요:
+`add()` 또는 `addAll()` 메서드를 사용해 존재하는 set에 항목을 추가하세요:
 
 <?code-excerpt "misc/lib/language_tour/built_in_types.dart (set-add-items)"?>
 ```dart
@@ -1587,15 +1587,15 @@ void main() {
 
 ### 동등성 테스트 함수
 
-다음은 최상위 함수, 정적 메소드, 인스턴스 메소드의 동등성을 확인하는 테스트 코드 입니다:
+다음은 최상위 함수, 정적 메서드, 인스턴스 메서드의 동등성을 확인하는 테스트 코드 입니다:
 
 <?code-excerpt "misc/lib/language_tour/function_equality.dart"?>
 ```dart
 void foo() {} // 최상위 함수
 
 class A {
-  static void bar() {} // 정적 메소드
-  void baz() {} // 인스턴스 메소드
+  static void bar() {} // 정적 메서드
+  void baz() {} // 인스턴스 메서드
 }
 
 void main() {
@@ -1605,11 +1605,11 @@ void main() {
   x = foo;
   assert(foo == x);
 
-  // 정적 메소드를 비교.
+  // 정적 메서드를 비교.
   x = A.bar;
   assert(A.bar == x);
 
-  // 인스턴스 메소드를 비교.
+  // 인스턴스 메서드를 비교.
   var v = A(); // A의 인스턴스 #1
   var w = A(); // B의 인스턴스 #2
   var y = w;
@@ -1639,43 +1639,42 @@ assert(foo() == null);
 
 ## 연산자
 
-Dart supports the operators shown in the following table.
-The table shows Dart's operator associativity 
-and [operator precedence](#operator-precedence-example) from highest to lowest,
-which are an **approximation** of Dart's operator relationships.
-You can implement many of these [operators as class members](#_operators).
+Dart는 다음 표의 연산자들을 지원합니다.
+표는 Dart 연산자들의 관계에 대한 **근사**인 Dart의 연산자 결합법칙과
+[연산자 우선순위](#operator-precedence-example)를 최고에서
+최저의 순서로 알려줍니다.
+[클래스 멤버로서 연산자](#_operators)를 구현하는 것이 가능합니다.
 
 |-----------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------|
-| Description                             | Operator                                                                                                                                                                                          | Associativity |
+| 설명                                     | 연산자                                                                                                                                                                                              | 결합법칙        |
 |-----------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------|
-| unary postfix                           | <code><em>expr</em>++</code>    <code><em>expr</em>--</code>    `()`    `[]`    `?[]`    `.`    `?.`    `!`                                                                                       | None          |
-| unary prefix                            | <code>-<em>expr</em></code>    <code>!<em>expr</em></code>    <code>~<em>expr</em></code>    <code>++<em>expr</em></code>    <code>--<em>expr</em></code>      <code>await <em>expr</em></code>    | None          |
-| multiplicative                          | `*`    `/`    `%`    `~/`                                                                                                                                                                         | Left          |
-| additive                                | `+`    `-`                                                                                                                                                                                        | Left          |
-| shift                                   | `<<`    `>>`    `>>>`                                                                                                                                                                             | Left          |
-| bitwise AND                             | `&`                                                                                                                                                                                               | Left          |
-| bitwise XOR                             | `^`                                                                                                                                                                                               | Left          |
-| bitwise OR                              | `|`                                                                                                                                                                                               | Left          |
-| relational&nbsp;and&nbsp;type&nbsp;test | `>=`    `>`    `<=`    `<`    `as`    `is`    `is!`                                                                                                                                               | None          |
-| equality                                | `==`    `!=`                                                                                                                                                                                      | None          |
-| logical AND                             | `&&`                                                                                                                                                                                              | Left          |
-| logical OR                              | `||`                                                                                                                                                                                              | Left          |
-| if null                                 | `??`                                                                                                                                                                                              | Left          |
-| conditional                             | <code><em>expr1</em> ? <em>expr2</em> : <em>expr3</em></code>                                                                                                                                     | Right         |
-| cascade                                 | `..` &nbsp;&nbsp; `?..`                                                                                                                                                                           | Right         |
-| assignment                              | `=`    `*=`    `/=`    `+=`    `-=`    `&=`    `^=`    <em>etc.</em>                                                                                                                              | Right         |
+| unary postfix                           | <code><em>expr</em>++</code>    <code><em>expr</em>--</code>    `()`    `[]`    `?[]`    `.`    `?.`    `!`                                                                                       | 없음          |
+| unary prefix                            | <code>-<em>expr</em></code>    <code>!<em>expr</em></code>    <code>~<em>expr</em></code>    <code>++<em>expr</em></code>    <code>--<em>expr</em></code>      <code>await <em>expr</em></code>    | 없음          |
+| multiplicative                          | `*`    `/`    `%`    `~/`                                                                                                                                                                         | 왼쪽          |
+| additive                                | `+`    `-`                                                                                                                                                                                        | 왼쪽          |
+| shift                                   | `<<`    `>>`    `>>>`                                                                                                                                                                             | 왼쪽          |
+| bitwise AND                             | `&`                                                                                                                                                                                               | 왼쪽          |
+| bitwise XOR                             | `^`                                                                                                                                                                                               | 왼쪽          |
+| bitwise OR                              | `|`                                                                                                                                                                                               | 왼쪽          |
+| relational&nbsp;and&nbsp;type&nbsp;test | `>=`    `>`    `<=`    `<`    `as`    `is`    `is!`                                                                                                                                               | 없음          |
+| equality                                | `==`    `!=`                                                                                                                                                                                      | 없음          |
+| logical AND                             | `&&`                                                                                                                                                                                              | 왼쪽          |
+| logical OR                              | `||`                                                                                                                                                                                              | 왼쪽          |
+| if null                                 | `??`                                                                                                                                                                                              | 왼쪽          |
+| conditional                             | <code><em>expr1</em> ? <em>expr2</em> : <em>expr3</em></code>                                                                                                                                     | 오른쪽         |
+| cascade                                 | `..` &nbsp;&nbsp; `?..`                                                                                                                                                                           | 오른쪽         |
+| assignment                              | `=`    `*=`    `/=`    `+=`    `-=`    `&=`    `^=`    <em>etc.</em>                                                                                                                              | 오른쪽         |
 {:.table .table-striped}
 
+<!-- Authoritative -> 정직한 ? -->
 {{site.alert.warning}}
-  The previous table should only be used as a helpful guide.
-  The notion of operator precedence and associativity
-  is an approximation of the truth found in the language grammar.
-  You can find the authoritative behavior of Dart's operator relationships
-  in the grammar defined in the [Dart 언어 설명서][].
+  위의 표는 유용한 가이드로만 사용해야 합니다.
+  연산자 우선순위와 결합법칙에 대한 개념은 언어 문법의 사실을 기반으로 한
+  근사입니다. [Dart 언어 설명서][]에 정의된 문법에서
+  Dart 연산자 관계의 정직한 동작에 대해 확인할 수 있습니다.
 {{site.alert.end}}
 
-When you use operators, you create expressions. Here are some examples
-of operator expressions:
+연산자를 사용할 때는 식을 만듭니다. 다음은 연산자 식의 예제입니다:
 
 <?code-excerpt "misc/test/language_tour/operators_test.dart (expressions)" replace="/,//g"?>
 ```dart
@@ -1688,44 +1687,42 @@ a is T
 ```
 
 <a id="operator-precedence-example"></a>
-In the [operator table](#operators),
-each operator has higher precedence than the operators in the rows
-that follow it. For example, the multiplicative operator `%` has higher
-precedence than (and thus executes before) the equality operator `==`,
-which has higher precedence than the logical AND operator `&&`. That
-precedence means that the following two lines of code execute the same
-way:
+[연산자 테이블](#operators)에서 각 연산자는 그 뒤에 오는 행의 연산자보다
+높은 우선 순위를 가집니다. 예를 들어, 곱셈 연산자 `%`는
+등식 연산자 `==` 보다 높은 우선 순위를 가지고 더 먼저 실행됩니다.
+그리고 `==`는 논리 AND 연산자인 `&&` 보다 높은 우선 순위를 가집니다.
+이런 우선 순위는 다음 두 줄의 라인이 같은 방식으로 실행된다는 것을 의미합니다:
 
 <?code-excerpt "misc/test/language_tour/operators_test.dart (precedence)"?>
 ```dart
-// Parentheses improve readability.
+// 괄호는 가독성을 높혀줍니다.
 if ((n % i == 0) && (d % i == 0)) ...
 
-// Harder to read, but equivalent.
+// 가독성은 좋지 않지만 위와 동일합니다.
 if (n % i == 0 && d % i == 0) ...
 ```
 
 {{site.alert.warning}}
-  For operators that take two operands, the leftmost operand determines which
-  method is used. For example, if you have a `Vector` object and
-  a `Point` object, then `aVector + aPoint` uses `Vector` addition (`+`).
+  두 개의 피연산자를 가지는 연산자는, 맨 왼쪽 피연산자가 메서드를 결정합니다.
+  예를 들어, `Vector` 객체와 `Point` 객체로 `aVector + aPoint`를 수행하면,
+  `Vector`의 덧셈 (`+`)을 실행합니다.
 {{site.alert.end}}
 
 
-### Arithmetic operators
+### 산술 연산자
 
-Dart supports the usual arithmetic operators, as shown in the following table.
+Dart는 아래 표와 같이 일반적인 산술 연산자를 지원합니다.
 
 |-----------------------------+-------------------------------------------|
-| Operator                    | Meaning                                   |
+| 연산자                        | 의미                                       |
 |-----------------------------+-------------------------------------------|
-| `+`                         | Add
-| `-`                         | Subtract
-| <code>-<em>expr</em></code> | Unary minus, also known as negation (reverse the sign of the expression)
-| `*`                         | Multiply
-| `/`                         | Divide
-| `~/`                        | Divide, returning an integer result
-| `%`                         | Get the remainder of an integer division (modulo)
+| `+`                         | 더하기
+| `-`                         | 빼기
+| <code>-<em>expr</em></code> | 부정(negation)으로도 부르는 단항 빼기 (식 부호 역순)
+| `*`                         | 곱하기
+| `/`                         | 나누기
+| `~/`                        | 정수를 반환하는 나누기
+| `%`                         | 정수 나눗셈의 나머지를 반환 (modulo)
 {:.table .table-striped}
 
 Example:
@@ -1735,26 +1732,25 @@ Example:
 assert(2 + 3 == 5);
 assert(2 - 3 == -1);
 assert(2 * 3 == 6);
-assert(5 / 2 == 2.5); // Result is a double
-assert(5 ~/ 2 == 2); // Result is an int
-assert(5 % 2 == 1); // Remainder
+assert(5 / 2 == 2.5); // 결과는 double 타입
+assert(5 ~/ 2 == 2); // 결과는 int 타입
+assert(5 % 2 == 1); // 나머지
 
 assert('5/2 = ${5 ~/ 2} r ${5 % 2}' == '5/2 = 2 r 1');
 ```
 
-Dart also supports both prefix and postfix increment and decrement
-operators.
+Dart는 prefix, postfix 증가 및 감소 연산자를 지원합니다.
 
 |-----------------------------+-------------------------------------------|
-| Operator                    | Meaning                                   |
+| 연산자                        | 의미                                       |
 |-----------------------------+-------------------------------------------|
-| <code>++<em>var</em></code> | <code><em>var</em> = <em>var</em> + 1</code> (expression value is <code><em>var</em> + 1</code>)
-| <code><em>var</em>++</code> | <code><em>var</em> = <em>var</em> + 1</code> (expression value is <code><em>var</em></code>)
-| <code>--<em>var</em></code> | <code><em>var</em> = <em>var</em> - 1</code> (expression value is <code><em>var</em> - 1</code>)
-| <code><em>var</em>--</code> | <code><em>var</em> = <em>var</em> - 1</code> (expression value is <code><em>var</em></code>)
+| <code>++<em>var</em></code> | <code><em>var</em> = <em>var</em> + 1</code> (식의 값은 <code><em>var</em> + 1</code>)
+| <code><em>var</em>++</code> | <code><em>var</em> = <em>var</em> + 1</code> (식의 값은 <code><em>var</em></code>)
+| <code>--<em>var</em></code> | <code><em>var</em> = <em>var</em> - 1</code> (식의 값은 <code><em>var</em> - 1</code>)
+| <code><em>var</em>--</code> | <code><em>var</em> = <em>var</em> - 1</code> (식의 값은 <code><em>var</em></code>)
 {:.table .table-striped}
 
-Example:
+예제:
 
 <?code-excerpt "misc/test/language_tour/operators_test.dart (increment-decrement)"?>
 ```dart
@@ -1762,53 +1758,50 @@ int a;
 int b;
 
 a = 0;
-b = ++a; // Increment a before b gets its value.
+b = ++a; // b에 a의 값을 할당하기 전에 a를 증가시킵니다.
 assert(a == b); // 1 == 1
 
 a = 0;
-b = a++; // Increment a AFTER b gets its value.
+b = a++; // b에 a의 값을 할당한 후에 a를 증가시킵니다.
 assert(a != b); // 1 != 0
 
 a = 0;
-b = --a; // Decrement a before b gets its value.
+b = --a; // b에 a의 값을 할당하기 전에 a를 감소시킵니다.
 assert(a == b); // -1 == -1
 
 a = 0;
-b = a--; // Decrement a AFTER b gets its value.
+b = a--; // b에 a의 값을 할당한 후에 a를 감소시킵니다.
 assert(a != b); // -1 != 0
 ```
 
 
-### Equality and relational operators
+### 동등, 관계 연산자
 
-The following table lists the meanings of equality and relational operators.
+다음 표는 동등 및 관계 연산자의 뜻을 나열합니다.
 
 |-----------+-------------------------------------------|
-| Operator  | Meaning                                   |
+| 연산자      | 의미                                       |
 |-----------+-------------------------------------------|
-| `==`      |       Equal; see discussion below
-| `!=`      |       Not equal
-| `>`       |       Greater than
-| `<`       |       Less than
-| `>=`      |       Greater than or equal to
-| `<=`      |       Less than or equal to
+| `==`      |       동등; 아래 문단을 확인하세요
+| `!=`      |       동등하지 않음
+| `>`       |       큼
+| `<`       |       작음
+| `>=`      |       크거나 같음
+| `<=`      |       작거나 같음
 {:.table .table-striped}
 
-To test whether two objects x and y represent the same thing, use the
-`==` operator. (In the rare case where you need to know whether two
-objects are the exact same object, use the [identical()][]
-function instead.) Here’s how the `==` operator works:
+두 객체 x와 y가 동일한 것인지 확인하고 싶다면, `==` 연산자를 사용하세요.
+(드물게 두 객체가 정확하게 같은 것인지 확인하고 싶다면 [identical()][] 함수를 대신 사용하세요.)
+`==` 연산자는 다음과 같이 작동합니다:
 
-1.  If *x* or *y* is null, return true if both are null, and false if only
-    one is null.
+1.  *x* 또는 *y* 가 null 일 때, 모두 null이라면 true를, 둘 중에 하나만 null이라면
+    false를 반환합니다.
 
-2.  Return the result of invoking the `==` method on *x* with the argument *y*.
-    (That’s right, operators such as `==` are methods that
-    are invoked on their first operand.
-    For details, see [Operators](#_operators).)
+2.  *y* 를 인자로 사용하여 *x*에서 `==` 메서드를 호출한 결과를 반환합니다.
+    (`==` 같은 연산자들은 첫 번째 피연산자에서 호출되는 메서드입니다.
+    더 자세한 사항은 [연산자](#_operators)를 참고하세요.)
 
-Here’s an example of using each of the equality and relational
-operators:
+다음은 각 동등 및 관계 연산자의 사용 예제입니다:
 
 <?code-excerpt "misc/test/language_tour/operators_test.dart (relational)"?>
 ```dart
@@ -1821,101 +1814,94 @@ assert(2 <= 3);
 ```
 
 
-### Type test operators
+### 타입 테스트 연산자
 
-The `as`, `is`, and `is!` operators are handy for checking types at
-runtime.
+`as`, `is`, 및 `is!` 연산자는 런타임에 타입을 간단하게 확인 할 수 있습니다.
 
 |-----------+-------------------------------------------|
-| Operator  | Meaning                                   |
+| 연산자      | 의미                                       |
 |-----------+-------------------------------------------|
-| `as`      | Typecast (also used to specify [library prefixes](#specifying-a-library-prefix))
-| `is`      | True if the object has the specified type
-| `is!`     | True if the object doesn't have the specified type
+| `as`      | 타입캐스트 ([라이브러리 prefixes](#specifying-a-library-prefix)를 특정할 때도 사용)
+| `is`      | 특정된 타입을 가지는 객체라면 True
+| `is!`     | 특정된 타입을 가지는 객체가 아니라면 True
 {:.table .table-striped}
 
-The result of `obj is T` is true if `obj` implements the interface
-specified by `T`. For example, `obj is Object?` is always true.
+`obj` 가 `T` 로 특정된 인터페이스의 구현체라면 `obj is T` 의 결과는 true 입니다.
+예를 들어, `obj is Object?`는 항상 true 입니다.
 
-Use the `as` operator to cast an object to a particular type if and only if
-you are sure that the object is of that type. Example:
+어떤 객체가 캐스팅을 원하는 타입인 경우에만 `as` 연산자를 사용해여 캐스팅 할 수 있습니다. 예제:
 
 <?code-excerpt "misc/lib/language_tour/classes/employee.dart (emp as Person)"?>
 ```dart
 (employee as Person).firstName = 'Bob';
 ```
 
-If you aren't sure that the object is of type `T`, then use `is T` to check the
-type before using the object.
+만약 객체가 타입 `T`라는 것을 확실하지 못한다면, 객체를 사용하기 전에 `is T`로 타입을 확인하세요.
 <?code-excerpt "misc/lib/language_tour/classes/employee.dart (emp is Person)"?>
 ```dart
 if (employee is Person) {
-  // Type check
+  // 타입 확인
   employee.firstName = 'Bob';
 }
 ```
 
 {{site.alert.note}}
-  The code isn’t equivalent. If `employee` is null or not a `Person`, the
-  first example throws an exception; the second does nothing.
+  위의 두 코드는 같지 않습니다. 만약 `employee` 가 null이거나 `Person`이 아니라면,
+  첫 번째 코드는 예외가 발생하지만, 두 번째는 그렇지 않습니다.
 {{site.alert.end}}
 
-### Assignment operators
+### 할당 연산자
 
-As you’ve already seen, you can assign values using the `=` operator.
-To assign only if the assigned-to variable is null,
-use the `??=` operator.
+앞서 봤다시피, `=` 연산자를 사용해 값을 할당할 수 있습니다.
+할당을 받는 변수가 null 일 때만 할당하고 싶다면, `??=` 연산자를 사용하면 됩니다.
 
 <?code-excerpt "misc/test/language_tour/operators_test.dart (assignment)"?>
 ```dart
-// Assign value to a
+// a에 value를 할당합니다
 a = value;
-// Assign value to b if b is null; otherwise, b stays the same
+// b가 null이라면 value를 할당하고, 그렇지 않으면 그대로 둡니다.
 b ??= value;
 ```
 
-Compound assignment operators such as `+=` combine
-an operation with an assignment.
+`+=` 같은 복합(compound) 할당 연산자는 할당과 연산을 결합합니다.
 
 | `=`  | `*=`  | `%=`  | `>>>=` | `^=`
 | `+=` | `/=`  | `<<=` | `&=`   | `|=`
 | `-=` | `~/=` | `>>=`
 {:.table}
 
-Here’s how compound assignment operators work:
+복합 할당 연산자는 다음과 같이 작동합니다:
 
 |-----------+----------------------+-----------------------|
-|           | Compound assignment  | Equivalent expression |
+|           | 복합 할당               | 동일한 식               |
 |-----------+----------------------+-----------------------|
-|**For an operator <em>op</em>:** | <code>a <em>op</em>= b</code> | <code>a = a <em>op</em> b</code>
-|**Example:**                     |`a += b`                       | `a = a + b`
+|**연산자 <em>op</em>:** | <code>a <em>op</em>= b</code> | <code>a = a <em>op</em> b</code>
+|**예제:**                     |`a += b`                       | `a = a + b`
 {:.table}
 
-The following example uses assignment and compound assignment
-operators:
+다음 예제에서 할당 및 복합 할당 연산자를 사용합니다:
 
 <?code-excerpt "misc/test/language_tour/operators_test.dart (op-assign)"?>
 ```dart
-var a = 2; // Assign using =
-a *= 3; // Assign and multiply: a = a * 3
+var a = 2; // = 을 사용하여 할당
+a *= 3; // 할당 및 곱셈: a = a * 3
 assert(a == 6);
 ```
 
 
-### Logical operators
+### 논리 연산자
 
-You can invert or combine boolean expressions using the logical
-operators.
+논리 연산자를 사용하여 boolean 식을 반전하거나 결합하는 것이 가능합니다.
 
 |-----------------------------+-------------------------------------------|
-| Operator                    | Meaning                                   |
+| 연산자                        | 의미                                       |
 |-----------------------------+-------------------------------------------|
-| <code>!<em>expr</em></code> | inverts the following expression (changes false to true, and vice versa)
-| `||`                        | logical OR
-| `&&`                        | logical AND
+| <code>!<em>expr</em></code> | 뒤따르는 식을 반전합니다 (false -> true, true -> false)
+| `||`                        | 논리 OR
+| `&&`                        | 논리 AND
 {:.table .table-striped}
 
-Here’s an example of using the logical operators:
+다음은 논리 연산자를 사용하는 예제입니다:
 
 <?code-excerpt "misc/lib/language_tour/operators.dart (op-logical)"?>
 ```dart
@@ -1925,24 +1911,24 @@ if (!done && (col == 0 || col == 3)) {
 ```
 
 
-### Bitwise and shift operators
+### 비트 단위 그리고 쉬프트 연산자
 
-You can manipulate the individual bits of numbers in Dart. Usually,
-you’d use these bitwise and shift operators with integers.
+Dart에서는 숫자를 이루는 각각의 비트를 조작하는 것이 가능합니다.
+주로 비트 단위 및 쉬프트 연산자는 정수와 함께 사용됩니다.
 
 |-----------------------------+-------------------------------------------|
-| Operator                    | Meaning                                   |
+| 연산자                        | 의미                                       |
 |-----------------------------+-------------------------------------------|
 | `&`                         | AND
 | `|`                         | OR
 | `^`                         | XOR
-| <code>~<em>expr</em></code> | Unary bitwise complement (0s become 1s; 1s become 0s)
+| <code>~<em>expr</em></code> | 단항 비트 단위 보수 (0s -> 1s; 1s -> 0s)
 | `<<`                        | Shift left
 | `>>`                        | Shift right
 | `>>>`                       | Unsigned shift right
 {:.table .table-striped}
 
-Here’s an example of using bitwise and shift operators:
+다음은 비트 단위 및 쉬프트 연산자를 사용하는 예제입니다:
 
 <?code-excerpt "misc/test/language_tour/operators_test.dart (op-bitwise)"?>
 ```dart
@@ -1961,50 +1947,44 @@ assert((-value >>> 4) > 0); // Unsigned shift right
 ```
 
 {{site.alert.version-note}}
-  The `>>>` operator (known as _triple-shift_ or _unsigned shift_)
-  requires a [language version][] of at least 2.14.
+  _Triple-shift_ 또는 _unsigned shift_ 로 불리는 `>>>` 연산자는
+  적어도 2.14의 [language version][]이 필요합니다.
 {{site.alert.end}}
 
 
-### Conditional expressions
+### 조건 표현식
 
-Dart has two operators that let you concisely evaluate expressions
-that might otherwise require [if-else](#if-and-else) statements:
+Dart에는 [if-else](#if-and-else)문을 간결하게 표현 할 수 있는 두 개의 연산자가 있습니다:
 
-<code><em>condition</em> ? <em>expr1</em> : <em>expr2</em></code>
-: If _condition_ is true, evaluates _expr1_ (and returns its value);
-  otherwise, evaluates and returns the value of _expr2_.
+<code><em>조건</em> ? <em>표현식1</em> : <em>표현식2</em></code>
+: 만약 _condition_ 이 참이라면, _표현식1_ 의 값을 반환하고, 아니라면 _표현식2_ 의 값을 반환합니다.
 
-<code><em>expr1</em> ?? <em>expr2</em></code>
-: If _expr1_ is non-null, returns its value;
-  otherwise, evaluates and returns the value of _expr2_.
+<code><em>표현식1</em> ?? <em>표현식2</em></code>
+: 만약 _표현식1_ 이 null이 아니라면, _표현식1_ 의 값을 반환하고 null이라면,
+  _표현식2_ 의 값을 반환합니다.
 
-When you need to assign a value
-based on a boolean expression,
-consider using `?` and `:`.
+Boolean 표현식으로 어떤 값을 할당하는 상황이라면, `?` 와 `:` 을 사용해보세요.
 
 <?code-excerpt "misc/lib/language_tour/operators.dart (if-then-else-operator)"?>
 ```dart
 var visibility = isPublic ? 'public' : 'private';
 ```
 
-If the boolean expression tests for null,
-consider using `??`.
+Boolean 표현식이 null인지 확인하고 싶다면, `??` 를 사용하세요.
 
 <?code-excerpt "misc/test/language_tour/operators_test.dart (if-null)"?>
 ```dart
 String playerName(String? name) => name ?? 'Guest';
 ```
 
-The previous example could have been written at least two other ways,
-but not as succinctly:
+위의 예는 다음과 같이 두 개의 방법으로 표현 될 수 있지만, 깔끔하진 않습니다:
 
 <?code-excerpt "misc/test/language_tour/operators_test.dart (if-null-alt)"?>
 ```dart
-// Slightly longer version uses ?: operator.
+// ?: 연산자보다 조금 긴 버젼
 String playerName(String? name) => name != null ? name : 'Guest';
 
-// Very long version uses if-else statement.
+// if-else 문을 사용한 훨씬 긴 버젼.
 String playerName(String? name) {
   if (name != null) {
     return name;
@@ -2015,15 +1995,13 @@ String playerName(String? name) {
 ```
 
 <a id="cascade"></a>
-### Cascade notation
+### Cascade 표기법
 
-Cascades (`..`, `?..`) allow you to make a sequence of operations
-on the same object. In addition to accessing instance members,
-you can also call instance methods on that same object.
-This often saves you the step of creating a temporary variable and
-allows you to write more fluid code.
+Cascades (`..`, `?..`) 는 같은 객체에 대해 연속적인 명령을 적용할 수 있게 해줍니다. 
+인스턴스 멤버에 접근하거나 인스턴스 메서드 호출 또한 가능합니다.
+이런 기능은 임시 변수를 만드는 과정을 줄이고 코드를 더 유동적으로 만들어 줍니다.
 
-Consider the following code:
+다음 코드를 살펴보세요:
 
 <?code-excerpt "misc/lib/language_tour/cascades.dart (cascade)"?>
 ```dart
@@ -2033,13 +2011,11 @@ var paint = Paint()
   ..strokeWidth = 5.0;
 ```
 
-The constructor, `Paint()`,
-returns a `Paint` object.
-The code that follows the cascade notation operates
-on this object, ignoring any values that
-might be returned.
+생성자 `Paint()`는 `paint` 객체를 반환합니다.
+Casade 노테이션 뒤에 오는 코드들은 반환 될 값들을 무시하며,
+해당 객체에 대해 작동합니다.
 
-The previous example is equivalent to this code:
+위의 코드는 아래의 코드와 동일합니다:
 
 <?code-excerpt "misc/lib/language_tour/cascades.dart (cascade-expanded)"?>
 ```dart
@@ -2049,25 +2025,25 @@ paint.strokeCap = StrokeCap.round;
 paint.strokeWidth = 5.0;
 ```
 
-If the object that the cascade operates on can be null,
-then use a _null-shorting_ cascade (`?..`) for the first operation.
-Starting with `?..` guarantees that none of the cascade operations
-are attempted on that null object.
+만약 cascade를 사용하려는 객체의 필드가 null 일 수도 있다면,
+_null-shorting_ cascade (?..)를 첫 번째 오퍼레이션으로 사용하세요.
+`?..` 으로 시작하는 cascade는 뒤에 오는 cascade 오퍼레이션이
+null 객체 일 수도 있는 객체에 대해 실행되지 않을 것을 보장합니다.
 
 <?code-excerpt "misc/test/language_tour/browser_test.dart (cascade-operator)"?>
 ```dart
-querySelector('#confirm') // Get an object.
-  ?..text = 'Confirm' // Use its members.
+querySelector('#confirm') // 객체 찾기.
+  ?..text = 'Confirm' // 객체의 멤버 사용.
   ..classes.add('important')
   ..onClick.listen((e) => window.alert('Confirmed!'))
   ..scrollIntoView();
 ```
 
 {{site.alert.version-note}}
-  The `?..` syntax requires a [language version][] of at least 2.12.
+  `?..` 문법은 적어도 2.12의 [language version][]이 필요합니다.
 {{site.alert.end}}
 
-The previous code is equivalent to the following:
+위의 코드는 다음과 동일합니다:
 
 <?code-excerpt "misc/test/language_tour/browser_test.dart (cascade-operator-example-expanded)"?>
 ```dart
@@ -2078,7 +2054,7 @@ button?.onClick.listen((e) => window.alert('Confirmed!'));
 button?.scrollIntoView();
 ```
 
-You can also nest cascades. For example:
+다음과 같이 중첩 cascade도 가능합니다:
 
 <?code-excerpt "misc/lib/language_tour/operators.dart (nested-cascades)"?>
 ```dart
@@ -2092,41 +2068,41 @@ final addressBook = (AddressBookBuilder()
     .build();
 ```
 
-Be careful to construct your cascade on a function that returns
-an actual object. For example, the following code fails:
+실제 객체를 반환하는 함수에 대해서만 cascade를 사용해야 합니다.
+다음과 같은 코드는 에러가 발생합니다:
 
 <?code-excerpt "misc/lib/language_tour/operators.dart (cannot-cascade-on-void)" plaster="none"?>
 ```dart
 var sb = StringBuffer();
 sb.write('foo')
-  ..write('bar'); // Error: method 'write' isn't defined for 'void'.
+  ..write('bar'); // 에러: 메서드 'write'는 'void'에 정의되어 있지 않습니다.
 ```
 
-The `sb.write()` call returns void,
-and you can't construct a cascade on `void`.
+The `sb.write()` 호출은 void를 반환하고,
+`void`에는 cascade를 사용 할 수 없습니다.
 
 {{site.alert.note}}
-  Strictly speaking, the "double dot" notation for cascades isn't an operator.
-  It's just part of the Dart syntax.
+  엄밀히 말하자면, cascades를 위한 “double dot” 표기는 연산자가 아닙니다.
+  이것은 그저 Dart 문법의 일부입니다.
 {{site.alert.end}}
 
-### Other operators
+### 다른 연산자들
 
-You've seen most of the remaining operators in other examples:
+아마 다른 예제에서 아래의 연산자들을 본 경험이 있을 것 입니다:
 
 |----------+------------------------------+--------------------|
-| Operator | Name                         | Meaning            |
+| 연산자     | 이름                          | 의미                |
 |----------+------------------------------+--------------------|
-| `()`     | Function application         | Represents a function call
-| `[]`     | Subscript access             | Represents a call to the overridable `[]` operator; example: `fooList[1]` passes the int `1` to `fooList` to access the element at index `1`
-| `?[]`    | Conditional subscript access | Like `[]`, but the leftmost operand can be null; example: `fooList?[1]` passes the int `1` to `fooList` to access the element at index `1` unless `fooList` is null (in which case the expression evaluates to null)
-| `.`      | Member access                | Refers to a property of an expression; example: `foo.bar` selects property `bar` from expression `foo`
-| `?.`     | Conditional member access    | Like `.`, but the leftmost operand can be null; example: `foo?.bar` selects property `bar` from expression `foo` unless `foo` is null (in which case the value of `foo?.bar` is null)
-| `!`      | Null assertion operator      | Casts an expression to its underlying non-nullable type, throwing a runtime exception if the cast fails; example: `foo!.bar` asserts `foo` is non-null and selects the property `bar`, unless `foo` is null in which case a runtime exception is thrown
+| `()`     | Function application         | 함수 호출을 나타냅니다.
+| `[]`     | Subscript access             | 재정의 할 수 있는 연산자 `[]`의 호출을 나타냅니다; 예제: `fooList[1]`는 `fooList`의 인덱스 `1`에 위치한 요소에 접근하기 위해 정수 `1`을 전달합니다.
+| `?[]`    | Conditional subscript access | `[]`와 비슷하지만 맨 왼쪽 피연산자가 null일 수 있습니다; 예제: `fooList[1]`는 `fooList`가 null이 아니라면, `fooList`의 인덱스 `1`에 위치한 요소에 접근하기 위해 정수 `1`을 전달합니다. (만약 null이라면 표현식은 null로 평가됩니다.)
+| `.`      | Member access                | 표현식의 프로퍼티를 참조합니다; 예제: `foo.bar`는 표현식 `foo`의 프로퍼티 `bar`를 선택합니다.
+| `?.`     | Conditional member access    | `.`와 비슷하지만, 맨 왼쪽 피연산자가 null일 수 있습니다; 예제: `foo?.bar`는 `foo`가 null이 아니라면 표현식 `foo`의 프로퍼티 `bar`를 선택합니다. (만약 null이라면 `foo?.bar`의 값은 null입니다.)
+| `!`      | Null assertion operator      | 표현식을 내제된 non-nullable 타입으로 캐스트합니다. 만약 캐스트에 실패하면 런타임 예외를 발생시킵니다; 예제: `foo!.bar`는 `foo`가 null이 아닌지 assert 하고, `foo`가 null이 아니라면 프로퍼티 `bar`를 선택합니다. (만약 null이라면 런타임 예외를 발생시킵니다.)
 {:.table .table-striped}
 
-For more information about the `.`, `?.`, and `..` operators, see
-[Classes](#classes).
+`.`, `?.`, 그리고 `..` 연산자에 대한 더 많은 정보는,
+[클래스](#classes)를 참고하세요.
 
 
 ## Control flow statements
