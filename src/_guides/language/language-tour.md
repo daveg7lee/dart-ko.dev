@@ -421,7 +421,7 @@ void main() {
 ```
 
 
-### Final 그리고 const
+### Final, const
 
 변수를 변경할 생각이 없다면, `var` 대신 `final`이나 `const`를 사용하거나,
 지정한 타입에 추가하여 사용하세요.
@@ -837,7 +837,7 @@ var list = [1, 2, 3];
 
 <a name="trailing-comma"></a>
 Dart 컬렉션 리터럴의 마지막 아이템 뒤에 쉼표를 추가할 수 있습니다.
-이 _trailing comma_ 는 컬렉션에 영향을 미치진 않지만,
+_trailing comma_ 는 컬렉션에 영향을 미치진 않지만,
 복사-붙여넣기 에러 예방을 도와줍니다.
 
 <?code-excerpt "misc/lib/language_tour/built_in_types.dart (trailing-commas)"?>
@@ -1135,7 +1135,8 @@ Map에 대한 더 많은 정보를 원한다면,
 참고하세요.
 
 <a id="characters"></a>
-### Runes 그리고 grapheme clusters
+
+### Runes, grapheme clusters
 
 Dart에서 [runes][]는 문자열의 유니코드 코드 포인트를 나타냅니다.
 [characters package][]를 사용하여
@@ -1911,7 +1912,7 @@ if (!done && (col == 0 || col == 3)) {
 ```
 
 
-### 비트 단위 그리고 쉬프트 연산자
+### 비트 단위, 쉬프트 연산자
 
 Dart에서는 숫자를 이루는 각각의 비트를 조작하는 것이 가능합니다.
 주로 비트 단위 및 쉬프트 연산자는 정수와 함께 사용됩니다.
@@ -2105,25 +2106,25 @@ The `sb.write()` 호출은 void를 반환하고,
 [클래스](#classes)를 참고하세요.
 
 
-## Control flow statements
+## 흐름 제어문
 
-You can control the flow of your Dart code using any of the following:
+다음 키워드들을 사용하여 Dart 코드의 흐름을 제어할 수 있습니다:
 
--   `if` and `else`
--   `for` loops
--   `while` and `do`-`while` loops
--   `break` and `continue`
--   `switch` and `case`
+-   `if` 그리고 `else`
+-   `for` 루프
+-   `while` 그리고 `do`-`while` 루프
+-   `break` 그리고 `continue`
+-   `switch` 그리고 `case`
 -   `assert`
 
-You can also affect the control flow using `try-catch` and `throw`, as
-explained in [Exceptions](#exceptions).
+[예외](#exceptions)에 설명되어 있듯이, `try-catch` 그리고 `throw`를 사용해도
+흐름 제어가 가능합니다.
 
 
-### If and else
+### If, else
 
-Dart supports `if` statements with optional `else` statements, as the
-next sample shows. Also see [conditional expressions](#conditional-expressions).
+다음 예제가 보여주듯이, `if` 문에 `else` 문을 사용하는 것은 선택적입니다.
+[조건 표현식](#conditional-expressions)도 살펴보세요.
 
 <?code-excerpt "misc/lib/language_tour/control_flow.dart (if-else)"?>
 ```dart
@@ -2136,14 +2137,13 @@ if (isRaining()) {
 }
 ```
 
-The statement conditions must be expressions
-that evaluate to boolean values, nothing else.
-See [Booleans](#booleans) for more information.
+구문 조건은 반드시 boolean 값을 평가하는 표현식으로 제공되어야 합니다.
+더 자세한 사항은 [Booleans](#booleans)을 살펴보세요.
 
 
-### For loops
+### For 루프
 
-You can iterate with the standard `for` loop. For example:
+기본 `for` 루프를 사용하여 반복을 수행할 수 있습니다. 예제:
 
 <?code-excerpt "misc/test/language_tour/control_flow_test.dart (for)"?>
 ```dart
@@ -2153,8 +2153,8 @@ for (var i = 0; i < 5; i++) {
 }
 ```
 
-Closures inside of Dart’s `for` loops capture the _value_ of the index,
-avoiding a common pitfall found in JavaScript. For example, consider:
+Dart의 `for` 루프 안에 있는 클로저는 Javascript에서 흔하게 발생하는
+위험을 피하면서 해당 인덱스의 _값_ 을 캡쳐합니다. 예제:
 
 <?code-excerpt "misc/test/language_tour/control_flow_test.dart (for-and-closures)"?>
 ```dart
@@ -2168,12 +2168,12 @@ for (final c in callbacks) {
 }
 ```
 
-The output is `0` and then `1`, as expected. In contrast, the example
-would print `2` and then `2` in JavaScript.
+예상대로라면 `0`과 `1`을 출력합니다. 하지만, Javascript에서
+이 예제는 `2`와 `2`를 출력합니다.
 
-If the object that you are iterating over is an Iterable (such as List or Set)
-and if you don't need to know the current iteration counter, 
-you can use the `for-in` form of [iteration][]:
+반복하고 있는 객체가 List 또는 Set 같은 Iterable 이고
+현재 반복 카운터를 알 필요가 없다면,
+[iteration][]에 `for-in` 형태를 사용할 수 있습니다:
 
 <?code-excerpt "misc/lib/language_tour/control_flow.dart (collection)"?>
 ```dart
@@ -2183,11 +2183,12 @@ for (final candidate in candidates) {
 ```
 
 {{site.alert.tip}}
-  To practice using `for-in`, follow the
-  [Iterable collections codelab](/codelabs/iterables).
+  `for-in` 사용을 연습해보고 싶다면,
+  [Iterable collections codelab](/codelabs/iterables)
+  을 참고하세요.
 {{site.alert.end}}
 
-Iterable classes also have a [forEach()][] method as another option:
+Iterable 클래스는 다른 옵션으로 [forEach()][] 메서드 또한 가지고 있습니다.
 
 <?code-excerpt "misc/test/language_tour/control_flow_test.dart (forEach)"?>
 ```dart
@@ -2196,9 +2197,9 @@ collection.forEach(print); // 1 2 3
 ```
 
 
-### While and do-while
+### While, do-while
 
-A `while` loop evaluates the condition before the loop:
+`while` 루프는 루프를 실행하기 전에 조건을 평가합니다:
 
 <?code-excerpt "misc/lib/language_tour/control_flow.dart (while)"?>
 ```dart
@@ -2207,7 +2208,7 @@ while (!isDone()) {
 }
 ```
 
-A `do`-`while` loop evaluates the condition *after* the loop:
+`do`-`while` 루프는 루프를 실행한 *뒤에* 조건을 평가합니다:
 
 <?code-excerpt "misc/lib/language_tour/control_flow.dart (do-while)"?>
 ```dart
@@ -2217,9 +2218,9 @@ do {
 ```
 
 
-### Break and continue
+### Break, continue
 
-Use `break` to stop looping:
+루프를 멈추고 싶다면 `break`를 사용하세요:
 
 <?code-excerpt "misc/lib/language_tour/control_flow.dart (while-break)"?>
 ```dart
@@ -2229,7 +2230,7 @@ while (true) {
 }
 ```
 
-Use `continue` to skip to the next loop iteration:
+다음 루프 반복으로 넘어가고 싶다면 `continue`를 사용하세요:
 
 <?code-excerpt "misc/lib/language_tour/control_flow.dart (for-continue)"?>
 ```dart
@@ -2242,8 +2243,8 @@ for (int i = 0; i < candidates.length; i++) {
 }
 ```
 
-You might write that example differently if you’re using an
-[`Iterable`][] such as a list or set:
+List 또는 Set같은 [`Iterable`][]을 사용한다면 위의
+예제를 다른 형태로 작성하는 것이 가능합니다:
 
 <?code-excerpt "misc/lib/language_tour/control_flow.dart (where)"?>
 ```dart
@@ -2253,19 +2254,18 @@ candidates
 ```
 
 
-### Switch and case
+### Switch, case
 
-Switch statements in Dart compare integer, string, or compile-time
-constants using `==`. The compared objects must all be instances of the
-same class (and not of any of its subtypes), and the class must not
-override `==`.
-[Enumerated types](#enumerated-types) work well in `switch` statements.
+Dart의 Switch 문은 `==`를 사용해 정수, 문자열 그리고 컴파일 타임 상수를 비교합니다.
+비교되는 객체는 반드시 동일한 클래스의 인스턴스이어야 하고 (서브타입도 불가능합니다),
+해당 클래스는 `==`를 재정의해서는 안 됩니다.
+[Enumerated 타입](#enumerated-types) 은 `switch` 문에서 효과적입니다.
 
-Each non-empty `case` clause ends with a `break` statement, as a rule.
-Other valid ways to end a non-empty `case` clause are a `continue`,
-`throw`, or `return` statement.
+비어있지 않은 `case` 절은 `break` 문으로 끝나는 것이 규칙입니다.
+비어있지 않은 `case` 절을 끝내는 또 다른 방법으로는 `continue`,
+`throw`, 그리고 `return` 문이 있습니다.
 
-Use a `default` clause to execute code when no `case` clause matches:
+모든 `case` 절에 해당하지 않는 코드를 실행하고 싶다면 `default` 절을 사용하세요:
 
 <?code-excerpt "misc/lib/language_tour/control_flow.dart (switch)"?>
 ```dart
@@ -2291,8 +2291,8 @@ switch (command) {
 }
 ```
 
-The following example omits the `break` statement in a `case` clause,
-thus generating an error:
+다음 예제는 `case` 절에서 `break` 문을 생략해서
+에러가 발생합니다:
 
 <?code-excerpt "misc/lib/language_tour/control_flow.dart (switch-break-omitted)" plaster="none"?>
 ```dart
@@ -2308,23 +2308,21 @@ switch (command) {
 }
 ```
 
-However, Dart does support empty `case` clauses, allowing a form of
-fall-through:
+그러나, Dart는 완성되지 않은 형태를 허용하며, 비어있는 `case` 문을 지원합니다:
 
 <?code-excerpt "misc/lib/language_tour/control_flow.dart (switch-empty-case)"?>
 ```dart
 var command = 'CLOSED';
 switch (command) {
-  case 'CLOSED': // Empty case falls through.
+  case 'CLOSED': // 완성되지 않은 빈 case.
   case 'NOW_CLOSED':
-    // Runs for both CLOSED and NOW_CLOSED.
+    // CLASED 그리고 NOW_CLOSED에 대해 모두 실행합니다.
     executeNowClosed();
     break;
 }
 ```
 
-If you really want fall-through, you can use a `continue` statement and
-a label:
+완성되지 않은 case를 사용하고 싶다면, `continue` 문과 레이블을 같이 사용해도 됩니다:
 
 <?code-excerpt "misc/lib/language_tour/control_flow.dart (switch-continue)"?>
 ```dart
@@ -2333,43 +2331,40 @@ switch (command) {
   case 'CLOSED':
     executeClosed();
     continue nowClosed;
-  // Continues executing at the nowClosed label.
+  // nowClosed 레이블을 실행합니다.
 
   nowClosed:
   case 'NOW_CLOSED':
-    // Runs for both CLOSED and NOW_CLOSED.
+    // CLOSED 그리고 NOW_CLOSED에 대해 모두 실행합니다.
     executeNowClosed();
     break;
 }
 ```
 
-A `case` clause can have local variables, which are visible only inside
-the scope of that clause.
+`case` 절은 해당 절의 범위에서만 사용 가능한 지역 변수를 가질 수 있습니다.
 
 
 ### Assert
 
-During development, use an assert 
-statement—<code>assert(<em>condition</em>, <em>optionalMessage</em>)</code>;—to
-disrupt normal execution if a boolean condition is false. 
-You can find examples of assert statements throughout this tour. 
-Here are some more:
+개발하는 동안, boolean 조건이 false 일 때 코드 진행을 멈추고 싶다면
+<code>assert(<em>condition</em>, <em>optionalMessage</em>)</code>; 를 사용하세요.
+이 페이지에서 많은 assert 문의 예제를 볼 수 있을 겁니다:
 
 <?code-excerpt "misc/test/language_tour/control_flow_test.dart (assert)"?>
 ```dart
-// Make sure the variable has a non-null value.
+// 변수가 non-null 값을 가지도록 보장합니다.
 assert(text != null);
 
-// Make sure the value is less than 100.
+// 값이 100 보다 작도록 보장합니다.
 assert(number < 100);
 
-// Make sure this is an https URL.
+// urlString이 https URL임을 보장합니다.
 assert(urlString.startsWith('https'));
 ```
 
-To attach a message to an assertion,
-add a string as the second argument to `assert`
-(optionally with a [trailing comma][trailing commas]):
+Assertion에 메시지를 더하고 싶다면,
+`assert`의 두 번째 인자에 문자열을 추가하세요
+([trailing comma][trailing commas]를 사용해도됩니다):
 
 <?code-excerpt "misc/test/language_tour/control_flow_test.dart (assert-with-message)"?>
 ```dart
@@ -2377,23 +2372,22 @@ assert(urlString.startsWith('https'),
     'URL ($urlString) should start with "https".');
 ```
 
-The first argument to `assert` can be any expression that
-resolves to a boolean value. If the expression’s value
-is true, the assertion succeeds and execution
-continues. If it's false, the assertion fails and an exception (an
-[`AssertionError`][]) is thrown.
+`assert`의 첫 번째 인자에는 boolean 값을 평가하는 표현식이 와야합니다.
+표현식의 값이 true라면 assertion은 성공하고 다음 코드를 실행합니다.
+False라면, assertion은 실패하고 예외([`AssertionError`][])
+를 발생시킵니다.
 
-When exactly do assertions work?
-That depends on the tools and framework you're using:
+Assertion의 역할이 정확하게 무엇일까요?
+그건 사용하는 도구나 프레임워크에 따라 다릅니다:
 
-* Flutter enables assertions in [debug mode.][Flutter debug mode]
-* Development-only tools such as [`webdev serve`][]
-  typically enable assertions by default.
-* Some tools, such as [`dart run`][] and [`dart compile js`][]
-  support assertions through a command-line flag: `--enable-asserts`.
+* Flutter는 [debug mode][Flutter debug mode]에서만 assertion이 활성화됩니다.
+* [`webdev serve`][] 같이 오직 개발을 위한 툴은
+  보통 디폴트로 assertion이 활성화되어있습니다.
+* [`dart run`][] and [`dart compile js`][] 같은 툴들은,
+  커맨드 라인 플래그 `--enable-asserts`를 사용해 assertion을 지원합니다.
 
-In production code, assertions are ignored, and
-the arguments to `assert` aren't evaluated.
+프로덕션 코드에서, assertion은 무시되고
+`assert`의 인자는 평가되지 않습니다.
 
 [webdev serve]: /tools/webdev#serve
 [dart compile js]: /tools/dart-compile#js
