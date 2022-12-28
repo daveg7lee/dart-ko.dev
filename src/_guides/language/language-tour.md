@@ -2553,54 +2553,47 @@ try {
 
 ## 클래스
 
-Dart is an object-oriented language with classes and mixin-based
-inheritance. Every object is an instance of a class, and all classes
-except `Null` descend from [`Object`][].
-*Mixin-based inheritance* means that although every class
-(except for the [top class][top-and-bottom], `Object?`)
-has exactly one superclass, a class body can be reused in
-multiple class hierarchies.
-[Extension methods](#extension-methods) are a way to
-add functionality to a class without changing the class or creating a subclass.
+Dart는 클래스와 mixin 기반 상속을 지원하는 객체지향언어입니다.
+모든 객체는 클래스의 인스턴스이고, `Null`을 제외한 클래스는 모두 [`Object`][]에서 비롯합니다.
+*Mixin 기반 상속*이란 말은, 모든 클래스가 하나의 superclass를 가지고 있지만
+([top class][top-and-bottom]인 `Object?`를 제외한) 클래스의 바디는 다양한 클래스 계층에서 재사용 될 수 있음을 의미합니다.
+[Extension methods](#extension-methods)는 서브 클래스를 추가하거나, 클래스를 바꾸지 않고 클래스에 기능을 추가하는 방법입니다.
 
 
-### Using class members
+### 클래스 멤버 사용하기
 
-Objects have *members* consisting of functions and data (*methods* and
-*instance variables*, respectively). When you call a method, you *invoke*
-it on an object: the method has access to that object’s functions and
-data.
+객체들은 함수와 데이터 (각각 *메서드*, *인스턴스 변수*)로 이루어진 *멤버*들을 가집니다.
+메서드를 호출 할 때, 객체에서 함수를 *호출*합니다:
+메서드는 해당 객체의 함수와 데이터에 접근 할 수 있습니다.
 
-Use a dot (`.`) to refer to an instance variable or method:
+Dot (`.`)을 사용햐여 인스턴스 변수나, 메서드를 사용합니다:
 
 <?code-excerpt "misc/test/language_tour/classes_test.dart (object-members)"?>
 ```dart
 var p = Point(2, 2);
 
-// Get the value of y.
+// y의 값을 얻음.
 assert(p.y == 2);
 
-// Invoke distanceTo() on p.
+// p의 distanceTo() 메서드 호출.
 double distance = p.distanceTo(Point(4, 4));
 ```
 
-Use `?.` instead of `.` to avoid an exception
-when the leftmost operand is null:
+만약 왼쪽 피연산자가 null 일 수도 있다면, `.`대신 `?.`을 사용하세요:
 
 <?code-excerpt "misc/test/language_tour/classes_test.dart (safe-member-access)"?>
 ```dart
-// If p is non-null, set a variable equal to its y value.
+// p가 non-null이라면, a의 값을 p의 y의 값으로 설정합니다.
 var a = p?.y;
 ```
 
 
-### Using constructors
+### 생성자 사용하기
 
-You can create an object using a *constructor*.
-Constructor names can be either <code><em>ClassName</em></code> or
-<code><em>ClassName</em>.<em>identifier</em></code>. For example,
-the following code creates `Point` objects using the
-`Point()` and `Point.fromJson()` constructors:
+*생성자*를 사용하여 객체를 생성 할 수 있습니다.
+생성자의 이름은 <code><em>ClassName</em></code> or
+<code><em>ClassName</em>.<em>identifier</em></code>가 될 수 있습니다.
+예를 들면, 다음의 예제에서 `Point` 객체를 `Point()`와 `Point.fromJson()` 생성자를 사용하여 생성합니다:
 
 <?code-excerpt "misc/test/language_tour/classes_test.dart (object-creation)" replace="/ as .*?;/;/g"?>
 ```dart
@@ -2608,8 +2601,8 @@ var p1 = Point(2, 2);
 var p2 = Point.fromJson({'x': 1, 'y': 2});
 ```
 
-The following code has the same effect, but
-uses the optional `new` keyword before the constructor name:
+다음 코드는 같은 결과를 생성하지만,
+생성자 이름에 선택적인 키워드인 `new`를 사용하였습니다:
 
 <?code-excerpt "misc/test/language_tour/classes_test.dart (object-creation-new)" replace="/ as .*?;/;/g"?>
 ```dart
@@ -2617,67 +2610,63 @@ var p1 = new Point(2, 2);
 var p2 = new Point.fromJson({'x': 1, 'y': 2});
 ```
 
-Some classes provide [constant constructors](#constant-constructors).
-To create a compile-time constant using a constant constructor,
-put the `const` keyword before the constructor name:
+몇몇 클래스는 [constant constructors](#constant-constructors)를 제공합니다.
+상수 생성자를 사용하여 컴파일 타임 상수를 생성하고 싶다면, 생성자 이름 앞에 `const`를 사용하세요:
 
 <?code-excerpt "misc/test/language_tour/classes_test.dart (const)"?>
 ```dart
 var p = const ImmutablePoint(2, 2);
 ```
 
-Constructing two identical compile-time constants results in a single,
-canonical instance:
+다음과 같이 두개의 동일한 컴파일 타임 상수를 생성하는 것은, 하나의 동일한 인스턴스를 생성합니다.
 
 <?code-excerpt "misc/test/language_tour/classes_test.dart (identical)"?>
 ```dart
 var a = const ImmutablePoint(1, 1);
 var b = const ImmutablePoint(1, 1);
 
-assert(identical(a, b)); // They are the same instance!
+assert(identical(a, b)); // 둘은 같은 인스턴스입니다!
 ```
 
-Within a _constant context_, you can omit the `const` before a constructor
-or literal. For example, look at this code, which creates a const map:
+_상수 컨텍스트 (constant context)_ 안에서, 생성자나 리터럴 뒤의 `const`는 생략이 가능합니다. 
+상수 map을 생성하는 다음 코드를 살펴봅시다:
 
 <?code-excerpt "misc/test/language_tour/classes_test.dart (const-context-withconst)" replace="/pointAndLine1/pointAndLine/g"?>
 ```dart
-// Lots of const keywords here.
+// 불필요한 const 키워드가 많습니다.
 const pointAndLine = const {
   'point': const [const ImmutablePoint(0, 0)],
   'line': const [const ImmutablePoint(1, 10), const ImmutablePoint(-2, 11)],
 };
 ```
 
-You can omit all but the first use of the `const` keyword:
+`const`를 선언 할 때 첫 번째 `const`를 제외하고 다른 `const`들은 생략 할 수 있습니다:
 
 <?code-excerpt "misc/test/language_tour/classes_test.dart (const-context-noconst)" replace="/pointAndLine2/pointAndLine/g"?>
 ```dart
-// Only one const, which establishes the constant context.
+// 상수 컨텍스트를 만들어주는 하나의 const만 사용하면 됩니다.
 const pointAndLine = {
   'point': [ImmutablePoint(0, 0)],
   'line': [ImmutablePoint(1, 10), ImmutablePoint(-2, 11)],
 };
 ```
 
-If a constant constructor is outside of a constant context
-and is invoked without `const`,
-it creates a **non-constant object**:
+상수 생성자가 상수 컨텍스트의 밖에 존재하고 `const` 없이 호출되면,
+**상수가 아닌 객체 (non-constant object)** 가 생성됩니다:
 
 <?code-excerpt "misc/test/language_tour/classes_test.dart (nonconst-const-constructor)"?>
 ```dart
-var a = const ImmutablePoint(1, 1); // Creates a constant
-var b = ImmutablePoint(1, 1); // Does NOT create a constant
+var a = const ImmutablePoint(1, 1); // 상수를 생성합니다
+var b = ImmutablePoint(1, 1); // 상수를 생성하지 않습니다.
 
-assert(!identical(a, b)); // NOT the same instance!
+assert(!identical(a, b)); // 둘은 같은 인스턴스가 아닙니다!
 ```
 
 
-### Getting an object's type
+### 객체 타입 검출
 
-To get an object's type at runtime,
-you can use the `Object` property `runtimeType`,
-which returns a [`Type`][] object.
+런타임에서 객체의 타입을 얻고 싶다면,
+[`Type`][] 객체를 반환하는 `Object`의 프로퍼티인 `runtimeType`을 사용하세요.
 
 <?code-excerpt "misc/test/language_tour/classes_test.dart (runtimeType)"?>
 ```dart
@@ -2685,62 +2674,55 @@ print('The type of a is ${a.runtimeType}');
 ```
 
 {{site.alert.warn}}
-  Use a [type test operator][] rather than `runtimeType`
-  to test an object's type.
-  In production environments, the test `object is Type` is more stable
-  than the test `object.runtimeType == Type`.
+  객체의 타입을 테스트하려면, `runtimeType` 대신 [type test operator][]를 사용하세요.
+  프로덕션 환경에서, `object is Type` 테스트가 `object.runtimeType == Type` 테스트 보다 더 안전합니다.
 {{site.alert.end}}
 
-Up to here, you've seen how to _use_ classes.
-The rest of this section shows how to _implement_ classes.
+여기까지 클래스 _사용법_에 대해 알아보았습니다.
+나머지 섹션에서는 _구현법_에 대해 알아보겠습니다.
 
 
-### Instance variables
+### 인스턴스 변수
 
-Here’s how you declare instance variables:
+인스턴스 변수는 다음과 같이 선언합니다:
 
 <?code-excerpt "misc/lib/language_tour/classes/point_with_main.dart (class)"?>
 ```dart
 class Point {
-  double? x; // Declare instance variable x, initially null.
-  double? y; // Declare y, initially null.
-  double z = 0; // Declare z, initially 0.
+  double? x; // 초기값이 null인 인스턴스 변수 x를 선언.
+  double? y; // 초기값이 null인 y 선언.
+  double z = 0; // 초기값이 0인 z 선언.
 }
 ```
 
-All uninitialized instance variables have the value `null`.
+초기화 되지 않은 인스턴스 변수는 `null` 값을 가집니다.
 
-All instance variables generate an implicit *getter* method.
-Non-final instance variables and
-`late final` instance variables without initializers also generate
-an implicit *setter* method. For details,
-see [Getters and setters](#getters-and-setters).
+모든 인스턴스 변수는 내부적으로 *getter* 메서드를 생성합니다.
+Final이 아닌 변수 그리고 Initializers가 없는
+`late final` 인스턴스 변수 또한 내부적으로 *setter* 메서드를 생성합니다.
+더 자세히 알고 싶다면, [Getters and setters](#getters-and-setters)를 참고하세요.
 
-If you initialize a non-`late` instance variable where it's declared,
-the value is set when the instance is created,
-which is before the constructor and its initializer list execute.
+Non-`late` 변수가 선언 된 동시에 초기화 되면
+인스턴스가 생성될 때, 생성자와 해당 initializer 목록이 실행되기 전에 값이 설정됩니다.
 
 <?code-excerpt "misc/lib/language_tour/classes/point_with_main.dart (class+main)" replace="/(double .*?;).*/$1/g" plaster="none"?>
 ```dart
 class Point {
-  double? x; // Declare instance variable x, initially null.
-  double? y; // Declare y, initially null.
+  double? x; // 초기값이 null인 인스턴스 변수 x 선언.
+  double? y; // 초기값이 null인 y 선언.
 }
 
 void main() {
   var point = Point();
-  point.x = 4; // Use the setter method for x.
-  assert(point.x == 4); // Use the getter method for x.
-  assert(point.y == null); // Values default to null.
+  point.x = 4; // x의 setter 메서드를 사용합니다.
+  assert(point.x == 4); // x의 getter 메서드를 사용합니다.
+  assert(point.y == null); // y의 디폴트 값은 null입니다.
 }
 ```
 
-Instance variables can be `final`,
-in which case they must be set exactly once.
-Initialize `final`, non-`late` instance variables
-at declaration,
-using a constructor parameter, or
-using a constructor's [initializer list](#initializer-list):
+인스턴스 변수는 `final`로 선언 될 수 있고, 그런 경우에는 단 한 번만 값이 정확하게 할당됩니다.
+`final`과 non-`late` 인스턴스 변수를 선언 할 때 생성자 매개변수나,
+생성자의 [initializer list](#initializer-list) 를 사용하여 초기화 하세요:
 
 <?code-excerpt "misc/lib/effective_dart/usage_good.dart (field-init-at-decl)"?>
 ```dart
@@ -2753,21 +2735,20 @@ class ProfileMark {
 }
 ```
 
-If you need to assign the value of a `final` instance variable
-after the constructor body starts, you can use one of the following:
+생성자 바디가 시작된 후에 `final` 인스턴스 변수의 값을 할당하고 싶다면, 다음 중 하나를 사용하세요:
 
-* Use a [factory constructor](#factory-constructors).
-* Use `late final`, but [_be careful:_][late-final-ivar]
-  a `late final` without an initializer adds a setter to the API.
+* [factory 생성자](#factory-constructors)를 사용하세요.
+* `late final`를 [_주의해서_][late-final-ivar] 사용하세요: initializer가 없는
+  `late final`는 API에 setter를 추가합니다.
 
 
-### Constructors
+### 생성자
 
-Declare a constructor by creating a function with the same name as its
-class (plus, optionally, an additional identifier as described in
-[Named constructors](#named-constructors)).
-The most common form of constructor, the generative constructor, creates
-a new instance of a class:
+클래스와 동일한 이름을 가지는 함수를 만들어 생성자를 선언 할 수 있습니다.
+(선택적으로 [Named 생성자](#named-constructors)
+에 명시되어 있는 식별자를 사용해도 됩니다.)
+
+Generative 생성자의 가장 일반적인 형태는 클래스의 새 인스턴스를 생성합니다:
 
 <?code-excerpt "misc/lib/language_tour/classes/point_alt.dart (constructor-long-way)" plaster="none"?>
 ```dart
@@ -2776,31 +2757,28 @@ class Point {
   double y = 0;
 
   Point(double x, double y) {
-    // See initializing formal parameters for a better way
-    // to initialize instance variables.
+    // 인스턴스 변수를 초기화하는 더 나은 방법은
+    // 형식 매개변수(formal parameters) 초기화를 참조하십시오.  
     this.x = x;
     this.y = y;
   }
 }
 ```
 
-The `this` keyword refers to the current instance.
+`this` 키워드는 현재 인스턴스를 참조합니다.
 
 {{site.alert.note}}
-  Use `this` only when there is a name conflict. 
-  Otherwise, Dart style omits the `this`.
+  이름의 충돌이 있을 때만 `this`를 사용하세요.
+  없다면, Dart 스타일에서는 `this`를 생략합니다.
 {{site.alert.end}}
 
 
-#### Initializing formal parameters
+#### 형식 매개변수 초기화
 
-The pattern of assigning a constructor argument to an instance variable
-is so common, 
-Dart has initializing formal parameters to make it easy.
+생성자 인수를 인스턴스 변수에 할당하는 패턴은 자주 쓰입니다. Dart에서는 그것을 더 쉽게 수행합니다.
 
-Initializing parameters can also be used to initialize
-non-nullable or `final` instance variables,
-which both must be initialized or provided a default value.
+매개변수로 인스턴스 변수를 초기화 하는 것은,
+무조건 초기화 되어야만 하거나 기본 값이 주어져야하는 non-nullable 또는 `final` 인스턴스 변수만 가능합니다.
 
 <?code-excerpt "misc/lib/language_tour/classes/point.dart (constructor-initializer)" plaster="none"?>
 ```dart
@@ -2808,34 +2786,29 @@ class Point {
   final double x;
   final double y;
 
-  // Sets the x and y instance variables
-  // before the constructor body runs.
+  // 생성자 바디가 실행되기 전에 x와 y 인스턴스 변수 설정.
   Point(this.x, this.y);
 }
 ```
 
-The variables introduced by the initializing formals
-are implicitly final and only in scope of the initializer list.
+Initializing formal로 주어진 변수는 초기화 리스트 범위에서 암묵적으로 final 입니다.
 
 
-#### Default constructors
+#### 디폴트 생성자
 
-If you don’t declare a constructor, a default constructor is provided
-for you. The default constructor has no arguments and invokes the
-no-argument constructor in the superclass.
-
-
-#### Constructors aren’t inherited
-
-Subclasses don’t inherit constructors from their superclass. A subclass
-that declares no constructors has only the default (no argument, no
-name) constructor.
+생성자를 선언하지 않았다면, 디폴트 생성자가 주어집니다.
+디폴트 생성자는 인자가 없고, 인자가 없는 superclass의 생성자를 호출합니다.
 
 
-#### Named constructors
+#### 생성자는 상속되지 않습니다
 
-Use a named constructor to implement multiple constructors for a class
-or to provide extra clarity:
+Subclass는 superclass로 부터 생성자를 상속받지 않습니다.
+생성자를 선언하지 않은 subclass는 이름과 인자가 없는 디폴트 생성자만을 가집니다.
+
+
+#### Named 생성자
+
+다수의 생성자를 구현하거나, 코드의 명확성을 더하고 싶다면 이름이 있는 생성자를 사용하세요:
 
 <?code-excerpt "misc/lib/language_tour/classes/point.dart (named-constructor)" replace="/Point\.\S*/[!$&!]/g" plaster="none"?>
 {% prettify dart tag=pre+code %}
@@ -2855,32 +2828,27 @@ class Point {
 }
 {% endprettify %}
 
-Remember that constructors are not inherited, which means that a
-superclass’s named constructor is not inherited by a subclass. If you
-want a subclass to be created with a named constructor defined in the
-superclass, you must implement that constructor in the subclass.
+Superclass의 생성자는 subclass로 상속되지 않는 다는 것을 꼭 기억하세요.
+Subclass에서 superclass와 같은 Named 생성자를 사용하고 싶다면, subclass에서도 똑같이 구현해야 합니다.
 
 
-#### Invoking a non-default superclass constructor
+#### Superclass의 Non-default 생성자 호출
 
-By default, a constructor in a subclass calls the superclass’s unnamed,
-no-argument constructor.
-The superclass's constructor is called at the beginning of the
-constructor body. If an [initializer list](#initializer-list)
-is also being used, it executes before the superclass is called.
-In summary, the order of execution is as follows:
+Subclass의 생성자는 superclass의 이름이 없고(unnamed), 인수가 없는(no-argument) 생성자를 디폴트로 호출합니다.
+Superclass의 생성자는 subclass 생성자 바디의 처음에 호출됩니다.
+[initializer list](#initializer-list)가 사용되면, superclass가 호출되기 전에 실행됩니다.
+요약하자면, 실행 순서는 다음과 같습니다:
 
 1. initializer list
-1. superclass's no-arg constructor
-1. main class's no-arg constructor
+1. superclass의 인자가 없는 생성자
+1. 메인 class의 인자가 없는 생성자
 
-If the superclass doesn’t have an unnamed, no-argument constructor,
-then you must manually call one of the constructors in the
-superclass. Specify the superclass constructor after a colon (`:`), just
-before the constructor body (if any).
+Superclass가 이름과 인자가 없는 생성자를 가지고 있지 않는다면,
+반드시 superclass의 생성자 중 하나를 선택해서 호출해야 합니다.
+생성자 바디에 콜론(`:`)을 붙혀서 선택한 superclass의 생성자를 명시하세요.
 
-In the following example, the constructor for the Employee class calls the named
-constructor for its superclass, Person. Click **Run** to execute the code.
+다음 예제에서 Employee는 자신의 superclass인 Person의 named 생성자를 호출합니다.
+코드를 실행하고 싶다면 **Run**을 클릭하세요.
 
 <?code-excerpt "misc/lib/language_tour/classes/employee.dart (super)" plaster="none"?>
 ```dart:run-dartpad:height-450px:ga_id-non_default_superclass_constructor
@@ -2893,8 +2861,8 @@ class Person {
 }
 
 class Employee extends Person {
-  // Person does not have a default constructor;
-  // you must call super.fromJson().
+  // Person은 디폴트 생성자가 없습니다;
+  // super.fromJson()를 반드시 호출해야합니다.
   Employee.fromJson(super.data) : super.fromJson() {
     print('in Employee');
   }
@@ -2910,9 +2878,8 @@ void main() {
 }
 ```
 
-Because the arguments to the superclass constructor are evaluated before
-invoking the constructor, an argument can be an expression such as a
-function call:
+생성자가 실행되기 전에 Superclass의 생성자로 전해지는 인자가
+평가되기 때문에 인자는 함수 호출 처럼 표현식이 될 수 있습니다:
 
 <?code-excerpt "misc/lib/language_tour/classes/employee.dart (method-then-constructor)"?>
 ```dart
@@ -2923,18 +2890,16 @@ class Employee extends Person {
 ```
 
 {{site.alert.warning}}
-  Arguments to the superclass constructor don't have access to `this`. For
-  example, arguments can call static methods but not instance methods.
+  Superclass의 생성자로 전달되는 인수는 `this`에 접근 할 수 없습니다.
+  예를 들면, 인자는 정적 메서드를 호출 할 수 있지만, 인스턴스 메서드는 호출 할 수 없습니다.
 {{site.alert.end}}
 
 <a name="super-parameters"></a>
-To avoid having to manually pass each parameter
-into the super invocation of a constructor,
-you can use super-initializer parameters to forward parameters
-to the specified or default superclass constructor.
-This feature can't be used with redirecting constructors.
-Super-initializer parameters have similar syntax and semantics to
-[initializing formal parameters](#initializing-formal-parameters):
+수동으로 superclass의 생성자 매개변수를 넘겨주는 것을 피하고 싶다면,
+super-initializer 매개변수를 superclass의 생성자로 넘겨주면 됩니다.
+이 피쳐를 redirecting 생성자와 함께 사용하는 것은 불가능합니다.
+Super-initializer 매개변수는
+[initializing formal parameters](#initializing-formal-parameters)와 비슷한 문법과 의미를 가집니다:
 
 <?code-excerpt "misc/lib/language_tour/classes/super_initializer_parameters.dart (positional)" plaster="none"?>
 ```dart
@@ -2948,15 +2913,15 @@ class Vector2d {
 class Vector3d extends Vector2d {
   final double z;
 
-  // Forward the x and y parameters to the default super constructor like:
+  // 매개변수 x와 y를 디폴트 super 생성자로 넘겨줍니다:
   // Vector3d(final double x, final double y, this.z) : super(x, y);
   Vector3d(super.x, super.y, this.z);
 }
 ```
 
-Super-initializer parameters cannot be positional 
-if the super-constructor invocation already has positional arguments,
-but they can always be named:
+Super 생성자 호출이 positional 인자를 가지고 있다면,
+Super-initializer 매개변수는 positional이 될 수 없습니다.
+하지만 named 매개변수는 언제나 가능합니다:
 
 <?code-excerpt "misc/lib/language_tour/classes/super_initializer_parameters.dart (named)" plaster="none"?>
 ```dart
@@ -2969,7 +2934,7 @@ class Vector2d {
 class Vector3d extends Vector2d {
   // ...
 
-  // Forward the y parameter to the named super constructor like:
+  // 매개변수 y를 named super 생성자로 넘겨줍니다:
   // Vector3d.yzPlane({required double y, required this.z})
   //       : super.named(x: 0, y: y);
   Vector3d.yzPlane({required super.y, required this.z}) : super.named(x: 0);
@@ -2977,17 +2942,14 @@ class Vector3d extends Vector2d {
 ```
 
 {{site.alert.version-note}}
-  Using super-initializer parameters 
-  requires a [language version][] of at least 2.17.
-  If you're using an earlier language version,
-  you must manually pass in all super constructor parameters.
+  Super-initializer 매개변수를 사용하는 것은 최소 2.17의 [language version][]을 요구합니다.
+  이전의 버전을 사용하고 있다면, 수동으로 모든 super 생성자 매개변수를 넘겨줘야 합니다.
 {{site.alert.end}}
 
 #### Initializer list
 
-Besides invoking a superclass constructor, you can also initialize
-instance variables before the constructor body runs. Separate
-initializers with commas.
+Superclass 생성자를 호출할 뿐만 아니라
+생성자 바디가 실행되기 전에 인스턴스 변수를 초기화할 수도 있습니다. Initializer는 쉼표로 구분합니다.
 
 {% comment %}
 [TODO #2950: Maybe change example or point to discussion of ! (in map section?).]
@@ -2995,8 +2957,7 @@ initializers with commas.
 
 <?code-excerpt "misc/lib/language_tour/classes/point_alt.dart (initializer-list)"?>
 ```dart
-// Initializer list sets instance variables before
-// the constructor body runs.
+// Initializer list는 생성자 바디가 실행되기 전에 인스턴스 변수를 설정합니다.
 Point.fromJson(Map<String, double> json)
     : x = json['x']!,
       y = json['y']! {
@@ -3005,11 +2966,10 @@ Point.fromJson(Map<String, double> json)
 ```
 
 {{site.alert.warning}}
-  The right-hand side of an initializer doesn't have access to `this`.
+  Initializer의 오른쪽은 `this`에 접근 할 수 없습니다.
 {{site.alert.end}}
 
-During development, you can validate inputs by using `assert` in the
-initializer list.
+개발하는 동안에 `assert`를 initializer list 안에 넣어서 입력에 조건을 추가 할 수 있습니다.
 
 <?code-excerpt "misc/lib/language_tour/classes/point_alt.dart (initializer-list-with-assert)" replace="/assert\(.*?\)/[!$&!]/g"?>
 {% prettify dart tag=pre+code %}
@@ -3018,9 +2978,9 @@ Point.withAssert(this.x, this.y) : [!assert(x >= 0)!] {
 }
 {% endprettify %}
 
-Initializer lists are handy when setting up final fields. The following example
-initializes three final fields in an initializer list. Click **Run** to execute
-the code.
+Initializer list는 final 필드를 설정 할 때 유용합니다.
+다음 예제에서는 세 개의 final 필드를 initializer list로 초기화합니다.
+**Run**을 클릭해 코드를 실행하세요.
 
 <?code-excerpt "misc/lib/language_tour/classes/point_with_distance_field.dart"?>
 ```dart:run-dartpad:height-340px:ga_id-initializer_list
@@ -3044,33 +3004,29 @@ void main() {
 ```
 
 
-#### Redirecting constructors
+#### Redirecting 생성자
 
-Sometimes a constructor’s only purpose is to redirect to another
-constructor in the same class. A redirecting constructor’s body is
-empty, with the constructor call
-(using `this` instead of the class name)
-appearing after a colon (:).
+생성자의 목적이 같은 클래스 내의 다른 생성자로 리디렉트(redirect)하는 경우가 있습니다.
+Redirecting 생성자의 바디는 비어있고 콜론 (:) 뒤에 나오며 클래스 이름 대신 `this`를 사용한 생성자 호출로 구성됩니다.
 
 <?code-excerpt "misc/lib/language_tour/classes/point_redirecting.dart"?>
 ```dart
 class Point {
   double x, y;
 
-  // The main constructor for this class.
+  // 클래스의 메인 생성자.
   Point(this.x, this.y);
 
-  // Delegates to the main constructor.
+  // 메인 생성자로 리디렉트.
   Point.alongXAxis(double x) : this(x, 0);
 }
 ```
 
 
-#### Constant constructors
+#### 상수 생성자
 
-If your class produces objects that never change, you can make these
-objects compile-time constants. To do this, define a `const` constructor
-and make sure that all instance variables are `final`.
+어떤 클래스가 절대 바뀌지 않는 객체를 생성한다면, 이 객체를 컴파일 타임 상수로 만들 수 있습니다.
+생성자를 `const`로 정의하고 모든 인스턴스 변수를 `final`로 선언하면 됩니다.
 
 <?code-excerpt "misc/lib/language_tour/classes/immutable_point.dart"?>
 ```dart
@@ -3083,30 +3039,23 @@ class ImmutablePoint {
 }
 ```
 
-Constant constructors don't always create constants.
-For details, see the section on
-[using constructors](#using-constructors).
+상수 생성자가 항상 상수를 생성하는 건 아닙니다.
+더 자세히 알고 싶다면, [using constructors](#using-constructors)를 참고하세요.
 
 
-#### Factory constructors
+#### Factory 생성자
 
-Use the `factory` keyword when implementing a constructor that doesn’t
-always create a new instance of its class. For example, a factory
-constructor might return an instance from a cache, or it might
-return an instance of a subtype.
-Another use case for factory constructors is
-initializing a final variable using
-logic that can't be handled in the initializer list.
+항상 클래스의 새로운 인스턴스를 생성하지 않는 생성자를 구현하고 싶다면, `factory` 키워드를 사용하세요.
+예를 들면, factory 생성자는 인스턴스를 캐시에서 반환하거나, 서브타입의 인스턴스를 반환할 수 있습니다.
+Factory 생성자는 final 변수를 초기화 리스트에서 다루지 않는 로직을 사용하여 초기화하는 방법으로도 사용할 수 있습니다.
 
 {{site.alert.tip}}
-  Another way to handle late initialization of a final variable
-  is to [use `late final` (carefully!)][late-final-ivar].
+  final 변수의 late 초기화를 처리하는 다른 방법으로는
+  [`late final` (사용 주의!)][late-final-ivar]가 있습니다.
 {{site.alert.end}}
 
-In the following example,
-the `Logger` factory constructor returns objects from a cache,
-and the `Logger.fromJson` factory constructor
-initializes a final variable from a JSON object.
+다음 예제에서 `Logger` factory 생성자는 캐시에서 객체를 반환하고,
+`Logger.fromJson` factory 생성자는 final 변수를 JSON 객체로 부터 초기화 합니다.
 
 <?code-excerpt "misc/lib/language_tour/classes/logger.dart"?>
 ```dart
@@ -3114,8 +3063,7 @@ class Logger {
   final String name;
   bool mute = false;
 
-  // _cache is library-private, thanks to
-  // the _ in front of its name.
+  // _cache는 맨 앞의 _ 덕분에 library-private입니다.
   static final Map<String, Logger> _cache = <String, Logger>{};
 
   factory Logger(String name) {
@@ -3135,10 +3083,10 @@ class Logger {
 ```
 
 {{site.alert.note}}
-  Factory constructors have no access to `this`.
+  Factory 생성자는 `this`에 접근할 수 없습니다.
 {{site.alert.end}}
 
-Invoke a factory constructor just like you would any other constructor:
+다른 생성자를 호출 할 때 처럼 factory 생성자를 호출하세요:
 
 <?code-excerpt "misc/lib/language_tour/classes/logger.dart (logger)"?>
 ```dart
@@ -3150,15 +3098,14 @@ var loggerJson = Logger.fromJson(logMap);
 ```
 
 
-### Methods
+### 메서드
 
-Methods are functions that provide behavior for an object.
+메서드는 객체가 특정한 행동을 할 수 있도록 해주는 함수입니다.
 
-#### Instance methods
+#### 인스턴스 메서드
 
-Instance methods on objects can access instance variables and `this`.
-The `distanceTo()` method in the following sample is an example of an
-instance method:
+객체의 인스턴스 메서드는 인스턴스 변수와 `this`에 접근 할 수 있습니다.
+다음 예제의 `distanceTo()` 메서드가 인스턴스 메서드의 예입니다:
 
 <?code-excerpt "misc/lib/language_tour/classes/point.dart (class-with-distanceTo)" plaster="none"?>
 ```dart
@@ -3178,10 +3125,10 @@ class Point {
 }
 ```
 
-#### Operators {#_operators}
+#### 연산자 {#_operators}
 
-Operators are instance methods with special names.
-Dart allows you to define operators with the following names:
+연산자는 특별한 이름을 가진 인스턴스 메소드 입니다.
+Dart는 클래스 내에서 다음의 연산자들을 재정의 할 수 있습니다:
 
 `<`  | `+`  | `|`  | `>>>`
 `>`  | `/`  | `^`  | `[]`
@@ -3191,9 +3138,9 @@ Dart allows you to define operators with the following names:
 {:.table}
 
 {{site.alert.note}}
-  You may have noticed that some [operators](#operators), like `!=`, aren't in
-  the list of names. That's because they're just syntactic sugar. For example,
-  the expression `e1 != e2` is syntactic sugar for `!(e1 == e2)`.
+  위의 표에 `!=` 같은 [연산자](#operators)가 없다는 것을 알 수 있습니다.
+  왜냐하면 그런 표현들은 신택틱 슈가(syntactic sugar)이기 때문입니다.
+  예를 들어, `e1 != e2` 같은 표현은 `!(e1 == e2)` 의 신택틱 슈가입니다.
 {{site.alert.end}}
 
 {%- comment %}
@@ -3202,9 +3149,8 @@ Dart allows you to define operators with the following names:
   - `!` is probably excluded for historical reasons
 {% endcomment %}
 
-An operator declaration is identified using the built-in identifier `operator`.
-The following example defines vector 
-addition (`+`), subtraction (`-`), and equality (`==`):
+연산자 선언은 내장된 `operator` 식별자를 사용합니다.
+다음의 예제는 vector 덧셈(`+`), 뺄셈(`-`) 그리고 항등(`==`)을 정의합니다.
 
 <?code-excerpt "misc/lib/language_tour/classes/vector.dart"?>
 ```dart
@@ -3234,13 +3180,11 @@ void main() {
 ```
 
 
-#### Getters and setters
+#### Getters, setters
 
-Getters and setters are special methods that provide read and write
-access to an object’s properties. Recall that each instance variable has
-an implicit getter, plus a setter if appropriate. You can create
-additional properties by implementing getters and setters, using the
-`get` and `set` keywords:
+Getter와 setter는 객체의 프로퍼티를 읽고(get) 쓰는(set) 함수 입니다.
+모든 인스턴스 변수는 암묵적으로 getter와 setter를 가진다는 것을 기억하세요.
+`get`과 `set` 키워드를 사용하여 getter와 setter를 구현하므로써 추가적인 프로퍼티를 생성 할 수 있습니다.
 
 <?code-excerpt "misc/lib/language_tour/classes/rectangle.dart"?>
 ```dart
@@ -3249,7 +3193,7 @@ class Rectangle {
 
   Rectangle(this.left, this.top, this.width, this.height);
 
-  // Define two calculated properties: right and bottom.
+  // right, bottom 이라는 두 개의 계산된 프로퍼티 정의.
   double get right => left + width;
   set right(double value) => left = value - width;
   double get bottom => top + height;
@@ -3268,86 +3212,77 @@ With getters and setters, you can start with instance variables, later
 wrapping them with methods, all without changing client code.
 
 {{site.alert.note}}
-  Operators such as increment (++) work in the expected way, whether or
-  not a getter is explicitly defined. To avoid any unexpected side
-  effects, the operator calls the getter exactly once, saving its value
-  in a temporary variable.
+  증가 (++)와 같은 연산자는 getter가 명백히 정의되어 있든 말든 특정 방법으로 동작합니다.
+  예상치 못한 부작용을 피하기 위해 연산자는 getter를 정확히 한 번 호출하여 값을 임시 변수에 저장하세요.
 {{site.alert.end}}
 
-#### Abstract methods
+#### 추상 메서드
 
-Instance, getter, and setter methods can be abstract, defining an
-interface but leaving its implementation up to other classes.
-Abstract methods can only exist in [abstract classes](#abstract-classes).
+인스턴스, getter, setter 메서드는 추상화 될 수 있습니다.
+추상화란 인터페이스만 구현한 상태로 나머지 부분은 다른 클래스들에게 맡기는 것을 의미합니다.
+추상 메서드는 오직 [abstract classes](#abstract-classes)에 존재 할 수 있습니다.
 
-To make a method abstract, use a semicolon (;) instead of a method body:
+메서드를 추상화 하려면, 메서드 바디 대신에 세미콜론 (;)을 사용하세요:
 
 <?code-excerpt "misc/lib/language_tour/classes/doer.dart"?>
 ```dart
 abstract class Doer {
-  // Define instance variables and methods...
+  // 인스턴스 변수와 메서드 정의 ...
 
-  void doSomething(); // Define an abstract method.
+  void doSomething(); // 추상 메서드 정의.
 }
 
 class EffectiveDoer extends Doer {
   void doSomething() {
-    // Provide an implementation, so the method is not abstract here...
+    // 메서드를 구현하여 더 이상 추상적이지 않게 만듬 ...
   }
 }
 ```
 
 
-### Abstract classes
+### 추상 클래스
 
-Use the `abstract` modifier to define an *abstract class*—a class that
-can’t be instantiated. Abstract classes are useful for defining
-interfaces, often with some implementation. If you want your abstract
-class to appear to be instantiable, define a [factory
-constructor](#factory-constructors).
+`abstract` 수식어를 사용하여, *추상 클래스* (인스턴스화 될 수 없는)를 선언하세요.
+추상 클래스는 인터페이스를 정의 할 때 유용하며, 종종 일부 구현과 함께 사용됩니다
+추상 클래스를 인스턴스화하려면, [factory 생성자](#factory-constructors)를 정의하세요.
 
-Abstract classes often have [abstract methods](#abstract-methods).
-Here’s an example of declaring an abstract class that has an abstract
-method:
+추상 클래스는 [추상 메서드](#abstract-methods)를 가질 수 있습니다.
+다음은 추상 메서드를 가지는 추상 클래스의 예제입니다:
 
 <?code-excerpt "misc/lib/language_tour/classes/misc.dart (abstract)"?>
 ```dart
-// This class is declared abstract and thus
-// can't be instantiated.
+// 이 클래스는 abstract로 선언되어 인스턴스화 할 수 없습니다.
 abstract class AbstractContainer {
-  // Define constructors, fields, methods...
+  // 생성자, 필드, 메서드 등 정의
 
-  void updateChildren(); // Abstract method.
+  void updateChildren(); // 추상 메서드.
 }
 ```
 
 <a id="interfaces"></a>
-### Implicit interfaces
+### 암묵적 인터페이스 (Implicit interfaces)
 
-Every class implicitly defines an interface containing all the instance
-members of the class and of any interfaces it implements. If you want to
-create a class A that supports class B’s API without inheriting B’s
-implementation, class A should implement the B interface.
+모든 클래스는 암묵적으로 클래스의 인스턴스 멤버를 포함하는 인터페이스를 정의합니다.
+B 클래스를 상속받지 않은 A 클래스가 B의 API를 사용하고 싶다면 B 인터페이스를 구현해야 합니다.
 
-A class implements one or more interfaces by declaring them in an
-`implements` clause and then providing the APIs required by the
-interfaces. For example:
+하나의 클래스는 `implements`문 안에 하나 혹은 여러개의 인터페이스를 구현하고,
+인터페이스에 필요한 API들을 제공합니다:
 
 <?code-excerpt "misc/lib/language_tour/classes/impostor.dart"?>
 ```dart
-// A person. The implicit interface contains greet().
+// person. 암묵적 인터페이스는 greet()을 포함합니다.
 class Person {
-  // In the interface, but visible only in this library.
+  // 인터페이스의 안에 있지만 해당 라이브러리에서만 확인이 가능합니다.
   final String _name;
 
-  // Not in the interface, since this is a constructor.
+  // 생성자이기 때문에 인터페이스에 없습니다.
   Person(this._name);
 
-  // In the interface.
+  // 인터페이스에 있습니다.
   String greet(String who) => 'Hello, $who. I am $_name.';
 }
 
-// An implementation of the Person interface.
+// Person 인터페이스의 구현.
 class Impostor implements Person {
   String get _name => '';
 
@@ -3362,8 +3297,7 @@ void main() {
 }
 ```
 
-Here’s an example of specifying that a class implements multiple
-interfaces:
+다음은 여러 개의 인터페이스를 가지는 클래스입니다:
 
 <?code-excerpt "misc/lib/language_tour/classes/misc.dart (point_interfaces)"?>
 ```dart
@@ -3371,10 +3305,10 @@ class Point implements Comparable, Location {...}
 ```
 
 
-### Extending a class
+### 클래스 확장
 
-Use `extends` to create a subclass, and `super` to refer to the
-superclass:
+Subclass를 만들고 싶다면, `extends`를 사용하세요.
+해당 클래스 안에서 superclass를 참조하고 싶다면 `super`를 사용하면 됩니다:
 
 <?code-excerpt "misc/lib/language_tour/classes/extends.dart" replace="/extends|super/[!$&!]/g"?>
 {% prettify dart tag=pre+code %}
@@ -3397,18 +3331,16 @@ class SmartTelevision [!extends!] Television {
 }
 {% endprettify %}
 
-For another usage of `extends`, see the discussion of
-[parameterized types](#restricting-the-parameterized-type)
-in [generics](#generics).
+`extends`의 다른 사용법을 알고 싶다면,
+[parameterized types](#restricting-the-parameterized-type)의
+[generics](#generics)을 참고하세요.
 
 <a name="overridable-operators"></a>
 
-#### Overriding members
+#### 멤버 재정의
 
-Subclasses can override instance methods (including [operators](#_operators)),
-getters, and setters.
-You can use the `@override` annotation to indicate that you are
-intentionally overriding a member:
+Subclasses는 [연산자](#_operators)를 포함한 인스턴스 메서드, getter, setter를 오버라이드 하는 것이 가능합니다.
+`@override` 표기를 사용하여 의도적으로 멤버를 재정의 할 수 있습니다:
 
 <?code-excerpt "misc/lib/language_tour/metadata/television.dart (override)" replace="/@override/[!$&!]/g"?>
 {% prettify dart tag=pre+code %}
@@ -3424,48 +3356,38 @@ class SmartTelevision extends Television {
 }
 {% endprettify %}
 
-An overriding method declaration must match
-the method (or methods) that it overrides in several ways:
+재정의 메서드 선언은 그 메서드가 재정의하는 메서드와 여러가지 방법으로 매치되어야 합니다:
 
-* The return type must be the same type as (or a subtype of)
-  the overridden method's return type.
-* Argument types must be the same type as (or a supertype of)
-  the overridden method's argument types.
-  In the preceding example, the `contrast` setter of `SmartTelevision`
-  changes the argument type from `int` to a supertype, `num`.
-* If the overridden method accepts _n_ positional parameters,
-  then the overriding method must also accept _n_ positional parameters.
-* A [generic method](#using-generic-methods) can't override a non-generic one,
-  and a non-generic method can't override a generic one.
+* 반환 타입은 반드시 재정의되는 함수의 반환 타입(서브 타입도 가능)과 동일해야 합니다.
+* 인자의 타입은 오버라이딩 되는 함수의 인수 타입(supertype도 가능)과 반드시 동일해야 합니다.
+  앞선 예제에서, `SmartTelevision`의 setter인 `contrast`는 인자의 타입을 `int`의 supertype인 `num`으로 변경합니다.
+* 만약 재정의되는 함수가 _n_개의 positional 매개변수를 가진다면,
+  재정의하는 함수 또한 _n_개의 positional 매개변수를 가져야 합니다.
+* [Generic method](#using-generic-methods)는 non-generic인 메서드를 재정의 할 수 없고,
+  그 반대도 마찬가지 입니다.
 
-Sometimes you might want to narrow the type of
-a method parameter or an instance variable.
-This violates the normal rules, and
-it's similar to a downcast in that it can cause a type error at runtime.
-Still, narrowing the type is possible
-if the code can guarantee that a type error won't occur.
-In this case, you can use the 
-[`covariant` keyword](/guides/language/sound-problems#the-covariant-keyword)
-in a parameter declaration.
-For details, see the 
-[Dart 언어 설명서][].
+메서드의 매개변수나 인스턴스 변수의 타입을 축소하고 싶은 때가 있을겁니다.
+이런 행동은 보통의 룰을 어기는 행위이고, 런타임에서 에러를 발생 시킬 수도 있는 다운캐스트와 비슷합니다.
+여전히 코드가 타입 에러를 발생시키지 않는다고 확신 할 수 있다면, 타입을 축소하는 것은 가능합니다.
+이런 경우에, [`covariant` keyword](/guides/language/sound-problems#the-covariant-keyword)
+를 매개변수 선언에 사용하면 됩니다.
+자세한 정보를 원한다면, [Dart 언어 설명서][]를 참고하세요.
 
 {{site.alert.warning}}
-  If you override `==`, you should also override Object's `hashCode` getter.
-  For an example of overriding `==` and `hashCode`, see
-  [Implementing map keys](/guides/libraries/library-tour#implementing-map-keys).
+  `==` 를 재정의하면, `hashCode` getter도 재정의해야 합니다.
+  [Implementing map keys](/guides/libraries/library-tour#implementing-map-keys)에
+  `==`와 `hashCode`를 재정의하는 예제가 있습니다.
 {{site.alert.end}}
 
 #### noSuchMethod()
 
-To detect or react whenever code attempts to use a non-existent method or
-instance variable, you can override `noSuchMethod()`:
+코드가 존재하지 않는 함수나 인스턴스 변수에 접근하는 것을 감지, 처리하고 싶다면 `noSuchMethod()` 함수를 재정의하세요:
 
 <?code-excerpt "misc/lib/language_tour/classes/no_such_method.dart" replace="/noSuchMethod(?!,)/[!$&!]/g"?>
 {% prettify dart tag=pre+code %}
 class A {
-  // Unless you override noSuchMethod, using a
-  // non-existent member results in a NoSuchMethodError.
+  // noSuchMethod를 재정의하지 않고 존재하지 않는 멤버를 사용하면,
+  // NoSuchMethodError가 발생합니다.
   @override
   void [!noSuchMethod!](Invocation invocation) {
     print('You tried to use a non-existent member: '
@@ -3474,62 +3396,56 @@ class A {
 }
 {% endprettify %}
 
+구현되지 않은 함수가 다음 중 **하나**라도 만족한다면, 그 함수는 **호출 할 수 없습니다**.
 You **can't invoke** an unimplemented method unless
 **one** of the following is true:
 
-* The receiver has the static type `dynamic`.
+* 리시버가 static 타입 `dynamic`일 때.
 
-* The receiver has a static type that
-defines the unimplemented method (abstract is OK),
-and the dynamic type of the receiver has an implementation of `noSuchMethod()`
-that's different from the one in class `Object`.
+* 리시버는 구현되지 않은 메서드(추상 메서드는 가능)를 정의하는 static 타입을 가지며,
+  리시버의 dynamic 타입은 클래스 `Object`와 다른 `noSuchMethod()`를 구현 했을 때.
 
-For more information, see the informal
-[noSuchMethod forwarding specification.](https://github.com/dart-lang/language/blob/master/archive/feature-specifications/nosuchmethod-forwarding.md)
+더 자세한 정보를 원한다면, [noSuchMethod forwarding specification.](https://github.com/dart-lang/language/blob/master/archive/feature-specifications/nosuchmethod-forwarding.md)를 참고하세요.
 
-### Extension methods
 
-Extension methods are a way to add functionality to existing libraries.
-You might use extension methods without even knowing it.
-For example, when you use code completion in an IDE,
-it suggests extension methods alongside regular methods.
+### 확장 메서드
 
-Here's an example of using an extension method on `String`
-named `parseInt()` that's defined in `string_apis.dart`:
+확장 메서드는 이미 존재하는 라이브러리에 기능을 추가하는 방법입니다.
+우리는 확장 메서드가 무엇인지 모른 채 사용할 수도 있습니다.
+예를 들어, IDE를 사용해서 코드를 구현할 때 IDE는 정규 메서드가 아닌 확장 메서드를 추천할 수도 있습니다.
+
+다음은 `string_apis.dart`에 정의되어 있는 `String`의 확장 메서드인 `parseInt()`의 예제 입니다:
 
 ```dart
 import 'string_apis.dart';
 ...
-print('42'.padLeft(5)); // Use a String method.
-print('42'.parseInt()); // Use an extension method.
+print('42'.padLeft(5)); // String 메서드 사용.
+print('42'.parseInt()); // 확장 메서드 사용.
 ```
 
-For details of using and implementing extension methods, see the
-[extension methods page][].
+확장 메서드의 구현과 활용을 더 자세히 알고 싶다면, [extension methods page][]를 참고하세요.
 
 <a id="enums"></a>
-### Enumerated types
+### 열거 타입 (Enumerated types)
 
-Enumerated types, often called _enumerations_ or _enums_,
-are a special kind of class used to represent
-a fixed number of constant values.
+열거 타입은 종종 _enumerations_, _enums_ 으로도 불립니다.
+이 타입은 정해진 수의 상수 값을 가지는 특별한 종류의 클래스 입니다.
 
 {{site.alert.note}}
-  All enums automatically extend the [`Enum`][] class.
-  They are also sealed, 
-  meaning they cannot be subclassed, implemented, mixed in, 
-  or otherwise explicitly instantiated.
+  모든 enums는 자동으로 [`Enum`][] 클래스를 확장합니다.
+  이들은 가려져 있으며, 이는 subclass가 될 수 없고 implement,
+  mix 또는 명시적으로 인스턴스화할 수 없다는 것을 의미합니다.
 
-  Abstract classes and mixins can explicitly implement or extend `Enum`,
-  but unless they are then implemented by or mixed into an enum declaration,
-  no objects can actually implement the type of that class or mixin.
+  추상 클래스와 mixin은 명시적으로 `Enum`을 구현하거나 확장합니다.
+  그러나 enum 선언에 의해 구현되거나 enum 선언에 믹스되지 않는 한,
+  어떤 개체도 실제로 해당 클래스나 mixin의 타입을 구현할 수 없습니다.
 {{site.alert.end}}
 
-#### Declaring simple enums
+#### 간단한 enum 선언하기
 
-To declare a simple enumerated type,
-use the `enum` keyword and
-list the values you want to be enumerated:
+열거 타입을 선언하고 싶다면,
+`enum` 키워드를 사용하고 열거하고 싶은 값들을
+나열하세요:
 
 <?code-excerpt "misc/lib/language_tour/classes/enum.dart (enum)"?>
 ```dart
@@ -3537,36 +3453,24 @@ enum Color { red, green, blue }
 ```
 
 {{site.alert.tip}}
-  You can also use [trailing commas][] when declaring an enumerated type
-  to help prevent copy-paste errors.
+  열거 타입을 선언 할 때 복사-붙혀넣기 에러를 방지하기 위해, [trailing commas][]를 사용해도 됩니다.
 {{site.alert.end}}
 
-#### Declaring enhanced enums
+#### 발전된(enhanced) enum 사용하기
 
-Dart also allows enum declarations to declare classes
-with fields, methods, and const constructors
-which are limited to a fixed number of known constant instances.
+Dart는 필드, 메서드, 상수 생성자 같이 수가 정해져 있는 상수 인스턴스가 있는 클래스를 선언하는 데 enum을 사용하는 것이 가능합니다.
 
-To declare an enhanced enum,
-follow a syntax similar to normal [classes](#classes),
-but with a few extra requirements:
+발전된 enum을 선언하려면, [클래스](#classes)와 비슷하지만 몇가지 다른 문법을 따라야 합니다.
 
-* Instance variables must be `final`, 
-  including those added by [mixins](#mixins).
-* All [generative constructors](#constant-constructors) must be constant.
-* [Factory constructors](#factory-constructors) can only return
-  one of the fixed, known enum instances.
-* No other class can be extended as [`Enum`] is automatically extended.
-* There cannot be overrides for `index`, `hashCode`, the equality operator `==`.
-* A member named `values` cannot be declared in an enum,
-  as it would conflict with the automatically generated static `values` getter.
-* All instances of the enum must be declared
-  in the beginning of the declaration,
-  and there must be at least one instance declared.
+* [mixins](#mixins)으로 추가되는 변수들까지 모든 인스턴스 변수들은 `final`로 선언되어야합니다.
+* 모든 [generative constructors](#constant-constructors) 상수로 선언되어야합니다.
+* [Factory 생성자](#factory-constructors)는 고정된 enum 인스턴스 중 하나만을 반환할 수 있습니다.
+* [`Enum`]이 자동으로 확장되므로 다른 클래스들은 확장 될 수 없습니다.
+* `index`, `hashCode`, 항등 연산자 `==`는 재정의할 수 없습니다.
+* Avalues로 명명된 멤버는 enum에 선언 될 수 없습니다. 만약 enum에 선언한다면, 자동으로 생성된 정적 `values` getter와 충돌합니다.
+* Enum의 모든 인스턴스들은 선언의 처음 부분에 선언되어야 하고 반드시 한 개 이상의 인스턴스가 선언되어야 합니다.
 
-Here is an example that declares an enhanced enum
-with multiple instances, instance variables,
-a getter, and an implemented interface:
+다음은 다수의 인스턴스, 인스턴스 변수, getter 그리고 인터페이스를 가지는 발전된 enum의 예제 입니다:
 
 <?code-excerpt "misc/lib/language_tour/classes/enum.dart (enhanced)"?>
 ```dart
@@ -3592,17 +3496,15 @@ enum Vehicle implements Comparable<Vehicle> {
 }
 ```
 
-To learn more about declaring enhanced enums,
-see the section on [Classes](#classes).
+발전된 enum에 대해 더 자세히 알고 싶다면, [클래스](#classes)를 참고하세요.
 
 {{site.alert.version-note}}
-  Enhanced enums require a [language version][] of at least 2.17.
+  발전된 enum은 최소 2.17의 [language version][]을 요구합니다.
 {{site.alert.end}}
 
-#### Using enums
+#### enum 사용하기
 
-Access the enumerated values like
-any other [static variable](#static-variables):
+[정적 변수](#static-variables)에 접근하는 것 처럼 열거 값에 접근하면 됩니다:
 
 <?code-excerpt "misc/lib/language_tour/classes/enum.dart (access)"?>
 ```dart
@@ -3612,10 +3514,8 @@ if (favoriteColor == Color.blue) {
 }
 ```
 
-Each value in an enum has an `index` getter,
-which returns the zero-based position of the value in the enum declaration.
-For example, the first value has index 0,
-and the second value has index 1.
+Enum의 각 값들은 선언에서 값의 0 기반 위치를 반환하는 'index' getter가 있습니다.
+예를 들어, 첫 번째 값은 index 0을 가지고 두 번째 값은 index 1을 가집니다.
 
 <?code-excerpt "misc/lib/language_tour/classes/enum.dart (index)"?>
 ```dart
@@ -3624,8 +3524,7 @@ assert(Color.green.index == 1);
 assert(Color.blue.index == 2);
 ```
 
-To get a list of all the enumerated values,
-use the enum's `values` constant.
+열거 값의 리스트를 얻고 싶다면, enum의 `values` 상수를 사용하세요.
 
 <?code-excerpt "misc/lib/language_tour/classes/enum.dart (values)"?>
 ```dart
@@ -3633,8 +3532,8 @@ List<Color> colors = Color.values;
 assert(colors[2] == Color.blue);
 ```
 
-You can use enums in [switch statements](#switch-and-case), and
-you'll get a warning if you don't handle all of the enum's values:
+[switch 구문](#switch-and-case)에 enum을 사용해도 됩니다.
+하지만 enum의 모든 값들을 처리하지 않으면 경고가 발생합니다:
 
 <?code-excerpt "misc/lib/language_tour/classes/enum.dart (switch)"?>
 ```dart
@@ -3647,14 +3546,12 @@ switch (aColor) {
   case Color.green:
     print('Green as grass!');
     break;
-  default: // Without this, you see a WARNING.
+  default: // 이 처리가 없으면, 경고가 발생합니다.
     print(aColor); // 'Color.blue'
 }
 ```
 
-If you need to access the name of an enumerated value,
-such as `'blue'` from `Color.blue`,
-use the `.name` property:
+열거 값의 이름에 접근하고 싶다면, `Color.blue`의 `'blue'`처럼 `.name` 프로퍼티를 사용하면 됩니다:
 
 <?code-excerpt "misc/lib/language_tour/classes/enum.dart (name)"?>
 ```dart
@@ -3663,13 +3560,11 @@ print(Color.blue.name); // 'blue'
 
 
 <a id="mixins"></a>
-### Adding features to a class: mixins
 
-Mixins are a way of reusing a class's code in multiple class
-hierarchies.
+### 클래스에 피쳐 추가하기: mixins
 
-To _use_ a mixin, use the `with` keyword followed by one or more mixin
-names. The following example shows two classes that use mixins:
+Mixins은 다수의 클래스 계층에서 클래스의 코드를 재사용 할 수 있는 방법입니다.
+Mixin을 _사용_ 하려면, 다음 코드처럼 `with` 키워드와 사용 할 mixin의 이름을 명시하면 됩니다:
 
 <?code-excerpt "misc/lib/language_tour/classes/orchestra.dart (Musician and Maestro)" replace="/(with.*) \{/[!$1!] {/g"?>
 {% prettify dart tag=pre+code %}
@@ -3685,11 +3580,8 @@ class Maestro extends Person [!with Musical, Aggressive, Demented!] {
 }
 {% endprettify %}
 
-To _implement_ a mixin, create a class that extends Object and
-declares no constructors.
-Unless you want your mixin to be usable as a regular class,
-use the `mixin` keyword instead of `class`.
-For example:
+Mixin을 _구현_하려면 Object를 확장하며, 생성자가 없는 클래스를 생성하세요.
+Mixin을 일반 클래스로 사용할 수 없도록 하려면 `class` 대신 `mixin` 키워드를 사용하세요:
 
 <?code-excerpt "misc/lib/language_tour/classes/orchestra.dart (Musical)"?>
 ```dart
@@ -3710,11 +3602,9 @@ mixin Musical {
 }
 ```
 
-Sometimes you might want to restrict the types that can use a mixin.
-For example, the mixin might depend on being able to invoke a method
-that the mixin doesn't define.
-As the following example shows, you can restrict a mixin's use
-by using the `on` keyword to specify the required superclass:
+Mixin을 사용 할 수 있는 타입을 제한할 수도 있습니다.
+예를 들어, mixin이 정의하지 않은 메서드를 호출할 수 있는지에 따라 달라질 수 있습니다.
+다음 예제처럼 `on` 키워드로 사용할 수 있는 superclass를 제한함으로써 mixin의 사용을 제한할 수 있습니다:
 
 <?code-excerpt "misc/lib/language_tour/classes/orchestra.dart (mixin-on)" plaster="none" replace="/on Musician2/[!on Musician!]/g" ?>
 ```dart
@@ -3729,20 +3619,16 @@ class SingerDancer extends Musician with MusicalPerformer {
 }
 ```
 
-In the preceding code,
-only classes that extend or implement the `Musician` class
-can use the mixin `MusicalPerformer`.
-Because `SingerDancer` extends `Musician`,
-`SingerDancer` can mix in `MusicalPerformer`.
+위의 코드에서 `Musician` 클래스를 확장, 구현하는 클래스들만 `MusicalPerformer` mixin을 사용 할 수 있습니다.
+`SingerDancer`가 `Musician`을 확장하기 때문에, `SingerDancer`는 `MusicalPerformer` mixin을 사용 할 수 있습니다.
 
-### Class variables and methods
+### 클래스 변수와 메서드
 
-Use the `static` keyword to implement class-wide variables and methods.
+`static` 키워드를 사용해 class-wide한 변수와 메소드를 선언하세요.
 
-#### Static variables
+#### 정적 변수
 
-Static variables (class variables) are useful for class-wide state and
-constants:
+정적 변수(클래스 변수)는 class-wide한 상수와, 상태를 정의 할 때 유용합니다:
 
 <?code-excerpt "misc/lib/language_tour/classes/misc.dart (static-field)"?>
 ```dart
@@ -3756,21 +3642,18 @@ void main() {
 }
 ```
 
-Static variables aren’t initialized until they’re used.
+정적 변수는 사용하기 전에는 초기화되지 않습니다.
 
 {{site.alert.note}}
-  This page follows the [style guide
-  recommendation](/guides/language/effective-dart/style#identifiers)
-  of preferring `lowerCamelCase` for constant names.
+  이 페이지는 [스타일 가이드 추천](/guides/language/effective-dart/style#identifiers)
+  에서 선호하는 `lowerCamelCase`를 상수 선언에 사용합니다.
 {{site.alert.end}}
 
-#### Static methods
+#### 정적 메서드
 
-Static methods (class methods) don't operate on an instance, and thus
-don't have access to `this`.
-They do, however, have access to static variables.
-As the following example shows,
-you invoke static methods directly on a class:
+정적 메소드(클래스 메소드)는 인스턴스 위에서 실행되지 않기 때문에 `this`에 접근 할 수 없지만,
+정적 변수에 대한 접근은 가능합니다.
+다음 코드는 클래스에서 직접 정적 메소드를 실행합니다:
 
 <?code-excerpt "misc/lib/language_tour/classes/point_with_distance_method.dart"?>
 ```dart
@@ -3797,12 +3680,11 @@ void main() {
 ```
 
 {{site.alert.note}}
-  Consider using top-level functions, instead of static methods, for
-  common or widely used utilities and functionality.
+  범용적으로 자주 쓰이는 기능을 구현하기 위해서는 정적 메서드 대신 최상위 메서드를 사용하는 것을 고려해보세요.
 {{site.alert.end}}
 
-You can use static methods as compile-time constants. For example, you
-can pass a static method as a parameter to a constant constructor.
+정적 메소드를 컴파일 타임 상수로 사용 할 수 있습니다.
+예를 들어, 상수 생성자의 매개변수로 정적 메소드를 넘겨 줄 수 있습니다.
 
 
 ## Generics
