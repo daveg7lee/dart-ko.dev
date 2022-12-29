@@ -3891,42 +3891,40 @@ var foo = [!Foo<Object>!]();
 * 지역 변수의 타입 (`T tmp`).
 
 
-## Libraries and visibility
+## 라이브러리와 가시성
 
-The `import` and `library` directives can help you create a
-modular and shareable code base. Libraries not only provide APIs, but
-are a unit of privacy: identifiers that start with an underscore (`_`)
-are visible only inside the library. *Every Dart app is a library*, even
-if it doesn’t use a `library` directive.
+`import`와 `library` 디렉티브는 코드를 모듈화하고 공유하는 것을 도와줍니다.
+라이브러리는 API를 제공할 뿐만 아니라, 관리(privacy)의 단위가 됩니다:
+언더스코어(`_`)로 시작하는 식별자들은 오직 그 라이브러리 안에서만 보입니다.
+`library` 디렉티브를 사용하지 않았다고 해도, *모든 Dart 앱은 라이브러리*입니다.
 
-Libraries can be distributed using [packages](/guides/packages).
+라이브러리들은 [packages](/guides/packages)를 사용해 분산 될 수 있습니다.
 
 {{site.alert.info}}
-  If you're curious why Dart uses underscores instead of
-  access modifier keywords like `public` or `private`, see
-  [SDK issue 33383](https://github.com/dart-lang/sdk/issues/33383).
+  Dart가 `public` 이나 `private` 같은 접근 수식 키워드를 사용하지 않고,
+  언더스코어를 사용하는지가 궁금하다면,
+  [SDK issue 33383](https://github.com/dart-lang/sdk/issues/33383)
+  를 참고하세요.
 {{site.alert.end}}
 
 
-### Using libraries
+### 라이브러리 사용
 
-Use `import` to specify how a namespace from one library is used in the
-scope of another library.
+어떤 라이브러리의 네임스페이스가 다른 라이브러리의 스코프에서 사용되는 방법을
+지정하고 싶다면 `import`를 사용하세요. 
 
-For example, Dart web apps generally use the [dart:html][]
-library, which they can import like this:
+예를 들어, Dart 웹앱은 보통
+[dart:html][] 라이브러리를 사용합니다. 다음 예제 처럼 말이죠:
 
 <?code-excerpt "misc/test/language_tour/browser_test.dart (dart-html-import)"?>
 ```dart
 import 'dart:html';
 ```
 
-The only required argument to `import` is a URI specifying the
-library.
-For built-in libraries, the URI has the special `dart:` scheme.
-For other libraries, you can use a file system path or the `package:`
-scheme. The `package:` scheme specifies libraries provided by a package
-manager such as the pub tool. For example:
+`import`가 필요한 인자는 라이브러리를 특정 지을 수 있는 URI뿐입니다.
+내장 라이브러리들은 `dart:`라는 특별한 스킴(scheme)을 따릅니다.
+이외의 라이브러리를 사용하고 싶다면, 파일 시스템 경로나 `package:`를 사용하면 됩니다.
+`package:` 스킴은 pub 같은 패키지 매니저가 제공하는 라이브러리를 특정 지을 때 사용합니다.
 
 <?code-excerpt "misc/test/language_tour/browser_test.dart (package-import)"?>
 ```dart
@@ -3934,75 +3932,72 @@ import 'package:test/test.dart';
 ```
 
 {{site.alert.note}}
-  *URI* stands for uniform resource identifier.
-  *URLs* (uniform resource locators) are a common kind of URI.
+  *URI*는 stands for uniform resource identifier의 준말입니다.
+  *URLs* (uniform resource locators)은 URI의 종류입니다.
 {{site.alert.end}}
 
 
-#### Specifying a library prefix
+#### 라이브러리 프리픽스 지정
 
-If you import two libraries that have conflicting identifiers, then you
-can specify a prefix for one or both libraries. For example, if library1
-and library2 both have an Element class, then you might have code like
-this:
+같은 식별자를 가지는 두 개의 라이브러리를 import하면 충돌이 발생합니다.
+그럴 때 프리픽스를 특정하면 문제가 해결됩니다.
+예를 들면, 라이브러리1과 라이브러리2가 Element 클래스를 가진다고 하면, 코드는 다음과 같을 것 입니다:
 
 <?code-excerpt "misc/lib/language_tour/libraries/import_as.dart" replace="/(lib\d)\.dart/package:$1\/$&/g"?>
 ```dart
 import 'package:lib1/lib1.dart';
 import 'package:lib2/lib2.dart' as lib2;
 
-// Uses Element from lib1.
+// lib1의 Element 사용.
 Element element1 = Element();
 
-// Uses Element from lib2.
+// lib3의 Element 사용.
 lib2.Element element2 = lib2.Element();
 ```
 
-#### Importing only part of a library
+#### 라이브러리의 일부만 가져오기
 
-If you want to use only part of a library, you can selectively import
-the library. For example:
+라이브러리의 일부만 필요하다면, 다음과 같이 라이브러리를 선택적으로 import 할 수 있습니다:
 
 <?code-excerpt "misc/lib/language_tour/libraries/show_hide.dart" replace="/(lib\d)\.dart/package:$1\/$&/g"?>
 ```dart
-// Import only foo.
+// foo만 import.
 import 'package:lib1/lib1.dart' show foo;
 
-// Import all names EXCEPT foo.
+// foo를 제외하고 모두 import.
 import 'package:lib2/lib2.dart' hide foo;
 ```
 
 <a id="deferred-loading"></a>
-#### Lazily loading a library
 
-_Deferred loading_ (also called _lazy loading_)
-allows a web app to load a library on demand,
-if and when the library is needed.
-Here are some cases when you might use deferred loading:
+#### 라이브러리 지연 로딩 (Lazily loading a library)
 
-* To reduce a web app's initial startup time.
-* To perform A/B testing—trying out
-  alternative implementations of an algorithm, for example.
-* To load rarely used functionality, such as optional screens and dialogs.
+_지연 로딩(Deferred loading)_ (_lazy loading_)은
+웹앱이 해당 라이브러리가 필요할 때 로드하게 해줍니다.
+다음은 지연 로딩을 사용해야 하는 케이스 입니다:
+
+* 웹앱의 초기 로딩 시간을 줄이고 싶을 때
+* A/B 테스팅을 진행할 때 —
+  예를 들어, 대안이 되는 알고리즘들의 구현을 시험해 볼 때가 있습니다.
+* 선택적인 화면과 다이얼 로그 같은 드물게 사용되는 기능을 로드 할 때.
 
 {{site.alert.warn}}
-  **Only `dart compile js` supports deferred loading.**
-  Flutter and the Dart VM don't support deferred loading.
-  To learn more, see
-  [issue #33118](https://github.com/dart-lang/sdk/issues/33118) and
-  [issue #27776.](https://github.com/dart-lang/sdk/issues/27776)
+  **오직 `dart compile js`만 지연 로딩을 지원합니다.**
+  Flutter, Dart VM은 지연 로딩을 지원하지 않습니다.
+  더 자세히 알고 싶다면,
+  [issue #33118](https://github.com/dart-lang/sdk/issues/33118)와
+  [issue #27776.](https://github.com/dart-lang/sdk/issues/27776)를
+  참고하세요.
 {{site.alert.end}}
 
-To lazily load a library, you must first
-import it using `deferred as`.
+라이브러리를 필요 할 때 지연 로딩하고 싶다면, `deferred as`를 사용해 import 하세요.
 
 <?code-excerpt "misc/lib/language_tour/libraries/greeter.dart (import)" replace="/hello\.dart/package:greetings\/$&/g"?>
 ```dart
 import 'package:greetings/hello.dart' deferred as hello;
 ```
 
-When you need the library, invoke
-`loadLibrary()` using the library's identifier.
+라이브러리를 사용해야 한다면, `loadLibrary()`를 라이브러리의 식별자에 사용해 호출하세요.
 
 <?code-excerpt "misc/lib/language_tour/libraries/greeter.dart (loadLibrary)"?>
 ```dart
@@ -4012,112 +4007,99 @@ Future<void> greet() async {
 }
 ```
 
-In the preceding code,
-the `await` keyword pauses execution until the library is loaded.
-For more information about `async` and `await`,
-see [asynchrony support](#asynchrony-support).
+앞선 코드에서, `await` 키워드는 라이브러리가 로드 될 때 까지 실행을 멈춥니다.
+`async`와 `await`에 대해 더 자세히 알고 싶다면, [비동기 지원](#asynchrony-support)을 참고하세요.
 
-You can invoke `loadLibrary()` multiple times on a library without problems.
-The library is loaded only once.
+`loadLibrary()`를 한 라이브러리에 여러번 호출해도
+한 번만 로드되기 때문에 에러가 발생하지 않습니다.
 
-Keep in mind the following when you use deferred loading:
+지연 로딩을 사용할 때 다음을 꼭 기억해두세요:
 
-* A deferred library's constants aren't constants in the importing file.
-  Remember, these constants don't exist until the deferred library is loaded.
-* You can't use types from a deferred library in the importing file.
-  Instead, consider moving interface types to a library imported by
-  both the deferred library and the importing file.
-* Dart implicitly inserts `loadLibrary()` into the namespace that you define
-  using <code>deferred as <em>namespace</em></code>.
-  The `loadLibrary()` function returns a [`Future`](/guides/libraries/library-tour#future).
+* 지연된 라이브러리의 상수는 import하는 파일에서 상수가 아닙니다.
+  꼭 기억하세요, 이 상수는 지연된 라이브러리가 로드되기 전에는 존재하지 않는 상수 입니다.
+* Import하는 파일에서 지연된 라이브러리에 타입을 사용 할 수 없습니다.
+  대신, 지연된 라이브러리와 import하는 파일에서 가져온 라이브러리로 인터페이스 타입을 이동하는 것을 고려하세요.
+* Dart는 암묵적으로 `loadLibrary()`를 <code>deferred as <em>namespace</em></code>
+  를 사용하여 정의한 네임스페이스에 삽입합니다.
+  `loadLibrary()`는 [`Future`](/guides/libraries/library-tour#future)를 반환합니다.
 
 
-### Implementing libraries
+### 라이브러리 구현
 
-See
-[Create Library Packages](/guides/libraries/create-library-packages)
-for advice on how to implement a library package, including:
+라이브러리 구현에 대한 자세한 방법은
+다음 항목들을 포함하는
+[라이브러리 패키지 만들기](/guides/libraries/create-library-packages)를 살펴보세요:
 
-* How to organize library source code.
-* How to use the `export` directive.
-* When to use the `part` directive.
-* When to use the `library` directive.
-* How to use conditional imports and exports to implement
-  a library that supports multiple platforms.
+* 라이브러리 소스 코드 구성법.
+* `export` 디렉티브 사용법.
+* `part` 디렉티브를 사용해야할 때.
+* `library` 디렉티브를 사용해야할 때.
+* 다수의 플랫폼을 지원하는 라이브러리를 구현 할 때
+  조건적인 import와 export의 사용법.
 
 
 <a id="asynchrony"></a>
-## Asynchrony support
 
-Dart libraries are full of functions that
-return [`Future`][] or [`Stream`][] objects.
-These functions are _asynchronous_:
-they return after setting up
-a possibly time-consuming operation
-(such as I/O),
-without waiting for that operation to complete.
+## 비동기 지원
 
-The `async` and `await` keywords support asynchronous programming,
-letting you write asynchronous code that
-looks similar to synchronous code.
+Dart의 라이브러리에는 [`Future`][] 또는 [`Stream`][] 객체를 반환하는 함수가 많습니다.
+이런 함수들을 _비동기(asynchronous)_ 함수라고 합니다.
+이 함수들은 I/O 같이 시간이 오래 걸릴 수도 있는
+작업이 완료되기를 기다리지 않고, 값을 반환 할 수 있게 해줍니다.
+
+`async`나 `await` 같은 키워드들은 동기적인 코드처럼 보이는
+비동기적인 코드를 이용해 비동기 프로그래밍을 가능하게 합니다.
 
 
 <a id="await"></a>
-### Handling Futures
 
-When you need the result of a completed Future,
-you have two options:
+### Future 다루기
 
-* Use `async` and `await`, as described here and in the
-  [asynchronous programming codelab](/codelabs/async-await).
-* Use the Future API, as described
-  [in the library tour](/guides/libraries/library-tour#future).
+완료된 Future의 결과를 원한다면, 두가지 옵션이 있습니다:
 
-Code that uses `async` and `await` is asynchronous,
-but it looks a lot like synchronous code.
-For example, here's some code that uses `await`
-to wait for the result of an asynchronous function:
+* `async`와 `await`을
+  [비동기식 프로그래밍 codelab](/codelabs/async-await)
+  처럼 사용하세요.
+* Future API를 [라이브러리 투어](/guides/libraries/library-tour#future)
+  처럼 사용하세요.
+
+`async`나 `await`을 사용하는 코드는 비동기적이지만, 외관상 동기적인 코드와 비슷합니다.
+예를 들어, 다음은 `await`을 사용해 비동기 함수의 결과를 기다리는 코드입니다:
 
 <?code-excerpt "misc/lib/language_tour/async.dart (await-lookUpVersion)"?>
 ```dart
 await lookUpVersion();
 ```
 
-To use `await`, code must be in an `async` function—a
-function marked as `async`:
+`await`을 사용하려면, 해당 코드는 `async`로 마크된, `async` 함수 안에 있어야 합니다:
 
 <?code-excerpt "misc/lib/language_tour/async.dart (checkVersion)" replace="/async|await/[!$&!]/g"?>
 {% prettify dart tag=pre+code %}
 Future<void> checkVersion() [!async!] {
   var version = [!await!] lookUpVersion();
-  // Do something with version
+  // version 사용 ...
 }
 {% endprettify %}
 
 {{site.alert.note}}
-  Although an `async` function might perform time-consuming operations, 
-  it doesn't wait for those operations. 
-  Instead, the `async` function executes only
-  until it encounters its first `await` expression.
-  Then it returns a `Future` object,
-  resuming execution only after the `await` expression completes.
+  `async` 비동기 함수는 시간이 많이 걸리는 작업을 수행할 수 있지만
+  이러한 작업을 기다리지 않습니다. 대신 `async` 함수는 첫번째 `await` 구문을 찾을 때까지 실행됩니다.
+  그 후에 `Future` object를 반환하고, `await` 구문이 끝난 뒤 코드 실행을 재개합니다.
 {{site.alert.end}}
 
-Use `try`, `catch`, and `finally` to handle errors and cleanup
-in code that uses `await`:
+`try`, `catch`, `finally`를 사용하여 `await`을 사용한 코드의 에러를 다루고, 깔끔하게 정리하세요:
 
 <?code-excerpt "misc/lib/language_tour/async.dart (try-catch)"?>
 ```dart
 try {
   version = await lookUpVersion();
 } catch (e) {
-  // React to inability to look up the version
+  // 버전을 조회할 수 없을 경우 ...
 }
 ```
 
-You can use `await` multiple times in an `async` function.
-For example, the following code waits three times
-for the results of functions:
+`async` 함수 안에 여러개의 `await`를 사용해도 됩니다.
+예를 들어, 다음의 코드는 3번 함수의 결과를 기다립니다:
 
 <?code-excerpt "misc/lib/language_tour/async.dart (repeated-await)"?>
 ```dart
@@ -4126,17 +4108,15 @@ var exitCode = await runExecutable(entrypoint, args);
 await flushThenExit(exitCode);
 ```
 
-In <code>await <em>expression</em></code>,
-the value of <code><em>expression</em></code> is usually a Future;
-if it isn't, then the value is automatically wrapped in a Future.
-This Future object indicates a promise to return an object.
-The value of <code>await <em>expression</em></code> is that returned object.
-The await expression makes execution pause until that object is available.
+<code>await <em>표현식</em></code>에서 <code><em>표현식</em></code>의 값은 보통 Future 입니다;
+Future가 아니라면, 자동으로 Future가 값을 감싸게 됩니다.
+이 Future 객체는 객체를 반환하는 약속(promise)을 나타냅니다.
+<code>await <em>표현식</em></code>의 값은 반환된 해당 객체 입니다.
+await 표현식은 그 객체가 사용 가능해질 때까지 실행을 멈춥니다
 
-**If you get a compile-time error when using `await`,
-make sure `await` is in an `async` function.**
-For example, to use `await` in your app's `main()` function,
-the body of `main()` must be marked as `async`:
+**await를 사용하면서 컴파일 타임 에러가 발생했다면, `await`가 `async` 함수 안에 있는지 확인해보세요.**
+예를 들어, 앱의 `main()` 함수의 바디에 `await` 함수를 사용한다면,
+`main()` 는 `async`로 마크되어 있어야 합니다:
 
 <?code-excerpt "misc/lib/language_tour/async.dart (main)" replace="/async|await/[!$&!]/g"?>
 {% prettify dart tag=pre+code %}
@@ -4147,50 +4127,43 @@ void main() [!async!] {
 {% endprettify %}
 
 {{site.alert.note}}
-  The preceding example uses an `async` function (`checkVersion()`)
-  without waiting for a result—a practice that can cause problems
-  if the code assumes that the function has finished executing.
-  To avoid this problem,
-  use the [unawaited_futures linter rule][].
+  앞의 예제에서 `async` 함수 (`checkVersion()`)의 결과를 기다리지 않고 사용했습니다.
+  이런 관행은 코드가 해당 함수의 실행이 끝났다고 가정하면 문제를 일으킵니다.
+  이 문제를 피하기 위해 [unawaited_futures linter rule][]을 사용하세요.
 {{site.alert.end}}
 
 [unawaited_futures linter rule]: /tools/linter-rules#unawaited_futures
 
-For an interactive introduction to using futures, `async`, and `await`,
-see the [asynchronous programming codelab](/codelabs/async-await).
+Future, `async`, 그리고 `await`을 사용해보며 더 자세히 배우고 싶다면,
+[비동기식 프로그래밍 codelab](/codelabs/async-await).를 참고하세요.
 
 
 <a id="async"></a>
-### Declaring async functions
 
-An `async` function is a function whose body is marked with
-the `async` modifier.
+### async 함수 선언
 
-Adding the `async` keyword to a function makes it return a Future.
-For example, consider this synchronous function,
-which returns a String:
+`async` 함수는 바디가 `async` 식별자로 마크된 함수입니다.
+
+`asnyc` 키워드를 함수 앞에 마크하는 것은, 함수가 Future를 반환하게 합니다.
+예를 들어, String을 반환하는 다음과 같은 동기식 함수가 있습니다:
 
 <?code-excerpt "misc/lib/language_tour/async.dart (sync-lookUpVersion)"?>
 ```dart
 String lookUpVersion() => '1.0.0';
 ```
-
-If you change it to be an `async` function—for example,
-because a future implementation will be time consuming—the
-returned value is a Future:
+Future 구현은 시간을 소요하므로 이 함수를 async 함수로 만들면 Future 값을 반환합니다:
 
 <?code-excerpt "misc/lib/language_tour/async.dart (async-lookUpVersion)"?>
 ```dart
 Future<String> lookUpVersion() async => '1.0.0';
 ```
 
-Note that the function's body doesn't need to use the Future API.
-Dart creates the Future object if necessary.
-If your function doesn't return a useful value,
-make its return type `Future<void>`.
+함수의 바디에서는 Future API를 사용할 필요가 없다는 것을 알아두세요.
+Dart는 필요 할 때 Future 객체를 생성합니다.
+함수가 쓸모 있는 값을 반환하지 않는다면, 반환 타입을 `Future<void>`로 지정하세요.
 
-For an interactive introduction to using futures, `async`, and `await`,
-see the [asynchronous programming codelab](/codelabs/async-await).
+Future, `async`, 그리고 `await`을 사용해보며 더 자세히 배우고 싶다면,
+[비동기식 프로그래밍 codelab](/codelabs/async-await).를 참고하세요.
 
 {% comment %}
 TODO #1117: Where else should we cover generalized void?
@@ -4198,48 +4171,42 @@ TODO #1117: Where else should we cover generalized void?
 
 
 <a id="await-for"></a>
-### Handling Streams
 
-When you need to get values from a Stream,
-you have two options:
+### Stream 다루기
 
-* Use `async` and an _asynchronous for loop_ (`await for`).
-* Use the Stream API, as described
-  [in the library tour](/guides/libraries/library-tour#stream).
+Stream에서 값을 가져오고 싶다면, 두 가지 옵션이 있습니다:
+
+* `async` 와 _비동기 for 루프_ (`await for`)을 사용하세요.
+* [라이브러리 투어](/guides/libraries/library-tour#stream)처럼 Stream API를 사용하세요.
 
 {{site.alert.note}}
-  Before using `await for`, be sure that it makes the code clearer and that you
-  really do want to wait for all of the stream's results. For example, you
-  usually should **not** use `await for` for UI event listeners, because UI
-  frameworks send endless streams of events.
+   `await for`의 사용이 코드를 더 간결하게 만드는지 확인하고,
+   스트림의 모든 결과를 확실히 기다릴 것인지 정하세요.
+   예를 들어, UI 이벤트 리스너는 끝임없는 이벤트의 스트림을 전송하므로 `await for` 를 사용하면 **안됩니다**.
 {{site.alert.end}}
 
-An asynchronous for loop has the following form:
+비동기 for 루프는 다음과 같은 형태를 가집니다:
 
 <?code-excerpt "misc/lib/language_tour/async.dart (await-for)"?>
 ```dart
 await for (varOrType identifier in expression) {
-  // Executes each time the stream emits a value.
+  // Stream이 값을 내놓을 때 실행됩니다.
 }
 ```
 
-The value of <code><em>expression</em></code> must have type Stream.
-Execution proceeds as follows:
+위 <code><em>표현식</em></code>의 값은 반드시 Stream 타입이어야 합니다.
+실행의 흐름은 다음과 같습니다:
 
-1. Wait until the stream emits a value.
-2. Execute the body of the for loop,
-   with the variable set to that emitted value.
-3. Repeat 1 and 2 until the stream is closed.
+1. Stream이 값을 내놓을 때 까지 기다립니다.
+2. 도출된 값을 변수로 설정하여 for 루프의 바디를 실행합니다.
+3. Stream이 끝날 때까지 1과 2를 반복합니다.
 
-To stop listening to the stream,
-you can use a `break` or `return` statement,
-which breaks out of the for loop
-and unsubscribes from the stream.
+Stream에 대한 listening을 끝내고 싶다면,
+for 루프를 끝내고 stream을 unsubscribe하는 `break`나 `return`을 사용하면 됩니다.
 
-**If you get a compile-time error when implementing an asynchronous for loop,
-make sure the `await for` is in an `async` function.**
-For example, to use an asynchronous for loop in your app's `main()` function,
-the body of `main()` must be marked as `async`:
+**비동기 for 루프를 사용할 때 컴파일 타임 에러가 발생했다면, `await for`가 `async` 함수 안에 있는지 확인해보세요.**
+예를 들어, 앱의 `main()` 함수에 비동기 for 루프를 사용한다면,
+`main()` 는 `async`로 마크되어 있어야 합니다:
 
 <?code-excerpt "misc/lib/language_tour/async.dart (number_thinker)" replace="/async|await for/[!$&!]/g"?>
 {% prettify dart tag=pre+code %}
@@ -4252,9 +4219,9 @@ void main() [!async!] {
 }
 {% endprettify %}
 
-For more information about asynchronous programming, in general, see the
+비동기 프로그래밍에 대해 더 자세히 알고 싶다면 라이브러리 투어의
 [dart:async](/guides/libraries/library-tour#dartasync---asynchronous-programming)
-section of the library tour.
+섹션을 참고하세요.
 
 
 <a id="generator"></a>
