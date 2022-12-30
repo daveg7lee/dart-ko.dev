@@ -4204,7 +4204,9 @@ await for (varOrType identifier in expression) {
 Stream에 대한 listening을 끝내고 싶다면,
 for 루프를 끝내고 stream을 unsubscribe하는 `break`나 `return`을 사용하면 됩니다.
 
-**비동기 for 루프를 사용할 때 컴파일 타임 에러가 발생했다면, `await for`가 `async` 함수 안에 있는지 확인해보세요.**
+**비동기 for 루프를 사용할 때 컴파일 타임 에러가 발생했다면,
+`await for`가 `async` 함수 안에 있는지 확인해보세요.**
+
 예를 들어, 앱의 `main()` 함수에 비동기 for 루프를 사용한다면,
 `main()` 는 `async`로 마크되어 있어야 합니다:
 
@@ -4225,18 +4227,17 @@ void main() [!async!] {
 
 
 <a id="generator"></a>
-## Generators
 
-When you need to lazily produce a sequence of values,
-consider using a _generator function_.
-Dart has built-in support for two kinds of generator functions:
+## 제너레이터
 
-* **Synchronous** generator: Returns an [`Iterable`] object.
-* **Asynchronous** generator: Returns a [`Stream`] object.
+데이터의 시퀀스를 지연하여(lazily) 생성하고 싶다면,
+_제네레이터 함수_ 를 사용하세요. Dart는 두가지 내장 제너레이터 함수를 가지고 있습니다:
 
-To implement a **synchronous** generator function,
-mark the function body as `sync*`,
-and use `yield` statements to deliver values:
+* **동기식** 제너레이터: [`Iterable`] 객체를 반환합니다.
+* **비동기식** 제너레이터: [`Stream`] 객체를 반환합니다.
+
+**동기식** 제너레이터 함수를 구현하려면, 함수의 바디를
+`sync*`로 표시하고 `yield` 문으로 값을 생성하세요:
 
 <?code-excerpt "misc/test/language_tour/async_test.dart (sync-generator)"?>
 ```dart
@@ -4246,9 +4247,8 @@ Iterable<int> naturalsTo(int n) sync* {
 }
 ```
 
-To implement an **asynchronous** generator function,
-mark the function body as `async*`,
-and use `yield` statements to deliver values:
+**비동기식** 제너레이터 함수를 구현하려면, 함수의 바디를
+`async*`로 표시하고 `yield` 문으로 값을 생성하세요:
 
 <?code-excerpt "misc/test/language_tour/async_test.dart (async-generator)"?>
 ```dart
@@ -4258,8 +4258,8 @@ Stream<int> asynchronousNaturalsTo(int n) async* {
 }
 ```
 
-If your generator is recursive,
-you can improve its performance by using `yield*`:
+제너레이터가 재귀적이라면,
+`yield*`를 사용하여 성능을 향상시킬 수 있습니다:
 
 <?code-excerpt "misc/test/language_tour/async_test.dart (recursive-generator)"?>
 ```dart
@@ -4271,18 +4271,16 @@ Iterable<int> naturalsDownFrom(int n) sync* {
 }
 ```
 
-## Callable classes
+## 호출 가능한 클래스 (Callable classes)
 
-To allow an instance of your Dart class to be called like a function,
-implement the `call()` method.
+Dart 클래스의 인스턴스를 함수처럼 호출하고 싶다면, `call()` 메소드를 구현하세요.
 
-The `call()` method allows any class that defines it to emulate a function.
-This method supports the same functionality as normal [functions](#functions)
-such as parameters and return types.
+`call()` 메서드는 함수를 정의하는 모든 클래스가 함수를 에뮬레이트(emulate)하도록 허용합니다.
+이 함수는 일반 [함수](#functions) 처럼 매개변수 그리고 반환 타입 같은 기능을 지원합니다.
 
-In the following example, the `WannabeFunction` class defines a `call()` function
-that takes three strings and concatenates them, separating each with a space,
-and appending an exclamation. Click **Run** to execute the code.
+다음의 예제에서, `WannabeFunction` 클래스는
+3개의 문자열을 받아서 각 문자열을 공백으로 구분하고
+느낌표를 추가하는 `call()` 함수를 정의합니다. **Run**을 클릭해 코드를 실행하세요.
 
 <?code-excerpt "misc/lib/language_tour/callable_classes.dart"?>
 ```dart:run-dartpad:height-350px:ga_id-callable_classes
@@ -4298,19 +4296,20 @@ void main() => print(out);
 
 ## Isolates
 
-Most computers, even on mobile platforms, have multi-core CPUs.
-To take advantage of all those cores, developers traditionally use
-shared-memory threads running concurrently. However, shared-state
-concurrency is error prone and can lead to complicated code.
+모바일 플랫폼을 포함한 대부분의 컴퓨터들은 멀티 코어 CPUs를 가지고 있습니다.
+멀티 코어를 이용하기 위해 개발자들은 전통적으로 메모리를 공유하는 쓰레드를 동시에
+사용합니다. 그러나, 상태를 공유하는 쓰레드를 동시 실행하는 것은 에러를 발생시킬 수 있고,
+코드 또한 복잡해집니다.
 
-Instead of threads, all Dart code runs inside of *isolates*. 
-Each Dart isolate uses a single thread of execution and
-shares no mutable objects with other isolates.
-Spinning up multiple isolates creates multiple threads of execution.
-This enables multi-threading without its primary drawback,
-[race conditions](https://en.wikipedia.org/wiki/Race_condition#In_software)
+Dart 코드는 쓰레드 대신 *isolates*의 내부에서 실행됩니다.
+각각의 Dart isolate는 하나의 실행 쓰레드를 가지고,
+다른 isolates들과 변할 수 있는 객체들에 대해 공유하지 않습니다.
+다수의 isolates를 구동하면 여러 실행 쓰레드를 생성합니다.
+이러한 기능 덕분에 멀티 쓰레딩의 주된 결함인
+[레이스 컨디션](https://en.wikipedia.org/wiki/Race_condition#In_software)을
+피할 수 있습니다.
 
-For more information, see the following:
+더 많은 정보를 원한다면, 다음을 참고하세요:
 * [Concurrency in Dart](/guides/language/concurrency)
 * [dart:isolate API reference,][dart:isolate]
   including [Isolate.spawn()][] and
@@ -4326,10 +4325,9 @@ For more information, see the following:
 
 ## Typedefs
 
-A type alias—often called a _typedef_ because
-it's declared with the keyword `typedef`—is
-a concise way to refer to a type.
-Here's an example of declaring and using a type alias named `IntList`:
+`typedef` 키워드로 선언되기 때문에 _typedef_ 로도 불리우는
+타입 앨리어스는 타입을 참조하는 간편한 수단입니다.
+다음은 `IntList`라는 타입 앨리어스를 선언하고 사용하는 예제입니다:
 
 <?code-excerpt "misc/lib/language_tour/typedefs/misc.dart (int-list)"?>
 ```dart
@@ -4337,23 +4335,23 @@ typedef IntList = List<int>;
 IntList il = [1, 2, 3];
 ```
 
-A type alias can have type parameters:
+타입 앨리어스는 타입 매개변수를 가집니다:
 
 <?code-excerpt "misc/lib/language_tour/typedefs/misc.dart (list-mapper)"?>
 ```dart
 typedef ListMapper<X> = Map<X, List<X>>;
-Map<String, List<String>> m1 = {}; // Verbose.
-ListMapper<String> m2 = {}; // Same thing but shorter and clearer.
+Map<String, List<String>> m1 = {}; // 타입 선언이 장황합니다.
+ListMapper<String> m2 = {}; // 위와 같지만 더 깔끔하고 짧습니다.
 ```
 
 {{site.alert.version-note}}
-  Before 2.13, typedefs were restricted to function types.
-  Using the new typedefs requires a [language version][] of at least 2.13.
+  2.13 이전 버전에는 typedefs를 함수 타입에만 사용이 가능했습니다.
+  새로운 typedefs를 사용하고 싶다면 최소 2.13.의 [language version][]이 필요합니다.
 {{site.alert.end}}
 
-We recommend using [inline function types][] instead of typedefs for functions,
-in most situations.
-However, function typedefs can still be useful:
+대부분의 상황에서 함수에는 typedefs 대신
+[inline function types][]의 사용을 추천합니다.
+하지만, 함수의 typedefs는 여전히 유용합니다:
 
 <?code-excerpt "misc/lib/language_tour/typedefs/misc.dart (compare)"?>
 ```dart
@@ -4370,18 +4368,18 @@ void main() {
 [inline function types]: /guides/language/effective-dart/design#prefer-inline-function-types-over-typedefs
 
 
-## Metadata
+## 메타데이터
 
-Use metadata to give additional information about your code. A metadata
-annotation begins with the character `@`, followed by either a reference
-to a compile-time constant (such as `deprecated`) or a call to a
-constant constructor.
+코드에 추가적인 정보를 더하고 싶다면 메타데이터를 사용하세요.
+메타데이터 표기는 `@` 문자로 시작해서 `deprecated` 같은 컴파일 타임 상수
+에 대한 참조 또는 상수 생성자에 대한 호출로 이어집니다.
 
-Three annotations are available to all Dart code: 
-`@Deprecated`, `@deprecated`, and `@override`. 
-For examples of using `@override`,
-see [Extending a class](#extending-a-class).
-Here’s an example of using the `@Deprecated` annotation:
+모든 Dart 코드에 다음 3가지 표기가 가능합니다:
+`@Deprecated`, `@deprecated`, 그리고 `@override`.
+
+`@override`를 사용하는 예제는
+[Extending a class](#extending-a-class)를 참고하세요.
+다음은 `@Deprecated` 표기를 사용하는 예제입니다:
 
 <?code-excerpt "misc/lib/language_tour/metadata/television.dart (deprecated)" replace="/@Deprecated.*/[!$&!]/g"?>
 {% prettify dart tag=pre+code %}
@@ -4398,8 +4396,8 @@ class Television {
 }
 {% endprettify %}
 
-You can define your own metadata annotations. Here’s an example of
-defining a `@Todo` annotation that takes two arguments:
+개발자가 메타데이터 표기를 정의할 수도 있습니다.
+다음은 두개의 인자를 받는 `@Todo` 표기를 정의하는 예제입니다:
 
 <?code-excerpt "misc/lib/language_tour/metadata/todo.dart"?>
 ```dart
@@ -4411,7 +4409,7 @@ class Todo {
 }
 ```
 
-And here’s an example of using that `@Todo` annotation:
+다음은 `@Todo` 표기를 사용하는 예제입니다:
 
 <?code-excerpt "misc/lib/language_tour/metadata/misc.dart"?>
 ```dart
@@ -4421,22 +4419,20 @@ void doSomething() {
 }
 ```
 
-Metadata can appear before a library, class, typedef, type parameter,
-constructor, factory, function, field, parameter, or variable
-declaration and before an import or export directive. You can
-retrieve metadata at runtime using reflection.
+메타데이터는 라이브러리, 클래스, typedef, 타입 매개변수,
+생성자, factory, 함수, 필드, 매개변수, 변수 선언 뒤에 나올 수 있고
+import나 export 디렉티브 뒤에도 나올 수 있습니다.
+Reflection을 이용해 런타임에 메타데이터를 회수 할 수 있습니다.
 
 
-## Comments
+## 주석
 
-Dart supports single-line comments, multi-line comments, and
-documentation comments.
+Dart는 싱글 라인, 멀티 라인, 문서화 주석을 지원합니다.
 
 
-### Single-line comments
+### 싱글 라인 주석
 
-A single-line comment begins with `//`. Everything between `//` and the
-end of line is ignored by the Dart compiler.
+싱글 라인 주석은 `//`로 시작합니다. `//`와 해당 라인의 끝까지 Dart의 컴파일러가 무시합니다.
 
 <?code-excerpt "misc/lib/language_tour/comments.dart (single-line-comments)"?>
 ```dart
@@ -4447,12 +4443,11 @@ void main() {
 ```
 
 
-### Multi-line comments
+### 멀티 라인 주석
 
-A multi-line comment begins with `/*` and ends with `*/`. Everything
-between `/*` and `*/` is ignored by the Dart compiler (unless the
-comment is a documentation comment; see the next section). Multi-line
-comments can nest.
+멀티 라인 주석은 `/*`로 시작해서 `*/`로 끝납니다. 주석이 문서화 주석이 아니라면,
+`/*`와 `*/` 사이에 있는 것들은 Dart 컴파일러가 무시합니다. 멀티 라인 주석은
+중첩이 가능합니다.
 
 <?code-excerpt "misc/lib/language_tour/comments.dart (multi-line-comments)"?>
 ```dart
@@ -4469,20 +4464,16 @@ void main() {
 ```
 
 
-### Documentation comments
+### 문서화 주석
 
-Documentation comments are multi-line or single-line comments that begin
-with `///` or `/**`. Using `///` on consecutive lines has the same
-effect as a multi-line doc comment.
+문서화문서 주석은 `///` 또는 `/**`로 시작하는 멀티 또는 싱글 라인 주석입니다. 연이은 라인에 `///`
+를 사용하는 것은 멀티 라인 문서 주석과 같은 효과를 발휘합니다.
 
-Inside a documentation comment, the analyzer ignores all text
-unless it is enclosed in brackets. Using brackets, you can refer to
-classes, methods, fields, top-level variables, functions, and
-parameters. The names in brackets are resolved in the lexical scope of
-the documented program element.
+문서화 주석 안에 괄호로 감싸진 텍스트를 제외한 것은 모두 analyzer가 무시합니다.
+괄호를 사용하여 클래스, 메소드, 필드, 최상위 변수, 함수, 매개변수를 참조할 수 있습니다.
+괄호 안에 있는 이름은 문서화된 프로그램 요소의 렉시컬 스코프 안에서 해석됩니다.
 
-Here is an example of documentation comments with references to other
-classes and arguments:
+다음은 클래스와 인자들에 대한 참조를 가지는 문서 주석에 대한 예제입니다:
 
 <?code-excerpt "misc/lib/language_tour/comments.dart (doc-comments)"?>
 ```dart
@@ -4511,27 +4502,28 @@ class Llama {
 }
 ```
 
-In the class's generated documentation, `[feed]` becomes a link
-to the docs for the `feed` method,
-and `[Food]` becomes a link to the docs for the `Food` class.
+위 클래스 안에 생성된 문서에서 `[feed]`는 `feed` 메서드의 링크가 되고,
+`[Food]`는 `Food` 클래스의 링크가 됩니다.
 
-To parse Dart code and generate HTML documentation, you can use Dart's
-documentation generation tool, [`dart doc`](/tools/dart-doc).
-For an example of generated documentation, see the 
-[Dart API documentation.]({{site.dart-api}}/{{site.data.pkg-vers.SDK.channel}}) 
-For advice on how to structure your comments, see
-[Effective Dart: Documentation.](/guides/language/effective-dart/documentation)
+Dart 코드를 파싱하고 HTML 문서를 생성하고 싶다면,
+Dart의 문서 생성 툴인 [`dart doc`](/tools/dart-doc)를 사용하세요.
+생성된 문서의 예를 보고 싶다면,
+[Dart API documentation]({{site.dart-api}}/{{site.data.pkg-vers.SDK.channel}})를
+참고하세요. 주석을 어떻게 달아야하는지 조언을 얻고 싶다면,
+[Effective Dart: Documentation](/guides/language/effective-dart/documentation)을
+참고하세요.
 
 
-## Summary
+## 요약
 
-This page summarized the commonly used features in the Dart language.
-More features are being implemented, but we expect that they won’t break
-existing code. For more information, see the [Dart 언어 설명서][] and
-[Effective Dart](/guides/language/effective-dart).
+이 페이지는 Dart 언어에서 자주 사용하는 피처들을 요약했습니다.
+더 많은 피처들이 개발되고 있지만, 그것들이 이미 존재하는 코드들을 해치지는 않을 것입니다.
+Dart에 대해 더 자세히 알고 싶다면, [Dart 언어 설명서][]와
+[Effective Dart](/guides/language/effective-dart)를 참고하세요.
 
-To learn more about Dart's core libraries, see
-[A Tour of the Dart Libraries](/guides/libraries/library-tour).
+Dart 핵심 라이브러리에 대해 더 배우고 싶다면,
+[A Tour of the Dart Libraries](/guides/libraries/library-tour)를
+참고하세요.
 
 [`AssertionError`]: {{site.dart-api}}/{{site.data.pkg-vers.SDK.channel}}/dart-core/AssertionError-class.html
 [`Characters`]: {{site.pub-api}}/characters/latest/characters/Characters-class.html
