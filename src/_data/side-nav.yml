@@ -1,4 +1,4 @@
-- title: Samples & tutorials
+- title: 샘플 & 튜토리얼
   expanded: false
   children:
     - title: Language samples
@@ -23,7 +23,7 @@
       match-page-url-exactly: true
       permalink: /tutorials
 
-- title: Language
+- title: 언어
   expanded: false
   children:
     - title: Tour
@@ -87,7 +87,7 @@
     - title: Specification
       permalink: /guides/language/spec
 
-- title: Core libraries
+- title: 핵심 라이브러리
   expanded: false
   children:
     - title: Overview
@@ -101,7 +101,7 @@
         - title: Creating streams
           permalink: /articles/libraries/creating-streams
 
-- title: Packages
+- title: 패키지
   expanded: false
   children:
     - title: How to use packages
@@ -134,7 +134,7 @@
         - title: Versioning
           permalink: /tools/pub/versioning
 
-- title: Development
+- title: 개발
   expanded: false
   children:
     - title: Futures, async, await
@@ -194,7 +194,7 @@
         - title: Libraries and packages
           permalink: /web/libraries
 
-- title: Tools & techniques
+- title: 툴 & 테크닉
   expanded: false
   children:
   - title: Overview
@@ -273,7 +273,7 @@
       - title: Debugging web apps
         permalink: /web/debugging
 
-- title: Resources
+- title: 리소스
   expanded: false
   children:
     - title: Overview
@@ -297,7 +297,7 @@
     - title: Videos
       permalink: /resources/videos
 
-- title: Related sites
+- title: 연관 사이트
   expanded: true
   children:
     - title: API reference

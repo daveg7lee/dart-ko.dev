@@ -1,7 +1,7 @@
 ---
-title: "Overview: The Dart language"
+title: "개요: Dart 언어"
 permalink: /guides/language
-short-title: Dart language
+short-title: Dart 언어
 toc: false
 ---
 

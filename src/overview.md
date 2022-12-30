@@ -1,6 +1,6 @@
 ---
-title: Dart overview
-description: A short introduction to Dart
+title: Dart 개요
+description: Dart에 대한 짦은 소개
 js: [{url: 'https://dartpad.dev/inject_embed.dart.js', defer: true}]
 ---
 
