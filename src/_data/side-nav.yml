@@ -1,7 +1,7 @@
 - title: 샘플 & 튜토리얼
   expanded: false
   children:
-    - title: Language samples
+    - title: 언어 샘플
       permalink: /samples
     - title: Codelabs
       expanded: true
@@ -26,24 +26,24 @@
 - title: 언어
   expanded: false
   children:
-    - title: Tour
+    - title: 투어
       permalink: /guides/language/language-tour
-    - title: Type system
+    - title: 타입 시스템
       permalink: /guides/language/type-system
-    - title: Effective Dart
+    - title: 효과적인 Dart
       expanded: false
       children:
-        - title: Overview
+        - title: 개요
           urlExactMatch: true
           match-page-url-exactly: true
           permalink: /guides/language/effective-dart
-        - title: Style
+        - title: 스타일
           permalink: /guides/language/effective-dart/style
-        - title: Documentation
+        - title: 문서화
           permalink: /guides/language/effective-dart/documentation
-        - title: Usage
+        - title: 용법
           permalink: /guides/language/effective-dart/usage
-        - title: Design
+        - title: 디자인
           permalink: /guides/language/effective-dart/design
     - title: Coming from ...
       expanded: false
