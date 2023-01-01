@@ -4,7 +4,8 @@
 [![OpenSSF Scorecard SVG][]][Scorecard Results]
 [![first-timers SVG][]][first-timers]
 
-we translate https://dart.dev into Korean in this fork!
+This repo translates https://dart.dev into Korean !
+Feel free to PR !
 
 [We welcome contributions](CONTRIBUTING.md), 
 and we're [first-timer friendly][first-timers]!
