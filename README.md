@@ -1,10 +1,12 @@
-# <img src="https://github.com/dart-lang/site-shared/blob/main/src/_assets/image/dart/logo/64.png" alt="Dart" width="28" height="28"/> The Dart language site (dart.dev)
+# <img src="https://github.com/dart-lang/site-shared/blob/main/src/_assets/image/dart/logo/64.png" alt="Dart" width="28" height="28"/> Dart 언어 사이트 (dart-ko.dev)
 
 [![Build Status SVG][]][Repo on GitHub Actions]
 [![OpenSSF Scorecard SVG][]][Scorecard Results]
 [![first-timers SVG][]][first-timers]
 
-we translate https://dart.dev into Korean in this fork!
+This repo translates https://dart.dev into Korean !
+
+Feel free to PR !
 
 [We welcome contributions](CONTRIBUTING.md), 
 and we're [first-timer friendly][first-timers]!
