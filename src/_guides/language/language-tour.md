@@ -483,7 +483,7 @@ non-final, non-const 변수의 값을 변경할 수 있습니다.
 foo = [1, 2, 3]; // const [] 였음
 ```
 
-You can't change the value of a `const` variable:
+`const` 변수의 값은 바꿀 수 없습니다:
 
 {:.fails-sa}
 <?code-excerpt "misc/lib/language_tour/variables.dart (cant-assign-to-const)"?>
@@ -2418,7 +2418,6 @@ throw FormatException('Expected at least 1 section');
 ```
 
 임의의 객체도 throw 할 수 있습니다:
-You can also throw arbitrary objects:
 
 <?code-excerpt "misc/lib/language_tour/exceptions.dart (out-of-llamas)"?>
 ```dart
@@ -3207,9 +3206,10 @@ void main() {
   assert(rect.left == -8);
 }
 ```
-
-With getters and setters, you can start with instance variables, later
-wrapping them with methods, all without changing client code.
+<!-- 번역이 확실하지 않음 -->
+Getter 및 setter를 사용하는 이점은 인스턴스 변수를 먼저 사용한 다음 코드를 변경하지 않고
+나중에 메서드로 래핑할 수 있다는 것입니다
+즉, 먼저 정의한 다음 원래 코드에 영향을 주지 않고 변경할 수 있습니다.
 
 {{site.alert.note}}
   증가 (++)와 같은 연산자는 getter가 명백히 정의되어 있든 말든 특정 방법으로 동작합니다.
@@ -3220,7 +3220,7 @@ wrapping them with methods, all without changing client code.
 
 인스턴스, getter, setter 메서드는 추상화 될 수 있습니다.
 추상화란 인터페이스만 구현한 상태로 나머지 부분은 다른 클래스들에게 맡기는 것을 의미합니다.
-추상 메서드는 오직 [abstract classes](#abstract-classes)에 존재 할 수 있습니다.
+추상 메서드는 오직 [추상 클래스](#abstract-classes)에 존재 할 수 있습니다.
 
 메서드를 추상화 하려면, 메서드 바디 대신에 세미콜론 (;)을 사용하세요:
 
