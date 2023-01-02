@@ -1,6 +1,6 @@
 ---
 title: 언어 샘플
-description: Examples of idiomatic Dart with links to larger examples.
+description: 더 큰 예제와 이어지는 자연스러운 Dart 예제.
 ---
 
 이 컬렉션은 완전하지 않습니다—예제를 통해 Dart를 배우고 싶은 사람들을 위한 간단한 소개 입니다.
