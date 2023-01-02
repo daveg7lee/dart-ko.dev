@@ -14,7 +14,7 @@
 
 **식별자**
 
-* <a href='/guides/language/effective-dart/style#do-name-types-using-uppercamelcase'><code>UpperCamelCase</code>를 사용하여 타입을 명명하십시요.</a>
+* <a href='/guides/language/effective-dart/style#do-name-types-using-uppercamelcase'><code>UpperCamelCase</code>를 사용하여 타입을 명명하십시오.</a>
 * <a href='/guides/language/effective-dart/style#do-name-extensions-using-uppercamelcase'><code>UpperCamelCase</code>를 사용하여 extensions을 명명하십시오.</a>
 * <a href='/guides/language/effective-dart/style#do-name-libraries-and-source-files-using-lowercase_with_underscores'><code>lowercase_with_underscores</code>를 사용하여 라이브러리, 패키지, 디렉토리 그리고 소스 파일을 명명하십시오..</a>
 * <a href='/guides/language/effective-dart/style#do-name-import-prefixes-using-lowercase_with_underscores'><code>lowercase_with_underscores</code>를 사용하여 import prefix를 명명하십시오.</a>
