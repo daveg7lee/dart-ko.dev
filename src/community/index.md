@@ -1,81 +1,80 @@
 ---
 permalink: /community
-title: Community and support
-description: Communities, mailing lists, and bug databases for the Dart project.
+title: 커뮤니티와 지원
+description: 커뮤니티, 메일링 리스트, 그리고 Dart 프로젝트를 위한 버그 데이터베이스.
 group: https://groups.google.com/a/dartlang.org
 ---
 
-Track the Dart project, get help, and talk with other Dart developers.
+Dart 프로젝트의 진행 상황을 지켜봐주세요.
+Dart 커뮤니티에서 도움을 받을 수 있고, 개발자들과 교류할 수 있습니다.
 
-We pledge to maintain an open and welcoming environment.
-For details, see our [code of conduct](/code-of-conduct).
+우리는 개방적이고 열정적인 환경을 조성할 것을 약속합니다.
+자세한 사항은 [행동강령](/code-of-conduct)을 참고하세요.
 
 
-## Stay informed
+## 아래의 페이지를 지속적으로 지켜봐주세요
 
-[Dart announce]({{page.group}}/d/forum/announce)
-: Low traffic announcements of new releases, breaking changes,
-  and other important news. Recommended!
+[Dart 소식]({{page.group}}/d/forum/announce)
+: 새로운 릴리즈 버전, 주요 변경 사항 및 기타 중요한 뉴스를 즉시 게시합니다. 추천합니다!
 
 [@dart_lang](https://twitter.com/dart_lang)
-: The official Twitter account.
+: 공식 트위터 계정.
 
-[Dart blog](https://medium.com/dartlang)
-: The latest news and insights from a diverse group of Dart users.
+[Dart 블로그](https://medium.com/dartlang)
+: 다양한 Dart 사용자 그룹의 최신 소식과 인사이트.
 
-[This Week in Dart](https://thisweekindart.dev/)
-: A community ran, weekly newsletter covering the Dart ecosystem.
+[금주의 Dart](https://thisweekindart.dev/)
+: 한 커뮤니티가 운영하는 Dart 생태계를 다루는 주간 뉴스레터.
 
-## Join the conversation
+## 토론에 참여하세요
 
-Get answers and connect with Dart developers.
+Dart 개발자들과 소통하며 답을 찾으세요.
 
-#### Communities
+#### 커뮤니티
 
 [StackOverflow](https://stackoverflow.com/tags/dart)
-: The best place for how-to questions.
+: 질문하기에 가장 적합한 장소.
 
 [Gitter](https://gitter.im/dart-lang/home)
-: Chat with Dart team and community members.
+: Dart 팀 및 커뮤니티 구성원과 교류하세요.
 
 [Dart on Reddit](https://www.reddit.com/r/dartlang)
-: The subreddit for all things related to Dart.
+: Reddit의 Dart 서브레딧입니다.
 
-[The Unofficial Dart Community Discord](https://discord.gg/Qt6DgfAWWx)
-: Chat with and get help from other Dart developers.
+[비공식 Dart 커뮤니티 디스코드](https://discord.gg/Qt6DgfAWWx)
+: 다른 Dart 개발자들과 교류하고 도움을 요청하세요.
 
-#### Google Groups
+#### 구글 그룹
 
-[General discussions]({{page.group}}/d/forum/misc)
-: Discuss miscellaneous Dart topics.
+[일반적인 토론]({{page.group}}/d/forum/misc)
+: Dart의 여러가지 토픽에 대해 토론합니다.
 
 [Dart analyzer]({{page.group}}/d/forum/analyzer-discuss)
-: Get help understanding the [Dart analyzer](/tools/dart-analyze).
+: [Dart analyzer](/tools/dart-analyze)에 대한 이해를 위해 논의합니다.
 
-## Contribute
+## 기여
 
-Dart is open source.
-Learn how to
-[contribute to the core SDK.](https://github.com/dart-lang/sdk/blob/main/CONTRIBUTING.md)
+Dart는 오픈소스입니다.
+[핵심 SDK에 기여하는 법](https://github.com/dart-lang/sdk/blob/main/CONTRIBUTING.md)을 학습하세요.
 
-[Dart GitHub repositories](https://github.com/dart-lang/)
-: Track new changes and contribute to various Dart projects.
-  * [Core SDK](https://github.com/dart-lang/sdk/)
-    ([issue tracker](https://github.com/dart-lang/sdk/issues/))
-  * [The Dart Language](https://github.com/dart-lang/language)
-    ([issue tracker](https://github.com/dart-lang/language/issues))
-  * [This site](https://github.com/dart-lang/site-www/)
-    ([issue tracker](https://github.com/dart-lang/site-www/issues/))
+[Dart GitHub 저장소](https://github.com/dart-lang/)
+: 변경 사항을 추적하고 Dart의 다양한 프로젝트에 기여하세요.
+  * [핵심 SDK](https://github.com/dart-lang/sdk/)
+    ([이슈 트래커](https://github.com/dart-lang/sdk/issues/))
+  * [Dart 언어](https://github.com/dart-lang/language)
+    ([이슈 트래커](https://github.com/dart-lang/language/issues))
+  * [이 사이트](https://github.com/Coaspe/dart-ko.dev)
+    ([이슈 트래커](https://github.com/dart-lang/site-www/issues/))
 
-[Dart reviews]({{page.group}}/d/forum/reviews)
-: High-traffic list of all core SDK code reviews.
+[Dart 리뷰]({{page.group}}/d/forum/reviews)
+: 모든 핵심 SDK 코드 리뷰의 트래픽이 많은 목록입니다.
 
-## Additional community resources
+## 추가적인 커뮤니티 리소스
 
-Our wonderful community has provided these resources:
+우리의 훌륭한 커뮤니티는 다음의 리소스를 제공합니다:
 
-* [Simplified Chinese version of this site (简体中文版)](https://dart.cn)
-* [Traditional Chinese version of this site (正體中文版)](https://dart.tw.gh.miniasp.com/)
+* [이 사이트의 중국어 간체 버전 (简体中文版)](https://dart.cn)
+* [이 사이트의 중국어 번체 버전 (正體中文版)](https://dart.tw.gh.miniasp.com/)
 
-Also see the [Flutter community page.]({{site.flutter}}/community)
+[Flutter 커뮤니티 페이지]({{site.flutter}}/community)도 참고하세요.
 
