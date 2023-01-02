@@ -59,7 +59,6 @@ var image = {
 ## 흐름 제어문
 
 Dart는 자주 사용하는 흐름 제어문을 지원합니다:
-Dart supports the usual control flow statements:
 
 <?code-excerpt "misc/test/samples_test.dart (control-flow)"?>
 ```dart
@@ -193,7 +192,6 @@ class Spacecraft {
 ```
 
 `Spacecraft` 클래스를 다음과 같이 사용할 수 있습니다:
-You might use the `Spacecraft` class like this:
 
 <?code-excerpt "misc/test/samples_test.dart (use class)" plaster="none"?>
 ```dart
@@ -446,7 +444,7 @@ try {
 위의 코드는 비동기적이라는 것을 알아두세요:
 `try`는 `async` 함수 코드와 동기식 코드에서 모두 동작합니다.
 
-Stack traces, `rethrow`, 그리고 `Error`와 `Exception`의 차이를 비롯하여
+스택 트레이스, `rethrow`, 그리고 `Error`와 `Exception`의 차이를 비롯하여
 예외에 대해 
 [더보기](/guides/language/language-tour#exceptions).
 
