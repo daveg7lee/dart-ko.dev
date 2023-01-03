@@ -129,7 +129,7 @@ Dart는 프로그래밍 업무에 필수적인 기능을 제공하는
   (`dart:typed_data`)
 * C 스타일 인터페이스를 제공하는 다른 코드와의 상호 운용성을 위한 외부 함수 인터페이스
   (`dart:ffi`)
-* _Isolate_를 사용한 동시(concurrent) 프로그래밍—
+* _Isolate_ 를 사용한 동시(concurrent) 프로그래밍—
   스레드와 비슷하지만 메모리를 공유하지 않고, 메시지로 통신하는 독립된 워커(worker)
   (`dart:isolate`)
 * 브라우저 및 DOM(Document Object Model)과 상호작용해야 하는
@@ -182,8 +182,8 @@ UI 경험을 구축하기 위해 툴링과 UI 라이브러리를 제공합니다
 
 #### Dart 네이티브 (머신 코드 JIT와 AOT) {#native-platform}
 
-개발하는 동안에 반복을 위한 빠른 개발 사이클은 중요합니다.
-Dart VM은 증분 재컴파일(핫 리로드 지원), 실시간 메트릭 컬렉션 ([DevTools](/tools/dart-devtools) 지원)
+개발하는 동안에 빠른 개발 주기는 반복에 중요합니다.
+Dart VM은 증분 재컴파일(핫 리로드 지원), 실시간 데이터 수집 ([DevTools](/tools/dart-devtools) 구동)
 및 풍부한 디버깅 지원이 있는 JIT(Just-In-Time) 컴파일러를 제공합니다.
 
 프로덕션 백엔드를 배포하든 앱스토어에 퍼블리싱하든 상관없이,
@@ -193,7 +193,7 @@ AOT로 컴파일된 앱은 일정하고 짧은 시작 시간으로 실행됩니�
 
 AOT로 컴파일된 코드는 sound Dart 타입 시스템을 따르고
 빠른 객체 할당과 
-[generational garbage collector](https://medium.com/flutter-io/flutter-dont-fear-the-garbage-collector-d69b3ff1ca30)
+[generational 가비지 컬렉터](https://medium.com/flutter-io/flutter-dont-fear-the-garbage-collector-d69b3ff1ca30)
 를 사용하는 효과적인 Dart 런타임에서 실행됩니다.
 
 더 자세히 알고 싶다면 다음을 참고하세요:
@@ -241,7 +241,7 @@ Dart 웹은 두개의 컴파일 모드를 가지고 있습니다:
   앱을 생성하는 다른 isolate를 제어합니다.
 
 네이티브 플랫폼에서 Dart 런타임은 자동으로 self-contained 실행 파일에
-포함되며 `dart run`](/tools/dart-run) 커맨드로 제공되는
+포함되며 [`dart run`](/tools/dart-run) 커맨드로 제공되는
 Dart VM의 일부입니다.
 
 ## Dart 학습 {#learning-dart}
@@ -249,7 +249,7 @@ Dart VM의 일부입니다.
 Dart를 학습하는 여러가지 방법이 있습니다. 다음은 우리가 추천하는 방법입니다:
 
 * Dart 코드를 위한 웹 기반 실행 환경인 DartPad를 사용해 [브라우저에서 Dart를 체험하세요]({{site.dartpad}}/).
-* [Dart 언어의 주된 기능 사용법 배우세요](/guides/language/language-tour).
+* [Dart 언어의 주요 기능 사용법 배우세요](/guides/language/language-tour).
 * 커맨드 라인 프로그램을 만들기 위한 Dart의 기본인 [Dart 튜토리얼 완료하세요](/tutorials/server/cmdline).
 * Dart 전문가의 [온라인 교육][udemy]을 참고하세요.
 * Dart 핵심 라이브러리에 대한 [API 문서 살펴보세요]({{site.dart-api}}).
