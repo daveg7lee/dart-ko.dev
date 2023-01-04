@@ -99,9 +99,9 @@ void main() {
 
 Dart 언어를 학습 할 때 다음을 잘 기억해야합니다:
 
--   변수로 할당 할 수 있는 모든 것은 *객체*이고, 모든 객체는 *클래스*의 instance 입니다.
+-   변수로 할당 할 수 있는 모든 것은 *객체*이고, 모든 객체는 *클래스*의 인스턴스입니다.
     숫자, 함수 그리고 `null`까지 모두 객체입니다.
-    `null`을 제외하고 (만약 [sound null safety][ns])를 활성화했다면),
+    `null`을 제외하고 (만약 [sound null safety][ns]를 활성화했다면),
      모든 객체들은 [`Object`][] 클래스를 상속받습니다.
 
     {{site.alert.version-note}}
@@ -321,7 +321,7 @@ String name = 'Bob';
 
 Nullable 타입을 가지는 초기화되지 않은 변수는
 초기 값으로 `null`을 가질 수 있습니다.
-([Null safety][ns]을 사용하지 않는다면,
+([Null safety][ns]를 사용하지 않는다면,
 모든 변수는 nullable 타입을 가집니다.)
 Dart의 다른 모든 것과 마찬가지로 숫자도 객체이기 때문에,
 숫자 타입의 변수도 처음에는 null 입니다.

@@ -1,11 +1,11 @@
 ---
-title: Extension methods
+title: Extension 메서드
 description: Learn how to add to existing APIs.
 ---
-Extension methods add functionality to existing libraries.
-You might use extension methods without even knowing it.
-For example, when you use code completion in an IDE,
-it suggests extension methods alongside regular methods.
+Extension 메서드는 이미 존재하는 라이브러리에 기능을 추가합니다.
+Extension 메서드가 무엇인지 모르는 상태에서 사용하고 있을 수도 있습니다.
+예를 들어, IDE의 코드 완성을 사용할 때,
+IDE가 일반적인 메서드와 함께 extension 메서드를 추천합니다.
 
 <iframe width="560" height="315"
   src="https://www.youtube.com/embed/D3j0OSfT9ZI"
@@ -13,45 +13,43 @@ it suggests extension methods alongside regular methods.
   allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
   allowfullscreen>
 </iframe>
-<em>If you like to learn by watching videos,
-here's a good overview of extension methods.</em>
+<em>비디오를 통해 학습하고 싶다면 위의 영상을 참고하세요.</em>
 
 
-## Overview
+## 개요
 
-When you're using someone else's API or
-when you implement a library that's widely used,
-it's often impractical or impossible to change the API.
-But you might still want to add some functionality.
+다른 사람들이 개발한 API를 사용하거나
+많이 쓰이지 않는 라이브러리를 구현할 때,
+해당 API를 변경하는 것은 실용적이지 않거나 불가능할 때가 있습니다.
+하지만 기능을 추가하고 싶다면 어떻게 해야할까요?
 
-For example, consider the following code that parses a string into an integer:
+예를 들어, 다음과 같이 문자열을 정수로 파싱하는 코드를 생각해봅시다:
 
 ```dart
 int.parse('42')
 ```
 
-It might be nice—shorter and easier to use with tools—to
-have that functionality be on `String` instead:
+`String`에 다음과 같은 기능이 있다면 더 짧고 쉽게 처리가 가능할 것입니다:
 
 ```dart
 '42'.parseInt()
 ```
 
-To enable that code,
-you can import a library that contains an extension of the `String` class:
+위의 코드를 사용하려면
+`String` 클래스의 extension이 포함된 라이브러리를 import하면 됩니다:
 
 <?code-excerpt "extension_methods/lib/string_extensions/usage_simple_extension.dart (basic)" replace="/  print/print/g"?>
 ```dart
 import 'string_apis.dart';
 // ···
-print('42'.parseInt()); // Use an extension method.
+print('42'.parseInt()); // Extension 메서드 사용.
 ```
 
-Extensions can define not just methods,
-but also other members such as getter, setters, and operators.
-Also, extensions have names, which can be helpful if an API conflict arises.
-Here's how you might implement the extension method `parseInt()`,
-using an extension (named `NumberParsing`) that operates on strings:
+Extension은 메서드뿐만 아니라,
+getter, setter, 연산자 같은 멤버에도 사용이 가능합니다.
+또한, extension은 이름을 가지고 있어서 API 충돌이 발생할 때 유용합니다.
+다음은 문자열에 사용 가능한 `NumberParsing`이라는 extension을 사용해,
+extension 메서드 `parseInt()`를 구현하는 예제입니다:
 
 <?code-excerpt "extension_methods/lib/string_extensions/string_apis.dart (parseInt)"?>
 ```dart
@@ -64,25 +62,26 @@ extension NumberParsing on String {
 ```
 <div class="prettify-filename">lib/string_apis.dart</div>
 
-The next section describes how to _use_ extension methods.
-After that are sections about _implementing_ extension methods.
+다음 섹션은 extension 메서드의 _사용법_,
+그 섹션에서는 extension 메서드의 _구현법_ 을 설명합니다. 
 
 
-## Using extension methods
+## Extension 메서드 사용법
 
-Like all Dart code, extension methods are in libraries.
-You've already seen how to use an extension method—just 
-import the library it's in, and use it like an ordinary method:
+모든 Dart 코드와 마찬가지로 extension 메서드는 라이브러리 안에 있습니다.
+우리는 이미 extension 메서드를 어떻게 사용하는지 배웠습니다.
+해당 메서드가 있는 라이브러리를 import하고 일반 메서드처럼 사용하면 됩니다:
 
 <?code-excerpt "extension_methods/lib/string_extensions/usage_simple_extension.dart (import-and-use)" replace="/  print/print/g"?>
 ```dart
-// Import a library that contains an extension on String.
+// String에 사용 가능한 extention이 있는 라이브러리를 import 합니다.
 import 'string_apis.dart';
 // ···
-print('42'.padLeft(5)); // Use a String method.
-print('42'.parseInt()); // Use an extension method.
+print('42'.padLeft(5)); // String 메서드 사용.
+print('42'.parseInt()); // Extension 메서드 사용.
 ```
 
+Extension 메서드를 사용하기 위해 알아야할 것은 모두 확인했습니다.
 That's all you usually need to know to use extension methods.
 As you write your code, you might also need to know
 how extension methods depend on static types (as opposed to `dynamic`) and
