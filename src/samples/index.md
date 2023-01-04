@@ -427,19 +427,21 @@ if (astronauts == 0) {
 
 예외를 캐치하고 싶다면, `try`문을 `on` 또는 `catch` (혹은 모두)와 함께 사용하세요:
 
-<?code-excerpt "misc/test/samples_test.dart (try)"?>
-```
-try {
-  for (final object in flybyObjects) {
-    var description = await File('$object.txt').readAsString();
-    print(description);
+<?code-excerpt "misc/test/samples_test.dart (try)" replace="/on.*e\)/[!$&!]/g"?>
+{% prettify dart tag=pre+code %}
+Future<void> describeFlybyObjects(List<String> flybyObjects) async {
+  try {
+    for (final object in flybyObjects) {
+      var description = await File('$object.txt').readAsString();
+      print(description);
+    }
+  } [!on IOException catch (e)!] {
+    print('Could not describe object: $e');
+  } finally {
+    flybyObjects.clear();
   }
-} on IOException catch (e) {
-  print('Could not describe object: $e');
-} finally {
-  flybyObjects.clear();
 }
-```
+{% endprettify %}
 
 위의 코드는 비동기적이라는 것을 알아두세요:
 `try`는 `async` 함수 코드와 동기식 코드에서 모두 동작합니다.
