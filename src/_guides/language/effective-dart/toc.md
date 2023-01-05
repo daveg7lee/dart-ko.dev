@@ -92,17 +92,17 @@
 
 **라이브러리**
 
-* <a href='/guides/language/effective-dart/usage#do-use-strings-in-part-of-directives'><code>part of</code> directive에 문자열을 사용하십시오.</a>
+* <a href='/guides/language/effective-dart/usage#do-use-strings-in-part-of-directives'><code>part of</code> 명령어에 문자열을 사용하십시오.</a>
 * <a href='/guides/language/effective-dart/usage#dont-import-libraries-that-are-inside-the-src-directory-of-another-package'>다른 패키지의 <code>src</code> 디렉토리에 있는 라이브러리를 import하지 마십시오.</a>
-* <a href='/guides/language/effective-dart/usage#dont-allow-an-import-path-to-reach-into-or-out-of-lib'>Import 경로가 lib 안팎으로 지정되는 것을 피하십시오.</a>
+* <a href='/guides/language/effective-dart/usage#dont-allow-an-import-path-to-reach-into-or-out-of-lib'>Import 경로를 lib 안팎으로 지정하지 마십시오.</a>
 * <a href='/guides/language/effective-dart/usage#prefer-relative-import-paths'>상대 경로를 사용하여 import하는 것을 지향하십시오.</a>
 
 **Null**
 
-* <a href='/guides/language/effective-dart/usage#dont-explicitly-initialize-variables-to-null'>변수를 명시적으로 <code>null</code>으로 초기화하지 마십시오.</a>
+* <a href='/guides/language/effective-dart/usage#dont-explicitly-initialize-variables-to-null'>변수를 명시적으로 <code>null</code>로 초기화하지 마십시오.</a>
 * <a href='/guides/language/effective-dart/usage#dont-use-an-explicit-default-value-of-null'>디폴트 값으로 <code>null</code>을 명시적으로 사용하지 마십시오.</a>
 * <a href='/guides/language/effective-dart/usage#prefer-using--to-convert-null-to-a-boolean-value'><code>Null</code>을 boolean 값으로 바꿀 때 <code>??</code> 사용을 지향하십시오.</a>
-* <a href='/guides/language/effective-dart/usage#avoid-late-variables-if-you-need-to-check-whether-they-are-initialized'>변수가 초기화 되었는지 확인해야 한다면 <code>late</code> 사용을 피하십시오.</a>
+* <a href='/guides/language/effective-dart/usage#avoid-late-variables-if-you-need-to-check-whether-they-are-initialized'>초기화 여부를 확인해야하는 변수를 <code>late</code>로 선언하는 것을 피하십시오.</a>
 * <a href='/guides/language/effective-dart/usage#consider-assigning-a-nullable-field-to-a-local-variable-to-enable-type-promotion'>타입 프로모션을 활성화하고 싶다면, nullable 필드를 로컬 변수에 할당하는 것을 고려하십시오.</a>
 
 **문자열**
@@ -171,7 +171,7 @@
 ### 디자인
 
 
-**Names**
+**명명법**
 
 * <a href='/guides/language/effective-dart/design#do-use-terms-consistently'>일관적인 용어를 사용하십시오.</a>
 * <a href='/guides/language/effective-dart/design#avoid-abbreviations'>약어 사용을 피하십시오.</a>

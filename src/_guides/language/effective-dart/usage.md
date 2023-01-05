@@ -1,39 +1,37 @@
 ---
-title: "Effective Dart: Usage"
-description: Guidelines for using language features to write maintainable code.
+title: "효과적인 Dart: 사용법"
+description: 언어 기능을 사용하여 유지 관리 가능한 코드를 작성하기 위한 가이드라인.
 nextpage:
   url: /guides/language/effective-dart/design
-  title: Design
+  title: 디자인
 prevpage:
   url: /guides/language/effective-dart/documentation
-  title: Documentation
+  title: 문서화
 ---
 <?code-excerpt replace="/([A-Z]\w*)\d\b/$1/g"?>
 <?code-excerpt path-base="misc/lib/effective_dart"?>
 
-You can use these guidelines every day in the bodies of your Dart code. *Users*
-of your library may not be able to tell that you've internalized the ideas here,
-but *maintainers* of it sure will.
+당신이 작성한 모든 Dart 코드에 해당 가이드라인을 적용할 수 있습니다.
+라이브러리의 *사용자*는 이러한 지침에 대해 일부는 알 필요가 없지만,
+*유지관리자*는 반드시 알아야합니다.
 
-## Libraries
+## 라이브러리
 
-These guidelines help you compose your program out of multiple files in a
-consistent, maintainable way. To keep these guidelines brief, they use "import"
-to cover `import` and `export` directives. The guidelines apply equally to both.
+이 가이드라인은 여러 파일로 작성한 프로그램을 일관적이고 유지보수가 가능한 방향으로
+구성하는 데 도움이 될 수 있습니다. 가이드라인을 간결하게 하기 위해 여기에서 "import"를
+사용하여 `import`와 `export`를 모두 나타냅니다. 가이드라인은 이 두 가지에 모두 적용됩니다.
 
-### DO use strings in `part of` directives.
+### `part of` 명령어에 문자열을 사용하십시오.
 
-Many Dart developers avoid using `part` entirely. They find it easier to reason
-about their code when each library is a single file. If you do choose to use
-`part` to split part of a library out into another file, Dart requires the other
-file to in turn indicate which library it's a part of. For legacy reasons, Dart
-allows this `part of` directive to use the *name* of the library it's a part of.
-That makes it harder for tools to physically find the main library file, and can
-make it ambiguous which library the part is actually part of.
+많은 Dart 개발자들은 직접 `part`를 사용하지 않습니다. 개발자들은 라이브러리에 파일이 하나만
+있을 때 코드를 더 쉽게 읽을 수 있다는 것을 깨달았습니다. `part`를 사용하여 라이브러리의 일부를
+다른 파일로 분할하려는 경우, Dart는 다른 파일에 해당 라이브러리의 경로를 표시하도록 요청합니다.
+이러한 이유들로, Dart는 `part of` 명령어가 속한 라이브러리의 *이름*을 사용할 수 있도록 허용합니다.
+이로 인해 툴이 메인 라이브러리 파일에 해당하는 파일을 직접 찾기가 어려지고, 해당 부분이 실제로 어떤
+라이브러리에 속하는지 모호해질 수 있습니다.
 
-The preferred, modern syntax is to use a URI string that points directly to the
-library file, just like you use in other directives. If you have some library,
-`my_library.dart`, that contains:
+권장하는 현대 문법은 다른 명령어에서 사용하듯이 URI 문자열을 사용하여 라이브러리 파일을 직접 지정하는 것입니다.
+`my_library.dart`라는 라이브러리가 있다고 하면, 다음과 유사할 것입니다:
 
 <?code-excerpt "my_library.dart"?>
 {% prettify dart tag=pre+code %}
@@ -42,7 +40,7 @@ library my_library;
 part 'some/other/file.dart';
 {% endprettify %}
 
-Then the part file should look like:
+그리고 부분이 되는 파일은 다음과 같을 것입니다:
 
 {:.good}
 <?code-excerpt "some/other/file.dart"?>
@@ -50,7 +48,7 @@ Then the part file should look like:
 part of '../../my_library.dart';
 {% endprettify %}
 
-And not:
+다음과 같이 작성하지마세요:
 
 {:.bad}
 <?code-excerpt "some/other/file_2.dart"?>
@@ -58,38 +56,32 @@ And not:
 part of my_library;
 {% endprettify %}
 
-### DON'T import libraries that are inside the `src` directory of another package.
+### 다른 패키지의 `src` 디렉토리에 있는 라이브러리를 import하지 마십시오.
 
 {% include linter-rule-mention.md rule="implementation_imports" %}
 
-The `src` directory under `lib` [is specified][package guide] to contain
-libraries private to the package's own implementation. The way package
-maintainers version their package takes this convention into account. They are
-free to make sweeping changes to code under `src` without it being a breaking
-change to the package.
+`lib` 아래의 `src` 디렉토리는 패키지가 자체적으로 구현한 private 라이브러리로 [지정됩니다][package guide].
+패키지 관리자가 패키지를 버전화하는 방식은 이런 규칙을 고려합니다.
+패키지를 손상시키지 않고 관리자는 `src` 디렉토리 아래의 코드를 자유롭게 수정할 수 있습니다.
 
 [package guide]: /tools/pub/package-layout
 
-That means that if you import some other package's private library, a minor,
-theoretically non-breaking point release of that package could break your code.
+즉, 다른 패키지의 private 라이브러리를 import 할 경우, 해당 패키지의 사소하고 이론적으로
+브레이킹 포인트가 아닌 릴리즈가 당신의 코드를 손상시킬 수 있습니다.
 
 
-### DON'T allow an import path to reach into or out of `lib`.
+### Import 경로를 `lib` 안팎으로 지정하지 마십시오.
 
 {% include linter-rule-mention.md rule="avoid_relative_lib_imports" %}
 
-A `package:` import lets you access
-a library inside a package's `lib` directory
-without having to worry about where the package is stored on your computer.
-For this to work, you cannot have imports that require the `lib`
-to be in some location on disk relative to other files.
-In other words, a relative import path in a file inside `lib`
-can't reach out and access a file outside of the `lib` directory,
-and a library outside of `lib` can't use a relative path
-to reach into the `lib` directory.
-Doing either leads to confusing errors and broken programs.
+`package:` import는 패키지가 컴퓨터의 어디에 저장되어 있든 상관없이
+패키지의 `lib` 디렉토리 내부의 라이브러리에 접근할 수 있게 해줍니다.
+이것이 가능하려면, `lib`가 다른 파일들과 비교하여 디스크의 상대적인 위치에 존재해야 하는 import가 불가능해야 합니다.
+다시 말해, `lib` 내부 파일의 상대적인 import 경로는 `lib` 디렉토리 외부의 파일에
+도달하거나 접근할 수 없으며 `lib` 외부의 라이브러리는 `lib` 디렉토리에 도달하기 위해 상대적인 경로를 사용할 수 없습니다.
+위의 두 가지를 시도하면 혼란스러운 에러와 프로그램에 손상을 발생시킵니다.
 
-For example, say your directory structure looks like this:
+예를 들어, 다음과 같은 디렉토리 구조가 있다고 생각해봅시다:
 
 ```text
 my_package
@@ -99,7 +91,7 @@ my_package
    └─ api_test.dart
 ```
 
-And say `api_test.dart` imports `api.dart` in two ways:
+`api_test.dart`가 두가지 방법으로 `api.dart`를 import 합니다:
 
 {:.bad}
 {% prettify dart tag=pre+code %}
@@ -107,34 +99,33 @@ import 'package:my_package/api.dart';
 import '../lib/api.dart';
 {% endprettify %}
 
-Dart thinks those are imports of two completely unrelated libraries.
-To avoid confusing Dart and yourself, follow these two rules:
+Dart는 위의 두가지 import가 전혀 관계가 없는 라이브러리에 대한 import로 간주합니다.
+Dart와 개발자가 이러한 혼란을 피하기 위해서는, 다음과 같은 두가지 규칙을 지켜야합니다:
 
-* Don't use `/lib/` in import paths.
-* Don't use `../` to escape the `lib` directory.
+* Import 경로에 `/lib/`를 사용하지 마십시오.
+* `lib` 디렉토리에서 벗어나기 위해 `../`를 사용하지 마십시오.
 
-Instead, when you need to reach into a package's `lib` directory
-(even from the same package's `test` directory
-or any other top-level directory),
-use a `package:` import.
+패키지의 `lib` 디렉토리에 접근하고 싶다면
+(같은 패키지의 `test` 다른 최상위 디렉토리에서도 마찬가지),
+`package:` import를 사용하세요.
 
 {:.good}
 {% prettify dart tag=pre+code %}
 import 'package:my_package/api.dart';
 {% endprettify %}
 
-A package should never reach *out* of its `lib` directory and
-import libraries from other places in the package.
+패키지는 `lib` 디렉토리에 접근해서는 안 되며
+패키지의 다른 위치에서 라이브러리를 import 해서는 안 됩니다.
 
 
-### PREFER relative import paths.
+### 상대 경로를 사용하여 import하는 것을 지향하십시오.
 
 {% include linter-rule-mention.md rule="prefer_relative_imports" %}
 
-Whenever the previous rule doesn't come into play, follow this one.
-When an import does *not* reach across `lib`, prefer using relative imports.
-They're shorter.
-For example, say your directory structure looks like this:
+이전 규칙이 적용되지 않을 때, 항상 이 규칙을 따르세요.
+Import가 `lib`에 도달하지 *않을* 때는, 상대 경로를 사용하여 import하는 것을 선호하십시오.
+더 깔끔합니다.
+예를 들어, 다음과 같은 디렉토리 구조가 있다고 생각해봅시다:
 
 ```text
 my_package
@@ -148,7 +139,7 @@ my_package
    └─ test_utils.dart
 ```
 
-Here is how the various libraries should import each other:
+다음과 같이 라이브러리들을 import 해야합니다:
 
 **lib/api.dart:**
 
@@ -170,24 +161,23 @@ import 'stuff.dart';
 
 {:.good}
 {% prettify dart tag=pre+code %}
-import 'package:my_package/api.dart'; // Don't reach into 'lib'.
+import 'package:my_package/api.dart'; // 'lib'에 도달하지 못함.
 
-import 'test_utils.dart'; // Relative within 'test' is fine.
+import 'test_utils.dart'; // 'test'라는 같은 폴더에 존재.
 {% endprettify %}
 
 
 ## Null
 
 
-### DON'T explicitly initialize variables to `null`.
+### 변수를 명시적으로 `null`로 초기화하지 마십시오.
 
 {% include linter-rule-mention.md rule="avoid_init_to_null" %}
 
-If a variable has a non-nullable type, Dart reports a compile error if you try
-to use it before it has been definitely initialized. If the variable is
-nullable, then it is implicitly initialized to `null` for you. There's no
-concept of "uninitialized memory" in Dart and no need to explicitly initialize a
-variable to `null` to be "safe".
+변수가 non-nullable 타입을 초기화하기 전에 사용한다면, Dart는 컴파일 에러를 리포트합니다.
+변수가 nullable이라면, 암묵적으로 `null`로 초기화됩니다.
+Dart에는 "초기화되지 않은 메모리"라는 개념이 없고
+명시적으로 `null`로 초기화하지 않아도 됩니다.
 
 {:.good}
 <?code-excerpt "usage_good.dart (no-null-init)"?>
@@ -222,12 +212,13 @@ Item? bestDeal(List<Item> cart) {
 {% endprettify %}
 
 
-### DON'T use an explicit default value of `null`.
+### 디폴트 값으로 `null`을 명시적으로 사용하지 마십시오.
 
 {% include linter-rule-mention.md rule="avoid_init_to_null" %}
 
-If you make a nullable parameter optional but don't give it a default value, the
-language implicitly uses `null` as the default, so there's no need to write it.
+디폴트 값이 없는 선택적인 nullable 매개변수를 사용하면,
+Dart는 해당 변수의 디폴트 값을 암묵적으로 `null`로 사용하기 때문에
+명시할 필요가 없습니다.
 
 {:.good}
 <?code-excerpt "usage_good.dart (default-value-null)"?>
@@ -246,12 +237,13 @@ void error([String? message = null]) {
 {% endprettify %}
 
 <a id="prefer-using--to-convert-null-to-a-boolean-value"></a>
-### DON'T use `true` or `false` in equality operations
 
-Using the equality operator to evaluate a *non-nullable* boolean expression 
-against a boolean literal is redundant. 
-It's always simpler to eliminate the equality operator, 
-and use the unary negation operator `!` if necessary:
+### 항등 연산자에 `true` 또는 `false`을 사용하지 마십시오.
+
+Boolean 리터럴에 대해 *non-nullable*인 boolean 표현식을 평가 할 때,
+항등 연산자를 쓰는 것은 불필요합니다.
+항등 연산자를 없애는 것이 항상 더 간단하며,
+필요하다면 단항 부정 연산자인 `!`를 사용하세요:
 
 {:.good}
 <?code-excerpt "usage_good.dart (non-null-boolean-expression)"?>
@@ -269,88 +261,80 @@ if (nonNullableBool == true) { ... }
 if (nonNullableBool == false) { ... }
 {% endprettify %}
 
-To evaluate a boolean expression that *is nullable*, you should use `??`
-or an explicit `!= null` check.
+*Nullable*인 boolean 표현식을 평가하고 싶다면,
+`??`을 사용하거나 명시적으로 `!= null` 확인을 해야합니다.
 
 {:.good}
 <?code-excerpt "usage_good.dart (nullable-boolean-expression)"?>
 {% prettify dart tag=pre+code %}
-// If you want null to result in false:
+// 값이 null 일 때, 표현식이 false로 평가되도록 하고 싶다면:
 if (nullableBool ?? false) { ... }
 
-// If you want null to result in false
-// and you want the variable to type promote:
+// 값이 null 일 때, 표현식이 false로 평가되고
+// 변수의 타입 프로모션을 원한다면:
 if (nullableBool != null && nullableBool) { ... }
 {% endprettify %}
 
 {:.bad}
 <?code-excerpt "usage_bad.dart (nullable-boolean-expression)"?>
 {% prettify dart tag=pre+code %}
-// Static error if null:
+// 값이 null이라면 정적 에러가 발생합니다:
 if (nullableBool) { ... }
 
-// If you want null to be false:
+// 값이 null 일 때, false로 평가되도록 하고 싶다면:
 if (nullableBool == true) { ... }
 {% endprettify %}
 
-`nullableBool == true` is a viable expression, 
-but shouldn't be used for several reasons:
+`nullableBool == true`은 실행 가능한 표현식이지만,
+다음과 같은 이유로 사용해서는 안 됩니다:
 
-* It doesn't indicate the code has anything to do with `null`.
+* 코드가 `null`과 관련이 있음을 나타내지 않습니다.
 
-* Because it's not evidently `null` related, 
-  it can easily be mistaken for the non-nullable case,
-  where the equality operator is redundant and can be removed.
-  That’s only true when the boolean expression on the left
-  has no chance of producing null, but not when it can.
+* 명백히 `null`과 관련이 없기 때문에,
+  항등 연산자가 중복되어 제거될 수 있는
+  non-nullable의 경우로 쉽게 오인될 수 있습니다.
+  왼쪽의 boolean 표현식이 null을 생성할 가능성이 없을 때만 true이고,
+  null을 생성할 수 있을 때는 그렇지 않습니다.
 
-* The boolean logic is confusing. If `nullableBool` is null, 
-  then `nullableBool == true` means the condition evaluates to `false`.
+* 이 표현식의 boolean 로직은 혼란을 야기합니다.
+  `nullableBool`이 null이라면, `nullableBoll == true`는
+  조건식이 `false`로 평가된다는 것을 의미합니다.
 
-The `??` operator makes it clear that something to do with null is happening,
-so it won't be mistaken for a redundant operation. 
-The logic is much clearer too; 
-the result of the expression being `null` is the same as the boolean literal.
+`??` 연산자로 null이 발생할 수도 있는 상황에서 더 명확한 표현이 가능하고,
+중복된 연산자로 오인되지도 않습니다.
+로직 또한 더 명확합니다;
+표현식이 `null`이 될 때의 결과는 boolean 리터럴과 동일합니다.
 
-Using a null-aware operator such as `??` on a variable inside a condition
-doesn’t promote the variable to a non-nullable type. 
-If you want the variable to be promoted inside the body of the `if` statement,
-it's better to use an explicit `!= null` check instead of `??`. 
+`??`와 같은 null-aware 연산자를 조건식에 사용하는 것은
+변수를 non-nullable 타입으로 변환하지 않습니다.
+`if`문의 바디에서 변수의 타입을 변환하고 싶다면,
+`??` 보다 명시적으로 `!= null` 확인을 하는 것이 더 바람직합니다.
 
-### AVOID `late` variables if you need to check whether they are initialized.
+### 초기화 여부를 확인해야하는 변수를 `late`로 선언하는 것을 피하십시오.
 
-Dart offers no way to tell if a `late` variable
-has been initialized or assigned to.
-If you access it, it either immediately runs the initializer
-(if it has one) or throws an exception.
-Sometimes you have some state that's lazily initialized
-where `late` might be a good fit,
-but you also need to be able to *tell* if the initialization has happened yet.
+Dart는 `late` 변수가 초기화 또는 할당되었는지 알 수 있는 방법을
+가지고 있지 않습니다. `late` 변수에 접근 했을 때,
+initializer를 실행하거나, 예외를 발생시킵니다.
+바로 초기화될 필요가 없는 상태는 `late`와 잘 어울립니다.
+하지만 아직 초기화가 이루어지지 않았다면, 그 사실을 *알고 있어야* 합니다.
 
-Although you could detect initialization by storing the state in a `late` variable
-and having a separate boolean field
-that tracks whether the variable has been set,
-that's redundant because Dart *internally*
-maintains the initialized status of the `late` variable.
-Instead, it's usually clearer to make the variable non-`late` and nullable.
-Then you can see if the variable has been initialized
-by checking for `null`.
+`late` 변수에 상태를 저장하고 변수의 설정을 추적하는 분리된 boolean 필드를 사용함으로써
+변수의 초기화를 감지할 수 있지만, Dart는 `late` 변수의 초기화 상태를 *내부적으로* 유지하기 때문에
+굳이 그럴 필요가 없습니다. non-`late` 또는 nullable 변수를 대신 사용하는 것이 더 명확할 수 있습니다.
+그렇게 하면 변수가 `null`인지 확인함으로써 초기화 상태를 확인할 수 있습니다.
 
-Of course, if `null` is a valid initialized value for the variable,
-then it probably does make sense to have a separate boolean field.
+물론 `null` 값이 변수의 유효한 초기화 값이라면,
+분리된 boolean 필드를 가지는 것이 타당할 것입니다.
 
 
-### CONSIDER assigning a nullable field to a local variable to enable type promotion.
+### 타입 프로모션을 활성화하고 싶다면 지역 변수에 nullable 필드를 할당하는 것을 고려하십시오.
 
-Checking that a nullable variable is not equal to `null` promotes the variable
-to a non-nullable type. That lets you access members on the variable and pass it
-to functions expecting a non-nullable type. Unfortunately, promotion is only
-sound for local variables and parameters, so fields and top-level variables
-aren't promoted.
+Nullable 변수가 `null`과 같지 않는 것을 확인하는 것은 변수를 non-nullable 타입으로 변환시킵니다.
+이를 통해 변수의 멤버에 접근하고 non-nullable 타입을 전달받는 함수에 사용이 가능합니다.
+안타깝게도 타입 프로모션은 지역 변수와 매개변수에 대해서만 유효하므로 필드와 최상위 변수는 프로모션이 되지 않습니다.
 
-One pattern to work around this is to assign the field's value to a local
-variable. Null checks on that variable do promote, so you can safely treat
-it as non-nullable.
+이 문제를 해결하는 한 가지 패턴은 필드의 값을 지역 변수에 할당하는 것입니다.
+해당 변수에 대한 null 체킹은 형변환을 수행함으로, 안전하게 non-nullable 처럼 처리하는 것이 가능합니다.
 
 {:.good}
 <?code-excerpt "usage_good.dart (shadow-nullable-field)"?>
@@ -373,8 +357,8 @@ class UploadException {
 }
 {% endprettify %}
 
-Assigning to a local variable can be cleaner and safer than using `!` every
-place the field or top-level variable is used:
+지역 변수에 할당하는 것은 필드 또는 최상위 변수가 사용되는 모든 위치에서
+`!`를 사용하는 것보다 깔끔하고 안전할 수 있습니다:
 
 {:.bad}
 <?code-excerpt "usage_bad.dart (shadow-nullable-field)" replace="/!\./[!!!]./g"?>
@@ -396,11 +380,10 @@ class UploadException {
 }
 {% endprettify %}
 
-Be careful when using a local variable. If you need to write back to the field,
-make sure that you don't write back to the local variable instead. (Making the
-local variable `final` can prevent such mistakes.) Also, if the field might
-change while the local is still in scope, then the local might have a stale
-value. Sometimes it's best to simply use `!` on the field.
+지역 변수를 사용할 때는 주의해야 합니다. 필드의 값을 갱신해야 할 때,
+지역 변수를 대신해서 갱신하지 않도록 주의하세요 (지역 변수를 `final`로 설정하는 것은 이런 실수를 예방합니다).
+또한, 지역 변수가 스코프 안에 있을 때 필드가 변경될 수 있는 경우 지역 변수에는 오래된 값이 있을 수 있습니다.
+때때로 필드에 `!`를 사용하는 것이 가장 좋을 때가 있습니다.
 
 
 ## Strings
