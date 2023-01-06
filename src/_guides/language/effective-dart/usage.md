@@ -386,18 +386,17 @@ class UploadException {
 때때로 필드에 `!`를 사용하는 것이 가장 좋을 때가 있습니다.
 
 
-## Strings
+## 문자열
 
-Here are some best practices to keep in mind when composing strings in Dart.
+다음은 Dart에서 문자열을 다룰 때 알아두어야 할 몇 가지 모범 사례입니다.
 
-### DO use adjacent strings to concatenate string literals.
+### 인접 문자열을 사용하여 문자열 리터럴을 연결하십시오.
 
 {% include linter-rule-mention.md rule="prefer_adjacent_string_concatenation" %}
 
-If you have two string literals—not values, but the actual quoted literal
-form—you do not need to use `+` to concatenate them. Just like in C and
-C++, simply placing them next to each other does it. This is a good way to make
-a single long string that doesn't fit on one line.
+두 개의 문자열 리터럴 (값이 아니라 실제 따옴표로 묶은 리터럴 형식)을 연결하는 경우에 `+`를 사용할
+필요가 없습니다. C 그리고 C++ 처럼 두 문자열을 나란히 배치시키면 됩니다.
+이것은 한 줄을 넘어가는 긴 단일 문자열을 만드는 좋은 방법입니다.
 
 {:.good}
 <?code-excerpt "usage_good.dart (adjacent-strings-literals)"?>
@@ -413,13 +412,13 @@ raiseAlarm('ERROR: Parts of the spaceship are on fire. Other ' +
     'parts are overrun by martians. Unclear which are which.');
 {% endprettify %}
 
-### PREFER using interpolation to compose strings and values.
+### 문자열과 값들을 합성하고 싶다면, 보간(interporation) 사용을 지향하십시오.
 
 {% include linter-rule-mention.md rule="prefer_interpolation_to_compose_strings" %}
 
-If you're coming from other languages, you're used to using long chains of `+`
-to build a string out of literals and other values. That does work in Dart, but
-it's almost always cleaner and shorter to use interpolation:
+이전에 다른 언어를 사용해 봤다면, 문자열을 리터럴과 다른 값들로 구성할 때 `+`로 이루어진
+긴 체인을 만들어봤을 것입니다. Dart에서도 가능하지만, 보간을 사용하는 것이 거의 항상
+더 깔끔하며 간결합니다:
 
 {:.good}
 <?code-excerpt "usage_good.dart (string-interpolation)"?>
@@ -433,15 +432,15 @@ it's almost always cleaner and shorter to use interpolation:
 'Hello, ' + name + '! You are ' + (year - birth).toString() + ' y...';
 {% endprettify %}
 
-Note that this guideline applies to combining *multiple* literals and values.
-It's fine to use `.toString()` when converting only a single object to a string.
+이 가이드라인은 *다수*의 리터럴과 값의 결합에 보간을 적용한 것을 알아두세요.
+오직 하나의 객체를 문자열로 바꿀 때 `.toString()`를 사용해도 됩니다.
 
-### AVOID using curly braces in interpolation when not needed.
+### 보간에 불필요한 중괄호 사용을 피하십시오.
 
 {% include linter-rule-mention.md rule="unnecessary_brace_in_string_interps" %}
 
-If you're interpolating a simple identifier not immediately followed by more
-alphanumeric text, the `{}` should be omitted.
+더 많은 영숫자 텍스트가 바로 뒤에 오지 않는 단순 식별자를 보간하는 경우에는
+`{}`를 생략해야 합니다.
 
 {:.good}
 <?code-excerpt "usage_good.dart (string-interpolation-avoid-curly)"?>
@@ -455,19 +454,18 @@ var greeting = 'Hi, $name! I love your ${decade}s costume.';
 var greeting = 'Hi, ${name}! I love your ${decade}s costume.';
 {% endprettify %}
 
-## Collections
+## 컬렉션
 
-Out of the box, Dart supports four collection types: lists, maps, queues, and sets.
-The following best practices apply to collections.
+별도의 설치나 구성없이 Dart에서 바로 사용할 수 있는 컬렉션 타입은 list, map, queue, set이 존재합니다.
+다음은 컬렉션에 적용할 수 있는 모범 사례입니다.
 
-### DO use collection literals when possible.
+### 가능하다면 컬렉션 리터럴을 사용하십시오.
 
 {% include linter-rule-mention.md rule="prefer_collection_literals" %}
 
-Dart has three core collection types: List, Map, and Set. The Map and Set
-classes have unnamed constructors like most classes do. But because these
-collections are used so frequently, Dart has nicer built-in syntax for creating
-them:
+Dart는 세 개의 핵심 컬렉션 타입을 가지고 있습니다: List, Map 그리고 Set.
+Map과 Set 클래스는 대부분의 클래스처럼 unamed 생성자를 가지고 있습니다.
+하지만 이런 컬렉션들은 자주 사용되므로, Dart는 컬렉션 생성을 위한 더 훌륭한 내장 문법을 가지고 있습니다:
 
 {:.good}
 <?code-excerpt "usage_good.dart (collection-literals)"?>
@@ -484,16 +482,14 @@ var addresses = Map<String, Address>();
 var counts = Set<int>();
 {% endprettify %}
 
-Note that this guideline doesn't apply to the *named* constructors for those
-classes. `List.from()`, `Map.fromIterable()`, and friends all have their uses.
-(The List class also has an unnamed constructor, but it is prohibited in null
-safe Dart.)
+이 가이드라인은 해당 클래스들의 *named* 생성자에 적용하지 않았다는 것을 알아두세요.
+`List.from()`, `Map.fromIterable()` 그리고 이와 비슷한 생성자들은 저마다
+사용법이 존재합니다. (List 클래스 또한 unnamed 생성자가 존재하지만, null safe Dart에서는
+사용이 금지되었습니다)
 
-Collection literals are particularly powerful in Dart
-because they give you access to the [spread operator][spread]
-for including the contents of other collections,
-and [`if` and `for`][control] for performing control flow while
-building the contents:
+컬렉션 리터럴은 다른 컬렉션의 요소들을 추가할 때 [스프레드 연산자][spread]에
+접근이 가능하고 요소를 빌드 하는 동안 [`if` 그리고 `for`]를 사용하여
+제어 흐름을 수행할 수 있기 때문에 Dart에서 특히 유용합니다:
 
 [spread]: /guides/language/language-tour#spread-operator
 [control]: /guides/language/language-tour#collection-operators
@@ -523,18 +519,18 @@ arguments.addAll(filePaths
 {% endprettify %}
 
 
-### DON'T use `.length` to see if a collection is empty.
+### 컬렉션이 비어있는지 확인할 때 `.length`를 사용하지 마십시오.
 
 {% include linter-rule-mention.md rule1="prefer_is_empty" rule2="prefer_is_not_empty" %}
 
-The [Iterable][] contract does not require that a collection know its length or
-be able to provide it in constant time. Calling `.length` just to see if the
-collection contains *anything* can be painfully slow.
+[Iterable][]을 사용한 컬렉션의 구현은 자신의 길이를 알고 있거나
+상수 시간 안에 제공하도록 되어있지 않습니다. *단지* 컬렉션에 포함된 것이 있는지
+확인하기 위해 `.length`를 호출하는 것은 매우 느릴 수 있습니다.
 
 [iterable]: {{site.dart-api}}/{{site.data.pkg-vers.SDK.channel}}/dart-core/Iterable-class.html
 
-Instead, there are faster and more readable getters: `.isEmpty` and
-`.isNotEmpty`. Use the one that doesn't require you to negate the result.
+대신, 더 빠르고 가독성이 높은 getter인 `.isEmpty`와 `.isNotEmpyt`를 사용하세요.
+둘 중에 결과를 부정할 필요가 없는 getter를 사용하세요.
 
 {:.good}
 <?code-excerpt "usage_good.dart (dont-use-length)"?>
@@ -551,13 +547,13 @@ if (!words.isEmpty) return words.join(' ');
 {% endprettify %}
 
 
-### AVOID using `Iterable.forEach()` with a function literal.
+### `Iterable.forEach()`를 함수 리터럴과 함께 사용하는 것을 피하십시오.
 
 {% include linter-rule-mention.md rule="avoid_function_literals_in_foreach_calls" %}
 
-`forEach()` functions are widely used in JavaScript because the built in
-`for-in` loop doesn't do what you usually want. In Dart, if you want to iterate
-over a sequence, the idiomatic way to do that is using a loop.
+JavaScript에서 내장된 `for-in` 루프로 원하는 효과를 얻지 못하기 때문에
+`forEach()`를 보통 사용합니다. Dart에서는 시퀀스를 반복할 때
+`for-in` 루프를 사용하는 것이 관용적인 방법입니다.
 
 {:.good}
 <?code-excerpt "usage_good.dart (avoid-forEach)"?>
@@ -575,8 +571,8 @@ people.forEach((person) {
 });
 {% endprettify %}
 
-Note that this guideline specifically says "function *literal*". If you want to
-invoke some *already existing* function on each element, `forEach()` is fine.
+이 가이드라인은 대상을 "함수 *리터럴*"로 특정 지어 설명하고 있습니다.
+각 요소에 *이미 존재하는* 함수를 호출한다면, `forEach()`를 사용해도 됩니다.
 
 {:.good}
 <?code-excerpt "usage_good.dart (forEach-over-func)"?>
@@ -584,13 +580,13 @@ invoke some *already existing* function on each element, `forEach()` is fine.
 people.forEach(print);
 {% endprettify %}
 
-Also note that it's always OK to use `Map.forEach()`. Maps aren't iterable, so
-this guideline doesn't apply.
+`Map.forEach()`을 사용하는 것도 가능하다는 것을 알아두세요. Map은 iterable이 아니기에
+이 가이드라인을 적용할 수 없습니다.
 
-### DON'T use `List.from()` unless you intend to change the type of the result.
+### 결과 값의 타입을 바꾸려는 것이 아니라면, `List.from()`을 사용하지 마십시오.
 
-Given an Iterable, there are two obvious ways to produce a new List that
-contains the same elements:
+주어진 Iterable를 사용해서 동일한 요소를 가지는
+새로운 List를 만드는 확실한 방법은 두 가지가 있습니다:
 
 <?code-excerpt "../../test/effective_dart_test.dart (list-from-1)"?>
 {% prettify dart tag=pre+code %}
@@ -598,9 +594,8 @@ var copy1 = iterable.toList();
 var copy2 = List.from(iterable);
 {% endprettify %}
 
-The obvious difference is that the first one is shorter. The *important*
-difference is that the first one preserves the type argument of the original
-object:
+둘의 명백한 차이는 첫 번째가 더 간결하다는 것입니다.
+*중요한* 차이점은 첫 번째가 원래 객체의 타입 인자를 보존한다는 것입니다:
 
 {:.good}
 <?code-excerpt "../../test/effective_dart_test.dart (list-from-good)"?>
@@ -622,7 +617,7 @@ var iterable = [1, 2, 3];
 print(List.from(iterable).runtimeType);
 {% endprettify %}
 
-If you *want* to change the type, then calling `List.from()` is useful:
+타입을 바꾸고 *싶다면*, `List.from()`을 호출하는 것이 좋습니다:
 
 {:.good}
 <?code-excerpt "../../test/effective_dart_test.dart (list-from-3)"?>
@@ -632,16 +627,16 @@ numbers.removeAt(1); // Now it only contains integers.
 var ints = List<int>.from(numbers);
 {% endprettify %}
 
-But if your goal is just to copy the iterable and preserve its original type, or
-you don't care about the type, then use `toList()`.
+타입에 대해 신경쓰지 않거나, 단지 iterable를 복사하고 원래 타입을 보존하는 것이 목적이라면,
+`toList()`를 사용하세요.
 
 
-### DO use `whereType()` to filter a collection by type.
+### 컬렉션을 타입으로 필터하고 싶다면, `whereType()`을 사용하십시오.
 
 {% include linter-rule-mention.md rule="prefer_iterable_wheretype" %}
 
-Let's say you have a list containing a mixture of objects, and you want to get
-just the integers out of it. You could use `where()` like this:
+여러가지 타입의 객체를 가지는 리스트에서 정수만 가져오고 싶다면,
+`where()`을 다음과 같이 사용하세요:
 
 {:.bad}
 <?code-excerpt "usage_bad.dart (where-type)"?>
@@ -650,11 +645,11 @@ var objects = [1, 'a', 2, 'b', 3];
 var ints = objects.where((e) => e is int);
 {% endprettify %}
 
-This is verbose, but, worse, it returns an iterable whose type probably isn't
-what you want. In the example here, it returns an `Iterable<Object>` even though
-you likely want an `Iterable<int>` since that's the type you're filtering it to.
+이것은 장황할 뿐만 아니라, 원하지 않는 타입의 iterable을 반환할 수도 있습니다.
+이 예제에서 우리는 `Iterable<int>`가 반환되길 기대하지만,
+`Iterable<Object>`가 반환됩니다.
 
-Sometimes you see code that "corrects" the above error by adding `cast()`:
+가끔씩 `cast()`를 추가해 해당 에러를 "고치려는" 코드를 볼 수 있습니다:
 
 {:.bad}
 <?code-excerpt "usage_bad.dart (where-type-2)"?>
@@ -663,9 +658,10 @@ var objects = [1, 'a', 2, 'b', 3];
 var ints = objects.where((e) => e is int).cast<int>();
 {% endprettify %}
 
-That's verbose and causes two wrappers to be created, with two layers of
-indirection and redundant runtime checking. Fortunately, the core library has
-the [`whereType()`][where-type] method for this exact use case:
+그런 코드는 장황하며 두 개의 간접 계층과
+중복된 런타임 검사를 동반하며 두 개의 래퍼(wrapper)가 생성되도록 합니다.
+다행히도 정확히 이런 상황을 위해 핵심 라이브러리는 [`whereType()`][where-type]
+메서드를 가지고 있습니다:
 
 [where-type]: {{site.dart-api}}/{{site.data.pkg-vers.SDK.channel}}/dart-core/Iterable/whereType.html
 
@@ -676,19 +672,18 @@ var objects = [1, 'a', 2, 'b', 3];
 var ints = objects.whereType<int>();
 {% endprettify %}
 
-Using `whereType()` is concise, produces an [Iterable][] of the desired type,
-and has no unnecessary levels of wrapping.
+`whereType()`은 간결하며 불필요한 래퍼의 계층이 없이 원하는 타입의 [Iterable][]
+을 생성할 수 있습니다.
 
 
-### DON'T use `cast()` when a nearby operation will do.
+### 코드의 주변에서 `cast()`와 같은 역할을 하는 연산이 있다면, `cast()`를 사용하지 마십시오.
 
-Often when you're dealing with an iterable or stream, you perform several
-transformations on it. At the end, you want to produce an object with a certain
-type argument. Instead of tacking on a call to `cast()`, see if one of the
-existing transformations can change the type.
+Iterable 또는 stream을 다룰 때, 종종 변형을 수행하곤 합니다.
+특정 타입 인자를 사용하여 객체를 생성할 때, `cast()`를 무작정 호출하기 보다
+이미 존재하는 변형이 해당 타입으로의 변환을 수행하는지 먼저 확인하세요.
 
-If you're already calling `toList()`, replace that with a call to
-[`List<T>.from()`][list-from] where `T` is the type of resulting list you want.
+`toList()`를 호출한다면, 해당 호출을 원하는 객체의 타입 `T`를 지정하여
+[`List<T>.from()`][list-from]로 대체하세요.
 
 [list-from]: {{site.dart-api}}/{{site.data.pkg-vers.SDK.channel}}/dart-core/List/List.from.html
 
@@ -706,10 +701,9 @@ var stuff = <dynamic>[1, 2];
 var ints = stuff.toList().cast<int>();
 {% endprettify %}
 
-If you are calling `map()`, give it an explicit type argument so that it
-produces an iterable of the desired type. Type inference often picks the correct
-type for you based on the function you pass to `map()`, but sometimes you need
-to be explicit.
+`map()`을 호출한다면, 원하는 타입을 명시적으로 타입 인자로 넘겨주어
+해당 타입의 iterable를 생성하세요. 타입 추론이 `map()`으로 넘겨준 함수를 기반으로
+옳은 타입을 선택하지만, 종종 명시해야 할 필요가 있습니다.
 
 {:.good}
 <?code-excerpt "usage_good.dart (cast-map)" replace="/\(n as int\)/n/g"?>
@@ -726,30 +720,29 @@ var reciprocals = stuff.map((n) => 1 / n).cast<double>();
 {% endprettify %}
 
 
-### AVOID using `cast()`.
+### `cast()` 사용을 피하십시오.
 
-This is the softer generalization of the previous rule. Sometimes there is no
-nearby operation you can use to fix the type of some object. Even then, when
-possible avoid using `cast()` to "change" a collection's type.
+이 가이드라인은 이전 규칙에 대한 느슨한 정의입니다.
+때때로 객체의 타입을 고정시킬만한 명령이 없을 수 있습니다.
+그런 경우라도 가능하다면 컬렉션의 타입을 "변경"하기 위해 `cast()`를
+사용하는 것은 피해야 합니다.
 
-Prefer any of these options instead:
+`cast()`의 대안으로 다음 옵션들을 고려해보세요:
 
-*   **Create it with the right type.** Change the code where the collection is
-    first created so that it has the right type.
+*   **올바른 타입으로 생성하세요.** 컬렉션이 처음 생성되는 코드를 수정하여 올바른 타입을 가지게 하세요.
 
-*   **Cast the elements on access.** If you immediately iterate over the
-    collection, cast each element inside the iteration.
+*   **요소에 접근할 때 캐스팅을 시도하세요.** 바로 해당 컬렉션에 반복을 수행한다면, 반복 내부에서
+    각 요소를 캐스팅하세요.
 
-*   **Eagerly cast using `List.from()`.** If you'll eventually access most of
-    the elements in the collection, and you don't need the object to be backed
-    by the original live object, convert it using `List.from()`.
+*   **`List.from()`을 사용하여 캐스팅하도록 노력하세요.** 최종적으로 컬렉션의 거의 모든 요소에 접근을 끝냈고
+    원본 객체가 더 이상 필요하지 않다면, `List.from()`을 사용하여 타입을 변환하세요.
 
-    The `cast()` method returns a lazy collection that checks the element type
-    on *every operation*. If you perform only a few operations on only a few
-    elements, that laziness can be good. But in many cases, the overhead of lazy
-    validation and of wrapping outweighs the benefits.
+    `cast()` 메서드는 *모든 명령*에 대해 요소의 타입을 확인하는 지연(lazy) 컬렉션을 반환합니다.
+    적은 요소에 대해 적은 명령을 수행한다면, 그로인해 발생하는 지연은 견딜 만할 것입니다. 하지만 대부분의 경우에
+    래핑과 지연 검증의 오버헤드가 모든 이점을 능가해버립니다.
 
-Here is an example of **creating it with the right type:**
+
+**올바른 타입으로 생성**하는 예제입니다:
 
 {:.good}
 <?code-excerpt "usage_good.dart (cast-at-create)"?>
@@ -771,13 +764,13 @@ List<int> singletonList(int value) {
 }
 {% endprettify %}
 
-Here is **casting each element on access:**
+다음은 **요소에 접근할 때 캐스팅하는 방법**입니다:
 
 {:.good}
 <?code-excerpt "usage_good.dart (cast-iterate)" replace="/\(n as int\)/[!$&!]/g"?>
 {% prettify dart tag=pre+code %}
 void printEvens(List<Object> objects) {
-  // We happen to know the list only contains ints.
+  // List에 int만 존재한다는 것을 알고 있습니다.
   for (final n in objects) {
     if ([!(n as int)!].isEven) print(n);
   }
@@ -788,20 +781,20 @@ void printEvens(List<Object> objects) {
 <?code-excerpt "usage_bad.dart (cast-iterate)"?>
 {% prettify dart tag=pre+code %}
 void printEvens(List<Object> objects) {
-  // We happen to know the list only contains ints.
+  // List에 int만 존재한다는 것을 알고 있습니다.
   for (final n in objects.cast<int>()) {
     if (n.isEven) print(n);
   }
 }
 {% endprettify %}
 
-Here is **casting eagerly using `List.from()`:**
+다음은 **`List.from()`을 사용한 캐스팅**의 예제입니다:
 
 {:.good}
 <?code-excerpt "usage_good.dart (cast-from)"?>
 {% prettify dart tag=pre+code %}
 int median(List<Object> objects) {
-  // We happen to know the list only contains ints.
+  // List에 int만 존재한다는 것을 알고 있습니다.
   var ints = List<int>.from(objects);
   ints.sort();
   return ints[ints.length ~/ 2];
@@ -812,16 +805,15 @@ int median(List<Object> objects) {
 <?code-excerpt "usage_bad.dart (cast-from)"?>
 {% prettify dart tag=pre+code %}
 int median(List<Object> objects) {
-  // We happen to know the list only contains ints.
+  // List에 int만 존재한다는 것을 알고 있습니다.
   var ints = objects.cast<int>();
   ints.sort();
   return ints[ints.length ~/ 2];
 }
 {% endprettify %}
 
-These alternatives don't always work, of course, and sometimes `cast()` is the
-right answer. But consider that method a little risky and undesirable—it
-can be slow and may fail at runtime if you aren't careful.
+물론 이런 대안들이 항상 문제를 하결하는 것은 아니며, 이럴 때는 `cast()` 방식을 택해야
+합니다. 그러나 이 방법의 위험과 단점을 고려할 때, 잘못 사용하면 실행이 느려지고 실패할 수도 있습니다.
 
 
 ## Functions

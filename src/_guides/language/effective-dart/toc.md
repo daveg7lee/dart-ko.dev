@@ -107,14 +107,14 @@
 
 **문자열**
 
-* <a href='/guides/language/effective-dart/usage#do-use-adjacent-strings-to-concatenate-string-literals'>문자열 리터럴을 합치고 싶다면, 인접 문자열을 사용하십시오.</a>
-* <a href='/guides/language/effective-dart/usage#prefer-using-interpolation-to-compose-strings-and-values'>문자열과 값들을 합성하고 싶다면, interpolation 사용을 지향하십시오.</a>
-* <a href='/guides/language/effective-dart/usage#avoid-using-curly-braces-in-interpolation-when-not-needed'>Interpolation에 불필요한 중괄호 사용을 피하십시오.</a>
+* <a href='/guides/language/effective-dart/usage#do-use-adjacent-strings-to-concatenate-string-literals'>인접 문자열을 사용하여 문자열 리터럴을 연결하십시오.</a>
+* <a href='/guides/language/effective-dart/usage#prefer-using-interpolation-to-compose-strings-and-values'>문자열과 값들을 합성하고 싶다면, 보간(interporation) 사용을 지향하십시오.</a>
+* <a href='/guides/language/effective-dart/usage#avoid-using-curly-braces-in-interpolation-when-not-needed'>보간에 불필요한 중괄호 사용을 피하십시오.</a>
 
 **컬렉션**
 
 * <a href='/guides/language/effective-dart/usage#do-use-collection-literals-when-possible'>가능하다면 컬렉션 리터럴을 사용하십시오.</a>
-* <a href='/guides/language/effective-dart/usage#dont-use-length-to-see-if-a-collection-is-empty'>컬렉션이 비었는지 확인하기 위해 <code>.length</code>를 사용하지 마십시오.</a>
+* <a href='/guides/language/effective-dart/usage#dont-use-length-to-see-if-a-collection-is-empty'>컬렉션이 비었는지 확인할 때 <code>.length</code>를 사용하지 마십시오.</a>
 * <a href='/guides/language/effective-dart/usage#avoid-using-iterableforeach-with-a-function-literal'><code>Iterable.forEach()</code>를 함수 리터럴과 함께 사용하는 것을 피하십시오.</a>
 * <a href='/guides/language/effective-dart/usage#dont-use-listfrom-unless-you-intend-to-change-the-type-of-the-result'>결과 값의 타입을 바꾸려는 것이 아니라면, <code>List.from()</code>을 사용하지 마십시오.</a>
 * <a href='/guides/language/effective-dart/usage#do-use-wheretype-to-filter-a-collection-by-type'>컬렉션을 타입으로 필터하고 싶다면, <code>whereType()</code>을 사용하십시오.</a>

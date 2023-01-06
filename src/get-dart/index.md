@@ -83,7 +83,6 @@ Dart SDK는 윈도우, 리눅스, 그리고 macOS를 지원합니다.
 ## 릴리즈 채널 및 버전 문자열 {#release-channels}
 
 Dart SDK는 3가지 릴리즈 채널이 있습니다:
-The Dart SDK has three release channels:
 
 * **Stable** 채널: 3개월마다 업데이트되는 **안정적인 릴리즈**;
   현재 `[calculating]`{:.build-rev-stable}.
