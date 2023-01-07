@@ -130,14 +130,14 @@
 **변수**
 
 * <a href='/guides/language/effective-dart/usage#do-follow-a-consistent-rule-for-var-and-final-on-local-variables'>지역 변수에 <code>var</code>과 <code>final</code>을 사용할 때 일관된 규칙을 따르십시오.</a>
-* <a href='/guides/language/effective-dart/usage#avoid-storing-what-you-can-calculate'>계산 할 수 있는 값들을 저장하는 것을 피하십시오.</a>
+* <a href='/guides/language/effective-dart/usage#avoid-storing-what-you-can-calculate'>계산이 가능한 값들을 저장하는 것을 피하십시오.</a>
 
 **멤버**
 
-* <a href='/guides/language/effective-dart/usage#dont-wrap-a-field-in-a-getter-and-setter-unnecessarily'>필드를 불필요하게 getter나 setter 안에 포함시키지 마십시오.</a>
-* <a href='/guides/language/effective-dart/usage#prefer-using-a-final-field-to-make-a-read-only-property'>Read-only 프로퍼티를 만들 때, <code>final</code> 필드 사용을 지향하십시오.</a>
+* <a href='/guides/language/effective-dart/usage#dont-wrap-a-field-in-a-getter-and-setter-unnecessarily'>필드에 불필요한 getter와 setter를 생성하지 마십시오.</a>
+* <a href='/guides/language/effective-dart/usage#prefer-using-a-final-field-to-make-a-read-only-property'>읽기 전용인 프로퍼티를 생성 할 때, <code>final</code> 키워드 사용을 지향하십시오.</a>
 * <a href='/guides/language/effective-dart/usage#consider-using--for-simple-members'>간단한 멤버를 선언 할 때, <code>=&gt;</code> 사용을 고려하십시오. </a>
-* <a href='/guides/language/effective-dart/usage#dont-use-this-when-not-needed-to-avoid-shadowing'>Named 생성자에 리다이렉트 하거나 섀도잉(shadowing)을 피하기 위함이 아니라면, <code>this.</code>를 사용하지 마십시오.</a>
+* <a href='/guides/language/effective-dart/usage#dont-use-this-when-not-needed-to-avoid-shadowing'>Named 생성자를 리디렉션하고 충돌을 피하는 경우를 제외하고 <code>this.</code>를 사용하지 마십시오.</a>
 * <a href='/guides/language/effective-dart/usage#do-initialize-fields-at-their-declaration-when-possible'>가능하다면 필드의 선언과 함께 초기화를 진행하십시오.</a>
 
 **생성자**
