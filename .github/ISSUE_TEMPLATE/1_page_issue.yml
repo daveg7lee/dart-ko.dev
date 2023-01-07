@@ -1,5 +1,5 @@
 name: Page issue
-description: Help improve a dart.dev page
+description: Help improve a dart-ko.dev page
 body:
   - type: markdown
     attributes:
@@ -9,7 +9,7 @@ body:
     id: page-url
     attributes:
       label: Page URL
-      placeholder: "Example: https://dart.dev/guides"
+      placeholder: "Example: https://dart-ko.dev/guides"
     validations:
       required: true
   - type: input
