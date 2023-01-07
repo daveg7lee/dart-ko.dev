@@ -142,7 +142,7 @@ Dart 언어를 학습 할 때 다음을 잘 기억해야합니다:
 
 -   Java와 다르게, Dart는 `public`, `projected` 그리고 `private` 같은 키워드가 없습니다.
     식별자가 언더 스코어 (`_`)로 시작한다면, 이것은 해당 라이브러리에 귀속된(private) 것입니다.
-    더 자세한 정보를 원한다면, [Libraries and visibility](#libraries-and-visibility)
+    더 자세한 정보를 원한다면, [라이브러리와 가시성](#libraries-and-visibility)
     를 참고하세요.
 
 -   *식별자*는 문자 또는 언더 스코어 (`_`)로 시작 할 수 있고,
@@ -333,12 +333,12 @@ assert(lineCount == null);
 
 {{site.alert.note}}
   프로덕션 코드는 `assert()` 호출을 무시합니다. 반면에 개발하는 동안에는, 
-  _조건_이 false라면 <code>assert(<em>조건</em>)</code> 가 예외를
+  _조건_ 이 false라면 <code>assert(<em>조건</em>)</code> 가 예외를
   throw 합니다. 더 자세한 것은, [Assert](#assert)를 참고하세요.
 {{site.alert.end}}
 
 Null safety를 활성화 했다면, non-nullable 변수를 사용하기 전에
-값들을 초기화해야만합니다:
+값들을 초기화해야만 합니다:
 
 <?code-excerpt "misc/lib/language_tour/variables.dart (var-ns-init)"?>
 ```dart
@@ -377,11 +377,11 @@ Dart 2.12에서 `late` 수식어가 추가되었습니다. 두 가지 사용례�
 보통 Dart의 제어 흐름 분석기는 non-nullable 변수가
 non-null 값으로 설정되어 있는지 사용하기 전에 알아챌 수 있지만,
 가끔 실패할 때도 있습니다.
-가장 흔히 사용되는 두가지 케이스는 최상위 변수와 인스턴스 변수입니다:
+가장 흔히 사용되는 두 가지 케이스는 최상위 변수와 인스턴스 변수입니다:
 Dart는 종종 그 변수들이 설정되었는지 판단할 수 없기 때문에,
 시도하지 않습니다.
 
-변숫값의 설정이 사용 전에 보장되지만,
+변숫값의 설정이 사용 전에 보장되지만
 Dart가 동의하지 않는다면,
 해당 변수를 `late`로 표시하여 에러를 해결할 수 있습니다:
 
@@ -425,7 +425,7 @@ void main() {
 변수를 변경할 생각이 없다면, `var` 대신 `final`이나 `const`를 사용하거나,
 지정한 타입에 추가하여 사용하세요.
 final 변수는 오직 한 번만 설정될 수 있습니다; const 변수는 컴파일 타임 상수입니다.
-(const 변수는 내부적으로 final입니다.)
+(const 변수는 내부적으로 final입니다)
 
 {{site.alert.note}}
   [인스턴스 변수](#instance-variables)는 `final`로 설정될 수 있지만, `const`는 될 수 없습니다.
@@ -460,7 +460,7 @@ const double atm = 1.01325 * bar; // 표준 대기
 ```
 
 `const` 키워드는 상수 변수를 선언할 때만 쓰이는 것이 아닙니다.
-상수 _값_을 만드는 데 사용할 수 있을 뿐만 아니라,
+상수 _값_ 을 만드는 데 사용할 수 있을 뿐만 아니라,
 상수 값을 _만드는_ 생성자를 선언할 수도 있습니다.
 모든 변수는 상수 값을 가질 수 있습니다.
 
@@ -472,7 +472,7 @@ const baz = []; // `const []`와 동일
 ```
 
 위의 `baz`처럼, `const` 선언의 초기화 식에 `const`를 생략해도 됩니다.
-더 자세히 알고 싶다면, [const를 중복으로 사용하지 마십시오][]를 참고하세요.
+더 자세히 알고 싶다면, [const를 불필요하게 사용하지 마십시오][]를 참고하세요.
 
 이전에 `const` 값을 가지고 있었더라도,
 non-final, non-const 변수의 값을 변경할 수 있습니다.
@@ -504,13 +504,13 @@ const set = {if (list is List<int>) ...list}; // ...를 사용하여 전개.
 ```
 
 {{site.alert.note}}
-  `final` 객체는 수정될 수 없지만,
+  `final` 객체는 수정할 수 없지만,
   객체의 필드는 수정이 가능합니다.
-  반면에, `const` 객체와 객체의 필드는 _불변_하기 때문에
+  반면에, `const` 객체와 객체의 필드는 _불변_ 하기 때문에
   변경할 수 없습니다.
 {{site.alert.end}}
 
-상수 값을 만들기 위해 `const`를 사용하는 방법에 대한 더 자세한 내용은 
+상수 값을 만들 때 `const`를 사용하는 방법에 대한 더 자세한 내용은 
 [Lists](#lists), [Maps](#maps), and [Classes](#classes)을 참고하세요.
 
 
@@ -591,7 +591,7 @@ Dart의 숫자는 두 가지 유형이 있습니다:
 num 타입은 +, -, /, * 같은 기본적인 연산자 사용이 가능하고, `abs()`,` ceil()`,
 그리고 `floor()` 같은 함수의 사용도 가능합니다.
 (\>\> 같은 Bitwise 연산자는 `int` 클래스에 정의되어 있습니다.)
-만일 찾고있는 것이 num과 num의 서브타입이 가지고 있지 않다면, [dart:math][]
+원하는 타입을 num과 num의 서브타입이 가지고 있지 않다면, [dart:math][]
 라이브러리를 참고하세요.
 
 정수는 소수점이 없는 숫자입니다. 다음은 정수 리터럴을 정의하는 예제입니다:
@@ -648,7 +648,7 @@ assert(piAsString == '3.14');
 ```
 
 `int` 타입은 비트 필드에서 플래그를 조작하고 마스킹하는 데 유용한
-전통 비트 단위 쉬프트 (`<<`, `>>`, `>>>`),
+비트 단위 쉬프트 (`<<`, `>>`, `>>>`),
 보수 (`~`), AND (`&`), OR (`|`), 그리고 XOR (`^`) 연산자를 지원합니다.
 예제:
 
@@ -680,7 +680,7 @@ const msUntilRetry = secondsUntilRetry * msPerSecond;
 
 ### Strings
 
-Dart의 문자열 (`String` 객체)는 UTRF-16 코드 유닛의 시퀀스를 홀드합니다.
+Dart의 문자열 (`String` 객체)은 UTRF-16 코드 유닛의 시퀀스를 홀드합니다.
 문자열을 만들 때 작은 따옴표, 큰 따옴표 모두 사용이 가능합니다:
 
 <?code-excerpt "misc/lib/language_tour/built_in_types.dart (quoting)"?>
@@ -923,7 +923,7 @@ assert(listOfStrings[1] == '#1');
 ```
 
 컬렉션 `if` 와 `for`에 대한 더 자세한 정보와 예제를 원한다면,
-[control flow collections proposal][collections proposal]을 참고하세요.
+[control flow collections 제안][collections proposal]을 참고하세요.
 
 [collections proposal]: https://github.com/dart-lang/language/blob/master/accepted/2.3/control-flow-collections/feature-specification.md
 
@@ -1082,7 +1082,6 @@ gifts['fourth'] = 'calling birds'; // key-value 쌍 추가
 
 
 서브스크립트 연산자 (`[]`)를 사용하여 map에서 원하는 값에 접근하세요:
-Retrieve a value from a map using the subscript operator (`[]`):
 
 <?code-excerpt "misc/test/language_tour/built_in_types_test.dart (map-retrieve-item)"?>
 ```dart
@@ -1150,8 +1149,8 @@ XXXX는 16진수 4-digit 값입니다. 예를 들면 하트 문자(♥)는 `\u26
 4개의 16진수 보다 적거나, 많이 사용하고 싶다면, 중괄호 안에 값을 넣으면 됩니다.
 예를 들면 웃는 이모지(😆)는 `\u{1f606}`으로 나타냅니다.
 
-만약 유니코드 문자 각각을 읽고 써야한다면,
-characters 패키지에 의해 String에 정의 되어 있는 characters getter를 사용하세요.
+단일 유니코드 문자를 읽고 써야하는 경우
+characters 패키지에 정의된 characters getter를 사용하세요.
 반환된 [`Characters`][] 객체는 graphem clusters의 시퀀스로 이루어진 문자열 입니다.
 아래는 characters API를 사용한 예제 입니다:
 
@@ -1183,9 +1182,8 @@ The last character: 🇩🇰
 ### Symbols
 
 [`Symbol`][] 객체는 Dart 프로그램에 선언된 연산자나 식별자를 나타냅니다.
-아마 Symbol을 사용할 필요가 없을지도 모릅니다.
-하지만 축소(minification)를 수행하면 식별자의 이름은 변경되지만,
-식별자의 symbol은 변경되지 않기 때문에 symbol은 이름으로 식별자를 참조하는 API에 매우 유용합니다.
+Symbol은 거의 필요하지 않지만 코드 압축(minification) 후 식별자의 이름이 변경되더라도
+symbol은 변경되지 않기 때문에 식별자를 통한 API 참조에 유용합니다.
 
 식별자에 대한 symbol를 가져오려면 symbol 리터럴을 사용하면 됩니다.
 Symbol 리터럴은 `#` 뒤에 식별자를 위치시키면 됩니다:
@@ -1221,12 +1219,12 @@ Symbol 리터럴은 컴파일 타임 상수입니다.
 
 ## 함수
 
-Dart는 진정항 객체 지향 언어이므로, 함수도
-[Function.][Function API reference]
-라는 타입을 가지는 객체로 존재합니다.
+Dart는 객체 지향 언어이므로, 함수도
+[Function][Function API reference]
+이라는 타입을 가지는 객체로 존재합니다.
 이건 함수가 변수나 다른 함수의 인자로 전달할 수 있다는 것을 의미합니다.
 또한 함수인 것처럼 Dart 클래스의 인스턴스를 호출할 수 있습니다.
-더 자세한 사항을 원한다면, [호출가능한 클래스](#callable-classes)를 참고하세요.
+더 자세한 사항을 원한다면, [호출 가능한 클래스](#callable-classes)를 참고하세요.
 
 다음은 함수를 구현하는 예제입니다:
 
@@ -1248,7 +1246,7 @@ isNoble(atomicNumber) {
 }
 ```
 
-하나의 표현식만 가지는 함수를 선언 할 때 약칭(shorthand) 문법의 사용이 가능합니다:
+하나의 표현식만을 가지는 함수를 선언 할 때 약칭(shorthand) 문법의 사용이 가능합니다:
 
 <?code-excerpt "misc/lib/language_tour/functions.dart (function-shorthand)"?>
 ```dart
@@ -1276,7 +1274,7 @@ bool isNoble(int atomicNumber) => _nobleGases[atomicNumber] != null;
   named 매개 변수만 사용합니다. 다음 섹션에서 자세히 살펴봅시다.
 {{site.alert.end}}
 
-함수에 인자를 넘겨줄 때나 함수의 매개변수를 정의 할 때
+함수에 인자를 넘겨줄 때나 함수의 매개변수를 정의할 때
 [trailing commas][]를 사용할 수 있습니다.
 
 
@@ -1323,7 +1321,7 @@ void enableFlags({bool bold = false, bool hidden = false}) {...}
 enableFlags(bold: true);
 ```
 Named 매개변수를 호출자가 반드시 값을 전달하게 하고 싶다면,
-`required`로 어노테이트 하세요:
+`required`를 사용하세요:
 
 <?code-excerpt "misc/lib/language_tour/functions.dart (required-named-parameters)" replace="/required/[!$&!]/g"?>
 ```dart
@@ -1335,7 +1333,7 @@ analyzer가 이슈를 보고합니다.
 
 {{site.alert.note}}
   `required`로 표시된 매개변수는
-  여전피 nullable 입니다:
+  여전히 nullable 입니다:
 
   <?code-excerpt "misc/lib/language_tour/functions.dart (required-named-parameters-nullable)" replace="/Widget\?/[!$&!]/g; /ScrollbarTwo/Scrollbar/g;"?>
   ```dart
@@ -1343,10 +1341,9 @@ analyzer가 이슈를 보고합니다.
   ```
 {{site.alert.end}}
 
-Positional 인자들을 먼저 배치하고 싶을 수 있지만,
-Dart는 그것을 요구하지 않습니다.
-Dart는 named 인자가 API에 적합할 때,
-그것을 인자 목록의 아무 곳에나 배치 할 수 있습니다:
+일반적으로 positional 매개변수를 맨 앞에 두는 것이 더 합리적이지만,
+named 매개변수를 매개변수 목록의 임의의 위치에 두어 호출 방식이 API에 더
+적합하게 보이도록 할 수도 있습니다:
 
 <?code-excerpt "misc/lib/language_tour/functions.dart (named-arguments-anywhere)"?>
 ```dart
@@ -1388,7 +1385,7 @@ assert(say('Bob', 'Howdy', 'smoke signal') ==
     'Bob says Howdy with a smoke signal');
 ```
 
-`Null`이 아닌 값으로 optional positional 매개변수의 디폴트 값을 정의하려면 `=`를 사용하세요.
+`Null`이 아닌 값으로 optional positional 매개변수의 디폴트 값을 정의하려면 `=`을 사용하세요.
 디폴트 값은 반드시 컴파일 타임 상수로 지정되야합니다.
 예제:
 
@@ -1558,12 +1555,12 @@ void main() {
 
 ### 렉시컬 클로저 (lexical closure)
 
-*클로저* 는 함수가 이것의 원래 스코프의 밖에서 쓰여졌다고 해도,
-해당 함수 렉시컬 스코프의 변수에 접근 할 수 있는 함수 객체입니다. 
+*클로저* 함수 객체이며, 함수 객체의 호출이 원래 스코프
+밖에서 발생하더라도 렉시컬 스코프 내의 변수에 여전히 접근할 수 있습니다.
 
 함수는 주변 스코프에 정의된 변수를 포함합니다.
 다음의 예제에서, `makeAdder()`는 `addBy` 변수를 캡쳐합니다.
-반환된 함수가 가는 곳 마다, `addBy`를 기억합니다.
+함수가 반환되는 시간과 상관없이, 캡처된 `addBy` 변수를 사용할 수 있습니다.
 
 <?code-excerpt "misc/test/language_tour/functions_test.dart (function-closure)"?>
 ```dart
@@ -1698,7 +1695,7 @@ a is T
 // 괄호는 가독성을 높혀줍니다.
 if ((n % i == 0) && (d % i == 0)) ...
 
-// 가독성은 좋지 않지만 위와 동일합니다.
+// 가독성이 나쁘지만 위와 동일합니다.
 if (n % i == 0 && d % i == 0) ...
 ```
 
@@ -2152,7 +2149,7 @@ for (var i = 0; i < 5; i++) {
 }
 ```
 
-Dart의 `for` 루프 안에 있는 클로저는 Javascript에서 흔하게 발생하는
+Dart의 `for` 루프 안에 있는 클로저는 JavaScript에서 흔하게 발생하는
 위험을 피하면서 해당 인덱스의 _값_ 을 캡쳐합니다. 예제:
 
 <?code-excerpt "misc/test/language_tour/control_flow_test.dart (for-and-closures)"?>
@@ -2167,7 +2164,7 @@ for (final c in callbacks) {
 }
 ```
 
-예상대로라면 `0`과 `1`을 출력합니다. 하지만, Javascript에서
+예상대로라면 `0`과 `1`을 출력합니다. 하지만, JavaScript에서
 이 예제는 `2`와 `2`를 출력합니다.
 
 반복하고 있는 객체가 List 또는 Set 같은 Iterable 이고
@@ -2371,7 +2368,7 @@ assert(urlString.startsWith('https'),
     'URL ($urlString) should start with "https".');
 ```
 
-`assert`의 첫 번째 인자에는 boolean 값을 평가하는 표현식이 와야합니다.
+`assert`의 첫 번째 인자에는 boolean 값을 평가하는 표현식이 주어져야 합니다.
 표현식의 값이 true라면 assertion은 성공하고 다음 코드를 실행합니다.
 False라면, assertion은 실패하고 예외([`AssertionError`][])
 를 발생시킵니다.
@@ -2398,11 +2395,11 @@ Dard 코드는 예외를 발생(throw), 캐치할 수 있습니다.
 예외가 캐치되지 않았다면, 예외를 발생시키는 [isolate](#isolates)가
 지연된 상태이고 보통 해당 isolate나 프로그램이 종료됩니다.
 
-Java와 다르게, Dart의 모든 예외는 확인되지 않은 예외(unchecked exception) 입니다.
+Java와 다르게, Dart의 모든 예외는 확인되지 않은 예외(unchecked exception)입니다.
 메서드는 자신이 어떤 예외를 발생시킬지 선언하지 않고,
 개발자에게 예외를 캐치하도록 요구하지도 않습니다.
 
-Dart는 미리정의된 다양한 서브타입과 함께 [`Exception`][] 그리고 [`Error`][]
+Dart는 미리 정의된 다양한 서브타입과 함께 [`Exception`][] 그리고 [`Error`][]
 타입을 제공합니다. 원하는 예외를 정의하는 것도 가능합니다. 그러나,
 Dart 프로그램은 Exception이나 Error 객체 이외에도 모든 non-null 객체를
 예외로 발생할 수 있습니다.
@@ -2478,7 +2475,7 @@ try {
 
 `catch()`에 하나 또는 두개의 매개변수를 전달 할 수 있습니다.
 첫 번째는 발생될 예외이고,
-두 번째는 stack trace ([`StackTrace`][] 객체) 입니다.
+두 번째는 스택 트레이스([`StackTrace`][] 객체)입니다.
 
 <?code-excerpt "misc/lib/language_tour/exceptions.dart (try-catch-2)" replace="/\(e.*?\)/[!$&!]/g"?>
 {% prettify dart tag=pre+code %}
@@ -2560,7 +2557,7 @@ Dart는 클래스와 mixin 기반 상속을 지원하는 객체지향언어입�
 
 ### 클래스 멤버 사용하기
 
-객체들은 함수와 데이터 (각각 *메서드*, *인스턴스 변수*)로 이루어진 *멤버*들을 가집니다.
+객체들은 함수와 데이터 (각각 *메서드*, *인스턴스 변수*)로 이루어진 *멤버*를 가집니다.
 메서드를 호출 할 때, 객체에서 함수를 *호출*합니다:
 메서드는 해당 객체의 함수와 데이터에 접근 할 수 있습니다.
 
@@ -2608,7 +2605,7 @@ var p1 = new Point(2, 2);
 var p2 = new Point.fromJson({'x': 1, 'y': 2});
 ```
 
-몇몇 클래스는 [constant constructors](#constant-constructors)를 제공합니다.
+몇몇 클래스는 [상수 생성자](#constant-constructors)를 제공합니다.
 상수 생성자를 사용하여 컴파일 타임 상수를 생성하고 싶다면, 생성자 이름 앞에 `const`를 사용하세요:
 
 <?code-excerpt "misc/test/language_tour/classes_test.dart (const)"?>
@@ -2676,8 +2673,8 @@ print('The type of a is ${a.runtimeType}');
   프로덕션 환경에서, `object is Type` 테스트가 `object.runtimeType == Type` 테스트 보다 더 안전합니다.
 {{site.alert.end}}
 
-여기까지 클래스 _사용법_에 대해 알아보았습니다.
-나머지 섹션에서는 _구현법_에 대해 알아보겠습니다.
+여기까지 클래스 _사용법_ 에 대해 알아보았습니다.
+나머지 섹션에서는 _구현법_ 에 대해 알아보겠습니다.
 
 
 ### 인스턴스 변수
@@ -2693,14 +2690,14 @@ class Point {
 }
 ```
 
-초기화 되지 않은 인스턴스 변수는 `null` 값을 가집니다.
+초기화되지 않은 인스턴스 변수는 `null` 값을 가집니다.
 
 모든 인스턴스 변수는 내부적으로 *getter* 메서드를 생성합니다.
 Final이 아닌 변수 그리고 Initializers가 없는
 `late final` 인스턴스 변수 또한 내부적으로 *setter* 메서드를 생성합니다.
 더 자세히 알고 싶다면, [Getters and setters](#getters-and-setters)를 참고하세요.
 
-Non-`late` 변수가 선언 된 동시에 초기화 되면
+Non-`late` 변수가 선언된 동시에 초기화되면
 인스턴스가 생성될 때, 생성자와 해당 initializer 목록이 실행되기 전에 값이 설정됩니다.
 
 <?code-excerpt "misc/lib/language_tour/classes/point_with_main.dart (class+main)" replace="/(double .*?;).*/$1/g" plaster="none"?>
@@ -2718,9 +2715,9 @@ void main() {
 }
 ```
 
-인스턴스 변수는 `final`로 선언 될 수 있고, 그런 경우에는 단 한 번만 값이 정확하게 할당됩니다.
-`final`과 non-`late` 인스턴스 변수를 선언 할 때 생성자 매개변수나,
-생성자의 [initializer list](#initializer-list) 를 사용하여 초기화 하세요:
+인스턴스 변수는 `final`로 선언할 수 있고, 그런 경우에는 단 한 번만 값이 정확하게 할당됩니다.
+`final`과 non-`late` 인스턴스 변수를 선언할 때 생성자 매개변수나,
+생성자의 [initializer list](#initializer-list)를 사용하여 초기화하세요:
 
 <?code-excerpt "misc/lib/effective_dart/usage_good.dart (field-init-at-decl)"?>
 ```dart
@@ -2742,7 +2739,7 @@ class ProfileMark {
 
 ### 생성자
 
-클래스와 동일한 이름을 가지는 함수를 만들어 생성자를 선언 할 수 있습니다.
+클래스와 동일한 이름을 가지는 함수를 만들어 생성자를 선언할 수 있습니다.
 (선택적으로 [Named 생성자](#named-constructors)
 에 명시되어 있는 식별자를 사용해도 됩니다.)
 
@@ -2766,7 +2763,7 @@ class Point {
 `this` 키워드는 현재 인스턴스를 참조합니다.
 
 {{site.alert.note}}
-  이름의 충돌이 있을 때만 `this`를 사용하세요.
+  이름 사이에 충돌이 있을 때만 `this`를 사용하세요.
   없다면, Dart 스타일에서는 `this`를 생략합니다.
 {{site.alert.end}}
 
@@ -2826,7 +2823,7 @@ class Point {
 }
 {% endprettify %}
 
-Superclass의 생성자는 subclass로 상속되지 않는 다는 것을 꼭 기억하세요.
+Superclass의 생성자는 subclass로 상속되지 않는다는 것을 꼭 기억하세요.
 Subclass에서 superclass와 같은 Named 생성자를 사용하고 싶다면, subclass에서도 똑같이 구현해야 합니다.
 
 
@@ -2839,11 +2836,11 @@ Superclass의 생성자는 subclass 생성자 바디의 처음에 호출됩니�
 
 1. initializer list
 1. superclass의 인자가 없는 생성자
-1. 메인 class의 인자가 없는 생성자
+1. 메인 클래스의 인자가 없는 생성자
 
 Superclass가 이름과 인자가 없는 생성자를 가지고 있지 않는다면,
 반드시 superclass의 생성자 중 하나를 선택해서 호출해야 합니다.
-생성자 바디에 콜론(`:`)을 붙혀서 선택한 superclass의 생성자를 명시하세요.
+생성자 바디에 콜론(`:`)을 추가해 선택한 superclass의 생성자를 명시하세요.
 
 다음 예제에서 Employee는 자신의 superclass인 Person의 named 생성자를 호출합니다.
 코드를 실행하고 싶다면 **Run**을 클릭하세요.
@@ -2876,8 +2873,8 @@ void main() {
 }
 ```
 
-생성자가 실행되기 전에 Superclass의 생성자로 전해지는 인자가
-평가되기 때문에 인자는 함수 호출 처럼 표현식이 될 수 있습니다:
+생성자가 실행되기 전에 superclass의 생성자로 전해지는 인자가
+평가되기 때문에 인자는 함수 호출처럼 표현식이 될 수 있습니다:
 
 <?code-excerpt "misc/lib/language_tour/classes/employee.dart (method-then-constructor)"?>
 ```dart
@@ -2888,14 +2885,14 @@ class Employee extends Person {
 ```
 
 {{site.alert.warning}}
-  Superclass의 생성자로 전달되는 인수는 `this`에 접근 할 수 없습니다.
-  예를 들면, 인자는 정적 메서드를 호출 할 수 있지만, 인스턴스 메서드는 호출 할 수 없습니다.
+  Superclass의 생성자로 전달되는 인수는 `this`에 접근할 수 없습니다.
+  예를 들면, 인자는 정적 메서드를 호출할 수 있지만, 인스턴스 메서드는 불가능합니다.
 {{site.alert.end}}
 
 <a name="super-parameters"></a>
 수동으로 superclass의 생성자 매개변수를 넘겨주는 것을 피하고 싶다면,
 super-initializer 매개변수를 superclass의 생성자로 넘겨주면 됩니다.
-이 피쳐를 redirecting 생성자와 함께 사용하는 것은 불가능합니다.
+이 피처를 리다이렉팅 생성자와 함께 사용하는 것은 불가능합니다.
 Super-initializer 매개변수는
 [initializing formal parameters](#initializing-formal-parameters)와 비슷한 문법과 의미를 가집니다:
 
@@ -2918,8 +2915,8 @@ class Vector3d extends Vector2d {
 ```
 
 Super 생성자 호출이 positional 인자를 가지고 있다면,
-Super-initializer 매개변수는 positional이 될 수 없습니다.
-하지만 named 매개변수는 언제나 가능합니다:
+Super-initializer 매개변수는 positional이 될 수 없지만
+named 매개변수는 언제나 가능합니다:
 
 <?code-excerpt "misc/lib/language_tour/classes/super_initializer_parameters.dart (named)" plaster="none"?>
 ```dart
@@ -3002,10 +2999,10 @@ void main() {
 ```
 
 
-#### Redirecting 생성자
+#### 리다이렉팅 생성자
 
-생성자의 목적이 같은 클래스 내의 다른 생성자로 리디렉트(redirect)하는 경우가 있습니다.
-Redirecting 생성자의 바디는 비어있고 콜론 (:) 뒤에 나오며 클래스 이름 대신 `this`를 사용한 생성자 호출로 구성됩니다.
+생성자의 목적이 같은 클래스 내의 다른 생성자로 리다이렉트(redirect)하는 경우가 있습니다.
+리다이렉팅 생성자의 바디는 비어있고 콜론 (:) 뒤에 나오며 클래스 이름 대신 `this`를 사용한 생성자 호출로 구성됩니다.
 
 <?code-excerpt "misc/lib/language_tour/classes/point_redirecting.dart"?>
 ```dart
@@ -3044,7 +3041,7 @@ class ImmutablePoint {
 #### Factory 생성자
 
 항상 클래스의 새로운 인스턴스를 생성하지 않는 생성자를 구현하고 싶다면, `factory` 키워드를 사용하세요.
-예를 들면, factory 생성자는 인스턴스를 캐시에서 반환하거나, 서브타입의 인스턴스를 반환할 수 있습니다.
+예를 들어, factory 생성자는 인스턴스를 캐시에서 반환하거나 서브타입의 인스턴스를 반환할 수 있습니다.
 Factory 생성자는 final 변수를 초기화 리스트에서 다루지 않는 로직을 사용하여 초기화하는 방법으로도 사용할 수 있습니다.
 
 {{site.alert.tip}}
@@ -3137,7 +3134,7 @@ Dart는 클래스 내에서 다음의 연산자들을 재정의 할 수 있습�
 
 {{site.alert.note}}
   위의 표에 `!=` 같은 [연산자](#operators)가 없다는 것을 알 수 있습니다.
-  왜냐하면 그런 표현들은 신택틱 슈가(syntactic sugar)이기 때문입니다.
+  그런 표현들은 신택틱 슈가(syntactic sugar)이기 때문입니다.
   예를 들어, `e1 != e2` 같은 표현은 `!(e1 == e2)` 의 신택틱 슈가입니다.
 {{site.alert.end}}
 
@@ -3217,9 +3214,9 @@ Getter 및 setter를 사용하는 이점은 인스턴스 변수를 먼저 사용
 
 #### 추상 메서드
 
-인스턴스, getter, setter 메서드는 추상화 될 수 있습니다.
+인스턴스, getter, setter 메서드는 추상화될 수 있습니다.
 추상화란 인터페이스만 구현한 상태로 나머지 부분은 다른 클래스들에게 맡기는 것을 의미합니다.
-추상 메서드는 오직 [추상 클래스](#abstract-classes)에 존재 할 수 있습니다.
+추상 메서드는 오직 [추상 클래스](#abstract-classes)에 존재할 수 있습니다.
 
 메서드를 추상화 하려면, 메서드 바디 대신에 세미콜론 (;)을 사용하세요:
 
@@ -3241,8 +3238,8 @@ class EffectiveDoer extends Doer {
 
 ### 추상 클래스
 
-`abstract` 수식어를 사용하여, *추상 클래스* (인스턴스화 될 수 없는)를 선언하세요.
-추상 클래스는 인터페이스를 정의 할 때 유용하며, 종종 일부 구현과 함께 사용됩니다
+`abstract` 수식어를 사용하여, 인스턴스화될 수 없는 *추상 클래스*를 선언하세요.
+추상 클래스는 인터페이스를 정의할 때 유용하며, 종종 일부 구현과 함께 사용됩니다
 추상 클래스를 인스턴스화하려면, [factory 생성자](#factory-constructors)를 정의하세요.
 
 추상 클래스는 [추상 메서드](#abstract-methods)를 가질 수 있습니다.
@@ -3264,7 +3261,7 @@ abstract class AbstractContainer {
 모든 클래스는 암묵적으로 클래스의 인스턴스 멤버를 포함하는 인터페이스를 정의합니다.
 B 클래스를 상속받지 않은 A 클래스가 B의 API를 사용하고 싶다면 B 인터페이스를 구현해야 합니다.
 
-하나의 클래스는 `implements`문 안에 하나 혹은 여러개의 인터페이스를 구현하고,
+하나의 클래스는 `implements`문 안에 하나 혹은 여러 개의 인터페이스를 구현하고,
 인터페이스에 필요한 API들을 제공합니다:
 
 <?code-excerpt "misc/lib/language_tour/classes/impostor.dart"?>
@@ -3355,7 +3352,7 @@ class SmartTelevision extends Television {
 }
 {% endprettify %}
 
-재정의 메서드 선언은 그 메서드가 재정의하는 메서드와 여러가지 방법으로 매치되어야 합니다:
+재정의 메서드 선언은 그 메서드가 재정의하는 메서드와 여러 가지 방법으로 매치되어야 합니다:
 
 * 반환 타입은 반드시 재정의되는 함수의 반환 타입(서브 타입도 가능)과 동일해야 합니다.
 * 인자의 타입은 오버라이딩 되는 함수의 인수 타입(supertype도 가능)과 반드시 동일해야 합니다.
@@ -3365,10 +3362,10 @@ class SmartTelevision extends Television {
 * [Generic method](#using-generic-methods)는 non-generic인 메서드를 재정의 할 수 없고,
   그 반대도 마찬가지 입니다.
 
-메서드의 매개변수나 인스턴스 변수의 타입을 축소하고 싶은 때가 있을겁니다.
-이런 행동은 보통의 룰을 어기는 행위이고, 런타임에서 에러를 발생 시킬 수도 있는 다운캐스트와 비슷합니다.
-여전히 코드가 타입 에러를 발생시키지 않는다고 확신 할 수 있다면, 타입을 축소하는 것은 가능합니다.
-이런 경우에, [`covariant` keyword](/guides/language/sound-problems#the-covariant-keyword)
+메서드의 매개변수나 인스턴스 변수의 타입을 축소하고 싶은 때가 있을 겁니다.
+이런 행동은 보통의 룰을 어기는 것이고, 런타임에서 에러를 발생시킬 수도 있는 다운 캐스팅과 비슷합니다.
+여전히 코드가 타입 에러를 발생시키지 않는다고 확신할 수 있다면, 타입을 축소하는 것은 가능합니다.
+이런 경우에, [`covariant` 키워드](/guides/language/sound-problems#the-covariant-keyword)
 를 매개변수 선언에 사용하면 됩니다.
 자세한 정보를 원한다면, [Dart 언어 설명서][]를 참고하세요.
 
@@ -3395,16 +3392,15 @@ class A {
 }
 {% endprettify %}
 
-구현되지 않은 함수가 다음 중 **하나**라도 만족한다면, 그 함수는 **호출 할 수 없습니다**.
-You **can't invoke** an unimplemented method unless
-**one** of the following is true:
+구현되지 않은 메서드가 다음 중 **하나**라도 만족한다면, 해당 메서드를 **호출 할 수 없습니다**.
 
 * 리시버가 static 타입 `dynamic`일 때.
 
 * 리시버는 구현되지 않은 메서드(추상 메서드는 가능)를 정의하는 static 타입을 가지며,
   리시버의 dynamic 타입은 클래스 `Object`와 다른 `noSuchMethod()`를 구현 했을 때.
 
-더 자세한 정보를 원한다면, [noSuchMethod forwarding specification.](https://github.com/dart-lang/language/blob/master/archive/feature-specifications/nosuchmethod-forwarding.md)를 참고하세요.
+더 자세한 정보를 원한다면, [noSuchMethod forwarding specification](https://github.com/dart-lang/language/blob/master/archive/feature-specifications/nosuchmethod-forwarding.md)을
+참고하세요.
 
 
 ### 확장 메서드
@@ -3431,7 +3427,7 @@ print('42'.parseInt()); // 확장 메서드 사용.
 이 타입은 정해진 수의 상수 값을 가지는 특별한 종류의 클래스 입니다.
 
 {{site.alert.note}}
-  모든 enums는 자동으로 [`Enum`][] 클래스를 확장합니다.
+  모든 enums은 자동적으로 [`Enum`][] 클래스를 확장합니다.
   이들은 가려져 있으며, 이는 subclass가 될 수 없고 implement,
   mix 또는 명시적으로 인스턴스화할 수 없다는 것을 의미합니다.
 
@@ -3457,16 +3453,16 @@ enum Color { red, green, blue }
 
 #### 발전된(enhanced) enum 사용하기
 
-Dart는 필드, 메서드, 상수 생성자 같이 수가 정해져 있는 상수 인스턴스가 있는 클래스를 선언하는 데 enum을 사용하는 것이 가능합니다.
+Dart는 필드, 메서드, 상수 생성자같이 수가 정해져 있는 상수 인스턴스가 있는 클래스를 선언하는 데 enum을 사용하는 것이 가능합니다.
 
-발전된 enum을 선언하려면, [클래스](#classes)와 비슷하지만 몇가지 다른 문법을 따라야 합니다.
+발전된 enum을 선언하려면, [클래스](#classes)와 비슷하지만 몇 가지 다른 문법을 따라야 합니다.
 
-* [mixins](#mixins)으로 추가되는 변수들까지 모든 인스턴스 변수들은 `final`로 선언되어야합니다.
-* 모든 [generative constructors](#constant-constructors) 상수로 선언되어야합니다.
+* [mixins](#mixins)으로 추가되는 변수들까지 모든 인스턴스 변수들은 `final`로 선언되어야 합니다.
+* 모든 [generative constructors](#constant-constructors) 상수로 선언되어야 합니다.
 * [Factory 생성자](#factory-constructors)는 고정된 enum 인스턴스 중 하나만을 반환할 수 있습니다.
-* [`Enum`]이 자동으로 확장되므로 다른 클래스들은 확장 될 수 없습니다.
+* [`Enum`]이 자동으로 확장되므로 다른 클래스들은 확장될 수 없습니다.
 * `index`, `hashCode`, 항등 연산자 `==`는 재정의할 수 없습니다.
-* `value`로 명명된 멤버는 enum에 선언 될 수 없습니다. 만약 enum에 선언한다면, 자동으로 생성된 정적 `value` getter와 충돌합니다.
+* `value`로 명명된 멤버는 enum에 선언될 수 없습니다. 만약 enum에 선언한다면, 자동으로 생성된 정적 `value` getter와 충돌합니다.
 * Enum의 모든 인스턴스들은 선언의 처음 부분에 선언되어야 하고 반드시 한 개 이상의 인스턴스가 선언되어야 합니다.
 
 다음은 다수의 인스턴스, 인스턴스 변수, getter 그리고 인터페이스를 가지는 발전된 enum의 예제 입니다:
@@ -3513,7 +3509,8 @@ if (favoriteColor == Color.blue) {
 }
 ```
 
-Enum의 각 값들은 선언에서 값의 0 기반 위치를 반환하는 'index' getter가 있습니다.
+Enum의 각 값들은 `index` getter 메서드가 있습니다.
+이 메서드는 0을 기준으로 인덱스된 위치 값을 반환합니다.
 예를 들어, 첫 번째 값은 index 0을 가지고 두 번째 값은 index 1을 가집니다.
 
 <?code-excerpt "misc/lib/language_tour/classes/enum.dart (index)"?>
@@ -3601,7 +3598,7 @@ mixin Musical {
 }
 ```
 
-Mixin을 사용 할 수 있는 타입을 제한할 수도 있습니다.
+Mixin을 사용할 수 있는 타입을 제한할 수도 있습니다.
 예를 들어, mixin이 정의하지 않은 메서드를 호출할 수 있는지에 따라 달라질 수 있습니다.
 다음 예제처럼 `on` 키워드로 사용할 수 있는 superclass를 제한함으로써 mixin의 사용을 제한할 수 있습니다:
 
@@ -3703,8 +3700,8 @@ void main() {
 * 제네릭 타입을 적절하게 명시한 코드는 더 잘 작성된 코드 입니다.
 * 코드 중복를 줄이기 위해 제네릭을 사용 할 수 있습니다.
 
-리스트가 string 값만 가지게 하고 싶다면, List<String>로 리스트를 선언하면 됩니다.
-그렇게 함으로써, 동료와 개발 툴이 string 이외의 값은 리스트에 추가될 수 없음을 바로 알 수 있습니다:
+리스트가 문자열 값만 가지게 하고 싶다면, List<String>로 리스트를 선언하면 됩니다.
+그렇게 함으로써, 동료와 개발 툴이 문자열 이외의 값은 리스트에 추가될 수 없음을 바로 알 수 있습니다:
 
 {:.fails-sa}
 ```dart
@@ -3714,7 +3711,7 @@ names.add(42); // Error
 ```
 
 제네릭을 사용하는 또 다른 이유는 코드 중복을 줄이기 위함입니다.
-제네릭은 정적인 분석의 이점을 챙기면서, 많은 타입들이 단일 인터페이스와 구현을 공유 할 수 있게 합니다.
+제네릭은 정적인 분석의 이점을 챙기면서, 많은 타입들이 단일 인터페이스와 구현을 공유할 수 있게 합니다.
 예를 들어, 객체를 캐싱하는 인터페이스를 생성한다고 해봅시다:
 
 <?code-excerpt "misc/lib/language_tour/generics/cache.dart (ObjectCache)"?>
@@ -3725,7 +3722,7 @@ abstract class ObjectCache {
 }
 ```
 
-해당 인터페이스의 string 버전이 필요하다면 다음과 같이 선언하면 됩니다:
+해당 인터페이스의 문자열 버전이 필요하다면 다음과 같이 선언하면 됩니다:
 
 <?code-excerpt "misc/lib/language_tour/generics/cache.dart (StringCache)"?>
 ```dart
@@ -3748,8 +3745,7 @@ abstract class Cache<T> {
 }
 ```
 
-위의 코드에서, T는 stand-in 타입입니다.
-이것은 개발자가 추후에 타입을 마음대로 지정 할 수 있게 해주는 플레이스 홀더입니다.
+위의 코드에서, T는 대체 타입으로 개발자가 추후에 타입을 마음대로 지정할 수 있게 해주는 플레이스 홀더입니다.
 
 
 ### 컬렉션 리터럴 사용
@@ -3774,7 +3770,7 @@ var pages = <String, String>{
 
 ### 생성자에 매개변수화된 타입 사용
 
-생성자를 사용 할 때 하나 혹은 다수의 타입을 특정하고 싶다면,
+생성자를 사용할 때 하나 혹은 다수의 타입을 특정하고 싶다면,
 타입을 클래스 이름 다음의 `<...>` (angle brackets) 안에 넣으세요:
 
 <?code-excerpt "misc/test/language_tour/generics_test.dart (constructor-1)"?>
@@ -3892,10 +3888,10 @@ var foo = [!Foo<Object>!]();
 
 ## 라이브러리와 가시성
 
-`import`와 `library` 디렉티브는 코드를 모듈화하고 공유하는 것을 도와줍니다.
+`import`와 `library` 명령어는 코드를 모듈화하고 공유하는 것을 도와줍니다.
 라이브러리는 API를 제공할 뿐만 아니라, 관리(privacy)의 단위가 됩니다:
 언더스코어(`_`)로 시작하는 식별자들은 오직 그 라이브러리 안에서만 보입니다.
-`library` 디렉티브를 사용하지 않았다고 해도, *모든 Dart 앱은 라이브러리*입니다.
+`library` 명령어를 사용하지 않았다고 해도, *모든 Dart 앱은 라이브러리*입니다.
 
 라이브러리들은 [packages](/guides/packages)를 사용해 분산 될 수 있습니다.
 
@@ -4044,7 +4040,7 @@ Future<void> greet() async {
 Dart의 라이브러리에는 [`Future`][] 또는 [`Stream`][] 객체를 반환하는 함수가 많습니다.
 이런 함수들을 _비동기(asynchronous)_ 함수라고 합니다.
 이 함수들은 I/O 같이 시간이 오래 걸릴 수도 있는
-작업이 완료되기를 기다리지 않고, 값을 반환 할 수 있게 해줍니다.
+작업이 완료되기를 기다리지 않고, 값을 반환할 수 있게 해줍니다.
 
 `async`나 `await` 같은 키워드들은 동기적인 코드처럼 보이는
 비동기적인 코드를 이용해 비동기 프로그래밍을 가능하게 합니다.
@@ -4054,7 +4050,7 @@ Dart의 라이브러리에는 [`Future`][] 또는 [`Stream`][] 객체를 반환�
 
 ### Future 다루기
 
-완료된 Future의 결과를 원한다면, 두가지 옵션이 있습니다:
+완료된 Future의 결과를 원한다면, 두 가지 옵션이 있습니다:
 
 * `async`와 `await`을
   [비동기식 프로그래밍 codelab](/codelabs/async-await)
@@ -4082,7 +4078,7 @@ Future<void> checkVersion() [!async!] {
 
 {{site.alert.note}}
   `async` 비동기 함수는 시간이 많이 걸리는 작업을 수행할 수 있지만
-  이러한 작업을 기다리지 않습니다. 대신 `async` 함수는 첫번째 `await` 구문을 찾을 때까지 실행됩니다.
+  이러한 작업을 기다리지 않습니다. 대신 `async` 함수는 첫 번째 `await` 구문을 찾을 때까지 실행됩니다.
   그 후에 `Future` object를 반환하고, `await` 구문이 끝난 뒤 코드 실행을 재개합니다.
 {{site.alert.end}}
 
@@ -4158,7 +4154,7 @@ Future<String> lookUpVersion() async => '1.0.0';
 ```
 
 함수의 바디에서는 Future API를 사용할 필요가 없다는 것을 알아두세요.
-Dart는 필요 할 때 Future 객체를 생성합니다.
+Dart는 필요할 때 Future 객체를 생성합니다.
 함수가 쓸모 있는 값을 반환하지 않는다면, 반환 타입을 `Future<void>`로 지정하세요.
 
 Future, `async`, 그리고 `await`을 사용해보며 더 자세히 배우고 싶다면,
@@ -4295,7 +4291,7 @@ void main() => print(out);
 
 ## Isolates
 
-모바일 플랫폼을 포함한 대부분의 컴퓨터들은 멀티 코어 CPUs를 가지고 있습니다.
+모바일 플랫폼을 포함한 대부분의 컴퓨터들은 멀티 코어 CPU를 가지고 있습니다.
 멀티 코어를 이용하기 위해 개발자들은 전통적으로 메모리를 공유하는 쓰레드를 동시에
 사용합니다. 그러나, 상태를 공유하는 쓰레드를 동시 실행하는 것은 에러를 발생시킬 수 있고,
 코드 또한 복잡해집니다.
@@ -4420,8 +4416,8 @@ void doSomething() {
 
 메타데이터는 라이브러리, 클래스, typedef, 타입 매개변수,
 생성자, factory, 함수, 필드, 매개변수, 변수 선언 뒤에 나올 수 있고
-import나 export 디렉티브 뒤에도 나올 수 있습니다.
-Reflection을 이용해 런타임에 메타데이터를 회수 할 수 있습니다.
+import나 export 명령어 뒤에도 나올 수 있습니다.
+Reflection을 이용해 런타임에 메타데이터를 회수할 수 있습니다.
 
 
 ## 주석
@@ -4465,11 +4461,11 @@ void main() {
 
 ### 문서화 주석
 
-문서화문서 주석은 `///` 또는 `/**`로 시작하는 멀티 또는 싱글 라인 주석입니다. 연이은 라인에 `///`
+문서화 문서 주석은 `///` 또는 `/**`로 시작하는 멀티 또는 싱글 라인 주석입니다. 연이은 라인에 `///`
 를 사용하는 것은 멀티 라인 문서 주석과 같은 효과를 발휘합니다.
 
 문서화 주석 안에 괄호로 감싸진 텍스트를 제외한 것은 모두 analyzer가 무시합니다.
-괄호를 사용하여 클래스, 메소드, 필드, 최상위 변수, 함수, 매개변수를 참조할 수 있습니다.
+괄호를 사용하여 클래스, 메서드, 필드, 최상위 변수, 함수, 매개변수를 참조할 수 있습니다.
 괄호 안에 있는 이름은 문서화된 프로그램 요소의 렉시컬 스코프 안에서 해석됩니다.
 
 다음은 클래스와 인자들에 대한 참조를 가지는 문서 주석에 대한 예제입니다:

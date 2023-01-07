@@ -146,7 +146,7 @@
 * <a href='/guides/language/effective-dart/usage#dont-use-late-when-a-constructor-initializer-list-will-do'>생성자 initializer list가 변수의 값을 초기화해준다면, <code>late</code>을 사용하지 마십시오.</a>
 * <a href='/guides/language/effective-dart/usage#do-use--instead-of--for-empty-constructor-bodies'>비어있는 생성자 바디에 <code>{}</code> 대신에 <code>;</code> 을 사용하십시오.</a>
 * <a href='/guides/language/effective-dart/usage#dont-use-new'><code>new</code>를 사용하지 마십시오.</a>
-* <a href='/guides/language/effective-dart/usage#dont-use-const-redundantly'><code>const</code>을 중복되게 사용하지 마십시오.</a>
+* <a href='/guides/language/effective-dart/usage#dont-use-const-redundantly'><code>const</code>를 불필요하게 사용하지 마십시오.</a>
 
 **에러 핸들링**
 
