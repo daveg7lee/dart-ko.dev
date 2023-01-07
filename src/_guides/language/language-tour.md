@@ -1,7 +1,7 @@
 ---
 title: Dart로 떠나는 여행
 description: Dart 언어의 중요한 기능에 대해 학습합니다.
-short-title: Language tour
+short-title: 언어 투어
 js: [{url: 'https://dartpad.dev/inject_embed.dart.js', defer: true}]
 ---
 <?code-excerpt replace="/ *\/\/\s+ignore_for_file:[^\n]+\n//g; /(^|\n) *\/\/\s+ignore:[^\n]+\n/$1/g; /(\n[^\n]+) *\/\/\s+ignore:[^\n]+\n/$1\n/g; / *\/\/\s+ignore:[^\n]+//g; /([A-Z]\w*)\d\b/$1/g"?>
@@ -10,11 +10,11 @@ js: [{url: 'https://dartpad.dev/inject_embed.dart.js', defer: true}]
 변수, 연산자, 클래스 및 라이브러리에 이르는 각 주요 Dart 기능을 사용하는 방법을 알려드립니다. 
 언어에 대한 간략한 설명을 보고 싶다면, [샘플 페이지](/samples)를 참고하세요!
 
-Dart의 핵심 라이브러리에 대해 학습하고 싶다면 [library tour](/guides/libraries/library-tour)를 참고하세요. 
+Dart의 핵심 라이브러리에 대해 학습하고 싶다면 [라이브러리 투어](/guides/libraries/library-tour)를 참고하세요. 
 언어의 기능에 대한 자세한 정보를 얻고 싶다면 [Dart 언어 설명서][]을 참고하세요.
 
 {{site.alert.note}}
-  DartPad를 사용하여 Dart 언어를 체험해볼 수 있습니다.
+  DartPad를 사용하여 Dart 언어를 체험해볼 수 있습니다
   ([DartPad란?](/tools/dartpad)).
   **<a href="{{site.dartpad}}" target="_blank" rel="noopener">
   DartPad 열기</a>**
@@ -90,8 +90,7 @@ void main() {
 
 
 {{site.alert.note}}
-  이 사이트의 코드는 [Dart 스타일 가이드](/guides/language/effective-dart/style)의
-  관습을 따릅니다.
+  이 사이트의 코드는 [Dart 스타일 가이드](/guides/language/effective-dart/style)를 따릅니다.
 {{site.alert.end}}
 
 
@@ -101,12 +100,12 @@ Dart 언어를 학습 할 때 다음을 잘 기억해야합니다:
 
 -   변수로 할당 할 수 있는 모든 것은 *객체*이고, 모든 객체는 *클래스*의 인스턴스입니다.
     숫자, 함수 그리고 `null`까지 모두 객체입니다.
-    `null`을 제외하고 (만약 [sound null safety][ns]를 활성화했다면),
+    `null`을 제외하고 ([sound null safety][ns]를 활성화했다면),
      모든 객체들은 [`Object`][] 클래스를 상속받습니다.
 
     {{site.alert.version-note}}
-      [Null safety][ns]는 in Dart 2.12에 처음 소개되었습니다..
-      null safety를 사용하기 위해서 최소 2.12의 [language version][]이 필요합니다.
+      [Null safety][ns]는 Dart 2.12에 처음 소개되었습니다.
+      null safety를 사용하려면 최소 2.12의 [language version][]이 필요합니다.
     {{site.alert.end}}
 
 -   Dart는 타입에 엄격하지만, 추론할 수 있기 때문에 타입 어노테이션은 자율에 맡깁니다.
@@ -123,11 +122,11 @@ Dart 언어를 학습 할 때 다음을 잘 기억해야합니다:
     (만약 null이라면 예외를 throw 합니다).
     예시: `int x = nullableButNotNullInt!`
 
--   만약에 어떤 타입이든 적용이 가능하다고 명시하고 싶다면, 
+-   어떤 타입이든 적용이 가능하다고 명시하고 싶다면, 
     `Object?` ([null safety][ns-enable]를 활성화했다면)
     또는 `Object`를 타입으로 설정해주면 된다.
-    먄약 런타임까지 타입 체킹을 미뤄야 한다면,
-    [특수 타입인 `dynamic`][ObjectVsDynamic]를 사용하세요.
+    런타임까지 타입 체킹을 미뤄야 한다면,
+    [특수 타입인 `dynamic`][ObjectVsDynamic]을 사용하세요.
 
 -   Dart는 `List<int>` (정수의 list)
     또는 `List<Object>` (아무 타입의 list) 같은 제네릭 타입을 지원합니다.
@@ -264,10 +263,10 @@ Dart 언어를 학습 할 때 다음을 잘 기억해야합니다:
 [yield]: #generators
 
 이 단어들을 식별자로 사용하는 것을 지양하세요.
-그러나, 만약 필요하다면, 윗첨자로 표시된 단어들은 식별자로 사용이 가능합니다.
+그러나, 필요하다면 윗첨자로 표시된 단어들은 식별자로 사용이 가능합니다.
 
 * **1**로 표시된 단어들은 **맥락적인 키워드(contextual keywords)**로
-  득정한 장소에서만 의미를 가집니다.
+  특정한 장소에서만 의미를 가집니다.
   어디서든 유효한 식별자로 하용이 가능합니다..
 
 * **2**로 표시된 단어들은 **내장 식별자(built-in identifiers)**로
@@ -292,7 +291,7 @@ Dart 언어를 학습 할 때 다음을 잘 기억해야합니다:
 var name = 'Bob';
 ```
 
-변수는 레퍼런스(reference)를 저장합니다. `name` 이라는 변수는 "Bob"이라는 값을
+변수는 레퍼런스(reference)를 저장합니다. `name`이라는 변수는 "Bob"이라는 값을
 가지고 있는 `String` 객체의 레퍼런스를 포함합니다.
 
 `name`의 타입은 `String`으로 추론되지만, 구체적으로 명시하여 타입을 변경 할 수 있습니다.

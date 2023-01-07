@@ -123,13 +123,13 @@
 
 **함수**
 
-* <a href='/guides/language/effective-dart/usage#do-use-a-function-declaration-to-bind-a-function-to-a-name'>함수의 이름과 함수를 바인드하기 위해 함수 선언식을 사용하세요.</a>
-* <a href='/guides/language/effective-dart/usage#dont-create-a-lambda-when-a-tear-off-will-do'>Tear-off가 있을 때 labmda를 생성하지 마십시오.</a>
-* <a href='/guides/language/effective-dart/usage#do-use--to-separate-a-named-parameter-from-its-default-value'>Named 파라미터와 그것의 디폴트 값을 분리시키고 싶다면, <code>=</code> 을 사용하십시오.</a>
+* <a href='/guides/language/effective-dart/usage#do-use-a-function-declaration-to-bind-a-function-to-a-name'>함수의 이름과 함수를 바인드 하려면 함수 선언식을 사용하세요.</a>
+* <a href='/guides/language/effective-dart/usage#dont-create-a-lambda-when-a-tear-off-will-do'>Tear-off 대신 람다를 사용하지 마십시오.</a>
+* <a href='/guides/language/effective-dart/usage#do-use--to-separate-a-named-parameter-from-its-default-value'>Named 매개변수와 해당 매개변수의 디폴트 값을 분리시키고 싶다면, <code>=</code> 을 사용하십시오.</a>
 
 **변수**
 
-* <a href='/guides/language/effective-dart/usage#do-follow-a-consistent-rule-for-var-and-final-on-local-variables'>로컬 변수에 <code>var</code>과 <code>final</code>을 사용 할 때 일관된 규칙을 따르십시오.</a>
+* <a href='/guides/language/effective-dart/usage#do-follow-a-consistent-rule-for-var-and-final-on-local-variables'>지역 변수에 <code>var</code>과 <code>final</code>을 사용할 때 일관된 규칙을 따르십시오.</a>
 * <a href='/guides/language/effective-dart/usage#avoid-storing-what-you-can-calculate'>계산 할 수 있는 값들을 저장하는 것을 피하십시오.</a>
 
 **멤버**

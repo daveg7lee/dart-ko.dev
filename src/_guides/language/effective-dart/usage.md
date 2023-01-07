@@ -816,23 +816,23 @@ int median(List<Object> objects) {
 합니다. 그러나 이 방법의 위험과 단점을 고려할 때, 잘못 사용하면 실행이 느려지고 실패할 수도 있습니다.
 
 
-## Functions
+## 함수
 
-In Dart, even functions are objects. Here are some best practices
-involving functions.
+Dart에서 함수는 객체입니다. 다음은 함수 사용에 대한
+모범 사례입니다.
 
 
-### DO use a function declaration to bind a function to a name.
+### 함수의 이름과 함수를 바인드 하려면 함수 선언식을 사용하십시오.
 
 {% include linter-rule-mention.md rule="prefer_function_declarations_over_variables" %}
 
-Modern languages have realized how useful local nested functions and closures
-are. It's common to have a function defined inside another one. In many cases,
-this function is used as a callback immediately and doesn't need a name. A
-function expression is great for that.
+현대 언어들은 지역 중첩 함수와 클로저가 얼마나 유용한지 깨달았습니다.
+함수 안에 함수가 선언되는 것은 흔한 일입니다.
+흔히 이런 함수들은 콜백으로 사용되고 이름이 없습니다.
+함수 표현식은 이런 경우에 적합합니다.
 
-But, if you do need to give it a name, use a function declaration statement
-instead of binding a lambda to a variable.
+하지만, 함수에 이름을 부여하고 싶다면 변수에 람다를 바인딩 하지 말고
+함수 선언문을 사용하세요.
 
 {:.good}
 <?code-excerpt "usage_good.dart (func-decl)"?>
@@ -854,15 +854,15 @@ void main() {
 }
 {% endprettify %}
 
-### DON'T create a lambda when a tear-off will do.
+### Tear-off 대신 람다를 사용하지 마십시오.
 
 {% include linter-rule-mention.md rule="unnecessary_lambdas" %}
 
-When you refer to a function, method, or named constructor but omit the
-parentheses, Dart creates a _tear-off_—a closure that takes the same
-parameters as the function and invokes the underlying function when you call it.
-If all you need is a closure that invokes a named function with the same
-parameters as the closure accepts, don't manually wrap the call in a lambda.
+함수, 메서드 또는 named 생성자를 참조할 때 괄호를 생략하면, Dart는
+동일한 매개 변수 쌍을 사용하고 호출 시 기본 함수를 호출하는 _tear-off_ 클로저를 생성합니다.
+
+클로저가 받아들이는 매개변수와 동일한 매개변수를 사용하는 named 함수를 호출하는 클로저를
+원한다면, 해당 호출을 람다로 래핑하지 마세요.
 
 {:.good}
 <?code-excerpt "usage_good.dart (use-tear-off)"?>
@@ -870,16 +870,16 @@ parameters as the closure accepts, don't manually wrap the call in a lambda.
 var charCodes = [68, 97, 114, 116];
 var buffer = StringBuffer();
 
-// Function:
+// 함수:
 charCodes.forEach(print);
 
-// Method:
+// 메서드:
 charCodes.forEach(buffer.write);
 
-// Named constructor:
+// Named 생성자:
 var strings = charCodes.map(String.fromCharCode);
 
-// Unnamed constructor:
+// Unnamed 생성자:
 var buffers = charCodes.map(StringBuffer.new);
 {% endprettify %}
 
@@ -889,31 +889,30 @@ var buffers = charCodes.map(StringBuffer.new);
 var charCodes = [68, 97, 114, 116];
 var buffer = StringBuffer();
 
-// Function:
+// 함수:
 charCodes.forEach((code) {
   print(code);
 });
 
-// Method:
+// 메서드:
 charCodes.forEach((code) {
   buffer.write(code);
 });
 
-// Named constructor:
+// Named 생성자:
 var strings = charCodes.map((code) => String.fromCharCode(code));
 
-// Unnamed constructor:
+// Unnamed 생성자:
 var buffers = charCodes.map((code) => StringBuffer(code));
 {% endprettify %}
 
 
-### DO use `=` to separate a named parameter from its default value.
+### Named 매개변수와 해당 매개변수의 디폴트 값을 분리시키고 싶다면, `=`을 사용하십시오.
 
 {% include linter-rule-mention.md rule="prefer_equal_for_default_values" %}
 
-For legacy reasons, Dart allows both `:` and `=` as the default value separator
-for named parameters. For consistency with optional positional parameters, use
-`=`.
+Dart는 오래된 이유로 `:`와 `=`를 모두 named 매개변수의 디폴트 값을 위한 구분자로 지원합니다.
+Optional positional 매개변수와 통일된 방법을 사용하길 원한다면, `=`를 사용하세요.
 
 {:.good}
 <?code-excerpt "usage_good.dart (default-separator)"?>
@@ -928,33 +927,29 @@ void insert(Object item, {int at: 0}) { ... }
 {% endprettify %}
 
 
-## Variables
+## 변수
 
-The following best practices describe how to best use variables in Dart.
+다음은 Dart의 변수를 사용하는 모범 사례에 대해 설명합니다.
 
-### DO follow a consistent rule for `var` and `final` on local variables.
+### 지역 변수에 `var`과 `final`을 사용할 때 일관된 규칙을 따르십시오.
 
-Most local variables shouldn't have type annotations and should be declared
-using just `var` or `final`. There are two rules in wide use for when to use one
-or the other:
+대부분의 지역 변수는 타입 어노테이션이 없어야 하며, `var` 또는 `final`만을
+사용하여 선언해야합니다. `var`과 `final`을 사용할 때 널리 사용되는 두 가지 규칙이 있습니다:
 
-*   Use `final` for local variables that are not reassigned and `var` for those
-    that are.
+*   재할당 될 필요가 없는 지역 변수는 `final`을 사용하고, 그렇지 않은 경우에는 `var`을 사용하세요.
 
-*   Use `var` for all local variables, even ones that aren't reassigned. Never use
-    `final` for locals. (Using `final` for fields and top-level variables is
-    still encouraged, of course.)
+*   재할당 될 필요가 없는 지역 변수까지 모두 `var`로 선언하세요. 지역 변수에 `final`을 사용하지 마세요.
+    (물론 필드나 최상위 변수는 `final`로 선언하는 것을 권장합니다.)
 
-Either rule is acceptable, but pick *one* and apply it consistently throughout
-your code. That way when a reader sees `var`, they know whether it means that
-the variable is assigned later in the function.
+두 가지 규칙 모두 일리가 있으며, *한 가지*를 선택하여 코드에 통일성을 유지하세요.
+그렇게 함으로써 코드를 읽는 사람이 `var`를 확인했을 때, 이 변수가 함수 내에서
+추후에 변경될 수 있는지의 여부를 알 수 있습니다.
 
 
-### AVOID storing what you can calculate.
+### 계산이 가능한 값들을 저장하는 것을 피하십시오.
 
-When designing a class, you often want to expose multiple views into the same
-underlying state. Often you see code that calculates all of those views in the
-constructor and then stores them:
+클래스를 디자인 할 때, 같은 상태를 공유하는 여러가지 계산의 결과 값을 생성자에서 모두 계산하고
+저장하는 경우가 있습니다:
 
 {:.bad}
 <?code-excerpt "usage_bad.dart (calc-vs-store1)"?>
@@ -971,18 +966,17 @@ class Circle {
 }
 {% endprettify %}
 
-This code has two things wrong with it. First, it's likely wasting memory. The
-area and circumference, strictly speaking, are *caches*. They are stored
-calculations that we could recalculate from other data we already have. They are
-trading increased memory for reduced CPU usage. Do we know we have a performance
-problem that merits that trade-off?
+이 코드에는 두 가지 문제점이 있습니다. 첫 번째, 이런 작업은 메모리를 낭비합니다.
+area와 circumference는 엄밀히 말하면 *캐시*입니다. 이 둘은 이미 가지고 있는
+다른 데이터로부터 다시 계산할 수 있는 저장된 계산 결과입니다. 이것은 CPU 사용량을 줄이지만
+메모리 사용량을 늘립니다. 이러한 트레이드오프에는 성능 문제가 있다는 것을 알고 있나요?
 
-Worse, the code is *wrong*. The problem with caches is *invalidation*—how
-do you know when the cache is out of date and needs to be recalculated? Here, we
-never do, even though `radius` is mutable. You can assign a different value and
-the `area` and `circumference` will retain their previous, now incorrect values.
+더군다나, 코드가 *잘못*되었습니다. 캐시의 문제는 *무효화*입니다. 캐시가 오래되어 다시
+계산해야 할 때를 어떻게 알 수 있을까요? 위의 코드에서 `radius`가 변할 수 있는 변수라도
+해당 작업을 수행하지 않습니다. `radius`에 다른 값을 할당할 수 있고 그렇게 하면
+`area`와 `circumference`은 틀린 이전의 값을 가지게 됩니다.
 
-To correctly handle cache invalidation, we would need to do this:
+캐시 무효화를 해결하려면, 다음과 같이 해야 합니다:
 
 {:.bad}
 <?code-excerpt "usage_bad.dart (calc-vs-store2)"?>
@@ -1012,8 +1006,8 @@ class Circle {
 }
 {% endprettify %}
 
-That's an awful lot of code to write, maintain, debug, and read. Instead, your
-first implementation should be:
+위의 코드는 유지, 디버깅, 그리고 읽고 쓰기에 너무 많은 코드입니다.
+대신, 초기의 구현을 다음과 같이 진행하세요:
 
 {:.good}
 <?code-excerpt "usage_good.dart (calc-vs-store)"?>
@@ -1028,34 +1022,30 @@ class Circle {
 }
 {% endprettify %}
 
-This code is shorter, uses less memory, and is less error-prone. It stores the
-minimal amount of data needed to represent the circle. There are no fields to
-get out of sync because there is only a single source of truth.
+이 코드는 더 짧고 적은 메모리를 사용하며 에러 발생률이 낮습니다. 원을 나타내기위해 필요한
+최소의 데이터를 저장합니다. 데이터의 소스가 하나뿐이므로 동기화 해야할 필드가 존재하지 않습니다.
 
-In some cases, you may need to cache the result of a slow calculation, but only
-do that after you know you have a performance problem, do it carefully, and
-leave a comment explaining the optimization.
+경우에 따라 느린 계산 결과를 캐시해야 할 수도 있지만, 성능 문제가 있다는 것을 알고
+신중하게 수행한 후 최적화를 설명하는 주석을 남겨야 합니다.
 
 
-## Members
+## 멤버
 
-In Dart, objects have members which can be functions (methods) or data (instance
-variables). The following best practices apply to an object's members.
+Dart의 객체는 함수 (메서드) 또는 데이터 (인스턴스 변수)를 멤버로 가질수 있습니다.
+다음은 객체의 멤버에 적용할 수 있는 모범 사례입니다.
 
-### DON'T wrap a field in a getter and setter unnecessarily.
+### 필드에 불필요한 getter와 setter를 생성하지 마십시오.
 
 {% include linter-rule-mention.md rule="unnecessary_getters_setters" %}
 
-In Java and C#, it's common to hide all fields behind getters and setters (or
-properties in C#), even if the implementation just forwards to the field. That
-way, if you ever need to do more work in those members, you can without needing
-to touch the call sites. This is because calling a getter method is different
-than accessing a field in Java, and accessing a property isn't binary-compatible
-with accessing a raw field in C#.
+Java와 C#에서는 구현이 해당 필드를 가리키는 경우에도 getter와 setter 메서드 (C#에서는 프로퍼티라고 함)
+로 모든 필드를 숨기는 것이 일반적입니다. 이렇게 하면 이러한 멤버에 대해 아무리 많은 작업을 수행하더라도
+직접 액세스할 필요가 없습니다. 이는 Java에서 getter 메서드를 호출하는 것이 필드에 직접 액세스하는 것과
+다르기 때문입니다. C#에서 프로퍼티 액세스는 필드 액세스와 이진 호환(binary-compatible)되지 않습니다.
 
-Dart doesn't have this limitation. Fields and getters/setters are completely
-indistinguishable. You can expose a field in a class and later wrap it in a
-getter and setter without having to touch any code that uses that field.
+Dart는 이런 제한이 없습니다. 필드와 getter/setter는 완전히 구분할 수 없습니다.
+클래스의 필드를 노출한 다음 해당 필드를 사용하는 코드에 영향을 주지 않고 getter와
+setter로 래핑할 수 있습니다.
 
 {:.good}
 <?code-excerpt "usage_good.dart (dont-wrap-field)"?>
@@ -1078,10 +1068,10 @@ class Box {
 {% endprettify %}
 
 
-### PREFER using a `final` field to make a read-only property.
+### 읽기 전용인 프로퍼티를 생성 할 때, `final` 키워드 사용을 지향하십시오.
 
-If you have a field that outside code should be able to see but not assign to, a
-simple solution that works in many cases is to simply mark it `final`.
+변수를 읽을 수만 있고 외부 코드로 수정할 수 없는 변수를
+생성하는 쉬운 방법은 `final` 키워드를 사용하는 것입니다.
 
 {:.good}
 <?code-excerpt "usage_good.dart (final)"?>
@@ -1100,18 +1090,16 @@ class Box {
 }
 {% endprettify %}
 
-Of course, if you need to internally assign to the field outside of the
-constructor, you may need to do the "private field, public getter" pattern, but
-don't reach for that until you need to.
+물론 내부에서 할당하고 외부에서 접근할 수 있는 필드를 구성해야 한다면 이 "private 필드,
+public getter" 패턴이 필요할 수 있지만 꼭 필요한 경우가 아니라면 사용하지 마세요.
 
 
-### CONSIDER using `=>` for simple members.
+### 간단한 멤버를 선언 할 떄, `=>` 사용을 고려하십시오.
 
 {% include linter-rule-mention.md rule="prefer_expression_function_bodies" %}
 
-In addition to using `=>` for function expressions, Dart also lets you define
-members with it. That style is a good fit for simple members that just calculate
-and return a value.
+`=>`를 함수 표현식으로 사용하는 것 외에도, Dart에서는 멤버를 정의하는 데 사용할 수도 이씃ㅂ니다.
+이 스타일은 계산을 수행하고 결과를 반환하는 단순한 멤버에게 적합합니다.
 
 {:.good}
 <?code-excerpt "usage_good.dart (use-arrow)"?>
@@ -1122,11 +1110,10 @@ String capitalize(String name) =>
     '${name[0].toUpperCase()}${name.substring(1)}';
 {% endprettify %}
 
-People *writing* code seem to love `=>`, but it's very easy to abuse it and end
-up with code that's hard to *read*. If your declaration is more than a couple of
-lines or contains deeply nested expressions—cascades and conditional
-operators are common offenders—do yourself and everyone who has to read
-your code a favor and use a block body and some statements.
+코드를 *작성하는* 사람들은 `=>` 구문을 선호하는 것 같지만 쉽게 남용될 수 있고
+*읽기* 쉽지 않은 코드가 완성될 수 있습니다. 선언이 두 줄 이상이거나 깊게 중첩된
+표현식(계단식, 조건부 연산자가 보통 범인)을 포함하는 경우 누구도 이런 코드를
+읽고 싶지 않습니다. 이렇게 코드를 작성하는 대신에 코드 블록과 명령문을 사용하세요.
 
 {:.good}
 <?code-excerpt "usage_good.dart (arrow-long)"?>
@@ -1149,8 +1136,8 @@ Treasure? openChest(Chest chest, Point where) => _opened.containsKey(chest)
     : _opened[chest] = (Treasure(where)..addAll(chest.contents));
 {% endprettify %}
 
-You can also use `=>` on members that don't return a value. This is idiomatic
-when a setter is small and has a corresponding getter that uses `=>`.
+값을 반환하지 않는 멤버에도 `=>`를 사용할 수 있습니다.
+여기서 setter와 getter가 모두 상대적으로 단순할 때 `=>`를 사용하는 것이 관용적입니다.
 
 {:.good}
 <?code-excerpt "usage_good.dart (arrow-setter)"?>
@@ -1160,16 +1147,15 @@ set x(num value) => center = Point(value, center.y);
 {% endprettify %}
 
 
-### DON'T use `this.` except to redirect to a named constructor or to avoid shadowing. {#dont-use-this-when-not-needed-to-avoid-shadowing}
+### Named 생성자를 리디렉션하고 충돌을 피하는 경우를 제외하고 `this`를 사용하지 마십시오. {#dont-use-this-when-not-needed-to-avoid-shadowing}
 
 {% include linter-rule-mention.md rule="unnecessary_this" %}
 
-JavaScript requires an explicit `this.` to refer to members on the object whose
-method is currently being executed, but Dart—like C++, Java, and
-C#—doesn't have that limitation.
+JavaScript는 객체의 멤버 변수를 참조하기 위해 `this.`를 사용해야하지만,
+Dart, C++, Java, 및 C#에는 이러한 제한이 없습니다.
 
-There are only two times you need to use `this.`. One is when a local variable
-with the same name shadows the member you want to access:
+`this.`가 필요한 두 가지 상황이 있습니다. 그 중 하나는 접근할 지역 변수가
+멤버 변수와 같은 이름을 가진 경우입니다:
 
 {:.bad}
 <?code-excerpt "usage_bad.dart (this-dot)"?>
@@ -1203,7 +1189,7 @@ class Box {
 }
 {% endprettify %}
 
-The other time to use `this.` is when redirecting to a named constructor:
+다른 경우는 named 생성자로 리디렉션할 때입니다:
 
 {:.bad}
 <?code-excerpt "usage_bad.dart (this-dot-constructor)"?>
@@ -1215,7 +1201,7 @@ class ShadeOfGray {
 
   ShadeOfGray.black() : this(0);
 
-  // This won't parse or compile!
+  // 이 라인은 분석하거나 컴파일할 수 없습니다!
   // ShadeOfGray.alsoBlack() : black();
 }
 {% endprettify %}
@@ -1230,13 +1216,12 @@ class ShadeOfGray {
 
   ShadeOfGray.black() : this(0);
 
-  // But now it will!
+  // 이제는 가능합니다!
   ShadeOfGray.alsoBlack() : this.black();
 }
 {% endprettify %}
 
-Note that constructor parameters never shadow fields in constructor initializer
-lists:
+생성자 initializer list의 필드는 생성자 매개변수와 충돌할 수 없습니다:
 
 {:.good}
 <?code-excerpt "usage_good.dart (param-dont-shadow-field-ctr-init)"?>
@@ -1250,15 +1235,14 @@ class Box extends BaseBox {
 }
 {% endprettify %}
 
-This looks surprising, but works like you want. Fortunately, code like this is
-relatively rare thanks to initializing formals and super initializers.
+이것이 놀라울 수 있지만, 원하는 대로 작동합니다.
+다행스럽게도 initializing formal과 super initializer 덕분에 이런 코드는 상대적으로 드뭅니다.
 
 
-### DO initialize fields at their declaration when possible.
+### 가능하다면 필드의 선언과 함께 초기화를 진행하십시오.
 
-If a field doesn't depend on any constructor parameters, it can and should be
-initialized at its declaration. It takes less code and avoids duplication when
-the class has multiple constructors.
+필드가 생성자 매개변수에 의존하지 않는 경우 선언 시 초기화해야 합니다. 이렇게 하면
+클래스에 생성자가 여러 개 있을 때 코드가 짧아지고 중복을 방지합니다.
 
 {:.bad}
 <?code-excerpt "usage_bad.dart (field-init-at-decl)"?>
@@ -1286,12 +1270,12 @@ class ProfileMark {
 }
 {% endprettify %}
 
-Some fields can't be initialized at their declarations because they need to reference
-`this`—to use other fields or call methods, for example. However, if the
-field is marked `late`, then the initializer *can* access `this`.
+예를 들어 메서드를 호출하거나 다른 필드에 접근하기 위해 `this`를 참조해야하는 경우에
+몇몇 필드는 선언과 초기화가 동시에 진행될 수 없습니다. 그러나, 필드를 `late`로
+표시하면, initializer는 `this`에 접근할 수 *있습니다*.
 
-Of course, if a field depends on constructor parameters, or is initialized
-differently by different constructors, then this guideline does not apply.
+물론 필드가 생성자 매개변수에 의존하거나, 생성자마다
+다르게 초기화되는 경우에는 이 가이드라인이 적용되지 않습니다.
 
 
 ## Constructors
