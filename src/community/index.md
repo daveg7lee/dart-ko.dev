@@ -74,8 +74,16 @@ Dart는 오픈소스입니다.
 
 우리의 훌륭한 커뮤니티는 다음의 리소스를 제공합니다:
 
+<<<<<<< HEAD
 * [이 사이트의 한국어 버전 (한국어)](https://dart-ko.dev/)
 * [이 사이트의 중국어 간체 버전 (简体中文版)](https://dart.cn)
 * [이 사이트의 중국어 번체 버전 (正體中文版)](https://dart.tw.gh.miniasp.com/)
+=======
+* [Korean version of this site (한국어)](https://dart-ko.dev/)
+* [Simplified Chinese version of this site (简体中文版)](https://dart.cn)
+* [Traditional Chinese version of this site (正體中文版)](https://dart.tw.gh.miniasp.com/)
+
+Also see the [Flutter community page.]({{site.flutter}}/community)
+>>>>>>> bca215a2eb28bd1d1bbb878ad933f77f642a65a2
 
 [Flutter 커뮤니티 페이지]({{site.flutter}}/community)도 참고하세요.
