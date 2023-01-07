@@ -1,80 +1,57 @@
 ---
-title: Learning Dart as a JavaScript developer
+title: 자바스크립트 개발자로서 Dart 배우기
 description: Leverage your JavaScript knowledge when learning Dart.
 body_class: highlight-languages
 ---
 
-This guide aims to leverage your JavaScript programming knowledge
-when learning Dart.
-It showcases key similarities and differences in both languages,
-and introduces Dart concepts that unsupported in JavaScript.
-As a JavaScript developer, Dart should feel quite familiar,
-as both languages share many concepts.
+이 가이드는 독자의 JS 지식을 활용하여 Dart를 배우게 하는 데에 초점이 맞춰져 있습니다.
+이 가이드에서는 두 언어의 유사점과 차이점을 보여주고 JS에서는 지원되지 않는 Dart 개념을 소개합니다. JS와 Dart는 많은 개념을 공유하기에 JS 개발자라면 Dart를 친숙하게 사용할 수 있을 겁니다.
 
-Like JavaScript, Dart runs on an event loop,
-so both languages execute code in a similar way.
-For example, asynchronous concepts like futures
-(promises in JavaScript) and the `async/await` syntax are very similar.
+JS와 마찬가지로 Dart도 이벤트 루프 위에서 작동합니다. 따라서 두 언어는 비슷한 방식으로 코드를 실행시킵니다.
+예를 들어, 비동기 개념인 futures(JS에서는 promises)와 `async/await`의 구문은 JS와 Dart 모두 매우 비슷합니다.
 
-Dart is strongly typed, unlike JavaScript.
-If you have used with TypeScript or Flow,
-this should simplify learning Dart.
-If you've mostly worked with pure JavaScript,
-it might be more of an adjustment.
-With strong typing, Dart catches many errors before compiling
-that might exist in JavaScript code.
+하지만, JS와 달리 Dart에는 강력한 타입 지원이 있습니다.
+만약 TypeScript나 Flow를 사용한 경험이 있다면, Dart를 더욱 쉽게 배울 수 있을 것입니다.
+이때까지 순수한 자바스크립트만을 사용했다면, 약간의 적응이 필요할 수 있습니다.
+강력한 타이핑 기능으로, Dart는 JS 코드에서는 존재할 수 있는 많은 에러들을 컴파일 전에 잡아냅니다.
 
-Dart enables null safety by default.
-JavaScript doesn't support null safety.
-As a JavaScript developer,
-it might take a while to learn how to write null safe code,
-but the trade-off is better protection against
-null reference exceptions that are detected even
-before compiling Dart code. (Thereby avoiding those
-dreaded `TypeError`s that occur when doing operations
-on a JavaScript variable that turns out to be null.)
+Dart는 기본적으로 null safety를 제공합니다. 반면 JS는 null safety를 제공하지 않습니다.
+JS 개발자로서 null safe한 코드를 짜는것을 배우는건 시간이 걸릴 수 있습니다. 하지만, null safe한 코드를 짜게 된다면 null reference 에러를 컴파일 전에 잡아낼 수 있기에 (따라서 JS에서 변수를 null로 바꿀때 발생하는 두려운 `TypeError`를 피할 수 있습니다.) 충분히 배울 가치가 있습니다.
 
-## Conventions and linting
+## 관행과 linting
 
-JavaScript and Dart both have linting tools to enforce standard conventions.
-While JavaScript offers many tools, standards, and configurations,
-Dart has one official set of layout and style conventions plus a linter
-to simplify compliance.
-The Dart analyzer lints code along with providing more analytical functions.
-To customize the lint rules for your project,
-follow the [Customizing static analysis][] instructions.
+JS와 Dart는 모두 표준 관행을 강제하는 린팅 도구를 가지고 있습니다.
+JS는 많은 도구, 관행, 및 구성을 제공하는 반면 Dart는 관행을 단순화하기 위해서 하나의 공식 레이아웃, 스타일 컨벤션, 그리고 linter를 제공합니다.
+Dart analyzer는 더 많은 분석 기능을 제공하면서 코드를 린트합니다.
+프로젝트에서 린트 규정을 변경하고 싶다면 아래 지침을 따르십시오.
 
-Dart provides [`dart fix`][] to find and fix errors.
+[Customizing static analysis][]
 
-Dart also provides a code formatter similar to JavaScript tools like [Prettier][].
-To format code in any Dart project, run [`dart format`](/tools/dart-format) on
-your command line. In Flutter, use `flutter format`.
-The IDE plugins for Dart and Flutter also provide this ability.
+Dart는 에러를 찾아내고 고치기 위해 [`dart fix`][]라는 툴을 제공합니다.
 
-Dart supports trailing commas for comma-separated lists of collections,
-parameters, or arguments. When you add the trailing comma,
-the formatter places each list item on its own line.
-When you believe your list may have more items at a later date,
-add the trailing comma. Avoid adding the trailing comma for the formatting
-benefit alone.
+또한 Dart는 JS에서의 [Prettier][]와 비슷한 코드 포메터도 지원합니다.
+Dart 프로젝트에서 코드를 포멧하고 싶다면 커맨드 라인에서 [`dart format`](/tools/dart-format) 명령어를 실행하십시오. (플러터에서는 `flutter format`을 사용하면 됩니다.)
+Dart 및 플러터용 IDE 플러그인도 이 기능을 제공합니다.
 
-JavaScript supports trailing commas in list and map literals only.
+Dart는 쉼표로 구분된 컬렉션, 매개변수 또는 arguments에 대해 후행 쉼표를 지원합니다. 후행 쉼표를 추가하면 포맷터가 각 목록 항목을 자체 줄에 배치합니다. 목록에 나중에 더 많은 항목이 있을 수 있다고 생각되면 후행 쉼표를 추가하십시오. 하지만 포메팅 이점만을 위해 후행 쉼표를 추가하지 마십시오.
+
+JS는 배열과 map literals에서만 후행 쉼표를 지원합니다.
 
 {{site.alert.secondary}}
-  To learn more about:
+To learn more about:
 
-  * Using commas to make your code read more like HTML, read
-    [Using trailing commas][] on flutter.dev.
-  * Linting Dart, read [Linter rules][].
-  * Writing good Dart code, read [Effective Dart][].
-{{site.alert.end}}
+- Using commas to make your code read more like HTML, read
+  [Using trailing commas][] on flutter.dev.
+- Linting Dart, read [Linter rules][].
+- Writing good Dart code, read [Effective Dart][].
+  {{site.alert.end}}
 
-[Customizing static analysis]: /guides/language/analysis-options
+[customizing static analysis]: /guides/language/analysis-options
 [`dart fix`]: /tools/dart-fix
-[Effective Dart]: /guides/language/effective-dart
-[Linter rules]: /tools/linter-rules
-[Prettier]: https://prettier.io/
-[Using trailing commas]: {{site.flutter-docs}}/development/tools/formatting#using-trailing-commas
+[effective dart]: /guides/language/effective-dart
+[linter rules]: /tools/linter-rules
+[prettier]: https://prettier.io/
+[using trailing commas]: {{site.flutter-docs}}/development/tools/formatting#using-trailing-commas
 
 ## Built-in types
 
@@ -95,14 +72,14 @@ and the `null` value as well as _arrays_ and a `Map` type.
 
 Dart supports the following built-in types:
 
-* Numbers (`num`, `int`, `double`)
-* Strings (`String`)
-* Booleans (`bool`)
-* Lists (`List`, also known as arrays)
-* Sets (`Set`)
-* Maps (`Map`)
-* Symbols (`Symbol`)
-* The value `null` (`Null`)
+- Numbers (`num`, `int`, `double`)
+- Strings (`String`)
+- Booleans (`bool`)
+- Lists (`List`, also known as arrays)
+- Sets (`Set`)
+- Maps (`Map`)
+- Symbols (`Symbol`)
+- The value `null` (`Null`)
 
 To learn more, see [Built-in types][] in the [Dart Language Tour][].
 
@@ -114,17 +91,17 @@ and `null` values.
 This means only one `int` value with the numerical value `1` exists.
 
 {{site.alert.note}}
-  JavaScript has two equality operators, `==` and `===`.
-  The `==` operator performs the equality test after doing any necessary
-  type conversions on or to primitive values.
-  The `===` operator doesn't perform type conversions.
-  Dart uses the `identical` function to check if two values are the
-  same object, and the `==` operator to check whether the objects
-  consider themselves as equal.
+JavaScript has two equality operators, `==` and `===`.
+The `==` operator performs the equality test after doing any necessary
+type conversions on or to primitive values.
+The `===` operator doesn't perform type conversions.
+Dart uses the `identical` function to check if two values are the
+same object, and the `==` operator to check whether the objects
+consider themselves as equal.
 {{site.alert.end}}
 
-[Built-in types]: /guides/language/language-tour#built-in-types
-[Dart Language Tour]: /guides/language
+[built-in types]: /guides/language/language-tour#built-in-types
+[dart language tour]: /guides/language
 
 For example:
 The equals operator `==` and the `identical()` method return `true`
@@ -142,6 +119,7 @@ print(identical(a, b)); // Prints true; only one "2" object exists
 ### Primitive Types
 
 This section covers how Dart represents primitive types from JavaScript.
+
 #### Numbers
 
 Dart has three data types for holding numbers:
@@ -210,28 +188,28 @@ final unicode = '\u{1F60E}'; // 😎,  Unicode scalar U+1F60E
 ```
 
 {{site.alert.note}}
-  You can use four-digit hexadecimal characters with or without curly braces.
-  To learn more about working with unicode characters,
-  see [Runes and grapheme clusters][].
+You can use four-digit hexadecimal characters with or without curly braces.
+To learn more about working with unicode characters,
+see [Runes and grapheme clusters][].
 {{site.alert.end}}
 
-[Runes and grapheme clusters]: /guides/language/language-tour#characters
+[runes and grapheme clusters]: /guides/language/language-tour#characters
 
 ##### String interpolation
 
 JavaScript supports template literals.
 These use backtick (`` ` ``) character delimiters for the following reasons:
 
-* To allow for multiline strings
-* To interpolate strings with embedded expressions
-* To create special constructs called tagged templates
+- To allow for multiline strings
+- To interpolate strings with embedded expressions
+- To create special constructs called tagged templates
 
 In Dart, you don't need to enclose a string in backticks to concatenate
 strings or use interpolations within string literals.
 
 To learn more, see [Strings][] in the [Dart Language Tour][].
 
-[Strings]: /guides/language/language-tour#strings
+[strings]: /guides/language/language-tour#strings
 
 As in JavaScript template literals,
 you can use the `${<expression>}` syntax to insert expressions into
@@ -261,12 +239,12 @@ final s1 = 'String '
     'concatenation'
     " even works over line breaks.";
 ```
+
 </li>
 
 <li markdown="1"> Using a multi line string literal:
 When using three quotation marks (either single or double)
 on either side of the string, the literal can span multiple lines.
-
 
 ```dart
 final s2 = '''
@@ -278,6 +256,7 @@ final s3 = """
 This is also a
 multiline string.""";
 ```
+
 </li>
 </ol>
 
@@ -308,7 +287,6 @@ or produced them using expressions like `x < 5` or `y == null`.
 let isBananaPeeled = false;
 ```
 
-
 ```dart
 var isBananaPeeled = false;
 ```
@@ -324,7 +302,7 @@ with two exceptions:
 
 A Dart variable gets its type in one of two ways:
 
-1. Declared: A type written in the declaration 
+1. Declared: A type written in the declaration
 1. Inferred: An expression used to initialize the variable
    By convention, use `var` or `final` when the analyzer can infer the type.
 
@@ -362,7 +340,6 @@ let name;
 // Initialize the variable
 name = "bob";
 ```
-
 
 ```dart
 // Declare a variable without a type or assigned value
@@ -735,22 +712,21 @@ To learn more, see the [Classes](#classes) section.
 ```js
 // A regular function expression
 // assigned to a variable
-let funcExpr = function(a, b) {
+let funcExpr = function (a, b) {
   return a * b;
-}
+};
 // The same anonymous function
 // expressed as an arrow
 // function with curly braces.
 let arrowFuncExpr = (a, b) => {
   return a * b;
-}
+};
 // An arrow function with only
 // one return statement as
 // its contents does not
 // require a block.
 let arrowFuncExpr2 = (a, b) => a * b;
 ```
-
 
 ```dart
 // Assign an anonymous function
@@ -771,10 +747,10 @@ for arrays and lists:
 
 ```js
 // returns [4, 5, 6]
-[1, 2, 3].map(e => e + 3);
+[1, 2, 3].map((e) => e + 3);
 
 // returns [5, 7, 9]
-[1, 2, 3].map(e => {
+[1, 2, 3].map((e) => {
   e *= 2;
   return e + 3;
 });
@@ -792,18 +768,19 @@ var list2 = [1, 2, 3].map((e) {
 ```
 
 {{site.alert.note}}
-  The `map` function in the previous examples returns
-  an `Iterable<T`>, rather than a `List<T>`.
-  The `toList` function converts the returned
-  `Iterable` back to a `List`.
+The `map` function in the previous examples returns
+an `Iterable<T`>, rather than a `List<T>`.
+The `toList` function converts the returned
+`Iterable` back to a `List`.
 
-  A list literal could achieve the same goal.
+A list literal could achieve the same goal.
 
-  ```dart
-  // These two statements are equivalent:
-  print([for (var e in [1, 2, 3]) e + 3]);
-  print([1, 2, 3].map((e) => e + 3).toList());
-  ```
+```dart
+// These two statements are equivalent:
+print([for (var e in [1, 2, 3]) e + 3]);
+print([1, 2, 3].map((e) => e + 3).toList());
+```
+
 {{site.alert.end}}
 
 ### Generator functions
@@ -823,7 +800,6 @@ Add items to the final iterable using the
 The following example shows how to write a
 basic generator function:
 
-
 ```js
 function* naturalsTo(n) {
   let k = 0;
@@ -836,9 +812,7 @@ function* naturalsTo(n) {
 for (let value of naturalsTo(5)) {
   console.log(value);
 }
-
 ```
-
 
 ```dart
 Iterable<int> naturalsTo(int n) sync* {
@@ -851,7 +825,6 @@ Iterable<int> naturalsTo(int n) sync* {
 // Returns an iterable with [0, 1, 2, 3, 4]
 print(naturalsTo(5).toList());
 ```
-
 
 ```js
 function* doubleNaturalsTo(n) {
@@ -923,12 +896,12 @@ for (final element in list) {
 #### Switch
 
 {{site.alert.note}}
-  One key difference with the `switch` statement
-  in JavaScript and Dart: when a case has no `break`,
-  `continue`, or `return` statement,
-  JavaScript allows execution to fall through and continue
-  with the next statement. However,
-  Dart only allows this when a case's body is empty.
+One key difference with the `switch` statement
+in JavaScript and Dart: when a case has no `break`,
+`continue`, or `return` statement,
+JavaScript allows execution to fall through and continue
+with the next statement. However,
+Dart only allows this when a case's body is empty.
 {{site.alert.end}}
 
 When using `continue` in a `switch` statement,
@@ -960,7 +933,7 @@ class Vector {
   final double z;
   Vector(this.x, this.y, this.z);
   Vector operator +(Vector other) => Vector(
-    x + other.x, 
+    x + other.x,
     y + other.y,
     z + other.z,
   );
@@ -978,7 +951,7 @@ The equality and relational operators of both languages
 are almost identical, as shown in the following table:
 
 | Meaning                                           | JavaScript operator | Dart operator |
-|---------------------------------------------------|---------------------|---------------|
+| ------------------------------------------------- | ------------------- | ------------- |
 | Add                                               | `+`                 | `+`           |
 | Subtract                                          | `-`                 | `-`           |
 | Unary minus, also known as negation               | `-expr`             | `-expr`       |
@@ -990,6 +963,7 @@ are almost identical, as shown in the following table:
 | `x = x + 1` (expression value is `x`)             | `x++`               | `x++`         |
 | `x = x - 1` (expression value is `x - 1`)         | `--x`               | `--x`         |
 | `x = x - 1` (expression value is `x`)             | `x--`               | `x--`         |
+
 {:.table .table-striped}
 
 For example:
@@ -1034,16 +1008,17 @@ assert(25 == 51.6 ~/ 2);
 The equality and relational operators of both languages
 work in the same way:
 
-| Meaning                   | JavaScript operator | Dart operator |
-|---------------------------|---------------------|---------------|
-| Strict equal              | `===`               | `==`          |
-| Abstract equal            | `==`                |               |
-| Strict not equal          | `!==`               | `!=`          |
-| Abstract not equal        | `!=`                |               |
-| Greater than              | `>`                 | `>`           |
-| Less than                 | `<`                 | `<`           |
-| Greater than or equal to  | `>=`                | `>=`          |
-| Less than or equal to     | `<=`                | `<=`          |
+| Meaning                  | JavaScript operator | Dart operator |
+| ------------------------ | ------------------- | ------------- |
+| Strict equal             | `===`               | `==`          |
+| Abstract equal           | `==`                |               |
+| Strict not equal         | `!==`               | `!=`          |
+| Abstract not equal       | `!=`                |               |
+| Greater than             | `>`                 | `>`           |
+| Less than                | `<`                 | `<`           |
+| Greater than or equal to | `>=`                | `>=`          |
+| Less than or equal to    | `<=`                | `<=`          |
+
 {:.table .table-striped}
 
 The `==` and `!=` JavaScript operators have no equivalent.
@@ -1065,10 +1040,11 @@ The implementation of test operators is a bit
 different between the two languages:
 
 | Meaning                             | JavaScript operator | Dart operator |
-|-------------------------------------|---------------------|---------------|
+| ----------------------------------- | ------------------- | ------------- |
 | Typecast                            |                     | `x as T`      |
 | True if object has specified type   | `x instanceof T`    | `x is T`      |
 | True if object lacks specified type | `!(x instanceof T)` | `x is! T`     |
+
 {:.table .table-striped}
 
 The result of `obj is T` is true if `obj`
@@ -1105,10 +1081,11 @@ using logical operators. The logical operators
 of both languages are identical.
 
 | Meaning                                                        | JavaScript operator | Dart operator |
-|----------------------------------------------------------------|---------------------|---------------|
+| -------------------------------------------------------------- | ------------------- | ------------- | --- | --- | --- | --- |
 | Inverts next expression (changes false to true and vice versa) | `!x`                | `!x`          |
-| Logical OR                                                     | `||`                | `||`          |
+| Logical OR                                                     | `                   |               | `   | `   |     | `   |
 | Logical AND                                                    | `&&`                | `&&`          |
+
 {:.table .table-striped}
 
 JavaScript allows any value to be used where you need a Boolean value.
@@ -1132,14 +1109,15 @@ The operators of both languages are almost identical,
 as shown in the following table:
 
 | Meaning                                               | JavaScript operator | Dart operator |
-|-------------------------------------------------------|---------------------|---------------|
+| ----------------------------------------------------- | ------------------- | ------------- | --- | --- |
 | Bitwise AND                                           | `&`                 | `&`           |
-| Bitwise OR                                            | `|`                 | `|`           |
+| Bitwise OR                                            | `                   | `             | `   | `   |
 | Bitwise XOR                                           | `^`                 | `^`           |
 | Unary bitwise complement (0s become 1s; 1s become 0s) | `~expr`             | `~expr`       |
 | Shift left                                            | `<<`                | `<<`          |
 | Shift right                                           | `>>`                | `>>`          |
 | Unsigned shift right                                  | `>>>`               | `>>>`         |
+
 {:.table .table-striped}
 
 For example:
@@ -1201,7 +1179,7 @@ the variable initial value as operands.
 The following table lists these assignment operators:
 
 | Operator | Description                     |
-|----------|---------------------------------|
+| -------- | ------------------------------- | --------------------- |
 | `=`      | Assignment                      |
 | `+=`     | Addition assignment             |
 | `-=`     | Subtraction assignment          |
@@ -1214,7 +1192,8 @@ The following table lists these assignment operators:
 | `<<=`    | Left shift assignment           |
 | `>>=`    | Right shift assignment          |
 | `&=`     | Bitwise AND assignment          |
-| `|=`     | Bitwise OR assignment           |
+| `        | =`                              | Bitwise OR assignment |
+
 {:.table .table-striped}
 
 JavaScript does not support the `~/=` assignment operator.
@@ -1365,10 +1344,10 @@ The following example create a list of 3 items:
 final list1 = List.filled(3, 'a'); // Creates: [ 'a', 'a', 'a' ]
 ```
 
-* You cannot add or remove elements from this list by default.
+- You cannot add or remove elements from this list by default.
   To permit this list to add or remove elements, add `, growable: true`
   to the end of the parameter list.
-* You can access and update elements of this list using their index value.
+- You can access and update elements of this list using their index value.
 
 #### Generate
 
@@ -1392,12 +1371,12 @@ Dart enforces the uniqueness of these items using hash codes,
 meaning that objects need hash values to be stored in a `Set`.
 
 {{site.alert.note}}
-  In Dart, the hash value defaults to the instance of an object
-  but you can override it to use a set of properties.
-  To learn more, see the [`hashCode`][] property page.
+In Dart, the hash value defaults to the instance of an object
+but you can override it to use a set of properties.
+To learn more, see the [`hashCode`][] property page.
 {{site.alert.end}}
 
-[`hashCode`]: {{site.dart-api}}/dart-core/Object/hashCode.html
+[`hashcode`]: {{site.dart-api}}/dart-core/Object/hashCode.html
 
 The following code snippet shows how to initialize a `Set`:
 
@@ -1583,16 +1562,16 @@ Pure JavaScript doesn't support immutability.
 Dart offers multiple ways to make collections like arrays, sets, or
 dictionaries immutable.
 
-* If the collection is a compile-time constant and shouldn't
+- If the collection is a compile-time constant and shouldn't
   be modified, use the `const` keyword:<br>
   `const fruits = <String>{'apple', 'orange', 'pear'};`
-* Assign the `Set` to a `final` field, meaning that
+- Assign the `Set` to a `final` field, meaning that
   the `Set` itself doesn’t have to be a compile-time constant.
   This ensures that the field can’t be overridden with
   another `Set`, but it still allows the size or the contents
   of the `Set` to be modified:<br>
   `final fruits = <String>{'apple', 'orange', 'pear'};`
-* Create a final version of your collection type
+- Create a final version of your collection type
   using the `unmodifiable` constructor
   (as shown in the following example).
   This creates a collection that cannot change its size or content:
@@ -1687,13 +1666,10 @@ in the same way in Dart as a promise works in JavaScript.
 ```js
 const httpResponseBody = func();
 
-httpResponseBody.then(value => {
-  console.log(
-    `Promise resolved to a value: ${value}`
-  );
+httpResponseBody.then((value) => {
+  console.log(`Promise resolved to a value: ${value}`);
 });
 ```
-
 
 ```dart
 Future<String> httpResponseBody = func();
@@ -1715,7 +1691,6 @@ httpResponseBody
     );
   });
 ```
-
 
 ```dart
 httpResponseBody
@@ -1760,7 +1735,6 @@ async fetchString() {
 }
 ```
 
-
 ```dart
 // Returns a future of a string,
 // as the method is async
@@ -1802,7 +1776,7 @@ To learn more about `Future`s and the
 `async`/`await` syntax, see the
 [Asynchronous programming][] codelab.
 
-[Asynchronous programming]: /codelabs/async-await
+[asynchronous programming]: /codelabs/async-await
 
 ### Streams
 
@@ -1895,7 +1869,7 @@ creating streams from `Future`s or `Iterable`s,
 or for creating streams that emit values at a timed interval.
 To learn more, see the [`Stream`][] API page.
 
-[`Stream`]: {{site.dart-api}}/dart-async/Stream-class.html
+[`stream`]: {{site.dart-api}}/dart-async/Stream-class.html
 
 ##### StreamController
 
@@ -1927,7 +1901,7 @@ stream.listen((int value) {
 });
 ```
 
-[`StreamController`]: {{site.dart-api}}/dart-async/StreamController-class.html
+[`streamcontroller`]: {{site.dart-api}}/dart-async/StreamController-class.html
 
 ##### Async generators
 
@@ -2127,9 +2101,9 @@ One example would be when returning a cached instance:
 class Logger {
   static final Map<String, Logger> _cache =
       <String, Logger>{};
- 
+
   final String name;
- 
+
   // Factory constructor that returns a cached copy,
   // or creates a new one if it is not yet available.
   factory Logger(String name) {
@@ -2148,12 +2122,14 @@ In both Dart and JavaScript, methods serve as functions that provide
 behavior for an object.
 
 ```js
-function doSomething() { // This is a function
+function doSomething() {
+  // This is a function
   // Implementation..
 }
 
 class Example {
-  doSomething() { // This is a method
+  doSomething() {
+    // This is a method
     // Implementation..
   }
 }
@@ -2171,8 +2147,6 @@ class Example {
 }
 ```
 
-
-
 ### Extending classes
 
 Dart allows classes to extend another class,
@@ -2181,15 +2155,15 @@ in the same way that JavaScript does.
 ```dart
 class Animal {
   int eyes;
- 
+
   Animal(this.eyes);
- 
+
   makeNoise() {
     print('???');
   }
 }
 class Cat extends Animal {
- 
+
   Cat(): super(2);
 
   @override
@@ -2266,7 +2240,7 @@ class Cat implements Consumer {
   @override
   consume() {
     print('Eating mice...');
-    super.consume(); 
+    super.consume();
     // Invalid. The superclass `Object` has no `consume` method.
   }
 }
@@ -2328,34 +2302,21 @@ class Animal {}
 
 // Defining the mixins
 class Flyer {
-  fly = () => console.log('Flaps wings');
+  fly = () => console.log("Flaps wings");
 }
 class Walker {
-  walk = () => console.log('Walks on legs');
+  walk = () => console.log("Walks on legs");
 }
- 
+
 class Bat extends Animal {}
 class Goose extends Animal {}
 class Dog extends Animal {}
 
 // Composing the class instances with
 // their correct functionality.
-const bat =
-  Object.assign(
-    new Bat(),
-    new Flyer()
-    );
-const goose =
-  Object.assign(
-    new Goose(),
-    new Flyer(),
-    new Walker()
-    );
-const dog =
-  Object.assign(
-    new Dog(),
-    new Walker()
-    );
+const bat = Object.assign(new Bat(), new Flyer());
+const goose = Object.assign(new Goose(), new Flyer(), new Walker());
+const dog = Object.assign(new Dog(), new Walker());
 
 // Correct calls
 bat.fly();
@@ -2367,7 +2328,6 @@ bat.walk(); // `bat` lacks the `walk` method
 dog.fly(); // `dog` lacks the `fly` method
 ```
 
-
 ```dart
 abstract class Animal {}
 
@@ -2378,7 +2338,7 @@ class Flyer {
 class Walker {
   walk() => print('Walks on legs');
 }
- 
+
 class Bat extends Animal with Flyer {}
 class Goose extends Animal with Flyer, Walker {}
 class Dog extends Animal with Walker {}
@@ -2473,9 +2433,7 @@ class Person {
 
   set age(value) {
     if (value < 0) {
-      throw new Error(
-        'age cannot be negative'
-        );
+      throw new Error("age cannot be negative");
     }
     this._age = value;
   }
@@ -2486,15 +2444,14 @@ person.age = 10;
 console.log(person.age);
 ```
 
-
 ```dart
 class Person {
   int _age = 0;
- 
+
   int get age {
     return _age;
   }
- 
+
   set age(int value) {
     if (value < 0) {
       throw ArgumentError(
@@ -2511,8 +2468,6 @@ void main() {
   print(person.age);
 }
 ```
-
-
 
 ### Public and private members
 
@@ -2532,11 +2487,13 @@ class Animal {
   eyes; // Public field
   #paws; // Private field
 
-  #printEyes() { // Private method
+  #printEyes() {
+    // Private method
     print(this.eyes);
   }
 
-  printPaws() { // Public method
+  printPaws() {
+    // Public method
     print(this.#paws);
   }
 }
@@ -2580,9 +2537,9 @@ Do this when a variable doesn't need to observed or accessed immediately
 and can be initialized later.
 This differs from labeling the field as nullable.
 
-* (Non-nullable) late fields cannot have null assigned at a later point.
+- (Non-nullable) late fields cannot have null assigned at a later point.
 
-* (Non-nullable) late fields throw a runtime error when
+- (Non-nullable) late fields throw a runtime error when
   accessed before they initialize. This should be avoided.
 
 ```dart
@@ -2768,13 +2725,13 @@ language and practical ways of getting started.
 
 Some possible next steps:
 
-* [Language tour][] to learn more about the Dart language
-* [Library tour][] to learn about Dart's core libraries
-* [Dart codelabs][] for hands-on experience learning a variety of topics
-* [Effective Dart][] to learn about common conventions
+- [Language tour][] to learn more about the Dart language
+- [Library tour][] to learn about Dart's core libraries
+- [Dart codelabs][] for hands-on experience learning a variety of topics
+- [Effective Dart][] to learn about common conventions
   and guidelines when writing Dart code
 
-[Language tour]:  /guides/language/language-tour
-[Library tour]:   /guides/libraries/library-tour
-[Dart codelabs]:  /codelabs
-[Effective Dart]: /guides/language/effective-dart
+[language tour]: /guides/language/language-tour
+[library tour]: /guides/libraries/library-tour
+[dart codelabs]: /codelabs
+[effective dart]: /guides/language/effective-dart
