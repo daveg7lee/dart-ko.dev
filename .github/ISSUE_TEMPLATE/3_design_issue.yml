@@ -1,5 +1,5 @@
 name: Site appearance or accessibility issue
-description: How can we improve the CSS or page design of dart.dev?
+description: How can we improve the CSS or page design of dart-ko.dev?
 labels: [design]
 body:
   - type: textarea
