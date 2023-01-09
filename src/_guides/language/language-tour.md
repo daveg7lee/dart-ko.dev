@@ -53,7 +53,7 @@ void main() {
 <code>// <em>이건 주석입니다.</em> </code>
 :   단일행 주석입니다.
     Dart에서는 다중행 그리고 문서 주석도 지원합니다.
-    주석에 대해 더 자세히 알고 싶다면, [주석](#comments)을 참고하세요.
+    주석에 대해 더 자세히 알고 싶다면, [주석](#주석)을 참고하세요.
 
 `void`
 :   사용하지 않을 값을 나타내는 특수한 타입입니다.
@@ -62,7 +62,7 @@ void main() {
     
 `int`
 :   정수를 나타내는 또 다른 타입입니다.
-    추가적인 [내장 타입](#built-in-types)으로
+    추가적인 [내장 타입](#내장-타입)으로
     `String`, `List`, 및 `bool`이 있습니다.
 
 `42`
@@ -82,7 +82,7 @@ void main() {
 `main()`
 :   앱의 실행이 시작되는, 특수하고 필수적인 최상위 함수입니다.
     더 자세한 정보를 원한다면,
-    [main() 함수](#the-main-function)를 참고하세요.
+    [main() 함수](#main-함수)를 참고하세요.
 
 `var`
 :   타입을 특정하지 않고 변수를 선언하는 방법입니다.
@@ -142,7 +142,7 @@ Dart 언어를 학습 할 때 다음을 잘 기억해야합니다:
 
 -   Java와 다르게, Dart는 `public`, `projected` 그리고 `private` 같은 키워드가 없습니다.
     식별자가 언더 스코어 (`_`)로 시작한다면, 이것은 해당 라이브러리에 귀속된(private) 것입니다.
-    더 자세한 정보를 원한다면, [라이브러리와 가시성](#libraries-and-visibility)
+    더 자세한 정보를 원한다면, [라이브러리와 가시성](#라이브러리와-가시성)
     를 참고하세요.
 
 -   *식별자*는 문자 또는 언더 스코어 (`_`)로 시작 할 수 있고,
@@ -150,10 +150,10 @@ Dart 언어를 학습 할 때 다음을 잘 기억해야합니다:
 
 -   Dart는 런타임 값을 가지는 *식 (expression)*과
     그렇지 않은 *문 (statement)*를 가지고 있습니다.
-    예를 들어, [조건식 (conditional expression)](#conditional-expressions)인
+    예를 들어, [조건식 (conditional expression)](#조건-표현식)인
     `condition ? expr1 : expr2` 은 `expr1` 또는 `expr2`의 값을 가집니다.
     위의 expression과 값을 가지지 않는 
-    [if-else 문](#if-and-else)를 비교해봅시다.
+    [if-else 문](#if-else)를 비교해봅시다.
     문은 때로 하나 혹은 그 이상의 식을 포함하지만,
     식은 직접적으로 문을 포함할 수 없습니다.
 
@@ -161,7 +161,7 @@ Dart 언어를 학습 할 때 다음을 잘 기억해야합니다:
     경고는 코드가 제대로 작동하지 않을 수도 있다는 것을 의미하지만,
     프로그램의 실행을 막지 않습니다. 에러는 컴파일 타임 또는 런타임으로 구분됩니다.
     컴파일 타임 에러는 코드가 실행되는 것을 막습니다;
-    런타임 에러는 코드가 실행되는 동안 [예외](#exceptions)를 발생시킵니다.
+    런타임 에러는 코드가 실행되는 동안 [예외](#예외)를 발생시킵니다.
 
 
 ## 키워드
@@ -191,76 +191,76 @@ Dart 언어를 학습 할 때 다음을 잘 기억해야합니다:
 {:.table .table-striped .nowrap}
 </div>
 
-[abstract]: #abstract-classes
-[as]: #type-test-operators
+[abstract]: #추상-클래스
+[as]: #타입-테스트-연산자
 [assert]: #assert
-[async]: #asynchrony-support
-[await]: #asynchrony-support
-[break]: #break-and-continue
-[case]: #switch-and-case
+[async]: #비동기-지원
+[await]: #비동기-지원
+[break]: #break-continue
+[case]: #switch-case
 [catch]: #catch
-[class]: #instance-variables
-[const]: #final-and-const
+[class]: #인스턴스-변수
+[const]: #final-const
 {% comment %}
   [TODO #2950: Make sure that points to a place that talks about const constructors,
   as well as const literals and variables.]
 {% endcomment %}
-[continue]: #break-and-continue
+[continue]: #break-continue
 [covariant]: /guides/language/sound-problems#the-covariant-keyword
-[default]: #switch-and-case
-[deferred]: #lazily-loading-a-library
-[do]: #while-and-do-while
-[dynamic]: #important-concepts
-[else]: #if-and-else
-[enum]: #enumerated-types
+[default]: #switch-case
+[deferred]: #라이브러리-지연-로딩
+[do]: #while-do-while
+[dynamic]: #주요-컨셉
+[else]: #if-else
+[enum]: #열거-타입
 [export]: /guides/libraries/create-library-packages
-[extends]: #extending-a-class
-[extension]: #extension-methods
+[extends]: #클래스-확장
+[extension]: #확장-메서드
 [external]: https://spec.dart.dev/DartLangSpecDraft.pdf#External%20Functions
-[factory]: #factory-constructors
+[factory]: #factory-생성자
 [false]: #booleans
-[final]: #final-and-const
+[final]: #final과-const
 [finally]: #finally
-[for]: #for-loops
-[Function]: #functions
-[get]: #getters-and-setters
-[hide]: #importing-only-part-of-a-library
-[if]: #if-and-else
-[implements]: #implicit-interfaces
-[import]: #using-libraries
-[in]: #for-loops
-[interface]: #implicit-interfaces
-[is]: #type-test-operators
-[late]: #late-variables
-[library]: #libraries-and-visibility
-[mixin]: #adding-features-to-a-class-mixins
-[new]: #using-constructors
-[null]: #default-value
+[for]: #for-루프
+[Function]: #함수
+[get]: #getter,setter
+[hide]: #라이브러리의-일부만-가져오기
+[if]: #if-else
+[implements]: #암묵적-인터페이스
+[import]: #라이브러리-사용
+[in]: #for-루프
+[interface]: #암묵적-인터페이스
+[is]: #타입-테스트-연산자
+[late]: #late-변수
+[library]: #라이브러리와-가시성
+[mixin]: #클래스에-피처-추가하기-mixins
+[new]: #생성자-사용하기
+[null]: #디폴트-값
 [on]: #catch
 [operator]: #_operators
 [part]: /guides/libraries/create-library-packages#organizing-a-library-package
-[required]: #named-parameters
+[required]: #named-매개변수
 [rethrow]: #catch
-[return]: #functions
-[set]: #getters-and-setters
-[show]: #importing-only-part-of-a-library
-[static]: #class-variables-and-methods
-[super]: #extending-a-class
-[switch]: #switch-and-case
-[sync]: #generators
-[this]: #constructors
+[return]: #함수
+[set]: #getters와-setters
+[show]: #라이브러리의-일부만-가져오기
+[static]: #클래스-변수와-메서드
+[super]: #클래스-확장
+[switch]: #switch-case
+[sync]: #제너레이터
+[this]: #생성자
 [throw]: #throw
 [true]: #booleans
 [try]: #catch
 [typedef]: #typedefs
-[var]: #variables
-[void]: #built-in-types
+[var]: #변수
+[void]: #내장-타입
 {% comment %}
   TODO #2950: Add coverage of void to the language tour.
 {% endcomment %}
-[with]: #adding-features-to-a-class-mixins
-[while]: #while-and-do-while
-[yield]: #generators
+[with]: #클래스에-피처-추가하기-mixins
+[while]: #while-do-while
+[yield]: #제너레이터
 
 이 단어들을 식별자로 사용하는 것을 지양하세요.
 그러나, 필요하다면 윗첨자로 표시된 단어들은 식별자로 사용이 가능합니다.
@@ -273,7 +273,7 @@ Dart 언어를 학습 할 때 다음을 잘 기억해야합니다:
   이 키워드들은 거의 모든 곳에서 식별자로 사용이 가능하지만,
   클래스나 타입의 이름, import prefix로 사용은 불가능합니다.
 
-* **3**으로 표시된 단어들은 [비동기 지원](#asynchrony-support)과
+* **3**으로 표시된 단어들은 [비동기 지원](#비동기-지원)과
   관련된 제한된 단어들 입니다. `await` 또는 `yield`를
   `async`, `async*`, or `sync*`로 표시된 함수의 바디에서
   식별자로 사용 할 수 없습니다.
@@ -428,7 +428,7 @@ final 변수는 오직 한 번만 설정될 수 있습니다; const 변수는 �
 (const 변수는 내부적으로 final입니다)
 
 {{site.alert.note}}
-  [인스턴스 변수](#instance-variables)는 `final`로 설정될 수 있지만, `const`는 될 수 없습니다.
+  [인스턴스 변수](#인스턴스-변수)는 `final`로 설정될 수 있지만, `const`는 될 수 없습니다.
 {{site.alert.end}}
 
 다음은 `final` 변수를 생성, 설정하는 예제입니다:
@@ -490,9 +490,9 @@ foo = [1, 2, 3]; // const [] 였음
 baz = [42]; // 에러: 상수 변수는 값이 할당될 수 없습니다.
 ```
 
-[타입 체크와 캐스트](#type-test-operators) (`is` 그리고 `as`),
-[컬렉션 `if`](#collection-operators),
-그리고 [전개 연산자(spread operator)](#spread-operator) (`...` 그리고 `...?`)를
+[타입 체크와 캐스트](#타입-테스트-연산자) (`is` 그리고 `as`),
+[컬렉션 `if`](#컬렉션-연산자),
+그리고 [전개 연산자](#전개-연산자) (`...` 그리고 `...?`)를
 사용하는 상수 정의가 가능합니다.:
 
 <?code-excerpt "misc/lib/language_tour/variables.dart (const-dart-25)"?>
@@ -511,7 +511,7 @@ const set = {if (list is List<int>) ...list}; // ...를 사용하여 전개.
 {{site.alert.end}}
 
 상수 값을 만들 때 `const`를 사용하는 방법에 대한 더 자세한 내용은 
-[Lists](#lists), [Maps](#maps), and [Classes](#classes)을 참고하세요.
+[Lists](#lists), [Maps](#maps), 그리고 [Classes](#클래스)를 참고하세요.
 
 
 ## 내장 타입
@@ -541,9 +541,9 @@ Dart 언어의 일부 타입들은 특수한 역할을 수행합니다:
 
 * `Object`: `Null`을 제외한 모든 Dart 클래스의 superclass.
 * `Enum`: 모든 eunm의 superclass.
-* `Future`, `Stream`: [비동기 지원](#asynchrony-support)에서 사용됩니다.
+* `Future`, `Stream`: [비동기 지원](#비동기-지원)에서 사용됩니다.
 * `Iterable`: [for-in 루프][iteration] 그리고
-  동기식 [제네레이터 함수](#generator)에서 사용됩니다.
+  동기식 [제너레이터 함수](#제너레이터)에서 사용됩니다.
 * `Never`: 식(expression)의 평가(evaluating)를 완료할 수 없음을 나타냅니다.
   항상 예외를 throw하는 함수에서 보통 사용됩니다.
 * `dynamic`: 정적 타입 체킹의 비활성화를 의미합니다.
@@ -660,7 +660,7 @@ assert((3 & 4) == 0); // 0011 & 0100 == 0000
 ```
 
 더 많은 예제를 보고 싶다면,
-[비트 단위 및 쉬프트 연산자](#bitwise-and-shift-operators) 섹션을 참고하세요.
+[비트 단위, 쉬프트 연산자](#비트-단위-쉬프트-연산자) 섹션을 참고하세요.
 
 리터럴 숫자는 컴파일 타임 상수입니다.
 피연산자가 숫자를 평가(evaluate)하는 컴파일 타임 상수인 이상,
@@ -729,7 +729,7 @@ var s2 = 'The + operator ' + 'works, as well.';
 assert(s2 == 'The + operator works, as well.');
 ```
 
-작은 따옴표 또는 큰 따옴표로 Triple quote를 형성해
+작은 따옴표 또는 큰 따옴표로 triple quote를 형성해
 멀티 라인 문자열을 만들 수 있습니다.
 
 <?code-excerpt "misc/lib/language_tour/built_in_types.dart (triple-quotes)"?>
@@ -830,7 +830,7 @@ var list = [1, 2, 3];
   Dart는 위의 `list`를 `List<int>` 타입이라고 추정합니다. 정수가 아닌 객체를
   이 list에 추가를 시도하면, analyzer나 런타임이 에러를 발생시킵니다.
   더 많은 정보를 원한다면,
-  [타입 추론](/guides/language/type-system#type-inference)
+  [타입 추론](/guides/language/type-system#타입-추론)
   을 참고하세요.
 {{site.alert.end}}
 
@@ -931,7 +931,7 @@ assert(listOfStrings[1] == '#1');
 
 List 타입은 리스트를 조작하는 다양하고 간편한 메서드들을 가지고 있습니다.
 리스트에 대한 더 많은 정보를 원한다면,
-[제네릭](#generics) 그리고
+[제네릭](#제네릭) 그리고
 [컬렉션](/guides/libraries/library-tour#collections)을 참고하세요.
 
 
@@ -951,7 +951,7 @@ var halogens = {'fluorine', 'chlorine', 'bromine', 'iodine', 'astatine'};
   Dart는 위의 `halogens`을 `Set<String>` 타입으로 추정합니다. 알맞지 않는 타입을
   set에 추가하면, analyzer 또는 런타임이 에러를 발생시킵니다.
   더 많은 정보를 원한다면,
-  [타입 추론](/guides/language/type-system#type-inference)을
+  [타입 추론](/guides/language/type-system#타입-추론)을
   참고하세요.
 {{site.alert.end}}
 
@@ -1009,11 +1009,11 @@ final constantSet = const {
 Set은 list 처럼 전개 연산자 (`...` 그리고 `...?`)와
 컬렉션 `if` and `for`을 지원합니다.
 더 많은 정보를 원한다면,
-[list 전개 연산자](#spread-operator) 그리고
-[list 컬렉션 연산자](#collection-operators)를 참고하세요.
+[list 전개 연산자](#전개-연산자) 그리고
+[list 컬렉션 연산자](#컬렉션-연산자)를 참고하세요.
 
 Set에 대한 더 많은 정보를 원한다면,
-[제네릭](#generics) 과
+[제네릭](#제네릭) 과
 [Sets](/guides/libraries/library-tour#sets)을 참고하세요.
 
 ### Maps
@@ -1046,7 +1046,7 @@ var nobleGases = {
   `nobleGases`의 타입을 `Map<int, String>`로 추정합니다.
   Map에 알맞지 않는 타입의 값을 추가하면, analyzer나 런타임이
   에러를 발생시킵니다. 더 많은 정보를 원한다면,
-  [타입 추론](/guides/language/type-system#type-inference)을
+  [타입 추론](/guides/language/type-system#타입-추론)을
   참고하세요.
 {{site.alert.end}}
 
@@ -1068,7 +1068,7 @@ nobleGases[18] = 'argon';
 {{site.alert.note}}
   C# 또는 Java를 할 줄 안다면, `Map()` 대신 `new Map()`을
   기대했을 겁니다. Dart에서 `new` 키워드의 사용은 선택입니다.
-  더 자세한 사항은 [생성자 사용하기](#using-constructors)를 참고하세요.
+  더 자세한 사항은 [생성자 사용하기](#생성자-사용하기)를 참고하세요.
 {{site.alert.end}}
 
 서브스크립트 할당 연산자 (`[]=`)를 사용하여
@@ -1127,7 +1127,7 @@ Map은 list 처럼 전개 연산자 (`...` 그리고 `...?`)와
 [흐름 제어 컬렉션 제안서][collections proposal]를 참고하세요.
 
 Map에 대한 더 많은 정보를 원한다면,
-[제네릭](#generics) 섹션과
+[제네릭](#제네릭) 섹션과
 라이브러리 투어의
 [`Maps` API](/guides/libraries/library-tour#maps)를
 참고하세요.
@@ -1224,7 +1224,7 @@ Dart는 객체 지향 언어이므로, 함수도
 이라는 타입을 가지는 객체로 존재합니다.
 이건 함수가 변수나 다른 함수의 인자로 전달할 수 있다는 것을 의미합니다.
 또한 함수인 것처럼 Dart 클래스의 인스턴스를 호출할 수 있습니다.
-더 자세한 사항을 원한다면, [호출 가능한 클래스](#callable-classes)를 참고하세요.
+더 자세한 사항을 원한다면, [호출 가능한 클래스](#호출-가능한-클래스)를 참고하세요.
 
 다음은 함수를 구현하는 예제입니다:
 
@@ -1259,8 +1259,8 @@ bool isNoble(int atomicNumber) => _nobleGases[atomicNumber] != null;
 
 {{site.alert.note}}
   *문(statement)*이 아닌 오직 *식(expression)*만이 화살표 (=\>)와
-  세미콜론 (;) 사이에 올 수 있습니다. 예를 들어, [if 문](#if-and-else)은 불가능하지만,
-  [조건식](#conditional-expressions)은 가능합니다.
+  세미콜론 (;) 사이에 올 수 있습니다. 예를 들어, [if 문](#if-else)은 불가능하지만,
+  [조건식](#조건-표현식)은 가능합니다.
 {{site.alert.end}}
 
 ### 매개변수
@@ -1684,7 +1684,7 @@ a is T
 ```
 
 <a id="operator-precedence-example"></a>
-[연산자 테이블](#operators)에서 각 연산자는 그 뒤에 오는 행의 연산자보다
+[연산자 테이블](#연산자)에서 각 연산자는 그 뒤에 오는 행의 연산자보다
 높은 우선 순위를 가집니다. 예를 들어, 곱셈 연산자 `%`는
 등식 연산자 `==` 보다 높은 우선 순위를 가지고 더 먼저 실행됩니다.
 그리고 `==`는 논리 AND 연산자인 `&&` 보다 높은 우선 순위를 가집니다.
@@ -1818,7 +1818,7 @@ assert(2 <= 3);
 |-----------+-------------------------------------------|
 | 연산자      | 의미                                       |
 |-----------+-------------------------------------------|
-| `as`      | 타입캐스트 ([라이브러리 prefixes](#specifying-a-library-prefix)를 특정할 때도 사용)
+| `as`      | 타입캐스트 ([라이브러리 프리픽스 지정](#라이브러리-프리픽스-지정)할 때에도 사용)
 | `is`      | 특정된 타입을 가지는 객체라면 True
 | `is!`     | 특정된 타입을 가지는 객체가 아니라면 True
 {:.table .table-striped}
@@ -1951,7 +1951,7 @@ assert((-value >>> 4) > 0); // Unsigned shift right
 
 ### 조건 표현식
 
-Dart에는 [if-else](#if-and-else)문을 간결하게 표현 할 수 있는 두 개의 연산자가 있습니다:
+Dart에는 [if-else](#if-else)문을 간결하게 표현 할 수 있는 두 개의 연산자가 있습니다:
 
 <code><em>조건</em> ? <em>표현식1</em> : <em>표현식2</em></code>
 : 만약 _condition_ 이 참이라면, _표현식1_ 의 값을 반환하고, 아니라면 _표현식2_ 의 값을 반환합니다.
@@ -2099,7 +2099,7 @@ The `sb.write()` 호출은 void를 반환하고,
 {:.table .table-striped}
 
 `.`, `?.`, 그리고 `..` 연산자에 대한 더 많은 정보는,
-[클래스](#classes)를 참고하세요.
+[클래스](#클래스)를 참고하세요.
 
 
 ## 흐름 제어문
@@ -2113,14 +2113,14 @@ The `sb.write()` 호출은 void를 반환하고,
 -   `switch` 그리고 `case`
 -   `assert`
 
-[예외](#exceptions)에 설명되어 있듯이, `try-catch` 그리고 `throw`를 사용해도
+[예외](#예외)에 설명되어 있듯이, `try-catch` 그리고 `throw`를 사용해도
 흐름 제어가 가능합니다.
 
 
 ### If, else
 
 다음 예제가 보여주듯이, `if` 문에 `else` 문을 사용하는 것은 선택적입니다.
-[조건 표현식](#conditional-expressions)도 살펴보세요.
+[조건 표현식](#조건-표현식)도 살펴보세요.
 
 <?code-excerpt "misc/lib/language_tour/control_flow.dart (if-else)"?>
 ```dart
@@ -2255,7 +2255,7 @@ candidates
 Dart의 Switch 문은 `==`를 사용해 정수, 문자열 그리고 컴파일 타임 상수를 비교합니다.
 비교되는 객체는 반드시 동일한 클래스의 인스턴스이어야 하고 (서브타입도 불가능합니다),
 해당 클래스는 `==`를 재정의해서는 안 됩니다.
-[Enumerated 타입](#enumerated-types) 은 `switch` 문에서 효과적입니다.
+[Enumerated 타입](#열거-타입) 은 `switch` 문에서 효과적입니다.
 
 비어있지 않은 `case` 절은 `break` 문으로 끝나는 것이 규칙입니다.
 비어있지 않은 `case` 절을 끝내는 또 다른 방법으로는 `continue`,
@@ -2552,7 +2552,7 @@ Dart는 클래스와 mixin 기반 상속을 지원하는 객체지향언어입�
 모든 객체는 클래스의 인스턴스이고, `Null`을 제외한 클래스는 모두 [`Object`][]에서 비롯합니다.
 *Mixin 기반 상속*이란 말은, 모든 클래스가 하나의 superclass를 가지고 있지만
 ([top class][top-and-bottom]인 `Object?`를 제외한) 클래스의 바디는 다양한 클래스 계층에서 재사용 될 수 있음을 의미합니다.
-[Extension methods](#extension-methods)는 서브 클래스를 추가하거나, 클래스를 바꾸지 않고 클래스에 기능을 추가하는 방법입니다.
+[Extension methods](#확장-메서드)는 서브 클래스를 추가하거나, 클래스를 바꾸지 않고 클래스에 기능을 추가하는 방법입니다.
 
 
 ### 클래스 멤버 사용하기
@@ -2605,7 +2605,7 @@ var p1 = new Point(2, 2);
 var p2 = new Point.fromJson({'x': 1, 'y': 2});
 ```
 
-몇몇 클래스는 [상수 생성자](#constant-constructors)를 제공합니다.
+몇몇 클래스는 [상수 생성자](#상수-생성자)를 제공합니다.
 상수 생성자를 사용하여 컴파일 타임 상수를 생성하고 싶다면, 생성자 이름 앞에 `const`를 사용하세요:
 
 <?code-excerpt "misc/test/language_tour/classes_test.dart (const)"?>
@@ -2669,7 +2669,7 @@ print('The type of a is ${a.runtimeType}');
 ```
 
 {{site.alert.warn}}
-  객체의 타입을 테스트하려면, `runtimeType` 대신 [type test operator][]를 사용하세요.
+  객체의 타입을 테스트하려면, `runtimeType` 대신 [타입 테스트 연산자][]를 사용하세요.
   프로덕션 환경에서, `object is Type` 테스트가 `object.runtimeType == Type` 테스트 보다 더 안전합니다.
 {{site.alert.end}}
 
@@ -2695,7 +2695,7 @@ class Point {
 모든 인스턴스 변수는 내부적으로 *getter* 메서드를 생성합니다.
 Final이 아닌 변수 그리고 Initializers가 없는
 `late final` 인스턴스 변수 또한 내부적으로 *setter* 메서드를 생성합니다.
-더 자세히 알고 싶다면, [Getters and setters](#getters-and-setters)를 참고하세요.
+더 자세히 알고 싶다면, [Getters and setters](#getter-setter)를 참고하세요.
 
 Non-`late` 변수가 선언된 동시에 초기화되면
 인스턴스가 생성될 때, 생성자와 해당 initializer 목록이 실행되기 전에 값이 설정됩니다.
@@ -2732,7 +2732,7 @@ class ProfileMark {
 
 생성자 바디가 시작된 후에 `final` 인스턴스 변수의 값을 할당하고 싶다면, 다음 중 하나를 사용하세요:
 
-* [factory 생성자](#factory-constructors)를 사용하세요.
+* [factory 생성자](#factory-생성자)를 사용하세요.
 * `late final`를 [_주의해서_][late-final-ivar] 사용하세요: initializer가 없는
   `late final`는 API에 setter를 추가합니다.
 
@@ -2740,7 +2740,7 @@ class ProfileMark {
 ### 생성자
 
 클래스와 동일한 이름을 가지는 함수를 만들어 생성자를 선언할 수 있습니다.
-(선택적으로 [Named 생성자](#named-constructors)
+(선택적으로 [Named 생성자](#named-생성자)
 에 명시되어 있는 식별자를 사용해도 됩니다.)
 
 Generative 생성자의 가장 일반적인 형태는 클래스의 새 인스턴스를 생성합니다:
@@ -2894,7 +2894,7 @@ class Employee extends Person {
 super-initializer 매개변수를 superclass의 생성자로 넘겨주면 됩니다.
 이 피처를 리다이렉팅 생성자와 함께 사용하는 것은 불가능합니다.
 Super-initializer 매개변수는
-[initializing formal parameters](#initializing-formal-parameters)와 비슷한 문법과 의미를 가집니다:
+[initializing formal parameters](#initializing-formal-매개변수)와 비슷한 문법과 의미를 가집니다:
 
 <?code-excerpt "misc/lib/language_tour/classes/super_initializer_parameters.dart (positional)" plaster="none"?>
 ```dart
@@ -3035,7 +3035,7 @@ class ImmutablePoint {
 ```
 
 상수 생성자가 항상 상수를 생성하는 건 아닙니다.
-더 자세히 알고 싶다면, [using constructors](#using-constructors)를 참고하세요.
+더 자세히 알고 싶다면, [using constructors](#생성자-사용하기)를 참고하세요.
 
 
 #### Factory 생성자
@@ -3133,7 +3133,7 @@ Dart는 클래스 내에서 다음의 연산자들을 재정의 할 수 있습�
 {:.table}
 
 {{site.alert.note}}
-  위의 표에 `!=` 같은 [연산자](#operators)가 없다는 것을 알 수 있습니다.
+  위의 표에 `!=` 같은 [연산자](#연산자)가 없다는 것을 알 수 있습니다.
   그런 표현들은 신택틱 슈가(syntactic sugar)이기 때문입니다.
   예를 들어, `e1 != e2` 같은 표현은 `!(e1 == e2)` 의 신택틱 슈가입니다.
 {{site.alert.end}}
@@ -3175,7 +3175,7 @@ void main() {
 ```
 
 
-#### Getters, setters
+#### Getter, setter
 
 Getter와 setter는 객체의 프로퍼티를 읽고(get) 쓰는(set) 함수 입니다.
 모든 인스턴스 변수는 암묵적으로 getter와 setter를 가진다는 것을 기억하세요.
@@ -3216,7 +3216,7 @@ Getter 및 setter를 사용하는 이점은 인스턴스 변수를 먼저 사용
 
 인스턴스, getter, setter 메서드는 추상화될 수 있습니다.
 추상화란 인터페이스만 구현한 상태로 나머지 부분은 다른 클래스들에게 맡기는 것을 의미합니다.
-추상 메서드는 오직 [추상 클래스](#abstract-classes)에 존재할 수 있습니다.
+추상 메서드는 오직 [추상 클래스](#추상-클래스)에 존재할 수 있습니다.
 
 메서드를 추상화 하려면, 메서드 바디 대신에 세미콜론 (;)을 사용하세요:
 
@@ -3240,9 +3240,9 @@ class EffectiveDoer extends Doer {
 
 `abstract` 수식어를 사용하여, 인스턴스화될 수 없는 *추상 클래스*를 선언하세요.
 추상 클래스는 인터페이스를 정의할 때 유용하며, 종종 일부 구현과 함께 사용됩니다
-추상 클래스를 인스턴스화하려면, [factory 생성자](#factory-constructors)를 정의하세요.
+추상 클래스를 인스턴스화하려면, [factory 생성자](#factory-생성자)를 정의하세요.
 
-추상 클래스는 [추상 메서드](#abstract-methods)를 가질 수 있습니다.
+추상 클래스는 [추상 메서드](#추상-메서드)를 가질 수 있습니다.
 다음은 추상 메서드를 가지는 추상 클래스의 예제입니다:
 
 <?code-excerpt "misc/lib/language_tour/classes/misc.dart (abstract)"?>
@@ -3256,7 +3256,7 @@ abstract class AbstractContainer {
 ```
 
 <a id="interfaces"></a>
-### 암묵적 인터페이스 (Implicit interfaces)
+### 암묵적 인터페이스
 
 모든 클래스는 암묵적으로 클래스의 인스턴스 멤버를 포함하는 인터페이스를 정의합니다.
 B 클래스를 상속받지 않은 A 클래스가 B의 API를 사용하고 싶다면 B 인터페이스를 구현해야 합니다.
@@ -3328,8 +3328,8 @@ class SmartTelevision [!extends!] Television {
 {% endprettify %}
 
 `extends`의 다른 사용법을 알고 싶다면,
-[parameterized types](#restricting-the-parameterized-type)의
-[generics](#generics)을 참고하세요.
+[매개변수화된 타입](#매개변수화된-타입-제한)의
+[제네릭](#제네릭)을 참고하세요.
 
 <a name="overridable-operators"></a>
 
@@ -3359,7 +3359,7 @@ class SmartTelevision extends Television {
   앞선 예제에서, `SmartTelevision`의 setter인 `contrast`는 인자의 타입을 `int`의 supertype인 `num`으로 변경합니다.
 * 만약 재정의되는 함수가 _n_개의 positional 매개변수를 가진다면,
   재정의하는 함수 또한 _n_개의 positional 매개변수를 가져야 합니다.
-* [Generic method](#using-generic-methods)는 non-generic인 메서드를 재정의 할 수 없고,
+* [제네릭 메서드](#제네릭-메소드-사용)는 제네릭이 아닌 메서드를 재정의 할 수 없고,
   그 반대도 마찬가지 입니다.
 
 메서드의 매개변수나 인스턴스 변수의 타입을 축소하고 싶은 때가 있을 겁니다.
@@ -3421,7 +3421,7 @@ print('42'.parseInt()); // 확장 메서드 사용.
 확장 메서드의 구현과 활용을 더 자세히 알고 싶다면, [extension methods page][]를 참고하세요.
 
 <a id="enums"></a>
-### 열거 타입 (Enumerated types)
+### 열거 타입
 
 열거 타입은 종종 _enumerations_, _enums_ 으로도 불립니다.
 이 타입은 정해진 수의 상수 값을 가지는 특별한 종류의 클래스 입니다.
@@ -3455,11 +3455,11 @@ enum Color { red, green, blue }
 
 Dart는 필드, 메서드, 상수 생성자같이 수가 정해져 있는 상수 인스턴스가 있는 클래스를 선언하는 데 enum을 사용하는 것이 가능합니다.
 
-발전된 enum을 선언하려면, [클래스](#classes)와 비슷하지만 몇 가지 다른 문법을 따라야 합니다.
+발전된 enum을 선언하려면, [클래스](#클래스)와 비슷하지만 몇 가지 다른 문법을 따라야 합니다.
 
 * [mixins](#mixins)으로 추가되는 변수들까지 모든 인스턴스 변수들은 `final`로 선언되어야 합니다.
-* 모든 [generative constructors](#constant-constructors) 상수로 선언되어야 합니다.
-* [Factory 생성자](#factory-constructors)는 고정된 enum 인스턴스 중 하나만을 반환할 수 있습니다.
+* 모든 [generative constructors](#상수-생성자) 상수로 선언되어야 합니다.
+* [Factory 생성자](#factory-생성자)는 고정된 enum 인스턴스 중 하나만을 반환할 수 있습니다.
 * [`Enum`]이 자동으로 확장되므로 다른 클래스들은 확장될 수 없습니다.
 * `index`, `hashCode`, 항등 연산자 `==`는 재정의할 수 없습니다.
 * `value`로 명명된 멤버는 enum에 선언될 수 없습니다. 만약 enum에 선언한다면, 자동으로 생성된 정적 `value` getter와 충돌합니다.
@@ -3491,7 +3491,7 @@ enum Vehicle implements Comparable<Vehicle> {
 }
 ```
 
-발전된 enum에 대해 더 자세히 알고 싶다면, [클래스](#classes)를 참고하세요.
+발전된 enum에 대해 더 자세히 알고 싶다면, [클래스](#클래스)를 참고하세요.
 
 {{site.alert.version-note}}
   발전된 enum은 최소 2.17의 [language version][]을 요구합니다.
@@ -3499,7 +3499,7 @@ enum Vehicle implements Comparable<Vehicle> {
 
 #### enum 사용하기
 
-[정적 변수](#static-variables)에 접근하는 것 처럼 열거 값에 접근하면 됩니다:
+[정적 변수](#정적-변수)에 접근하는 것 처럼 열거 값에 접근하면 됩니다:
 
 <?code-excerpt "misc/lib/language_tour/classes/enum.dart (access)"?>
 ```dart
@@ -3528,7 +3528,7 @@ List<Color> colors = Color.values;
 assert(colors[2] == Color.blue);
 ```
 
-[switch 구문](#switch-and-case)에 enum을 사용해도 됩니다.
+[switch 구문](#switch-case)에 enum을 사용해도 됩니다.
 하지만 enum의 모든 값들을 처리하지 않으면 경고가 발생합니다:
 
 <?code-excerpt "misc/lib/language_tour/classes/enum.dart (switch)"?>
@@ -3557,7 +3557,7 @@ print(Color.blue.name); // 'blue'
 
 <a id="mixins"></a>
 
-### 클래스에 피쳐 추가하기: mixins
+### 클래스에 피처 추가하기: mixins
 
 Mixins은 다수의 클래스 계층에서 클래스의 코드를 재사용 할 수 있는 방법입니다.
 Mixin을 _사용_ 하려면, 다음 코드처럼 `with` 키워드와 사용 할 mixin의 이름을 명시하면 됩니다:
@@ -3620,11 +3620,11 @@ class SingerDancer extends Musician with MusicalPerformer {
 
 ### 클래스 변수와 메서드
 
-`static` 키워드를 사용해 class-wide한 변수와 메소드를 선언하세요.
+`static` 키워드를 사용해 클래스 범위에 속하는 변수와 메소드를 선언하세요.
 
 #### 정적 변수
 
-정적 변수(클래스 변수)는 class-wide한 상수와, 상태를 정의 할 때 유용합니다:
+정적 변수(클래스 변수)는 클래스 범위에 속하는 상수와, 상태를 정의할 때 유용합니다:
 
 <?code-excerpt "misc/lib/language_tour/classes/misc.dart (static-field)"?>
 ```dart
@@ -3700,7 +3700,7 @@ void main() {
 * 제네릭 타입을 적절하게 명시한 코드는 더 잘 작성된 코드 입니다.
 * 코드 중복를 줄이기 위해 제네릭을 사용 할 수 있습니다.
 
-리스트가 문자열 값만 가지게 하고 싶다면, List<String>로 리스트를 선언하면 됩니다.
+리스트가 문자열 값만 가지게 하고 싶다면, `List<String>`로 리스트를 선언하면 됩니다.
 그렇게 함으로써, 동료와 개발 툴이 문자열 이외의 값은 리스트에 추가될 수 없음을 바로 알 수 있습니다:
 
 {:.fails-sa}
@@ -3788,7 +3788,7 @@ var views = Map<int, View>();
 ```
 
 
-### 제네릭 콜렉션과 그것이 가지는 타입
+### 제네릭 컬렉션과 제네릭 컬렉션의 타입
 
 Dart 제네릭 타입은 *구체화* 되어있습니다.
 그것은 런타임에 타입들에 대한 정보를 가져온다는 것을 의미합니다.
@@ -3965,7 +3965,7 @@ import 'package:lib2/lib2.dart' hide foo;
 
 <a id="deferred-loading"></a>
 
-#### 라이브러리 지연 로딩 (Lazily loading a library)
+#### 라이브러리 지연 로딩
 
 _지연 로딩(Deferred loading)_ (_lazy loading_)은
 웹앱이 해당 라이브러리가 필요할 때 로드하게 해줍니다.
@@ -4003,7 +4003,7 @@ Future<void> greet() async {
 ```
 
 앞선 코드에서, `await` 키워드는 라이브러리가 로드 될 때 까지 실행을 멈춥니다.
-`async`와 `await`에 대해 더 자세히 알고 싶다면, [비동기 지원](#asynchrony-support)을 참고하세요.
+`async`와 `await`에 대해 더 자세히 알고 싶다면, [비동기 지원](#비동기-지원)을 참고하세요.
 
 `loadLibrary()`를 한 라이브러리에 여러번 호출해도
 한 번만 로드되기 때문에 에러가 발생하지 않습니다.
@@ -4266,12 +4266,12 @@ Iterable<int> naturalsDownFrom(int n) sync* {
 }
 ```
 
-## 호출 가능한 클래스 (Callable classes)
+## 호출 가능한 클래스
 
 Dart 클래스의 인스턴스를 함수처럼 호출하고 싶다면, `call()` 메소드를 구현하세요.
 
 `call()` 메서드는 함수를 정의하는 모든 클래스가 함수를 에뮬레이트(emulate)하도록 허용합니다.
-이 함수는 일반 [함수](#functions) 처럼 매개변수 그리고 반환 타입 같은 기능을 지원합니다.
+이 함수는 일반 [함수](#함수) 처럼 매개변수 그리고 반환 타입 같은 기능을 지원합니다.
 
 다음의 예제에서, `WannabeFunction` 클래스는
 3개의 문자열을 받아서 각 문자열을 공백으로 구분하고
@@ -4373,7 +4373,7 @@ void main() {
 `@Deprecated`, `@deprecated`, 그리고 `@override`.
 
 `@override`를 사용하는 예제는
-[Extending a class](#extending-a-class)를 참고하세요.
+[클래스 확장하기](#클래스-확장)를 참고하세요.
 다음은 `@Deprecated` 표기를 사용하는 예제입니다:
 
 <?code-excerpt "misc/lib/language_tour/metadata/television.dart (deprecated)" replace="/@Deprecated.*/[!$&!]/g"?>
@@ -4531,7 +4531,7 @@ Dart 핵심 라이브러리에 대해 더 배우고 싶다면,
 [dart:math]: {{site.dart-api}}/{{site.data.pkg-vers.SDK.channel}}/dart-math
 [Dart 언어 설명서]: /guides/language/spec
 [dartdevc]: /tools/dartdevc
-[const를 중복으로 사용하지 마십시오]: /guides/language/effective-dart/usage#dont-use-const-redundantly
+[const를 불필요하게 사용하지 마십시오]: /guides/language/effective-dart/usage#dont-use-const-redundantly
 [`double`]: {{site.dart-api}}/{{site.data.pkg-vers.SDK.channel}}/dart-core/double-class.html
 [`Enum`]: {{site.dart-api}}/{{site.data.pkg-vers.SDK.channel}}/dart-core/Enum-class.html
 [`Error`]: {{site.dart-api}}/{{site.data.pkg-vers.SDK.channel}}/dart-core/Error-class.html
@@ -4566,6 +4566,6 @@ Dart 핵심 라이브러리에 대해 더 배우고 싶다면,
 [`Symbol`]: {{site.dart-api}}/{{site.data.pkg-vers.SDK.channel}}/dart-core/Symbol-class.html
 [top-and-bottom]: /null-safety/understanding-null-safety#top-and-bottom
 [trailing commas]: #trailing-comma
-[type test operator]: #type-test-operators
+[타입 테스트 연산자]: #타입-테스트-연산자
 [`Type`]: {{site.dart-api}}/{{site.data.pkg-vers.SDK.channel}}/dart-core/Type-class.html
 [Understanding null safety]: /null-safety/understanding-null-safety

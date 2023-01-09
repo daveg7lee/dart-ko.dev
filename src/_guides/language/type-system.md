@@ -6,8 +6,8 @@ description: 타입 안전성을 지키는 Dart 코드를 작성하는 이유와
 <?code-excerpt path-base="type_system"?>
 
 Dart는 타입이 안전한 프로그래밍 언어입니다: Dart는 변수값이 항상 변수의 정적 또는 안전한 타입과
-일치하는지 확인하기 위해 정적 타입 검사와 [런타임 검사](#runtime-checks)를 사용합니다.
-_타입_ 은 필수적이지만, [타입 추론](#type-inference) 덕분에
+일치하는지 확인하기 위해 정적 타입 검사와 [런타임 검사](#런타임-검사)를 사용합니다.
+_타입_ 은 필수적이지만, [타입 추론](#타입-추론) 덕분에
 타입 _어노테이션_ 은 선택적입니다.
 
 타입을 포함하여 Dart 언어에 대한 전체적인 소개는
@@ -252,7 +252,7 @@ void main() {
 {% endprettify %}
 
 
-## Type inference
+## 타입 추론
 
 The analyzer can infer types for fields, methods, local variables,
 and most generic type arguments.

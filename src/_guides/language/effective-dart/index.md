@@ -1,5 +1,5 @@
 ---
-title: Effective Dart
+title: 효율적인 Dart
 description: 일관되고 지속가능하며 효과적인 Dart 라이브러리를 빌드하는 최고의 관례들
 permalink: /guides/language/effective-dart
 nextpage:
@@ -26,13 +26,13 @@ nextpage:
 
     코드를 표현할 다양한 방법이 있다면, 일반적으로 간결한 것을 선택하는 것이 좋을 것입니다.
     그것이 모든 프로그램을 한 줄로 표현하도록 [code golf][]하라는 의미는 아닙니다.
-    Dart를 사용하는 개발자들의 목표는 불필요하게 *빽뺵*하지 않고 *실속*있는 코드를 작성하는 것입니다.
+    Dart를 사용하는 개발자들의 목표는 불필요하게 *빽빽*하지 않고 *실속*있는 코드를 작성하는 것입니다.
 
 [code golf]: https://kr.wikipedia.org/wiki/Code_golf
 
 ## 가이드
 
-가이드를 쉽게 이해하도록 하기 위해 우리는 가이드라인을 몇가지 페이지로 구분하였습니다:
+가이드를 쉽게 이해하도록 하기 위해 우리는 가이드라인을 몇 가지 페이지로 구분하였습니다:
 
   * **[Style Guide][]** &ndash; 이 가이드에서는 코드를 배치하고 구성하는 규칙에 대해 정의하고,
     [dart format]에서 다루지 않는 것들을 다룹니다. Style guide에서는 
@@ -50,7 +50,7 @@ nextpage:
     Type signature나 declaration에 대해 궁금하다면, 이 가이드를 살펴보세요.
 
 모든 가이드의 링크는 다음을 참고하세요
-[요약](#summary-of-all-rules).
+[요약](#요약).
 
 [dart format]: /tools/dart-format
 [style guide]: /guides/language/effective-dart/style
@@ -124,6 +124,6 @@ Linter 사용법을 배우고 싶다면,
   setter (getter와 동일), 또는 필드 (instance 또는 static)를 의미합니다.
   거의 모든 "필드 같이" 명명된 구문들을 나타냅니다.
 
-## 모든 규칙의 요약
+## 요약
 
 {% include_relative toc.md %}

@@ -18,7 +18,7 @@
           permalink: /codelabs/async-await
         - title: Null safety
           permalink: /codelabs/null-safety
-    - title: Tutorials
+    - title: 튜토리얼
       urlExactMatch: true
       match-page-url-exactly: true
       permalink: /tutorials
@@ -26,7 +26,7 @@
 - title: 언어
   expanded: false
   children:
-    - title: 투어
+    - title: 개요
       permalink: /guides/language/language-tour
     - title: 타입 시스템
       permalink: /guides/language/type-system
