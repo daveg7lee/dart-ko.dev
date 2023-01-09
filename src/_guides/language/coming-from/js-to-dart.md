@@ -38,13 +38,13 @@ Dart는 쉼표로 구분된 컬렉션, 매개변수 또는 arguments에 대해 �
 JS는 배열과 map literals에서만 후행 쉼표를 지원합니다.
 
 {{site.alert.secondary}}
-To learn more about:
+더 배우고 싶다면:
 
-- Using commas to make your code read more like HTML, read
-  [Using trailing commas][] on flutter.dev.
-- Linting Dart, read [Linter rules][].
-- Writing good Dart code, read [Effective Dart][].
-  {{site.alert.end}}
+- 쉼표를 사용하여 코드를 HTML처럼 읽기 쉽게 만들고 싶다면 flutter.dev에서 [Using trailing commas][]를 읽어보십시오.
+- Dart를 린팅하는 법에 대해 더 알고 싶다면 [Linter rules][]를 읽어보십시오.
+- 좋은 Dart 코드를 작성하는 법에 대해 알고 싶다면 [Effective Dart][]를 읽어보십시오.
+
+{{site.alert.end}}
 
 [customizing static analysis]: /guides/language/analysis-options
 [`dart fix`]: /tools/dart-fix
@@ -53,24 +53,17 @@ To learn more about:
 [prettier]: https://prettier.io/
 [using trailing commas]: {{site.flutter-docs}}/development/tools/formatting#using-trailing-commas
 
-## Built-in types
+## 내장 타입
 
-Both JavaScript and Dart categorize their data into _types_.
-Every variable has an associated type.
-The type determines the kind of value the variable can store and
-what operations can be performed on these values.
-Dart differs from JavaScript in that it assigns a static type to every
-variable and to every expression.
-In Dart, the static type predicts the runtime type of the values of a
-variable, or of the value of an expression.
-Dart assigns a static type to every expression and variable.
-In Dart, the static type predicts the runtime type of the value of an
-expression. This means that Dart apps have sound static typing.
+JS와 Dart는 모두 데이터를 _타입_ 으로 분류합니다. 모든 변수는 관련된 타입을 가지고 있습니다. 타입은 변수가 가질 수 있는 값과 그 값에 수행할 수 있는 작업들을 결정합니다.
+Dart는 모든 변수와 모든 표현식에 정적 타입을 할당한다는 점에서 JavaScript와 다릅니다.
+Dart에서 정적 타입은 변수 값 또는 표현식 값의 런타임 타입을 예측합니다.
+Dart는 모든 표현식과 변수에 정적 타입을 할당합니다.
+Dart에서 정적 타입은 표현식 값의 런타임 타입을 예측합니다. 이는 Dart 앱이 정적 타이핑을 사용함을 의미합니다.
 
-JavaScript provides primitive types `num`, `string`, and `boolean`
-and the `null` value as well as _arrays_ and a `Map` type.
+JS는 `num`, `string`, `boolean`, `null`, 그리고 _arrays_ 와 `Map`과 같은 원시 타입들을 제공합니다.
 
-Dart supports the following built-in types:
+Dart는 아래의 내장 타입들을 지원합니다:
 
 - Numbers (`num`, `int`, `double`)
 - Strings (`String`)
@@ -79,41 +72,34 @@ Dart supports the following built-in types:
 - Sets (`Set`)
 - Maps (`Map`)
 - Symbols (`Symbol`)
-- The value `null` (`Null`)
+- `null` (`Null`)
 
-To learn more, see [Built-in types][] in the [Dart Language Tour][].
+내장 타입에 대해 더 알고 싶다면 [Dart로 떠나는 여행][]의 [내장 타입][]을 읽어보십시오.
 
-All non-`Null` types in Dart are subtypes of Object.
-All values are also objects.
-Dart doesn't use “primitive types” like JavaScript.
-By contrast, Dart normalizes or _canonicalizes_ number, boolean
-and `null` values.
-This means only one `int` value with the numerical value `1` exists.
+Dart의 모든 `Null`이 아닌 타입들은 Object 타입의 하위 타입들입니다.
+따라서 모든 값들도 오브젝트입니다.
+Dart는 JS와 달리 원시 타입을 사용하지 않습니다.
+JS와 달리, Dart는 숫자, bool 및 `null` 값을 정규화하거나 _표준화_ 합니다.
 
 {{site.alert.note}}
-JavaScript has two equality operators, `==` and `===`.
-The `==` operator performs the equality test after doing any necessary
-type conversions on or to primitive values.
-The `===` operator doesn't perform type conversions.
-Dart uses the `identical` function to check if two values are the
-same object, and the `==` operator to check whether the objects
-consider themselves as equal.
+JS에는 두 개의 비교 연산자인 `==`와 `===`가 존재합니다.
+`==` 연산자는 필요한 타입 변환을 한 뒤에 비교 연산을 진행합니다.
+`===` 연산자는 타입 변환을 진행하지 않습니다.
+Dart는 두 값이 같은 개채인지 확인하기 위해 `identical` 이라는 함수를 사용합니다, 또한 `==` 연산자를 사용하여 개채가 서로를 동일하다고 간주하는지 확인합니다.
 {{site.alert.end}}
 
-[built-in types]: /guides/language/language-tour#built-in-types
-[dart language tour]: /guides/language
+[내장 타입]: /guides/language/language-tour#내장-타입
+[dart로 떠나는 여행]: /guides/language
 
-For example:
-The equals operator `==` and the `identical()` method return `true`
-for the same values of number types. Review the example shown in the
-following code:
+예를 들어:
+비교 연산자 `==`와 `identical()` 함수는 숫자 타입의 동일한 값에 대해 `true`를 리턴합니다. 다음 코드에 표시된 예시를 참고하십시오:
 
 ```dart
 var a = 2;
 var b = 1 + 1;
 
-print(a == b); // Prints true
-print(identical(a, b)); // Prints true; only one "2" object exists
+print(a == b); // true를 출력
+print(identical(a, b)); // true를 출력; 오직 한 개의 "2" 객채만 존재함
 ```
 
 ### Primitive Types
