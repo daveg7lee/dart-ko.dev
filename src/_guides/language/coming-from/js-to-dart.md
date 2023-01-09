@@ -5,7 +5,8 @@ body_class: highlight-languages
 ---
 
 이 가이드는 독자의 JS 지식을 활용하여 Dart를 배우게 하는 데에 초점이 맞춰져 있습니다.
-이 가이드에서는 두 언어의 유사점과 차이점을 보여주고 JS에서는 지원되지 않는 Dart 개념을 소개합니다. JS와 Dart는 많은 개념을 공유하기에 JS 개발자라면 Dart를 친숙하게 사용할 수 있을 겁니다.
+이 가이드에서는 두 언어의 유사점과 차이점을 보여주고 JS에서는 지원되지 않는 Dart 개념을 소개합니다.
+JS와 Dart는 많은 개념을 공유하기에 JS 개발자라면 Dart를 친숙하게 사용할 수 있을 겁니다.
 
 JS와 마찬가지로 Dart도 이벤트 루프 위에서 작동합니다. 따라서 두 언어는 비슷한 방식으로 코드를 실행시킵니다.
 예를 들어, 비동기 개념인 futures(JS에서는 promises)와 `async/await`의 구문은 JS와 Dart 모두 매우 비슷합니다.
@@ -16,7 +17,9 @@ JS와 마찬가지로 Dart도 이벤트 루프 위에서 작동합니다. 따라
 강력한 타이핑 기능으로, Dart는 JS 코드에서는 존재할 수 있는 많은 에러들을 컴파일 전에 잡아냅니다.
 
 Dart는 기본적으로 null safety를 제공합니다. 반면 JS는 null safety를 제공하지 않습니다.
-JS 개발자로서 null safe한 코드를 짜는것을 배우는건 시간이 걸릴 수 있습니다. 하지만, null safe한 코드를 짜게 된다면 null reference 에러를 컴파일 전에 잡아낼 수 있기에 (따라서 JS에서 변수를 null로 바꿀때 발생하는 두려운 `TypeError`를 피할 수 있습니다.) 충분히 배울 가치가 있습니다.
+JS 개발자로서 null safe한 코드를 짜는것을 배우는건 시간이 걸릴 수 있습니다.
+하지만, null safe한 코드를 짜게 된다면 null reference 에러를 컴파일 전에 잡아낼 수 있기에
+(따라서 JS에서 변수를 null로 바꿀때 발생하는 두려운 `TypeError`를 피할 수 있습니다.) 충분히 배울 가치가 있습니다.
 
 ## 관행과 linting
 
@@ -33,7 +36,9 @@ Dart는 에러를 찾아내고 고치기 위해 [`dart fix`][]라는 툴을 제�
 Dart 프로젝트에서 코드를 포멧하고 싶다면 커맨드 라인에서 [`dart format`](/tools/dart-format) 명령어를 실행하십시오. (플러터에서는 `flutter format`을 사용하면 됩니다.)
 Dart 및 플러터용 IDE 플러그인도 이 기능을 제공합니다.
 
-Dart는 쉼표로 구분된 컬렉션, 매개변수 또는 arguments에 대해 후행 쉼표를 지원합니다. 후행 쉼표를 추가하면 포맷터가 각 목록 항목을 자체 줄에 배치합니다. 목록에 나중에 더 많은 항목이 있을 수 있다고 생각되면 후행 쉼표를 추가하십시오. 하지만 포메팅 이점만을 위해 후행 쉼표를 추가하지 마십시오.
+Dart는 쉼표로 구분된 컬렉션, 매개변수 또는 arguments에 대해 후행 쉼표를 지원합니다.
+후행 쉼표를 추가하면 포맷터가 각 목록 항목을 자체 줄에 배치합니다. 목록에 나중에 더 많은 항목이 있을 수 있다고 생각되면 후행 쉼표를 추가하십시오.
+하지만 포메팅 이점만을 위해 후행 쉼표를 추가하지 마십시오.
 
 JS는 배열과 map literals에서만 후행 쉼표를 지원합니다.
 
@@ -42,20 +47,21 @@ JS는 배열과 map literals에서만 후행 쉼표를 지원합니다.
 
 - 쉼표를 사용하여 코드를 HTML처럼 읽기 쉽게 만들고 싶다면 flutter.dev에서 [Using trailing commas][]를 읽어보십시오.
 - Dart를 린팅하는 법에 대해 더 알고 싶다면 [Linter rules][]를 읽어보십시오.
-- 좋은 Dart 코드를 작성하는 법에 대해 알고 싶다면 [Effective Dart][]를 읽어보십시오.
+- 좋은 Dart 코드를 작성하는 법에 대해 알고 싶다면 [효율적인 Dart][]를 읽어보십시오.
 
 {{site.alert.end}}
 
 [customizing static analysis]: /guides/language/analysis-options
 [`dart fix`]: /tools/dart-fix
-[effective dart]: /guides/language/effective-dart
+[효율적인 dart]: /guides/language/효율적인-dart
 [linter rules]: /tools/linter-rules
 [prettier]: https://prettier.io/
 [using trailing commas]: {{site.flutter-docs}}/development/tools/formatting#using-trailing-commas
 
 ## 내장 타입
 
-JS와 Dart는 모두 데이터를 _타입_ 으로 분류합니다. 모든 변수는 관련된 타입을 가지고 있습니다. 타입은 변수가 가질 수 있는 값과 그 값에 수행할 수 있는 작업들을 결정합니다.
+JS와 Dart는 모두 데이터를 _타입_ 으로 분류합니다. 모든 변수는 관련된 타입을 가지고 있습니다.
+타입은 변수가 가질 수 있는 값과 그 값에 수행할 수 있는 작업들을 결정합니다.
 Dart는 모든 변수와 모든 표현식에 정적 타입을 할당한다는 점에서 JavaScript와 다릅니다.
 Dart에서 정적 타입은 변수 값 또는 표현식 값의 런타임 타입을 예측합니다.
 Dart는 모든 표현식과 변수에 정적 타입을 할당합니다.
@@ -85,7 +91,8 @@ JS와 달리, Dart는 숫자, bool 및 `null` 값을 정규화하거나 _표준�
 JS에는 두 개의 비교 연산자인 `==`와 `===`가 존재합니다.
 `==` 연산자는 필요한 타입 변환을 한 뒤에 비교 연산을 진행합니다.
 `===` 연산자는 타입 변환을 진행하지 않습니다.
-Dart는 두 값이 같은 개채인지 확인하기 위해 `identical` 이라는 함수를 사용합니다, 또한 `==` 연산자를 사용하여 개채가 서로를 동일하다고 간주하는지 확인합니다.
+Dart는 두 값이 같은 개채인지 확인하기 위해 `identical` 이라는 함수를 사용합니다,
+또한 `==` 연산자를 사용하여 개채가 서로를 동일하다고 간주하는지 확인합니다.
 {{site.alert.end}}
 
 [내장 타입]: /guides/language/language-tour#내장-타입
