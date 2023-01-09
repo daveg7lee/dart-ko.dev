@@ -1,7 +1,7 @@
 ---
 title: Dart로 떠나는 여행
 description: Dart 언어의 중요한 기능에 대해 학습합니다.
-short-title: 언어 투어
+short-title: 언어 개요
 js: [{url: 'https://dartpad.dev/inject_embed.dart.js', defer: true}]
 ---
 <?code-excerpt replace="/ *\/\/\s+ignore_for_file:[^\n]+\n//g; /(^|\n) *\/\/\s+ignore:[^\n]+\n/$1/g; /(\n[^\n]+) *\/\/\s+ignore:[^\n]+\n/$1\n/g; / *\/\/\s+ignore:[^\n]+//g; /([A-Z]\w*)\d\b/$1/g"?>

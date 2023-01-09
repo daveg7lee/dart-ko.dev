@@ -1,29 +1,25 @@
 ---
-title: The Dart type system
-description: Why and how to write sound Dart code.
+title: Dart 타입 시스템
+description: 타입 안전성을 지키는 Dart 코드를 작성하는 이유와 방법.
 ---
 <?code-excerpt replace="/ *\/\/\s+ignore_for_file:[^\n]+\n//g; /([A-Z]\w*)\d\b/$1/g; /\b(main)\d\b/$1/g; /(^|\n) *\/\/\s+ignore:[^\n]+\n/$1/g; /(\n[^\n]+) *\/\/\s+ignore:[^\n]+\n/$1\n/g"?>
 <?code-excerpt path-base="type_system"?>
 
-The Dart language is type safe: it uses a combination of static type checking
-and [runtime checks](#runtime-checks) to
-ensure that a variable's value always matches the variable's static type,
-sometimes referred to as sound typing.
-Although _types_ are mandatory, type _annotations_ are optional
-because of [type inference](#type-inference).
+Dart는 타입이 안전한 프로그래밍 언어입니다: Dart는 변수값이 항상 변수의 정적 또는 안전한 타입과
+일치하는지 확인하기 위해 정적 타입 검사와 [런타임 검사](#runtime-checks)를 사용합니다.
+_타입_ 은 필수적이지만, [타입 추론](#type-inference) 덕분에
+타입 _어노테이션_ 은 선택적입니다.
 
-For a full introduction to the Dart language, including types, see the
-[language tour](/guides/language/language-tour).
+타입을 포함하여 Dart 언어에 대한 전체적인 소개는
+[언어 개요](/guides/language/language-tour)를 참고하세요.
 
-One benefit of static type checking is the ability to find bugs
-at compile time using Dart's [static analyzer.][analysis]
+정적 타입 검사를 사용하면 Dart의 [정적 분석][analysis]을
+사용하여 컴파일 타임에 버그를 찾을 수 있습니다.
+제네릭 클래스에 타입 어노테이션을 추가하여 대부분의 정적 분석 오류를 수정할 수 있습니다.
+가장 일반적인 제네릭 클래스는 컬렉션 타입인 `List<T>`와 `Map<K,V>`입니다.
 
-You can fix most static analysis errors by adding type annotations to generic
-classes. The most common generic classes are the collection types
-`List<T>` and `Map<K,V>`.
-
-For example, in the following code the `printInts()` function prints an integer list,
-and `main()` creates a list and passes it to `printInts()`.
+예를 들어, 아래 코드에서 `main()`은 리스트를 생성하고, 이를 정수 리스트로 출력하는
+`printInts()` 함수에 전달합니다.
 
 {:.fails-sa}
 <?code-excerpt "lib/strong_analysis.dart (opening-example)" replace="/list(?=\))/[!$&!]/g"?>
@@ -38,8 +34,8 @@ void main() {
 }
 {% endprettify %}
 
-The preceding code results in a type error on `list` (highlighted
-above) at the call of `printInts(list)`:
+위의 코드는 `printInts(list)`를 호출할 때 `list`에 대해
+타입 에러를 발생시킵니다 (강조 표시됨):
 
 {:.console-output}
 <?code-excerpt "analyzer-results-stable.txt" retain="/strong_analysis.*List.*argument_type_not_assignable/" replace="/-(.*?):(.*?):(.*?)-/-/g; /. • (lib|test)\/\w+\.dart:\d+:\d+//g"?>
@@ -47,18 +43,16 @@ above) at the call of `printInts(list)`:
 error - The argument type 'List<dynamic>' can't be assigned to the parameter type 'List<int>'. - argument_type_not_assignable
 ```
 
-The error highlights an unsound implicit cast from `List<dynamic>` to `List<int>`.
-The `list` variable has static type `List<dynamic>`. This is because the
-initializing declaration `var list = []` doesn't provide the analyzer with
-enough information for it to infer a type argument more specific than `dynamic`.
-The `printInts()` function expects a parameter of type `List<int>`,
-causing a mismatch of types.
+하이라이트된 에러는 `list<dynamic>`에서 `List<int>`로의 잘못된 암묵적 변환 때문입니다.
+`list` 변수는 `List<dynamic>`을 정적 타입으로 가집니다. 이는 변수의 초기화 선언인
+`var list = []` 가 analyzer에게 `dynamic` 보다 더 구체적인 타입 매개변수를
+유추할 수 있는 충분한 정보를 제공하지 않기 때문입니다. `printInts()` 함수는 `List<int>`
+타입의 인수를 예상하므로 타입의 불일치가 발생합니다.
 
-When adding a type annotation (`<int>`) on creation of the list
-(highlighted below) the analyzer complains that
-a string argument can't be assigned to an `int` parameter. 
-Removing the quotes in `list.add('2')` results in code
-that passes static analysis and runs with no errors or warnings.
+리스트를 생성할 때 타입 어노테이션 `<int>` (코드에 하이라이트된 부분)을 추가하면
+analyzer가 문자열 인수를 `int`형 매개변수에 할당할 수 없다는 메시지를 표시합니다.
+`list.add('2')`에서 문자열 따옴표를 제거하면 코드가 정적 분석을 통과하고
+정상적으로 실행됩니다.
 
 {:.passes-sa}
 <?code-excerpt "test/strong_test.dart (opening-example)" replace="/<int.(?=\[)|2/[!$&!]/g"?>
@@ -73,67 +67,59 @@ void main() {
 }
 {% endprettify %}
 
-[Try it in DartPad]({{site.dartpad}}/25074a51a00c71b4b000f33b688dedd0).
+[DartPad에서 체험해보세요!]({{site.dartpad}}/25074a51a00c71b4b000f33b688dedd0).
 
-## What is soundness?
+## 타입 안전성(soundness)이란?
 
-*Soundness* is about ensuring your program can't get into certain
-invalid states. A sound *type system* means you can never get into
-a state where an expression evaluates to a value that doesn't match
-the expression's static type. For example, if an expression's static
-type is `String`, at runtime you are guaranteed to only get a string
-when you evaluate it.
+*타입 안전성(soundness)*이란 프로그램이 유효하지 않는 상태가 되지 않도록 하는 것입니다.
+안전한 *타입 시스템*은 프로그램이 표현식이 표현식의 정적 타입과 일치하지 않는 값으로
+평가되는 상태에 진입할 수 없음을 의미합니다. 예를 들어 표현식의 정적 유형이 `String`인
+경우 평가할 때 문자열만 얻을 수 있도록 런타임에서 보장됩니다.
 
-Dart's type system, like the type systems in Java and C#, is sound. It
-enforces that soundness using a combination of static checking
-(compile-time errors) and runtime checks. For example, assigning a `String`
-to `int` is a compile-time error. Casting an object to a `String` using
-`as String` fails with a runtime error if the object isn't a `String`.
+Java나 C#의 타입 시스템 처럼 Dart의 타입 시스템도 안전합니다.
+Dart는 정적 검사 (컴파일 타임 에러)와 런타임 검사를 조합하여 타입 안전성을 강요합니다.
+예를 들어 `String`을 `int`에 할당하는 것은 컴파일 타입 에러입니다. 객체가 `String`이 아닌 경우
+`as String`을 사용하여 객체를 `String`으로 변환하면 런타임 에러가 발생하여 실패합니다.
 
 
-## The benefits of soundness
+## 타입 안전성의 이점
 
-A sound type system has several benefits:
+안전한 타입 시스템은 많은 장점을 가지고 있습니다:
 
-* Revealing type-related bugs at compile time.<br>
-  A sound type system forces code to be unambiguous about its types,
-  so type-related bugs that might be tricky to find at runtime are
-  revealed at compile time.
+* 타입 관련 버그를 컴파일 타임에 찾을 수 있습니다.<br>
+  안전한 타입 시스템은 코드의 타입이 애매하지 않도록 강제하므로,
+  런타임에 발견하기 어려울 수 있는 타입 관련 버그를 컴파일 타임에 찾아줍니다.
 
-* More readable code.<br>
-  Code is easier to read because you can rely on a value actually having
-  the specified type. In sound Dart, types can't lie.
+* 코드의 가독성이 높아집니다.<br>
+  코드를 작성할 때 특정 타입을 가지는 값에 의존하게 되기 때문에, 가독성이 높아집니다.
+  타입이 안전한 Dart에서 타입은 거짓말을 하지 않습니다.
 
-* More maintainable code.<br>
-  With a sound type system, when you change one piece of code, the
-  type system can warn you about the other pieces
-  of code that just broke.
+* 코드의 유지관리가 쉬워집니다.<br>
+  안전한 타입 시스템은 코드를 수정할 때 영향을 받는 다른 코드에 대해 경고해줍니다.
 
-* Better ahead of time (AOT) compilation.<br>
-  While AOT compilation is possible without types, the generated
-  code is much less efficient.
+* 더 나은 AOT(Ahead-Of-Time) 컴파일을 제공합니다.<br>
+  AOT 컴파일은 타입 없이도 가능하지만, 생성된 코드는 훨씬 비효율적입니다.
 
 
-## Tips for passing static analysis
+## 정적 검사를 위한 팁
 
-Most of the rules for static types are easy to understand.
-Here are some of the less obvious rules:
+정적 타이핑 규칙은 대부분 이해하기 쉽습니다.
+다음은 몇 가지 애매한 규칙들 입니다:
 
-* Use sound return types when overriding methods.
-* Use sound parameter types when overriding methods.
-* Don't use a dynamic list as a typed list.
+* 메서드를 재정의할 때 타입이 안전한 반환 값을 사용하세요.
+* 메서드를 재정의할 때 타입이 안전한 매개변수를 사용하세요.
+* 동적으로 타입이 지정된 List를 타입이 지정된 List 처럼 사용하지 마세요.
 
-Let's see these rules in detail, with examples that use the following
-type hierarchy:
+다음의 타입 계층을 사용하여 이러한 규칙에 대해 자세히 살펴봅시다:
 
 <img src="images/type-hierarchy.png" alt="a hierarchy of animals where the supertype is Animal and the subtypes are Alligator, Cat, and HoneyBadger. Cat has the subtypes of Lion and MaineCoon">
 
 <a name="use-proper-return-types"></a>
-### Use sound return types when overriding methods
 
-The return type of a method in a subclass must be the same type or a
-subtype of the return type of the method in the superclass. 
-Consider the getter method in the `Animal` class:
+### 메서드를 재정의할 때 타입이 안전한 반환 값을 사용하세요.
+
+자식 클래스 메서드의 반환 값의 타입은 부모 클래스의 메서드 또는 해당 서브타입의 반환 값의 타입과 동일해야 합니다.
+`Animal` 클래스의 getter 메서드를 다음과 같이 생성합니다:
 
 <?code-excerpt "lib/animal.dart (Animal)" replace="/Animal get.*/[!$&!]/g"?>
 {% prettify dart tag=pre+code %}
@@ -143,9 +129,8 @@ class Animal {
 }
 {% endprettify %}
 
-The `parent` getter method returns an `Animal`. In the `HoneyBadger` subclass,
-you can replace the getter's return type with `HoneyBadger` 
-(or any other subtype of `Animal`), but an unrelated type is not allowed.
+`부모`의 getter 메서드는 `Animal`을 반환합니다. 자식 클래스인 `HoneyBadger`의 getter 메서드의 반환 타입을
+`HoneyBadger` 또는 `Animal`의 다른 서브타입으로 대체할 수 있지만, 관련이 없는 타입으로는 불가능합니다.
 
 {:.passes-sa}
 <?code-excerpt "lib/animal.dart (HoneyBadger)" replace="/(\w+)(?= get)/[!$&!]/g"?>
@@ -171,19 +156,19 @@ class HoneyBadger extends Animal {
 {% endprettify %}
 
 <a name="use-proper-param-types"></a>
-### Use sound parameter types when overriding methods
 
-The parameter of an overridden method must have either the same type
-or a supertype of the corresponding parameter in the superclass.
-Don't "tighten" the parameter type by replacing the type with a
-subtype of the original parameter.
+### 메서드를 재정의할 때 타입이 안전한 매개변수를 사용하세요.
+
+자식 클래스 메서드의 매개변수는 부모 클래스 메서드의 매개변수 또는 해당 매개변수의
+부모 타입과 동일한 타입이어야 합니다. 원래의 매개변수 타입을 대체하기 위해 서브타입을 사용하지 마세요.
+그러면 매개변수 타입이 "좁아"집니다.
 
 {{site.alert.note}}
-  If you have a valid reason to use a subtype, you can use the
-  [`covariant` keyword](/guides/language/sound-problems#the-covariant-keyword).
+  합당한 이유로 서브타입을 사용해야 한다면,  [`covariant` 키워드]
+  (/guides/language/sound-problems#the-covariant-keyword)의 사용을 고려해보세요.
 {{site.alert.end}}
 
-Consider the `chase(Animal)` method for the `Animal` class:
+`Animal` 클래스의 `chase(Animal)` 메서드를 다음과 같이 작성합니다:
 
 <?code-excerpt "lib/animal.dart (Animal)" replace="/void chase.*/[!$&!]/g"?>
 {% prettify dart tag=pre+code %}
@@ -193,8 +178,8 @@ class Animal {
 }
 {% endprettify %}
 
-The `chase()` method takes an `Animal`. A `HoneyBadger` chases anything.
-It's OK to override the `chase()` method to take anything (`Object`).
+`chase()` 메서드의 매개변수 타입은 `Animal` 입니다. `HoneyBadger`는 어느 것이든 선택할 수 있습니다.
+따라서 `chase()` 메서드를 재정의할 때 매개변수 타입을 어떤 타입의 `Object`로도 지정할 수 있습니다.
 
 {:.passes-sa}
 <?code-excerpt "lib/animal.dart (chase-Object)" replace="/Object/[!$&!]/g"?>
@@ -208,8 +193,8 @@ class HoneyBadger extends Animal {
 }
 {% endprettify %}
 
-The following code tightens the parameter on the `chase()` method
-from `Animal` to `Mouse`, a subclass of `Animal`.
+`Mouse`는 `Animal`의 하위 클래스이며 아래 코드는 `chase()` 메서드의 매개변수 범위를
+`Animal`에서 `Mouse`로 좁힙니다.
 
 {:.fails-sa}
 {% prettify dart tag=pre+code %}
@@ -221,24 +206,22 @@ class Cat extends Animal {
 }
 {% endprettify %}
 
-This code is not type safe because it would then be possible to define
-a cat and send it after an alligator:
+다음 코드는 a를 고양이 객체로 선언하고, 악어 객체를 넘겨줄 수 있기 때문에 타입이 안전하지 않습니다:
 
 {% prettify dart tag=pre+code %}
 Animal a = Cat();
-a.chase([!Alligator!]()); // Not type safe or feline safe.
+a.chase([!Alligator!]()); // 타입과 고양이가 안전하지 않습니다.
 {% endprettify %}
 
-### Don't use a dynamic list as a typed list
+### 동적으로 타입이 지정된 리스트를 타입이 지정된 리스트처럼 사용하지 마세요.
 
-A `dynamic` list is good when you want to have a list with
-different kinds of things in it. However, you can't use a
-`dynamic` list as a typed list.
+`dynamic` 리스트는 다른 타입의 요소들을 한 리스트에 추가할 때 유용합니다.
+그러나, `dynamic` 리스트를 타입이 지정된 리스트처럼 사용할 수 없습니다.
 
-This rule also applies to instances of generic types.
+이 규칙은 제네릭 타입의 인스턴스에도 적용됩니다.
 
-The following code creates a `dynamic` list of `Dog`, and assigns it to
-a list of type `Cat`, which generates an error during static analysis.
+다음 코드는 `Dog` 객체를 가지는 `dynamic` 리스트를 생성하고
+해당 리스트를 `Cat` 타입의 리스트에 할당합니다. 이 코드는 정적 분석에서 에러를 발생시킵니다.
 
 {:.fails-sa}
 {% prettify dart tag=pre+code %}
@@ -252,13 +235,12 @@ void main() {
 }
 {% endprettify %}
 
-## Runtime checks
+## 런타임 검사
 
-Runtime checks deal with type safety issues
-that can't be detected at compile time.
+런타임 검사는 컴파일 타임에서 감지하지 못하는 타입 안전성 이슈를 처리합니다.
 
-For example, the following code throws an exception at runtime
-because it's an error to cast a list of dogs to a list of cats:
+예를 들어, 다음 코드는 강아지의 리스트를 고양이의 리스트로 캐스팅하는 것은 에러이므로
+런타임에 예외를 발생시킵니다:
 
 {:.runtime-fail}
 <?code-excerpt "test/strong_test.dart (runtime-checks)" replace="/animals as[^;]*/[!$&!]/g"?>
