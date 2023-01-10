@@ -52,7 +52,7 @@
           permalink: /guides/language/coming-from/js-to-dart
         - title: Swift to Dart
           permalink: /guides/language/coming-from/swift-to-dart
-    - title: Extension methods
+    - title: 확장 메서드
       permalink: /guides/language/extension-methods
     - title: Concurrency
       permalink: /guides/language/concurrency

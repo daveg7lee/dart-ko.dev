@@ -1,11 +1,11 @@
 ---
-title: Extension 메서드
-description: Learn how to add to existing APIs.
+title: 확장 메서드
+description: 존재하는 API에 기능을 추가하는 법을 배웁니다.
 ---
-Extension 메서드는 이미 존재하는 라이브러리에 기능을 추가합니다.
-Extension 메서드가 무엇인지 모르는 상태에서 사용하고 있을 수도 있습니다.
+확장 메서드는 이미 존재하는 라이브러리에 기능을 추가합니다.
+확장 메서드가 무엇인지 모르는 상태에서 사용하고 있을 수도 있습니다.
 예를 들어, IDE의 코드 완성을 사용할 때,
-IDE가 일반적인 메서드와 함께 extension 메서드를 추천합니다.
+IDE가 일반적인 메서드와 함께 확장 메서드를 추천합니다.
 
 <iframe width="560" height="315"
   src="https://www.youtube.com/embed/D3j0OSfT9ZI"
@@ -36,7 +36,7 @@ int.parse('42')
 ```
 
 위의 코드를 사용하려면
-`String` 클래스의 extension이 포함된 라이브러리를 import하면 됩니다:
+`String` 클래스의 확장이 포함된 라이브러리를 import하면 됩니다:
 
 <?code-excerpt "extension_methods/lib/string_extensions/usage_simple_extension.dart (basic)" replace="/  print/print/g"?>
 ```dart
@@ -45,9 +45,9 @@ import 'string_apis.dart';
 print('42'.parseInt()); // Extension 메서드 사용.
 ```
 
-Extension은 메서드뿐만 아니라,
+확장은 메서드뿐만 아니라,
 getter, setter, 연산자 같은 멤버에도 사용이 가능합니다.
-또한, extension은 이름을 가지고 있어서 API 충돌이 발생할 때 유용합니다.
+또한, 확장은 이름을 가지고 있어서 API 충돌이 발생할 때 유용합니다.
 다음은 문자열에 사용 가능한 `NumberParsing`이라는 extension을 사용해,
 extension 메서드 `parseInt()`를 구현하는 예제입니다:
 
@@ -62,26 +62,26 @@ extension NumberParsing on String {
 ```
 <div class="prettify-filename">lib/string_apis.dart</div>
 
-다음 섹션은 extension 메서드의 _사용법_,
-그 섹션에서는 extension 메서드의 _구현법_ 을 설명합니다. 
+다음 섹션은 확장 메서드의 _사용법_,
+그 섹션에서는 확장 메서드의 _구현법_ 을 설명합니다. 
 
 
-## Extension 메서드 사용법
+## 확장 메서드 사용법
 
-모든 Dart 코드와 마찬가지로 extension 메서드는 라이브러리 안에 있습니다.
-우리는 이미 extension 메서드를 어떻게 사용하는지 배웠습니다.
+모든 Dart 코드와 마찬가지로 확장 메서드는 라이브러리 안에 있습니다.
+우리는 이미 확장 메서드를 어떻게 사용하는지 배웠습니다.
 해당 메서드가 있는 라이브러리를 import하고 일반 메서드처럼 사용하면 됩니다:
 
 <?code-excerpt "extension_methods/lib/string_extensions/usage_simple_extension.dart (import-and-use)" replace="/  print/print/g"?>
 ```dart
-// String에 사용 가능한 extention이 있는 라이브러리를 import 합니다.
+// String에 사용 가능한 확장이 있는 라이브러리를 import 합니다.
 import 'string_apis.dart';
 // ···
 print('42'.padLeft(5)); // String 메서드 사용.
 print('42'.parseInt()); // Extension 메서드 사용.
 ```
 
-Extension 메서드를 사용하기 위해 알아야할 것은 모두 확인했습니다.
+확장 메서드를 사용하기 위해 알아야할 것은 모두 확인했습니다.
 코드를 작성할 때, 메서드가 `dynamic`과 반대로 어떻게 정적 타입에 의존하는지
 그리고 어떻게 [API 충돌](#api-충돌)을 해결하는지 알고 있어야 합니다.
 
