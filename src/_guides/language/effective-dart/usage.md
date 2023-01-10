@@ -487,9 +487,9 @@ var counts = Set<int>();
 사용법이 존재합니다. (List 클래스 또한 unnamed 생성자가 존재하지만, null safe Dart에서는
 사용이 금지되었습니다)
 
-컬렉션 리터럴은 다른 컬렉션의 요소들을 추가할 때 [스프레드 연산자][spread]에
+컬렉션 리터럴은 다른 컬렉션의 요소들을 추가할 때 [전개 연산자][spread]에
 접근이 가능하고 요소를 빌드 하는 동안 [`if` 그리고 `for`]를 사용하여
-제어 흐름을 수행할 수 있기 때문에 Dart에서 특히 유용합니다:
+흐름 제어를 수행할 수 있기 때문에 Dart에서 특히 유용합니다:
 
 [spread]: /guides/language/language-tour#spread-operator
 [control]: /guides/language/language-tour#collection-operators
