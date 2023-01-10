@@ -3,7 +3,7 @@
     To re-generate it, please run the following command from root of
     the project:
 
-      $ dart run deploy/effective-dart-rules/bin/main.dart
+      $ dart run tool/effective-dart-rules/bin/main.dart
 
     {% endcomment %}
     
@@ -101,7 +101,7 @@
 
 * <a href='/guides/language/effective-dart/usage#dont-explicitly-initialize-variables-to-null'>변수를 명시적으로 <code>null</code>로 초기화하지 마십시오.</a>
 * <a href='/guides/language/effective-dart/usage#dont-use-an-explicit-default-value-of-null'>디폴트 값으로 <code>null</code>을 명시적으로 사용하지 마십시오.</a>
-* <a href='/guides/language/effective-dart/usage#prefer-using--to-convert-null-to-a-boolean-value'><code>Null</code>을 boolean 값으로 바꿀 때 <code>??</code> 사용을 지향하십시오.</a>
+* <a href='/guides/language/effective-dart/usage#dont-use-true-or-false-in-equality-operations'>항등 연산자에 <code>true</code> 또는 <code>false</code>을 사용하지 마십시오.</a>
 * <a href='/guides/language/effective-dart/usage#avoid-late-variables-if-you-need-to-check-whether-they-are-initialized'>초기화 여부를 확인해야하는 변수를 <code>late</code>로 선언하는 것을 피하십시오.</a>
 * <a href='/guides/language/effective-dart/usage#consider-assigning-a-nullable-field-to-a-local-variable-to-enable-type-promotion'>타입 프로모션을 활성화하고 싶다면, nullable 필드를 로컬 변수에 할당하는 것을 고려하십시오.</a>
 
