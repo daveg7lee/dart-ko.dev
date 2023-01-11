@@ -254,55 +254,53 @@ void main() {
 
 ## 타입 추론
 
-The analyzer can infer types for fields, methods, local variables,
-and most generic type arguments.
-When the analyzer doesn't have enough information to infer
-a specific type, it uses the `dynamic` type.
+Analyzer는 필드, 메서드, 지역 변수와 대부분의 제네릭 타입 인자를 추론합니다.
+Analyzer가 특정 타입을 추론할 만큼 충분한 정보가 없다면, `dynamic` 타입을 사용합니다.
 
-Here's an example of how type inference works with generics.
-In this example, a variable named `arguments` holds a map that
-pairs string keys with values of various types.
+다음은 타입 추론이 제네릭에 작동하는 예제입니다.
+이 예제에서 `arguments`라는 변수는 문자열 키와 여러가지 타입의 값의 쌍을
+가지는 map을 홀드합니다.
 
-If you explicitly type the variable, you might write this:
+명시적으로 변수의 타입을 지정하려면, 다음과 같이 작성하면 됩니다:
 
 <?code-excerpt "lib/strong_analysis.dart (type-inference-1-orig)" replace="/Map<String, dynamic\x3E/[!$&!]/g"?>
 {% prettify dart tag=pre+code %}
 [!Map<String, dynamic>!] arguments = {'argA': 'hello', 'argB': 42};
 {% endprettify %}
 
-Alternatively, you can use `var` or `final` and let Dart infer the type:
+`var` 또는 `final`을 사용하여 Dart가 타입을 추론하도록 할 수 있습니다:
 
 <?code-excerpt "lib/strong_analysis.dart (type-inference-1)" replace="/var/[!$&!]/g"?>
 {% prettify dart tag=pre+code %}
 [!var!] arguments = {'argA': 'hello', 'argB': 42}; // Map<String, Object>
 {% endprettify %}
 
-The map literal infers its type from its entries,
-and then the variable infers its type from the map literal's type.
-In this map, the keys are both strings, but the values have different
-types (`String` and `int`, which have the upper bound `Object`).
-So the map literal has the type `Map<String, Object>`,
-and so does the `arguments` variable.
+Map 리터럴은 자신의 엔트리를 참고하여 타입을 추론하고
+변수는 map 리터럴의 타입을 참고하여 자신의 타입을 추론합니다.
+이 map에서 키는 모두 문자열이지만 값은 다른 타입
+(같은 상한(upper bound) 타입인 `Object`를 갖는 `String`과 `int`)입니다.
+따라서 Map 리터럴의 타입은 `arguments` 변수의 타입인 `Map<String, Object>`입니다.
 
 
-### Field and method inference
+### 필드 및 메서드 추론
 
-A field or method that has no specified type and that overrides
-a field or method from the superclass, inherits the type of the
-superclass method or field.
+타입을 지정하지 않고 부모 클래스의 필드 또는 메서드를 재정의하고 부모 클래스의
+필드 또는 메서드의 타입을 상속합니다.
 
-A field that does not have a declared or inherited type but that is declared
-with an initial value, gets an inferred type based on the initial value.
+선언된 타입과 상속된 타입이 없는 필드가 존재하는 경우 선언 시점에 초기화되면,
+필드의 추론된 타입은 초기화에 사용한 값의 타입입니다.
 
-### Static field inference
+### 정적 필드 추론
 
-Static fields and variables get their types inferred from their
-initializer. Note that inference fails if it encounters a cycle
-(that is, inferring a type for the variable depends on knowing the
-type of that variable).
+정적 필드와 변수의 타입은 해당 변수의 initializer에서 유추됩니다.
+추론이 루프를 형성하는 경우 추론이 실패합니다.
+(변수의 타입을 아는 것이 변수의 타입을 추론하는 데 달려 있다는 의미)
 
-### Local variable inference
+### 지역 변수 추론
 
+지역 변수 타입은 해당 변수의 initializer가 있는 경우에는 initializer에서 유추됩니다.
+후속 할당은 고려되지 않습니다. 이런 식으로 추론된 타입은 엄격할 수 있습니다.
+그렇다면 타입 어노테이션을 추가하세요.
 Local variable types are inferred from their initializer, if any.
 Subsequent assignments are not taken into account.
 This may mean that too precise a type may be inferred.
@@ -311,86 +309,73 @@ If so, you can add a type annotation.
 {:.fails-sa}
 <?code-excerpt "lib/strong_analysis.dart (local-var-type-inference-error)"?>
 {% prettify dart tag=pre+code %}
-var x = 3; // x is inferred as an int.
+var x = 3; // x는 int로 추론됩니다.
 x = 4.0;
 {% endprettify %}
 
 {:.passes-sa}
 <?code-excerpt "lib/strong_analysis.dart (local-var-type-inference-ok)"?>
 {% prettify dart tag=pre+code %}
-num y = 3; // A num can be double or int.
+num y = 3; // num는 double 또는 int가 될 수 있습니다.
 y = 4.0;
 {% endprettify %}
 
-### Type argument inference
+### 매개변수 타입 추론
 
-Type arguments to constructor calls and
-[generic method](/guides/language/language-tour#using-generic-methods) invocations
-are inferred based on a combination of downward information from the context
-of occurrence, and upward information from the arguments to the constructor
-or generic method. If inference is not doing what you want or expect,
-you can always explicitly specify the type arguments.
+생성자 호출 및 [제네릭 메서드](/guides/language/language-tour#제네릭-메서드-사용)
+호출의 형식 매개변수는 컨텍스트의 하향 정보와 생성자 또는 제네릭 메서드의 매개변수에 대한 상향 정보를 조합하여 추론됩니다.
+추론이 의도한 대로 또는 예상대로 작동하지 않는 경우 해당 매개변수의 타입을 명시적으로 지정할 수 있습니다.
 
 {:.passes-sa}
 <?code-excerpt "lib/strong_analysis.dart (type-arg-inference)"?>
 {% prettify dart tag=pre+code %}
-// Inferred as if you wrote <int>[].
+// <int>[]로 추론됩니다.
 List<int> listOfInt = [];
 
-// Inferred as if you wrote <double>[3.0].
+// <double>[3.0]로 추론됩니다.
 var listOfDouble = [3.0];
 
-// Inferred as Iterable<int>.
+// Iterable<int>로 추론됩니다.
 var ints = listOfDouble.map((x) => x.toInt());
 {% endprettify %}
 
-In the last example, `x` is inferred as `double` using downward information.
-The return type of the closure is inferred as `int` using upward information.
-Dart uses this return type as upward information when inferring the `map()`
-method's type argument: `<int>`.
+마지막 예제에서 `x`는 하향 정보를 사용하여 `double`로 추론됩니다.
+클로저의 반환 타입은 상향 정보를 사용하여 `int`로 추론됩니다.
+Dart는 `map()` 메서드의 타입 매개변수 `<int>`를 추론할 때 이 반환 값의 타입을 상향 정보로 사용합니다.
 
 
-## Substituting types
+## 대체 타입
 
-When you override a method, you are replacing something of one type (in the
-old method) with something that might have a new type (in the new method).
-Similarly, when you pass an argument to a function,
-you are replacing something that has one type (a parameter
-with a declared type) with something that has another type
-(the actual argument). When can you replace something that
-has one type with something that has a subtype or a supertype?
+메서드를 재정의할 때, 이전 타입(이전 메서드)을 새로운 타입(새 메서드)으로 바꿀 수 있습니다.
+마찬가지로 인수가 함수에 전달될 때 다른 타입의 객체(실제 인수)를 사용하여 기존 타입의 객체
+(선언된 타입의 인수)를 대체할 수 있습니다. 언제 한 타입의 객체를 하위 타입 또는 상위 타입
+의 객체로 대체할 수 있을까요?
 
-When substituting types, it helps to think in terms of _consumers_
-and _producers_. A consumer absorbs a type and a producer generates a type.
+타입을 대체할 때, _소비자_ 와 _생산자_ 의 관점에서 생각하면 이해가 쉽습니다.
+소비자는 타입을 사용하고 생산자는 타입을 생성합니다.
 
-**You can replace a consumer's type with a supertype and a producer's
-type with a subtype.**
+**소비자의 타입을 상위 타입으로 생산자 타입을 하위 타입으로 바꿀 수 있습니다.**
 
-Let's look at examples of simple type assignment and assignment with
-generic types.
+아래의 제네릭 타입 할당 및 제네릭 타입 할당의 예제를 살펴봅시다.
 
-### Simple type assignment
+### 일반 타입 할당
 
-When assigning objects to objects, when can you replace a type with a
-different type? The answer depends on whether the object is a consumer
-or a producer.
+객체에 객체를 할당할 때, 언제 현재 타입을 다른 타입으로 대체할 수 있을까요?
+답은 객체가 소비자인지 생산자인지에 따라 다릅니다.
 
-Consider the following type hierarchy:
+다음 타입 계층을 살펴봅시다:
 
 <img src="images/type-hierarchy.png" alt="a hierarchy of animals where the supertype is Animal and the subtypes are Alligator, Cat, and HoneyBadger. Cat has the subtypes of Lion and MaineCoon">
 
-Consider the following simple assignment where `Cat c` is a _consumer_
-and `Cat()` is a _producer_:
+`Cat c`가 _소비자_ 이고 `Cat()`이 _생산자_ 인 다음 예제의 일반 할당을 살펴봅시다:
 
 <?code-excerpt "lib/strong_analysis.dart (Cat-Cat-ok)"?>
 {% prettify dart tag=pre+code %}
 Cat c = Cat();
 {% endprettify %}
 
-In a consuming position, it's safe to replace something that consumes a
-specific type (`Cat`) with something that consumes anything (`Animal`),
-so replacing `Cat c` with `Animal c` is allowed, because `Animal` is
-a supertype of `Cat`.
+소비자 입장에서는 특정 타입(`Cat`)의 객체를 모든 타입(`Animal`)의 객체로 바꾸는 것이 안전합니다.
+`Animal`이 `Cat`의 상위 클래스이므로 `Cat c`를 `Animal c`로 바꾸는 것이 가능합니다.
 
 {:.passes-sa}
 <?code-excerpt "lib/strong_analysis.dart (Animal-Cat-ok)"?>
@@ -398,9 +383,8 @@ a supertype of `Cat`.
 Animal c = Cat();
 {% endprettify %}
 
-But replacing `Cat c` with `MaineCoon c` breaks type safety, because the
-superclass may provide a type of Cat with different behaviors, such
-as `Lion`:
+하지만 `Cat c`를 `MaineCoon c`로 대체하는 것은 부모 클래스가
+`Lion` 같은 Cat 타입을 제공하므로 안전성을 훼손시킵니다:
 
 {:.fails-sa}
 <?code-excerpt "lib/strong_analysis.dart (MaineCoon-Cat-err)"?>
@@ -408,9 +392,9 @@ as `Lion`:
 MaineCoon c = Cat();
 {% endprettify %}
 
-In a producing position, it's safe to replace something that produces a
-type (`Cat`) with a more specific type (`MaineCoon`). So, the following
-is allowed:
+생산자의 입장에서, `Cat` 타입을 생산하는 것보다
+구체적인 타입(`MaineCoon`)으로 대체하는 것이 보다 안전합니다.
+그러므로 다음이 가능합니다:
 
 {:.passes-sa}
 <?code-excerpt "lib/strong_analysis.dart (Cat-MaineCoon-ok)"?>
@@ -418,17 +402,16 @@ is allowed:
 Cat c = MaineCoon();
 {% endprettify %}
 
-### Generic type assignment
+### 제네릭 타입 할당
 
-Are the rules the same for generic types? Yes. Consider the hierarchy
-of lists of animals—a `List` of `Cat` is a subtype of a `List` of
-`Animal`, and a supertype of a `List` of `MaineCoon`:
+제네릭 타입에도 똑같은 규칙을 적용해도 될까요? 가능합니다.
+`Cat` `List`는 `Animal` `List`의 하위 타입이고
+`MaineCoon` `List`의 상위 타입인 동물 리스트 계층을 살펴봅시다:
 
 <img src="images/type-hierarchy-generics.png" alt="List<Animal> -> List<Cat> -> List<MaineCoon>">
 
-In the following example, 
-you can assign a `MaineCoon` list to `myCats`
-because `List<MaineCoon>` is a subtype of `List<Cat>`:
+`List<MainCoon>`은 `List<Cat>`의 하위 타입이므로
+다음 예제에서, `MaineCoon` 리스트를 `myCats`에 할당이 가능합니다:
 
 {:.passes-sa}
 <?code-excerpt "lib/strong_analysis.dart (generic-type-assignment-MaineCoon)" replace="/<MaineCoon/<[!MaineCoon!]/g"?>
@@ -437,8 +420,7 @@ List<[!MaineCoon!]> myMaineCoons = ...
 List<Cat> myCats = myMaineCoons;
 {% endprettify %}
 
-What about going in the other direction? 
-Can you assign an `Animal` list to a `List<Cat>`?
+방향을 반대로 해서 `Animal` 리스트를 `List<Cat>`에 할당하는 것이 가능할까요?
 
 {:.fails-sa}
 <?code-excerpt "lib/strong_analysis.dart (generic-type-assignment-Animal)" replace="/<Animal/<[!Animal!]/g"?>
@@ -447,21 +429,17 @@ List<[!Animal!]> myAnimals = ...
 List<Cat> myCats = myAnimals;
 {% endprettify %}
 
-This assignment doesn't pass static analysis 
-because it creates an implicit downcast, 
-which is disallowed from non-`dynamic` types such as `Animal`.
+이 할당은 `Animal` 같은 non-`dynamic` 타입에서 허용되지 않는
+암시적 다운캐스트를 생성하기 때문에 정적 분석을 통과하지 못합니다.
 
 {{site.alert.version-note}}
-  In packages that use a [language version][] before 2.12
-  (when support for [null safety][] was introduced),
-  code can implicitly downcast from these non-`dynamic` types.
-  You can disallow non-`dynamic` downcasts in a pre-2.12 project
-  by specifying `implicit-casts: false` 
-  in the [analysis options file.][analysis]
+  2.12 이전의 [language version][]을 사용하는 패키지에서, ([null safety][]가 도입된 경우)
+  코드는 이러한 non-`dynamic` 타입에서 암시적으로 다운캐스트할 수 있습니다.
+  [분석 옵션 파일][analysis]에서 `implicit-casts: false`로 설정하여
+  2.12 이전 프로젝트에서 non-`dynamic` 다운캐스트를 허용하지 않을 수 있습니다.
 {{site.alert.end}}
 
-To make this type of code pass static analysis, 
-you can use an explicit cast. 
+이 코드가 정적 분석을 통과하려면 명시적 변환을 사용해야 합니다.
 
 <?code-excerpt "lib/strong_analysis.dart (generic-type-assignment-implied-cast)" replace="/as.*(?=;)/[!$&!]/g"?>
 {% prettify dart tag=pre+code %}
@@ -469,41 +447,38 @@ List<Animal> myAnimals = ...
 List<Cat> myCats = myAnimals [!as List<Cat>!];
 {% endprettify %}
 
-An explicit cast might still fail at runtime, though,
-depending on the actual type of the list being cast (`myAnimals`).
+그러나 변환된 리스트의 실제 타입 (여기서는 `myAnimals`)에 따라 명시적 변환이
+런타임에 실패할 수 있습니다.
 
-### Methods
+### 메서드
 
-When overriding a method, the producer and consumer rules still apply.
-For example:
+메서드를 재정의할 때, 생산자와 소비자 규칙은 여전히 적용이 가능합니다.
+예제:
 
 <img src="images/consumer-producer-methods.png" alt="Animal class showing the chase method as the consumer and the parent getter as the producer">
 
-For a consumer (such as the `chase(Animal)` method), you can replace
-the parameter type with a supertype. For a producer (such as
-the `parent` getter method), you can replace the return type with
-a subtype.
+`chase(Animal)` 메소드 같은 소비자의 경우 매개변수 타입을 상위 타입으로 대체가 가능합니다.
+`parent` getter 메서드 같은 생산자의 경우 반환 값의 타입을 하위 타입으로 대체가 가능합니다.
 
-For more information, see
-[Use sound return types when overriding methods](#use-proper-return-types)
-and [Use sound parameter types when overriding methods](#use-proper-param-types).
+더 많은 정보를 원한다면,
+[메서드를 재정의할 때 타입이 안전한 반환 값을 사용하세요](#메서드를-재정의할-때-타입이-안전한-반환-값을-사용하세요)
+와 [메서드를 재정의할 때 타입이 안전한 매개변수를 사용하세요](#메서드를-재정의할-때-타입이-안전한-매개변수를-사용하세요)를 참고하세요.
 
 
-## Other resources
+## 다른 리소스
 
-The following resources have further information on sound Dart:
+다음은 Dart의 안전성에 대한 추가적인 리소스 입니다:
 
-* [Fixing common type problems](/guides/language/sound-problems) - 
-  Errors you may encounter when writing sound Dart code, and how to fix them.
-* [Fixing type promotion failures](/tools/non-promotion-reasons) - 
-  Understand and learn how to fix type promotion errors.
-* [Sound null safety](/null-safety) - 
-  Learn about writing code with sound null safety enabled.
-* [Customizing static analysis][analysis] - 
-  How to set up and customize the analyzer and linter
-  using an analysis options file.
-* [Dart 2 migration guide](/dart-2) - 
-  How to update Dart 1.x code to Dart 2.
+* [자주 발생하는 타입 문제 해결](/guides/language/sound-problems) -
+  안전안 Dart 코드를 작성할 때 만나게 되는 에러와 해결하는 방법.
+* [타입 프로모션 실패 해결](/tools/non-promotion-reasons) - 
+  타입 프로모션 에러를 해결하는 방법을 배웁니다.
+* [안전한 null safety](/null-safety) - 
+  안전한 null safety 코드 작성법을 배웁니다.
+* [정적 분석 사용자화][analysis] -
+  분석 옵션 파일을 사용하여 분석기와 린터를 셋업하고 사용자화하는 법을 다룹니다.
+* [Dart 2 마이그레이션 가이드](/dart-2) - 
+  Dart 1.x 코드를 Dart 2로 업데이트하는 법을 다룹니다.
 
 
 [analysis]: /guides/language/analysis-options
