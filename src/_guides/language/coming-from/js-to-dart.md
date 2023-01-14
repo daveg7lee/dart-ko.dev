@@ -102,35 +102,34 @@ print(a == b); // true를 출력
 print(identical(a, b)); // true를 출력; 오직 한 개의 "2" 객채만 존재함
 ```
 
-### Primitive Types
+### 원시 타입
 
-This section covers how Dart represents primitive types from JavaScript.
+이번 섹션에서는 Dart가 어떻게 JS의 원시 타입을 나타내는지에 대해 다룹니다.
 
-#### Numbers
+#### 숫자
 
-Dart has three data types for holding numbers:
+Dart에는 숫자를 다루기 위한 3가지의 타입들이 있습니다.
 
 `num`
-: The equivalent to the generic number type in JavaScript.
+: JS의 number 타입과 동일
 
 `int`
-: A numeric value without a fractional part.
+: 소수 부분이 없는 숫자 타입
 
 `double`
-: Any 64-bit (double-precision) floating point number.
+: 임의의 64비트 부동 소수점 숫자 타입
 
-The Dart API includes all these types as classes.
-Both the `int` and `double` types share `num` as their parent class:
+Dart API는 이러한 모든 타입을 클래스로 포함하고 있습니다.
+`int`와 `double`은 모두 `num`을 부모 클래스로 상속받고 있습니다.
 
 <img
   src="/assets/img/guides/number-classes.png"
   alt="num subclasses Object and int and double each subclass num">
 
-As Dart considers numbers as objects, numbers can expose their
-own utility functions as object methods.
-You don't need to use an additional object to apply a function to a number.
+Dart는 숫자를 객체로 간주하므로 숫자는 자신의 유틸리티 함수를 객체 메서드로 노출할 수 있습니다.
+숫자에 함수를 적용하기 위해 추가적으로 객체를 사용할 필요가 없습니다.
 
-For example, to round a `double` to an integer:
+예를 들어, `double`을 integer로 반올림하고 싶다면:
 
 ```js
 let rounded = Math.round(2.5);
