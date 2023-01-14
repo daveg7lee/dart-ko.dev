@@ -54,7 +54,7 @@
           permalink: /guides/language/coming-from/swift-to-dart
     - title: 확장 메서드
       permalink: /guides/language/extension-methods
-    - title: Concurrency
+    - title: 동시성
       permalink: /guides/language/concurrency
     - title: Numbers
       permalink: /guides/language/numbers

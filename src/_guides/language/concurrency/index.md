@@ -162,7 +162,7 @@ Isolate를 사용하면 Dart 코드가 가능한 추가 프로세서 코어를 �
   **Platform note:**
     오직 [Dart 네이티브 플랫폼][]만 isolate를 가지고 있습니다.
     Dart 웹 플랫폼에 대해 더 학습하고 싶다면,
-    [웹에서의 동시성](#concurrency-on-the-web) 섹션을 참고하세요.
+    [웹에서의 동시성](#웹에서의-동시성) 섹션을 참고하세요.
 {{site.alert.end}}
 
 [Dart 네이티브 플랫폼]: /overview#platform
@@ -252,54 +252,53 @@ Isolate는 자신만의 메모리를 가지고 있고 main isolate와 상태를 
 [`send()` 메소드]: {{site.dart-api}}/{{site.data.pkg-vers.SDK.channel}}/dart-isolate/SendPort/send.html
 
 
-## Code examples
+## 코드 샘플
 
-This section discusses some examples
-that use the `Isolate` API
-to implement isolates.
+이번 섹션에서는 `Isolate` API를 이용하여
+isolate를 구현하는 예제에 대해 이야기 해봅니다.
 
 {{site.alert.flutter-note}}
-  If you're using Flutter on a non-web platform,
-  then instead of using the `Isolate` API directly,
-  consider using the [Flutter `compute()` function][].
-  The `compute()` function is a simple way to
-  move a single function call to a worker isolate.
+  웹이 아닌 플랫폼에서 Flutter를 사용한다면,
+  `Isolate` API를 직접적으로 사용하기 보다
+  [Flutter `compute()` 함수][]을 사용하세요.
+  `compute()` 함수는 단일 함수를 워커 isolate로 호출하는
+  간단한 방법입니다.
 {{site.alert.end}}
 
- [Flutter `compute()` function]: {{site.flutter-docs}}/cookbook/networking/background-parsing#4-move-this-work-to-a-separate-isolate
+ [Flutter `compute()` 함수]: {{site.flutter-docs}}/cookbook/networking/background-parsing#4-move-this-work-to-a-separate-isolate
 
 
-### Implementing a simple worker isolate
+### 간단한 워커 isolate 구현
 
-This section shows the implementation for a
-main isolate and the simple worker isolate that it spawns.
-The worker isolate executes a function and then exits,
-sending the main isolate a single message as it exits.
-(The [Flutter `compute()` function][] works in a similar way.)
+이번 섹션에서 main isolate와 main isolate가 생성하는
+워커 isolate를 구현합니다.
+워커 isolate는 함수를 실행하고 main isolate에게 단일 메시지를
+전송하며 종료합니다.
+([Flutter `compute()` function][]가 비슷한 방식으로 작동합니다.)
 
-This example uses the following isolate-related API:
+이번 예제에서는 isolate와 관련된 다음 API를 사용합니다:
 
-* [`Isolate.spawn()`][] and [`Isolate.exit()`][]
-* [`ReceivePort`][] and [`SendPort`][]
+* [`Isolate.spawn()`][], [`Isolate.exit()`][]
+* [`ReceivePort`][], [`SendPort`][]
 
 [`Isolate.exit()`]: {{site.dart-api}}/{{site.data.pkg-vers.SDK.channel}}/dart-isolate/Isolate/exit.html
 [`Isolate.spawn()`]: {{site.dart-api}}/{{site.data.pkg-vers.SDK.channel}}/dart-isolate/Isolate/spawn.html
 [`ReceivePort`]: {{site.dart-api}}/{{site.data.pkg-vers.SDK.channel}}/dart-isolate/ReceivePort-class.html
 [`SendPort`]: {{site.dart-api}}/{{site.data.pkg-vers.SDK.channel}}/dart-isolate/SendPort-class.html
 
-Here’s the code for the main isolate:
+다음은 main isolate 코드입니다:
 
 <?code-excerpt "lib/simple_worker_isolate.dart (main)"?>
 ```dart
 void main() async {
-  // Read some data.
+  // 데이터 읽기.
   final jsonData = await _parseInBackground();
 
-  // Use that data
+  // 데이터 사용.
   print('Number of JSON keys: ${jsonData.length}');
 }
 
-// Spawns an isolate and waits for the first message
+// Isolate를 생성하고 첫 메시지를 기다립니다.
 Future<Map<String, dynamic>> _parseInBackground() async {
   final p = ReceivePort();
   await Isolate.spawn(_readAndParseJson, p.sendPort);
@@ -307,31 +306,28 @@ Future<Map<String, dynamic>> _parseInBackground() async {
 }
 ```
 
-The `_parseInBackground()` function contains the code that
-_spawns_ (creates and starts) the isolate for the background worker,
-and then returns the result:
+`_parseInBackground()` 함수는 백그라운드 워커로 사용할
+isolate를 _생성_ 하고 결과를 반환합니다:
 
-1. Before spawning the isolate, the code creates a `ReceivePort`,
-   which enables the worker isolate
-   to send messages to the main isolate.
+1. 코드는 isolate를 생성하기 전에
+   워커 isolate가 main isolate로
+   메시지를 보낼 수 있게 해주는 `ReceivePort`를 생성합니다.
 
-2. Next is the call to `Isolate.spawn()`,
-   which creates and starts the isolate for the background worker.
-   The first argument to `Isolate.spawn()` is the function that
-   the worker isolate executes: `_readAndParseJson`.
-   The second argument is the `SendPort`
-   that the worker isolate can use to send messages to the main isolate.
-   The code doesn't _create_ a `SendPort`;
-   it uses the `sendPort` property of the `ReceivePort`.
+2. 다음으로 백그라운드 워커로 사용할 isolate를 생성하고 시작하는 `Isolate.spawn()`을 호출합니다.
+   `Isolate.spawn()`의 첫 번째 인자는 워커 isolate가 실행할 함수입니다.
+   위의 예제에서는 `_readAndParseJson` 입니다.
+   두 번째 인자는 `SendPort`로 min isolate로 메시지를 전송할 때 사용합니다.
+   위의 코드는 `SendPort`를 _생성_ 하지 않고
+   `ReceivePort`의 `sendPort` 프로퍼티를 사용합니다.
 
-3. Once the isolate is spawned, the main isolate waits for the result.
-   Because the `ReceivePort` class implements `Stream`,
-   the [`first`][] property is an easy way to get
-   the single message that the worker isolate sends.
+3. Isolate가 생성되면, main isolate는 그 결과를 기다립니다.
+   `ReceivePort` 클래스는 `Stream`을 구현하기 때문에,
+   [`first`][] 프로퍼티를 사용하면 워커 isolate가 전송하는
+   메시지를 쉽게 얻을 수 있습니다.
 
 [`first`]: {{site.dart-api}}/{{site.data.pkg-vers.SDK.channel}}/dart-async/Stream/first.html
 
-The spawned isolate executes the following code:
+생성된 isolate는 다음 코드를 실행합니다:
 
 <?code-excerpt "lib/simple_worker_isolate.dart (spawned)"?>
 ```dart
@@ -341,111 +337,90 @@ Future<void> _readAndParseJson(SendPort p) async {
   Isolate.exit(p, jsonData);
 }
 ```
-
-The relevant statement is the last one, which exits the isolate,
-sending `jsonData` to the passed-in `SendPort`.
-Message passing using `SendPort.send` normally involves data copying,
-and thus can be slow.
-However, when you send the data using `Isolate.exit()`,
-then the memory that holds the message in the exiting isolate isn’t copied,
-but instead is transferred to the receiving isolate.
-The sender will nonetheless perform a verification pass to ensure
-the objects are allowed to be transferred.
-
+마지막 코드 이후에 isolate가 종료되고 `jsonData`를 `SendPort`로 전송합니다.
+`SendPort.send`를 사용하는 메시지 패싱은 보통 데이터의 복사를 동반하기 때문에
+느립니다. 그러나, `Isolate.exit()`을 사용하여 데이터를 전송하면,
+isolate에 있는 메시지의 복사가 발생하지 않고 수신하는 isolate로 직접 전달됩니다.
+그럼에도 불구하고 전송자는 해당 객체가 전송할 수 있는 것인지 검증하는 과정을 수행합니다.
 
 {{site.alert.version-note}}
-  `Isolate.exit()` was added in 2.15.
-  Previous releases support only explicit message passing,
-  using `Isolate.send()` as shown in the next section's example.
+  `Isolate.exit()`는 2.15 버전에 추가되었습니다.
+  이전 릴리즈에서는 `Isolate.send()`를 사용한 명시적 메시지 패싱만을 지원합니다.
 {{site.alert.end}}
 
-The following figure illustrates the communication between
-the main isolate and the worker isolate:
+다음 그림은 main isolate와 워커 isolate의 커뮤니케이션에 대한 삽화입니다.
 
 ![A figure showing the previous snippets of code running in the main isolate and in the worker isolate](/guides/language/concurrency/images/isolate-api.png)
 
 
-### Sending multiple messages between isolates
+### Isolate에 다수의 메시지 전송하기
 
-If you need more communication between isolates,
-then you need to use the [`send()` method][] of `SendPort`.
-One common pattern, which the following figure shows,
-is for the main isolate to send a request message to the worker isolate,
-which then sends one or more reply messages.
+Isolate 사이에서 더 많은 커뮤니케이션을 원한다면,
+`SendPort`의 [`send()` method][]를 사용하세요.
+다음 그림은 main isolate가 워커 isolate로 요청 메시지를 보낸 다음
+요청 및 응답을 위해 여러 번 통신하는 패턴을 보여줍니다.
 
 ![A figure showing the main isolate spawning the isolate and then sending a request message, which the worker isolate responds to with a reply message; two request-reply cycles are shown](/guides/language/concurrency/images/isolate-custom-bg-worker.png)
 
-For examples of sending multiple messages,
-see the following [isolate samples][]:
+다수의 메시지를 전송하는 예제는 [isolate 샘플][]을 참고하세요:
 
-* [send_and_receive.dart][],
-  which shows how to send a message from
-  the main isolate to the spawned isolate.
-  It’s otherwise similar to the preceding example.
-* [long_running_isolate.dart][],
-  which shows how to spawn a long-running isolate that
-  receives and sends multiple times.
+* [send_and_receive.dart][]:
+  main isolate에서 생성된 isolate로 메시지를 보내는 방법을 알려줍니다.
+  앞선 예제와 비슷합니다.
+* [long_running_isolate.dart][]:
+  메시지를 여러 번 송수신하는 장기 실행 isolate를 생성하는 방법을 알려줍니다.
 
 {% assign samples = "https://github.com/dart-lang/samples/tree/master/isolates" %}
 
-[isolate samples]: {{ samples }}
+[isolate 샘플]: {{ samples }}
 [send_and_receive.dart]: {{ samples }}/bin/send_and_receive.dart
 [long_running_isolate.dart]: {{ samples }}/bin/long_running_isolate.dart
 
 
-## Performance and isolate groups
+## 성능과 isolate 그룹
 
-When an isolate calls [`Isolate.spawn()`][],
-the two isolates have the same executable code
-and are in the same _isolate group_.
-Isolate groups enable performance optimizations such as sharing code;
-a new isolate immediately runs the code owned by the isolate group.
-Also, `Isolate.exit()` works only when the isolates
-are in the same isolate group.
+Isolate가 [`Isolate.spawn()`][]을 호출하면,
+두 개의 isolate는 동일한 실행 가능 코드를 가지고
+같은 _isolate 그룹_ 에 속합니다.
+Isolate 그룹은 코드 공유 같은 성능 최적화가 가능합니다;
+코드 공유를 활성화하면 새로운 isolate가 isolate 그룹이 가지고 있는 코드를
+즉시 실행합니다. 또한, `Isolate.exit()`은 해당 isolate들이 동일한
+isolate 그룹에 있을 때 작동합니다.
 
-In some special cases,
-you might need to use [`Isolate.spawnUri()`][],
-which sets up the new isolate with a copy of the code
-that's at the specified URI.
-However, `spawnUri()` is much slower than `spawn()`,
-and the new isolate isn't in its spawner's isolate group.
-Another performance consequence is that message passing
-is slower when isolates are in different groups.
+가끔 [`Isolate.spawnUri()`][]를 사용하여 특정 URI에 해당하는
+코드 사본을 사용하여 새로운 isolate를 셋업 할 때가 있습니다.
+그러나, `spawnUri()`는 `spawn()` 보다 느리고
+그렇게 생성된 isolate는 해당 isolate를 생성한 isolate와 같은
+그룹에 속하지 않습니다. 또한 다른 그룹에 속한 isolate
+사이의 메시지 패싱은 느립니다.
 
 [`Isolate.spawnUri()`]: {{site.dart-api}}/{{site.data.pkg-vers.SDK.channel}}/dart-isolate/Isolate/spawnUri.html
 
 {{site.alert.flutter-note}}
-  Flutter doesn't support `Isolate.spawnUri()`.
+  Flutter는 `Isolate.spawnUri()`를 지원하지않습니다.
 {{site.alert.end}}
 
-## Concurrency on the web
+## 웹에서의 동시성
 
-All Dart apps can use `async-await`, `Future`, and `Stream`
-for non-blocking, interleaved computations.
-The [Dart web platform][], however, does not support isolates.
-Dart web apps can use [web workers][] to
-run scripts in background threads
-similar to isolates.
-Web workers' functionality and capabilities
-differ somewhat from isolates, though.
+모든 Dart 앱은 비차단, 인터리브 계산을 위해
+`async-await`, `Future`, 그리고 `Stream`을 사용할 수 있습니다.
+그러나 [Dart 웹 플랫폼][]은 isolate를 지원하지 않습니다.
+Dart 웹앱은 isolate와 유사하게 [웹 워커][]를 사용하여
+백그라운드 스레드에서 스크립트 실행이 가능합니다.
+그러나 웹 워커의 기능과 능력은 isolate와 다소 다릅니다.
 
-For instance, when web workers send data between threads,
-they copy the data back and forth.
-Data copying can be very slow, though,
-especially for large messages. 
-Isolates do the same, but also provide APIs
-that can more efficiently _transfer_
-the memory that holds the message instead.
+예를 들어, 웹 워커가 스레드 사이에서 데이터를 전송할 때,
+데이터를 복사합니다. 그러나 데이터 복사는 특히 큰 메시지의 경우
+매우 느릴 수 있습니다. Isolate도 비슷하게 작동하지만
+메시지를 저장하는 메모리를 더 효율적으로 _전송_ 할 수 있는 API를 제공합니다.
 
-Creating web workers and isolates also differs.
-You can only create web workers by declaring
-a separate program entrypoint and compiling it separately.
-Starting a web worker is similar to using `Isolate.spawnUri` to start an isolate.
-You can also start an isolate with `Isolate.spawn`,
-which requires fewer resources because it
-[reuses some of the same code and data](#performance-and-isolate-groups)
-as the spawning isolate. 
-Web workers don't have an equivalent API.
+웹 워커와 isolate를 생성하는 것 또한 서로 다릅니다.
+웹 워커를 생성하고 싶다면 분리된 프로그램 엔트리를 선언하고
+그것을 따로 컴파일 해야 합니다. 웹 워커를 생성하는 것은
+`Isolate.spawnUri`를 사용하여 isolate를 생성하는 것과 유사합니다.
+`Isoatel.spawn`을 사용하여 isolate를 생성하면 생성을 호출한 isolate와
+[일부 동일한 코드와 데이터를 재사용](#성능과-isolate-그룹)
+하기 때문에 더 적은 리소스를 사용합니다. 웹 워커는 이와 동일한 API가 없습니다.
 
-[Dart web platform]: /overview#platform
-[web workers]: https://developer.mozilla.org/docs/Web/API/Web_Workers_API/Using_web_workers
+[Dart 웹 플랫폼]: /overview#platform
+[웹 워커]: https://developer.mozilla.org/docs/Web/API/Web_Workers_API/Using_web_workers
