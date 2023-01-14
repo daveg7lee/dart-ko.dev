@@ -6,10 +6,9 @@ description: Isolate를 사용하여 멀티 프로세서 코어에서 병렬 코
 <?code-excerpt path-base="concurrency"?>
 
 <style>
-  img {
+  article img {
     padding: 15px 0;
   }
-
 </style>
 
 Dart는 async-await, isolate 그리고 `Future`, `Stream`과 같은 클래스로 동시 프로그래밍을 지원합니다.
