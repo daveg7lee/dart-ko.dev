@@ -1,65 +1,59 @@
 ---
-title: Numbers in Dart
+title: Dart의 숫자
 description: Learn how Dart numbers are slightly different on the web, when that might matter, and how you might adjust your code.
 ---
 
-Dart apps often target multiple platforms.
-For example, a Flutter app might target iOS, Android, and the web.
-The code can be the same,
-as long as the app doesn't rely on platform-specific libraries
-or use numbers in a way that's platform dependent.
+Dart 앱들은 대게 다수의 플랫폼을 타겟으로 합니다.
+예를 들어, Flutter 앱은 iOS, Android 그리고 웹을 타겟으로 합니다.
+앱이 플랫폼별 라이브러리를 사용하거나, 플랫폼에 의존하는 방식으로
+숫자를 사용하지 않는 한 동일한 코드를 사용할 수 있습니다.
 
-This page has details about the differences
-between native and web number implementations,
-and how to write code so that those differences don't matter.
+이번 페이지에서 네이티브와 웹의 숫자 구현 간의 차이점과
+코드 작성 방법에 대해 자세히 설명합니다.
 
 {{site.alert.secondary}}
-  **Number implementations in Dart and other languages**
+  **다른 언어와 Dart의 숫자 구현**
 
-  Dart has always allowed platform-specific representations
-  and semantics for numbers, for reasons of 
-  performance, code size, and platform interoperability.
+  Dart는 성능, 코드 크기, 그리고 플랫폼 상호운용성을 위해
+  숫자를 위한 플랫폼별 표현과 시멘틱을 항상 허용합니다.
 
-  Similarly, in C/C++ the commonly used `int` type for integer values is
-  platform-specific to best map to the native machine architecture
-  (16-, 32-, or 64-bit).
-  In Java, the `float` and `double` types for fractional values
-  were originally designed to strictly follow IEEE 754 on all platforms,
-  but this constraint was loosened almost immediately for efficiency reasons
-  (`strictfp` is required for exact coherence).
+  마찬가지로 C/C++에서 정수 값을 나타내는 `int` 타입은 네이티브 머신 아키텍쳐 (16-, 32-, 64-bit)에
+  가장 잘 매핑되도록 플랫폼에 특화되어 있습니다.
+  Java에서 분수 값을 나타내는 `float`과 `double` 타입은 원래 모든 플랫폼에서 IEEE 754를 엄격하게
+  따르도록 설계되었지만, 효율성의 이유로 이 제약은 완화되었습니다
+  (정확환 일관성을 위해서는 `strictfp`가 필요합니다.).
 {{site.alert.end}}
 
 
-## Dart number representation
+## Dart 숫자 표현
 
-In Dart, all numbers are part of the common `Object` type hierarchy,
-and there are two concrete, user-visible numeric types:
-`int`, representing integer values, and `double`, representing fractional values.
+Dart에서 모든 숫자는 일반 `Object` 타입 계층의 부분이고,
+두 가지 구체적인 숫자 타입으로 정수를 나타내는 `int`와
+분수를 나타내는 `double`이 존재합니다.
 
 <img 
   src="/assets/img/number-class-hierarchy.svg" 
   alt="Object is the parent of num, which is the parent of int and double">
 
-Depending on the platform,
-those numeric types have different, hidden implementations.
-In particular, Dart has two very different types of targets it compiles to:
+플랫폼에 따라서 숫자 타입의 구현에 차이가 있습니다.
+특히, Dart는 두 가지 다른 타입을 타겟으로 컴파일합니다.
 
-* **Native:** Most often, a 64-bit mobile or desktop processor.
-* **Web:** JavaScript as the primary execution engine.
+* **네이티브:** 대부분의 경우이며, 64-bit 모바일 또는 데스크탑 프로세서입니다.
+* **웹:** 기본 실행 엔진으로 JavaScript가 사용됩니다.
 
-The following table shows how Dart numbers are usually implemented:
+다음 테이블은 일반적으로 Dart 숫자가 어떻게 구현되는지 보여줍니다:
 
 <table class="table table-striped nowrap">
   <tr>
-   <th>Representation</th>
-   <th>Native <code>int</code></th>
-   <th>Native <code>double</code></th>
-   <th>Web <code>int</code></th>
-   <th>Web <code>double</code></th>
+   <th>표현</th>
+   <th>네이티브 <code>int</code></th>
+   <th>네이티브 <code>double</code></th>
+   <th>웹 <code>int</code></th>
+   <th>웹 <code>double</code></th>
   </tr>
   <tr>
    <td><a href="https://en.wikipedia.org/wiki/Two%27s_complement">
-     64-bit signed two’s complement</a>
+     64-bit 부호화된 2의 보수</a>
    </td>
    <td>✅</td>
    <td></td>
@@ -68,7 +62,7 @@ The following table shows how Dart numbers are usually implemented:
   </tr>
   <tr>
    <td>
-     <a href="https://en.wikipedia.org/wiki/Double-precision_floating-point_format">64-bit floating point</a>
+     <a href="https://en.wikipedia.org/wiki/Double-precision_floating-point_format">64-bit 부동소수점</a>
    </td>
    <td></td>
    <td>✅</td>
@@ -77,25 +71,20 @@ The following table shows how Dart numbers are usually implemented:
   </tr>
 </table>
 
-For native targets, you can assume that
-`int` maps to a signed 64-bit integer representation and
-`double` maps to a 64-bit IEEE floating-point representation
-that matches the underlying processor.
+네이티브를 타겟으로 하는 경우,
+`int`는 부호화된 64-bit 정수 표현으로
+`double`은 64-bit IEEE 부동소수점 표현으로 프로세서에 맞게 매핑됩니다.
 
-But on the web, where Dart compiles to and interoperates with JavaScript,
-there is a single numeric representation:
-a 64-bit double-precision floating-point value.
-For efficiency, Dart maps both `int` and `double` to this single representation.
-The visible type hierarchy remains the same,
-but the underlying hidden implementation types are
-different and intertwined.
+반면에 Dart가 JavaScript를 컴파일하고 상호 운용하는 웹에서는
+64-bit 배정도 부동소수점을 단일 숫자 표현으로 사용합니다.
+효율성을 위해 Dart는 `int`와 `double`을 64-bit 배정도 부동소수점으로 매핑합니다.
+사용할 수 있는 타입 계층은 여전히 동일하지만,
+숨겨진 구현이 서로 다르고 얽혀 있습니다.
 
-The following figure illustrates the platform-specific types (in blue)
-for native and web targets.
-As the figure shows,
-the concrete type for `int` on native implements only the `int` interface.
-However, the concrete type for `int` on the web implements
-both `int` and `double`.
+다음 그림은 네이티브와 웹의 플랫폼별 숫자 타입 계층을 보여줍니다.
+그림에서 알 수 있듯이,
+네이티브의 구체적인 `int` 타입은 `int` 인터페이스만 구현합니다.
+그러나 웹의 `int`에 대한 타입은 `int`와 `double`을 모두 구현합니다.
 
 <img 
   src="/assets/img/number-platform-specific.svg" 
@@ -103,65 +92,50 @@ both `int` and `double`.
 
 
 {{site.alert.note}}
-  Dart represents `int` and `double` in
-  a few different ways for efficiency,
-  but these implementation classes (in blue, above) are hidden.
-  In general, you can ignore the platform-specific types,
-  and think of `int` and `double` as concrete types. 
+  Dart는 효율성을 위해 `int`와 `double`을
+  다른 방식으로 표현하지만, 이 구현 클래스들은 숨겨져 있습니다(위의 파란색).
+  일반적으로, 플랫폼별 타입을 무시해도 되고 `int`와 `double`을 구체적인 타입으로 생각해도 됩니다.
 {{site.alert.end}}
 
-An `int` on the web is represented as
-a double-precision floating-point value with no fractional part.
-In practice, this works pretty well:
-double-precision floating point provides 53 bits of integer precision.
-However, `int` values are always also `double` values,
-which can lead to some surprises.
+웹의 `int`는 분수 부분이 없는 배정도 부동소수점 값으로 표현됩니다.
+배정도 부동소수점은 53 비트의 정수 정밀도를 제공하므로 실제로 잘 작동합니다.
+그러나, `int` 값은 동시에 항상 `double` 값입니다.
 
 
-## Differences in behavior
+## 동작의 차이
 
-Most integer and double arithmetic
-has essentially the same behavior.
-There are, however, important differences—particularly 
-when your code has strict expectations about
-precision, string formatting, or underlying runtime types.
+대부분의 정수와 double 산술은 본질적으로 동일하게
+작동합니다. 그러나, 특히 코드가 정밀도, 문자열 포매팅 또는 런타임 유형에
+대해 엄격하다면 중요한 차이가 존재합니다.
 
-When arithmetic results differ, as described in this section,
-the behavior is **platform specific**
-and **subject to change**.
+이 섹션에서 설명한 것 처럼 산술 결과가 다를 경우 **플랫폼마다** 다르게 작동하며
+**변경**될 수 있습니다.
 
 {{site.alert.note}}
-  Any platform-specific behavior that this page describes might change to be
-  less surprising, more consistent, or more performant.
+  이 페이지에서 설명하는 플랫폼별 동작은 더 일관적이거나 더 성능이 향상되도록 변경될 수 있습니다.
 {{site.alert.end}}
 
 
-### Precision
+### 정밀도
 
-The following table demonstrates how some numerical expressions
-differ due to precision.
-Here, `math` represents the `dart:math` library,
-and `math.pow(2, 53)` is 2<sup>53</sup>.
+다음 표는 정밀도에 따라 숫자 표현이 달라지는 것을 보여줍니다.
+`math`는 `dart:math` 라이브러리를 나타내며
+`math.pow(2, 53)`은 2<sup>53</sup>입니다.
+웹에서, 정수는 53 비트 이후에는 정밀도를 잃습니다.
+2<sup>53</sup>와 2<sup>53</sup>+1는 같은 값으로 매핑됩니다.
+네이티브의 숫자는 63 비트로 값을 나타내고 1 비트로 부호를 나타내므로 위의 두 값은 다른 값으로 매핑됩니다.
 
-On the web, integers lose precision past 53 bits.
-In particular, 2<sup>53</sup> and 2<sup>53</sup>+1
-map to the same value due to truncation.
-On native, these values can still be differentiated
-because native numbers have 64 bits—63 bits for the value and 1 for the sign.
-
-The effect of overflow is visible
-when comparing 2<sup>63</sup>-1 to 2<sup>63</sup>.
-On native, the latter overflows to -2<sup>63</sup>,
-as expected for two's-complement arithmetic.
-On the web, these values do not overflow
-because they are represented differently;
-they're approximations due to the loss of precision.
+2<sup>63</sup>-1 to 2<sup>63</sup>를 비교하면
+오버플로의 효과를 확인해볼 수 있습니다.
+네이티브에서 후자는 2의 보수 산술에 의해 -2<sup>63</sup>로 오버플로 됩니다.
+웹에서는 이러한 값들이 정밀도의 손실로 인한 근사치로
+표현되기 때문에 오버플로가 발생하지 않습니다.
 
 <table class="table table-striped nowrap">
   <tr>
-   <th>Expression</th>
-   <th>Native</th>
-   <th>Web</th>
+   <th>표현</th>
+   <th>네이티브</th>
+   <th>웹</th>
   </tr>
   <tr>
    <td><code>math.pow(2, 53) - 1</code></td>

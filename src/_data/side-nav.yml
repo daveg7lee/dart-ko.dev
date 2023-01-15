@@ -56,7 +56,7 @@
       permalink: /guides/language/extension-methods
     - title: 동시성
       permalink: /guides/language/concurrency
-    - title: Numbers
+    - title: 숫자
       permalink: /guides/language/numbers
     - title: Null safety
       expanded: false
