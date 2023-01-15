@@ -487,9 +487,9 @@ var counts = Set<int>();
 사용법이 존재합니다. (List 클래스 또한 unnamed 생성자가 존재하지만, null safe Dart에서는
 사용이 금지되었습니다)
 
-컬렉션 리터럴은 다른 컬렉션의 요소들을 추가할 때 [스프레드 연산자][spread]에
+컬렉션 리터럴은 다른 컬렉션의 요소들을 추가할 때 [전개 연산자][spread]에
 접근이 가능하고 요소를 빌드 하는 동안 [`if` 그리고 `for`]를 사용하여
-제어 흐름을 수행할 수 있기 때문에 Dart에서 특히 유용합니다:
+흐름 제어를 수행할 수 있기 때문에 Dart에서 특히 유용합니다:
 
 [spread]: /guides/language/language-tour#spread-operator
 [control]: /guides/language/language-tour#collection-operators
@@ -1278,15 +1278,15 @@ class ProfileMark {
 다르게 초기화되는 경우에는 이 가이드라인이 적용되지 않습니다.
 
 
-## Constructors
+## 생성자
 
-The following best practices apply to declaring constructors for a class.
+다음은 클래스 생성자에 대한 모범 사례입니다.
 
-### DO use initializing formals when possible.
+### 가능하다면 initializing formal을 사용하십시오.
 
 {% include linter-rule-mention.md rule="prefer_initializing_formals" %}
 
-Many fields are initialized directly from a constructor parameter, like:
+다음과 같이 필드는 생성자 매개변수로 즉시 초기화될 수 있습니다:
 
 {:.bad}
 <?code-excerpt "usage_bad.dart (field-init-as-param)"?>
@@ -1299,7 +1299,8 @@ class Point {
 }
 {% endprettify %}
 
-We've got to type `x` _four_ times here to define a field. We can do better:
+위에서 필드를 초기화하려면 `x`를 _4_ 번 반복해서 사용해야합니다.
+다음과 같이 사용하는 것이 좋습니다:
 
 {:.good}
 <?code-excerpt "usage_good.dart (field-init-as-param)"?>
@@ -1310,23 +1311,21 @@ class Point {
 }
 {% endprettify %}
 
-This `this.` syntax before a constructor parameter is called an "initializing
-formal". You can't always take advantage of it. Sometimes you want to have a
-named parameter whose name doesn't match the name of the field you are
-initializing. But when you *can* use initializing formals, you *should*.
+생성자 매개변수 앞의 이 `this.` 문법을 "initializing formal"이라고 합니다.
+이 문법을 항상 이용할 수 있는 것은 아닙니다. 초기화하려는 필드의 이름과 named 매개변수의
+이름이 매치되지 않을 때가 그러합니다. 하지만 initializing formal을 사용할 수 *있는* 상황이라면,
+사용해야 합니다.
 
 
-### DON'T use `late` when a constructor initializer list will do.
+### 생성자 initializer list가 변수의 값을 초기화해준다면, `late`를 사용하지 마십시오.
 
-Sound null safety requires Dart to ensure that a non-nullable field is
-initialized before it can be read. Since fields can be read inside the
-constructor body, this means you get an error if you don't initialize a
-non-nullable field before the body runs.
+Sound null safety을 위해 Dart는 non-nullabel 필드를 읽기 전에 초기화해야 합니다.
+필드는 생성자 바디 안에서 읽을 수 있기 때문에, 생성자의 바디가 실행되기 전에
+non-nullable 필드를 초기화하지 않으면 에러가 발생합니다. 
 
-You can make this error go away by marking the field `late`. That turns the
-compile-time error into a *runtime* error if you access the field before it is
-initialized. That's what you need in some cases, but often the right fix is to
-initialize the field in the constructor initializer list:
+필드를 `late`로 표시하면 이런 에러를 해결할 수 있습니다. `late`는 초기화되지 않은
+필드에 접근하면 해당 에러를 컴파일 타임 에러에서 *런타임* 에러로 전환합니다. `late`가
+필요한 경우도 있지만 생성자 initializer list로 필드를 초기화하는 것이 올바른 해결책입니다:
 
 {:.good}
 <?code-excerpt "usage_good.dart (late-init-list)"?>
@@ -1352,18 +1351,17 @@ class Point {
 {% endprettify %}
 
 
-The initializer list gives you access to constructor parameters and lets you
-initialize fields before they can be read. So, if it's possible to use an initializer list,
-that's better than making the field `late` and losing some static safety and
-performance.
+Initializer list는 생성자 매개변수에 접근할 수 있고 필드를 읽기 전에 초기화할 수 있습니다.
+그러므로 initializer list를 사용하는 것이 가능하다면, 정적인 안정성과 성능을 감소시키는
+`late` 대신 사용하세요.
 
 
-### DO use `;` instead of `{}` for empty constructor bodies.
+### 비어있는 생성자 바디에 `{}` 대신에 `;`을 사용하십시오.
 
 {% include linter-rule-mention.md rule="empty_constructor_bodies" %}
 
-In Dart, a constructor with an empty body can be terminated with just a
-semicolon. (In fact, it's required for const constructors.)
+Dart에서 바디가 비어있는 생성자는 세미콜론으로 끝낼 수 있습니다.
+(사실 const 생성자가 필요합니다.)
 
 {:.good}
 <?code-excerpt "usage_good.dart (semicolon-for-empty-body)"?>
@@ -1383,16 +1381,15 @@ class Point {
 }
 {% endprettify %}
 
-### DON'T use `new`.
+### `new`를 사용하지 마십시오.
 
 {% include linter-rule-mention.md rule="unnecessary_new" %}
 
-Dart 2 makes the `new` keyword optional. Even in Dart 1, its meaning was never
-clear because factory constructors mean a `new` invocation may still not
-actually return a new object.
+Dart 2 이후로 `new` 키워드는 선택사항이 되었습니다. Dart 1에서도 `new`의 의미가 명확하지 않았습니다.
+Factory 생성자에서 `new`를 호출한다고 해서 반드시 새 객체가 반환된다는 의미가 아닐 수 있기 때문입니다.
 
-The language still permits `new` in order to make migration less painful, but
-consider it deprecated and remove it from your code.
+코드 마이그레이션의 어려움을 줄이기 위해 Dart 언어는 여전히 `new` 키워드를 허용하지만,
+코드에서 `new` 키워드의 사용을 중지하고 제거하는 것을 고려하세요.
 
 {:.good}
 <?code-excerpt "usage_good.dart (no-new)"?>
@@ -1425,26 +1422,26 @@ Widget build(BuildContext context) {
 {% endprettify %}
 
 
-### DON'T use `const` redundantly.
+### `const`를 불필요하게 사용하지 마십시오.
 
 {% include linter-rule-mention.md rule="unnecessary_const" %}
 
+표현식이 *상수여야* 하는 컨텍스트에서 `const` 키워드는 암묵적이므로,
+작성할 필요가 없으며 그렇게 해서도 안 됩니다. 컨텍스트란 다음을 의미합니다.
 In contexts where an expression *must* be constant, the `const` keyword is
 implicit, doesn't need to be written, and shouldn't. Those contexts are any
 expression inside:
 
-* A const collection literal.
-* A const constructor call
-* A metadata annotation.
-* The initializer for a const variable declaration.
-* A switch case expression—the part right after `case` before the `:`, not
-  the body of the case.
+* 상수 컬렉션 리터럴
+* 상수 생성자 호출
+* 메타데이터 어노테이션
+* 상수 변수 선언을 위한 initializer
+* switch case 표현식 - `case`의 바디가 아니라 `case`와 `:` 사이 부분 입니다.
 
-(Default values are not included in this list because future versions of Dart
-may support non-const default values.)
+(상수가 아닌 디폴트 값은 Dart의 향후 버전에서 지원될 수 있으므로 디폴트 값은 이 목록에 포함하지 않습니다.)
 
-Basically, any place where it would be an error to write `new` instead of
-`const`, Dart 2 allows you to omit the `const`.
+기본적으로 Dart 2에서는 `const`를 생략할 수 있으므로, 어디에서나 `const` 대신
+`new`를 사용하는 것은 잘못된 것입니다.
 
 {:.good}
 <?code-excerpt "usage_good.dart (no-const)"?>
@@ -1466,75 +1463,69 @@ const primaryColors = [!const!] [
 ];
 {% endprettify %}
 
-## Error handling
+## 에러 핸들링
 
-Dart uses exceptions when an error occurs in your program. The following
-best practices apply to catching and throwing exceptions.
+Dart는 예외를 사용하여 프로그램 실행 오류를 나타냅니다.
+다음은 예외를 catch하고 throw하는 방법에 대한 모범 사례입니다:
 
-### AVOID catches without `on` clauses.
+### `on` 절 없이 에러를 캐치하는 것을 피하십시오.
 
 {% include linter-rule-mention.md rule="avoid_catches_without_on_clauses" %}
 
-A catch clause with no `on` qualifier catches *anything* thrown by the code in
-the try block. [Pokémon exception handling][pokemon] is very likely not what you
-want. Does your code correctly handle [StackOverflowError][] or
-[OutOfMemoryError][]? If you incorrectly pass the wrong argument to a method in
-that try block do you want to have your debugger point you to the mistake or
-would you rather that helpful [ArgumentError][] get swallowed? Do you want any
-`assert()` statements inside that code to effectively vanish since you're
-catching the thrown [AssertionError][]s?
+`on`이 없는 catch 문은 try 블록 내에서 발생하는 *모든* 예외를 catch합니다.
+[포켓몬 예외 처리][pokemon]가 원하는 것이 아닐 가능성이 높습니다.
+당신이 작성한 코드가 [StackOverflowError][] 또는
+[OutOfMemoryError][]를 적절하게 처리하고 있나요? 잘못된 인수로 try 블록의 함수를 호출하는 경우
+디버거가 실수를 알려주길 원하나요? 아니면 도움이 되는 [ArgumentError][]가 삼켜지길 원하나요?
+[AssertionError][] 예외를 catch했으므로 try 블록의 모든 `assert()`문이 유효하지 않습니다.
+이것이 우리가 원하는 결과일까요?
 
-The answer is probably "no", in which case you should filter the types you
-catch. In most cases, you should have an `on` clause that limits you to the
-kinds of runtime failures you are aware of and are correctly handling.
+아마도 아닐 것이며, 이 경우에 캐치한 타입을 필터링해야 합니다.
+대부분의 경우에, `on` 절이 있어야 런타임에 사용자가 인지하고 처리하길 원하는 예외를
+포착하고 적절히 처리할 수 있습니다.
 
-In rare cases, you may wish to catch any runtime error. This is usually in
-framework or low-level code that tries to insulate arbitrary application code
-from causing problems. Even here, it is usually better to catch [Exception][]
-than to catch all types. Exception is the base class for all *runtime* errors
-and excludes errors that indicate *programmatic* bugs in the code.
-
-
-### DON'T discard errors from catches without `on` clauses.
-
-If you really do feel you need to catch *everything* that can be thrown from a
-region of code, *do something* with what you catch. Log it, display it to the
-user or rethrow it, but do not silently discard it.
+드물게 모든 런타임 에러를 캐치하고 싶을 수도 있습니다. 이는 일반적으로 임의의 애플리케이션 코드가
+문제를 일으키지 않도록 차단하는 프레임워크나 낮은 수준의 코드의 경우입니다.
+이런 경우에도 모든 타입을 캐치하는 것보다 [Exception][]을 캐치하는 것이 더 좋습니다.
+Exception은 모든 *런티임* 에러의 베이스 클래스이며 코드의 *프로그래밍* 버그를 나타내는
+에러는 포함하지 않습니다.
 
 
-### DO throw objects that implement `Error` only for programmatic errors.
+### `on` 절로 캐치되지 않은 에러를 버리지 마십시오.
 
-The [Error][] class is the base class for *programmatic* errors. When an object
-of that type or one of its subinterfaces like [ArgumentError][] is thrown, it
-means there is a *bug* in your code. When your API wants to report to a caller
-that it is being used incorrectly throwing an Error sends that signal clearly.
-
-Conversely, if the exception is some kind of runtime failure that doesn't
-indicate a bug in the code, then throwing an Error is misleading. Instead, throw
-one of the core Exception classes or some other type.
+코드 내에서 *모든* 예외를 캐치하고 싶다면 예외가 캐치된 곳에서 *조치를 취하세요*.
+이를 기록하여 사용자에게 표시하거나 예외 정보를 rethrow하여 버리지 않도록 주의하세요.
 
 
-### DON'T explicitly catch `Error` or types that implement it.
+### 프로그래밍 오류를 나타내는 경우에만 <`Error`를 구현하는 예외를 throw 하십시오.
+
+[Error][] 클래스는 모든 *프로그래밍* 에러의 베이스 클래스입니다. 이 타입의 객체나 [ArgumentError][]
+같은 서브 인터페이스가 발생되면, 코드에 *버그*가 있다는 것을 의미합니다. API가 호출자에게
+사용법이 잘못되었음을 알리고자 하는 경우 오류를 발생시켜 의도를 나타낼 수 있습니다.
+
+마찬가지로 예외가 코드 버그가 아니라 런타임 예외를 나타내는 경우 Error를 throw하는 것은
+호출자를 오도할 수 있습니다. 그런 경우에는 Exception 클래스 또는 코어에 의해 정의된 다른
+타입을 throw해야 합니다.
+
+
+### `Error` 또는 이를 구현하는 타입을 명시적으로 캐치하지 마십시오.
 
 {% include linter-rule-mention.md rule="avoid_catching_errors" %}
 
-This follows from the above. Since an Error indicates a bug in your code, it
-should unwind the entire callstack, halt the program, and print a stack trace so
-you can locate and fix the bug.
+위의 내용과 이어지는 가이드라인입니다. 에러는 코드의 버그를 나타내므로 전체 호출 스택을
+펼치며 프로그램을 중지하고 스택 트레이스를 출력하여 버그를 찾아 수정할 수 있습니다.
 
-Catching errors of these types breaks that process and masks the bug. Instead of
-*adding* error-handling code to deal with this exception after the fact, go back
-and fix the code that is causing it to be thrown in the first place.
+이러한 에러를 캐치하면 처리 흐름이 중단되고 해당 버그를 마스크(mask)합니다.
+여기에서 에러 처리 코드를 *추가*하지 말고, 에러가 발생한 곳으로 이동하여 코드를 수정하세요.
 
 
-### DO use `rethrow` to rethrow a caught exception.
+### 캐치된 예외를 rethrow 하고 싶다면, `rethrow`를 사용하십시오.
 
 {% include linter-rule-mention.md rule="use_rethrow_when_possible" %}
 
-If you decide to rethrow an exception, prefer using the `rethrow` statement
-instead of throwing the same exception object using `throw`.
-`rethrow` preserves the original stack trace of the exception. `throw` on the
-other hand resets the stack trace to the last thrown position.
+예외를 rethrow하고 싶다면, `throw`하는 것보다 `rethrow` 문을 사용하는 것이 좋습니다.
+`rethrow`는 원래 예외의 스택 트레이스를 유지합니다. 반면에 `throw`는 스택 트레이스를 마지막으로
+throw된 위치로 재설정합니다.
 
 {:.bad}
 <?code-excerpt "usage_bad.dart (rethrow)"?>
@@ -1559,16 +1550,16 @@ try {
 {% endprettify %}
 
 
-## Asynchrony
+## 비동기
 
-Dart has several language features to support asynchronous programming.
-The following best practices apply to asynchronous coding.
+Dart에는 비동기 프로그래밍을 지원하는 여러가지 언어 기능이 있습니다.
+다음은 비동기 코딩에 대한 모범 사례입니다.
 
-### PREFER async/await over using raw futures.
+### Future을 async/await와 같이 사용하는 것을 지향하십시오.
 
-Asynchronous code is notoriously hard to read and debug, even when using a nice
-abstraction like futures. The `async`/`await` syntax improves readability and
-lets you use all of the Dart control flow structures within your async code.
+비통기 코드는 future와 같은 훌륭한 추상화를 사용하더라도 읽고 디버그하기 까다롭습니다.
+`async`/`await` 문법은 가독성을 향상시키고 비동기 코드에서 Dart의 모든 흐름 제어문을
+사용할 수 있습니다.
 
 {:.good}
 <?code-excerpt "usage_good.dart (async-await)" replace="/async|await/[!$&!]/g"?>
@@ -1604,11 +1595,10 @@ Future<int> countActivePlayers(String teamName) {
 }
 {% endprettify %}
 
-### DON'T use `async` when it has no useful effect.
+### 특별한 효과가 없다면 `async`를 사용하지 마십시오.
 
-It's easy to get in the habit of using `async` on any function that does
-anything related to asynchrony. But in some cases, it's extraneous. If you can
-omit the `async` without changing the behavior of the function, do so.
+습관이 되면 아마 모든 비동기 관련 함수에서 `async`를 사용하게 될 것입니다.
+그러나 메서드의 동작을 변경하지 않고 `async`를 생략할 수 있다면 그래야합니다.
 
 {:.good}
 <?code-excerpt "usage_good.dart (unnecessary-async)"?>
@@ -1626,15 +1616,16 @@ Future<int> fastestBranch(Future<int> left, Future<int> right) async {
 }
 {% endprettify %}
 
+다음은 `async`가 *유용한* 몇 가지 케이스입니다:
 Cases where `async` *is* useful include:
 
-* You are using `await`. (This is the obvious one.)
+* `await`를 사용할 때 (명백합니다.)
 
-* You are returning an error asynchronously. `async` and then `throw` is shorter
-  than `return Future.error(...)`.
+* 에러를 비동기적으로 반환할 때. `async`와 `throw`를 함게 사용하는 것이
+  `return Future.error(...)` 보다 간결합니다.
 
-* You are returning a value and you want it implicitly wrapped in a future.
-  `async` is shorter than `Future.value(...)`.
+* 값을 반환하고 있지만 명시적으로 Future 사용을 원할 때.
+  `async`는 `Future.value(...)` 보다 간결합니다.
 
 {:.good}
 <?code-excerpt "usage_good.dart (async)"?>
@@ -1650,17 +1641,15 @@ Future<void> asyncError() async {
 Future<String> asyncValue() async => 'value';
 {% endprettify %}
 
-### CONSIDER using higher-order methods to transform a stream.
+### 고차 메서드를 사용하여 스트림을 변환하는 것을 고려하십시오.
 
-This parallels the above suggestion on iterables. Streams support many of the
-same methods and also handle things like transmitting errors, closing, etc.
-correctly.
+이 가이드라인은 iterable에 대한 위의 제안과 비슷합니다. Stream은 많은 동일한 메서드를
+지원하며 에러 전송, 닫기 등을 올바르게 처리합니다.
 
-### AVOID using Completer directly.
+### Completer를 직접적으로 사용하는 것을 피하십시오.
 
-Many people new to asynchronous programming want to write code that produces a
-future. The constructors in Future don't seem to fit their need so they
-eventually find the Completer class and use that.
+비동기 프로그래밍이 처음인 사람들은 future를 생성하는 코드를 작성하고 싶어합니다.
+Future 생성자는 그들의 요구를 충족하지 않고 결국에 Completer 클래스를 사용하게 됩니다.
 
 {:.bad}
 <?code-excerpt "usage_bad.dart (avoid-completer)"?>
@@ -1676,10 +1665,10 @@ Future<bool> fileContainsBear(String path) {
 }
 {% endprettify %}
 
-Completer is needed for two kinds of low-level code: new asynchronous
-primitives, and interfacing with asynchronous code that doesn't use futures.
-Most other code should use async/await or [`Future.then()`][then], because
-they're clearer and make error handling easier.
+새로운 비동기 원시(primitive) 코드와 future를 사용하지 않는 비동기 코드와의
+인터페이싱(interfacing), 이 두 가지 종류의 낮은 수준의 코드에서 Completer가 필요합니다.
+다른 코드들은 더 간결하고 에러 처리가 쉬운 async/await 또는
+[`Future.then()`][then]을 사용해야 합니다.
 
 [then]: {{site.dart-api}}/{{site.data.pkg-vers.SDK.channel}}/dart-async/Future/then.html
 
@@ -1703,19 +1692,16 @@ Future<bool> fileContainsBear(String path) async {
 {% endprettify %}
 
 
-### DO test for `Future<T>` when disambiguating a `FutureOr<T>` whose type argument could be `Object`.
+### `FutureOr<T>`의 매개변수 `T`가 `Object` 타입일 수 있음을 명확히 하기 위해 `Future<T>`를 테스트 하십시오.
 
-Before you can do anything useful with a `FutureOr<T>`, you typically need to do
-an `is` check to see if you have a `Future<T>` or a bare `T`. If the type
-argument is some specific type as in `FutureOr<int>`, it doesn't matter which
-test you use, `is int` or `is Future<int>`. Either works because those two types
-are disjoint.
+`FutureOr<T>`로 유용한 작업을 수행하기 전에 일반적으로 `Future<T>` 또는 빈 `T`가 있는지
+확인해야 합니다. 타입 매개변수가 특정 타입 (예: `FutureOr<int>`)인 경우 `is int` 또는
+`is Future<int>`와 같은 테스트가 작동합니다. 두 타입은 분리되어 있기 때문에 둘 다 작동합니다.
 
-However, if the value type is `Object` or a type parameter that could possibly
-be instantiated with `Object`, then the two branches overlap. `Future<Object>`
-itself implements `Object`, so `is Object` or `is T` where `T` is some type
-parameter that could be instantiated with `Object` returns true even when the
-object is a future. Instead, explicitly test for the `Future` case:
+그러나, 값의 타입이 `Object`이거나 `Object`로 인스턴스화할 수 있는 타입 매개변수인 경우는 서로 겹칩니다.
+`Future<Object>`는 `Object`를 구현합니다. 그렇기 때문에 `Object`로 인스턴스화 될 수 있는
+`T`를 가지는 `is T`와 `is Object`는 객체가 future일 때도 true를 반환합니다.
+대신에 `Future`의 경우를 위해 명시적으로 테스트하세요:
 
 {:.good}
 <?code-excerpt "usage_good.dart (test-future-or)"?>
@@ -1747,8 +1733,7 @@ Future<T> logValue<T>(FutureOr<T> value) async {
 }
 {% endprettify %}
 
-In the bad example, if you pass it a `Future<Object>`, it incorrectly treats it
-like a bare, synchronous value.
+잘못된 예제에서 `Future<Object>`를 넘겨주면, 이를 빈 동기화 값으로 잘못 취급합니다.
 
 [pokemon]: https://blog.codinghorror.com/new-programming-jargon/
 [Error]: {{site.dart-api}}/{{site.data.pkg-vers.SDK.channel}}/dart-core/Error-class.html

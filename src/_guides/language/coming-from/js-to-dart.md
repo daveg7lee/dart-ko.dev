@@ -65,7 +65,7 @@ JS와 Dart는 모두 데이터를 _타입_ 으로 분류합니다. 모든 변수
 Dart는 모든 변수와 모든 표현식에 정적 타입을 할당한다는 점에서 JavaScript와 다릅니다.
 Dart에서 정적 타입은 변수 값 또는 표현식 값의 런타임 타입을 예측합니다.
 Dart는 모든 표현식과 변수에 정적 타입을 할당합니다.
-Dart에서 정적 타입은 표현식 값의 런타임 타입을 예측합니다. 이는 Dart 앱이 정적 타이핑을 사용함을 의미합니다.
+Dart에서 정적 타입은 표현식 값의 런타임 타입을 예측합니다. 이는 Dart 앱이 안전한 정적 타이핑을 사용함을 의미합니다.
 
 JS는 `num`, `string`, `boolean`, `null`, 그리고 _arrays_ 와 `Map`과 같은 원시 타입들을 제공합니다.
 
@@ -294,9 +294,12 @@ with two exceptions:
 
 A Dart variable gets its type in one of two ways:
 
-1. Declared: A type written in the declaration
-1. Inferred: An expression used to initialize the variable
-   By convention, use `var` or `final` when the analyzer can infer the type.
+1. Declared: A type written in the declaration.
+1. Inferred: An expression used to initialize the variable.
+   By [convention][omit_local_variable_types], 
+   use `var` or `final` when the analyzer can infer the type.
+
+[omit_local_variable_types]: /guides/language/effective-dart/design#dont-redundantly-type-annotate-initialized-local-variables
 
 ```js
 // Declare and initialize a variable at once
@@ -596,7 +599,7 @@ multiply(int a, [int b = 5, int? c]) {
 multiply(int a, [int b = 5], int c) {
   ...
 }
-// Invalid: Neither positional parameter has a default
+// Invalid: Neither optional positional parameter has a default
 //          value or has been flagged as nullable.
 multiply(int a, [int b, int c]) {
   ...

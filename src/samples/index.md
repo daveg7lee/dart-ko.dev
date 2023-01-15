@@ -1,6 +1,6 @@
 ---
 title: 언어 샘플
-description: 더 큰 예제와 이어지는 자연스러운 Dart 예제.
+description: 더 큰 예제로 이어질수 있는 자연스러운 Dart 예제.
 ---
 
 이 컬렉션은 완전하지 않습니다—예제를 통해 Dart를 배우고 싶은 사람들을 위한 간단한 소개 입니다.
@@ -8,10 +8,10 @@ description: 더 큰 예제와 이어지는 자연스러운 Dart 예제.
 
 <div class="card-grid no_toc_section">
   <div class="card">
-    <h3><a href="/guides/language/language-tour">언어 투어</a></h3>
+    <h3><a href="/guides/language/language-tour">언어 개요</a></h3>
     <p>
       예제가 있는 Dart 언어의 포괄적인 투어.
-      이 페이지 대부분의 <em>더보기</em>는 언어 투어로 이동합니다.
+      이 페이지 대부분의 <em>더보기</em>는 언어 개요로 이동합니다.
     </p>
   </div>
   <div class="card">
@@ -54,7 +54,7 @@ var image = {
 ```
 
 정적 타입, `final`, `const` 키워드 디폴트 값을 포함한 Dart의 변수에 대해 
-[더보기](/guides/language/language-tour#variables).
+[더보기](/guides/language/language-tour#변수).
 
 ## 흐름 제어문
 
@@ -83,13 +83,13 @@ while (year < 2016) {
 
 `break`과 `continue`, `switch`와 `case`, `assert`를
 가지는 Dart 흐름 제어문에 대해 
-[더보기](/guides/language/language-tour#control-flow-statements) 
+[더보기](/guides/language/language-tour#흐름-제어문) 
 
 
 ## 함수
 
 함수의 인자와 반환값의 타입을 지정하는 것을
-[추천합니다](/guides/language/effective-dart/design#types):
+[추천합니다](/guides/language/effective-dart/design#타입):
 
 <?code-excerpt "misc/test/samples_test.dart (functions)"?>
 ```dart
@@ -114,7 +114,7 @@ flybyObjects.where((name) => name.contains('turn')).forEach(print);
 최상위 `print()` 함수는 `forEach()`의 인자가 됩니다.
 
 Optional 매개변수, 디폴트 매개변수 값 그리고 렉시컬 스코프를 포함하는 Dart의 함수에 대해
-[더보기](/guides/language/language-tour#functions).
+[더보기](/guides/language/language-tour#함수).
 
 ## 주석
 
@@ -130,7 +130,7 @@ Dart의 주석은 보통 `//`로 시작합니다.
 ```
 
 문서화 도구의 작동 방식을 비록해 Dart의 주석에 대한 자세한 내용
-[더보기](/guides/language/language-tour#comments)
+[더보기](/guides/language/language-tour#주석)
 
 ## Imports
 
@@ -150,7 +150,7 @@ import 'path/to/my_other_file.dart';
 
 라이브러리 prefix, `show`와 `hide`, `deferred` 키워드를 사용한 지연 로딩을 비롯한
 Dart 라이브러리와 가시성에 대해
-[더보기](/guides/language/language-tour#libraries-and-visibility) 
+[더보기](/guides/language/language-tour#라이브러리와-가시성) 
 
 
 ## 클래스
@@ -203,7 +203,7 @@ voyager3.describe();
 ```
 
 Getter, setter, 리디렉팅 생성자, `factory` 생성자, 선택적인 `new`와 `const`, initializer list
-를 비롯하여 Dart의 클래스에 대해 [더보기](/guides/language/language-tour#classes).
+를 비롯하여 Dart의 클래스에 대해 [더보기](/guides/language/language-tour#클래스).
 
 
 ## Enum
@@ -274,8 +274,8 @@ class Orbiter extends Spacecraft {
 }
 ```
 
-선택적인 `@overrid` 어노테이션, 클래스 확장 등에 대해 
-[더보기](/guides/language/language-tour#extending-a-class) 
+선택적인 `@override` 어노테이션, 클래스 확장 등에 대해 
+[더보기](/guides/language/language-tour#클래스-확장) 
 
 
 ## Mixin
@@ -306,7 +306,7 @@ class PilotedCraft extends Spacecraft [!with!] Piloted {
 이제 `PilotedCraft`는 `astronauts` 필드와 `describeCrew()` 메서드를 가집니다.
 
 Mixin에 대해
-[더보기](/guides/language/language-tour#adding-features-to-a-class-mixins).
+[더보기](/guides/language/language-tour#클래스에-피처-추가하기-mixins).
 
 
 ## 인터페이스와 추상 클래스
@@ -323,7 +323,7 @@ class MockSpaceship implements Spacecraft {
 ```
 
 암묵적 인터페이스에 대해
-[더보기](/guides/language/language-tour#implicit-interfaces).
+[더보기](/guides/language/language-tour#암묵적-인터페이스).
 
 구체적인 클래스로 확장 또는 구현되는 추항 클래스를 생성하는 것이 가능합니다.
 추상 클래스는 바디가 비어있는 추상 메서드를 가지는 것이 가능합니다.
@@ -346,7 +346,7 @@ Abstract classes can contain abstract methods (with empty bodies).
 `describeWithEmphasis()` 메서드를 가집니다.
 
 추상 클래스와 메서드에 대해
-[더보기](/guides/language/language-tour#abstract-classes).
+[더보기](/guides/language/language-tour#추상-클래스).
 
 
 ## Async
@@ -411,7 +411,7 @@ Stream<String> report(Spacecraft craft, Iterable<String> objects) async* {
 
 `async` 함수, `Future`, `Stream` 그리고 비동기 루프 (`await for`)을 비롯한
 비동기 지원에 대해
-[더보기](/guides/language/language-tour#asynchrony-support)
+[더보기](/guides/language/language-tour#비동기-지원)
 
 
 ## 예외
@@ -448,11 +448,11 @@ Future<void> describeFlybyObjects(List<String> flybyObjects) async {
 
 스택 트레이스, `rethrow`, 그리고 `Error`와 `Exception`의 차이를 비롯하여
 예외에 대해 
-[더보기](/guides/language/language-tour#exceptions).
+[더보기](/guides/language/language-tour#예외).
 
 
 ## 다른 토픽
 
-[언어 투어](/guides/language/language-tour)와
-[라이브러리 투아](/guides/libraries/library-tour)에 많은 코드 샘플이 존재합니다.
-[Dart API reference,]({{site.dart-api}})에도 종종 샘플이 등장합니다.
+[언어 개요](/guides/language/language-tour)와
+[라이브러리 개요](/guides/libraries/library-tour)에 많은 코드 샘플이 존재합니다.
+[Dart API reference]({{site.dart-api}})에도 종종 샘플이 등장합니다.

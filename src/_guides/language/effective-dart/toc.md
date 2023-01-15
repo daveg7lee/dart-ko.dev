@@ -3,7 +3,7 @@
     To re-generate it, please run the following command from root of
     the project:
 
-      $ dart run deploy/effective-dart-rules/bin/main.dart
+      $ dart run tool/effective-dart-rules/bin/main.dart
 
     {% endcomment %}
     
@@ -101,7 +101,7 @@
 
 * <a href='/guides/language/effective-dart/usage#dont-explicitly-initialize-variables-to-null'>변수를 명시적으로 <code>null</code>로 초기화하지 마십시오.</a>
 * <a href='/guides/language/effective-dart/usage#dont-use-an-explicit-default-value-of-null'>디폴트 값으로 <code>null</code>을 명시적으로 사용하지 마십시오.</a>
-* <a href='/guides/language/effective-dart/usage#prefer-using--to-convert-null-to-a-boolean-value'><code>Null</code>을 boolean 값으로 바꿀 때 <code>??</code> 사용을 지향하십시오.</a>
+* <a href='/guides/language/effective-dart/usage#dont-use-true-or-false-in-equality-operations'>항등 연산자에 <code>true</code> 또는 <code>false</code>을 사용하지 마십시오.</a>
 * <a href='/guides/language/effective-dart/usage#avoid-late-variables-if-you-need-to-check-whether-they-are-initialized'>초기화 여부를 확인해야하는 변수를 <code>late</code>로 선언하는 것을 피하십시오.</a>
 * <a href='/guides/language/effective-dart/usage#consider-assigning-a-nullable-field-to-a-local-variable-to-enable-type-promotion'>타입 프로모션을 활성화하고 싶다면, nullable 필드를 로컬 변수에 할당하는 것을 고려하십시오.</a>
 
@@ -143,16 +143,16 @@
 **생성자**
 
 * <a href='/guides/language/effective-dart/usage#do-use-initializing-formals-when-possible'>가능하다면 initializing formal을 사용하십시오.</a>
-* <a href='/guides/language/effective-dart/usage#dont-use-late-when-a-constructor-initializer-list-will-do'>생성자 initializer list가 변수의 값을 초기화해준다면, <code>late</code>을 사용하지 마십시오.</a>
+* <a href='/guides/language/effective-dart/usage#dont-use-late-when-a-constructor-initializer-list-will-do'>생성자 initializer list가 변수의 값을 초기화해준다면, <code>late</code>를 사용하지 마십시오.</a>
 * <a href='/guides/language/effective-dart/usage#do-use--instead-of--for-empty-constructor-bodies'>비어있는 생성자 바디에 <code>{}</code> 대신에 <code>;</code> 을 사용하십시오.</a>
 * <a href='/guides/language/effective-dart/usage#dont-use-new'><code>new</code>를 사용하지 마십시오.</a>
-* <a href='/guides/language/effective-dart/usage#dont-use-const-redundantly'><code>const</code>을 중복되게 사용하지 마십시오.</a>
+* <a href='/guides/language/effective-dart/usage#dont-use-const-redundantly'><code>const</code>를 불필요하게 사용하지 마십시오.</a>
 
 **에러 핸들링**
 
-* <a href='/guides/language/effective-dart/usage#avoid-catches-without-on-clauses'><code>on</code> 구문 없이 에러를 캐치하는 것을 피하십시오.</a>
-* <a href='/guides/language/effective-dart/usage#dont-discard-errors-from-catches-without-on-clauses'><code>on</code> 구문 없이 캐치된 에러들을 버리지 마십시오.</a>
-* <a href='/guides/language/effective-dart/usage#do-throw-objects-that-implement-error-only-for-programmatic-errors'>프로그래밍 오류에 대해서만 <code>Error</code>를 implement한 객체를 throw 하십시오.</a>
+* <a href='/guides/language/effective-dart/usage#avoid-catches-without-on-clauses'><code>on</code> 절 없이 에러를 캐치하는 것을 피하십시오.</a>
+* <a href='/guides/language/effective-dart/usage#dont-discard-errors-from-catches-without-on-clauses'><code>on</code> 절로 캐치되지 않은 에러를 버리지 마십시오.</a>
+* <a href='/guides/language/effective-dart/usage#do-throw-objects-that-implement-error-only-for-programmatic-errors'>프로그래밍 오류를 나타내는 경우에만 <code>Error</code>를 구현하는 예외를 throw 하십시오.</a>
 * <a href='/guides/language/effective-dart/usage#dont-explicitly-catch-error-or-types-that-implement-it'><code>Error</code> 또는 이를 구현하는 타입을 명시적으로 캐치하지 마십시오.</a>
 * <a href='/guides/language/effective-dart/usage#do-use-rethrow-to-rethrow-a-caught-exception'>캐치된 예외를 rethrow 하고 싶다면, <code>rethrow</code>를 사용하십시오.</a>
 
@@ -160,9 +160,9 @@
 
 * <a href='/guides/language/effective-dart/usage#prefer-asyncawait-over-using-raw-futures'>Future을 async/await와 같이 사용하는 것을 지향하십시오.</a>
 * <a href='/guides/language/effective-dart/usage#dont-use-async-when-it-has-no-useful-effect'>특별한 효과가 없다면 <code>async</code>를 사용하지 마십시오.</a>
-* <a href='/guides/language/effective-dart/usage#consider-using-higher-order-methods-to-transform-a-stream'>Stream을 변형시키고 싶다면 고차함수(higher-order method) 사용을 고려하십시오.</a>
+* <a href='/guides/language/effective-dart/usage#consider-using-higher-order-methods-to-transform-a-stream'>고차 메서드를 사용하여 스트림을 변환하는 것을 고려하십시오.</a>
 * <a href='/guides/language/effective-dart/usage#avoid-using-completer-directly'>Completer를 직접적으로 사용하는 것을 피하십시오.</a>
-* <a href='/guides/language/effective-dart/usage#do-test-for-futuret-when-disambiguating-a-futureort-whose-type-argument-could-be-object'>타입 인자가 <code>Object</code>일 수도 있는 <code>FutureOr&lt;T&gt;</code>를 명확하게 하고, <code>Future&lt;T&gt;</code>를 테스트 하십시오.</a>
+* <a href='/guides/language/effective-dart/usage#do-test-for-futuret-when-disambiguating-a-futureort-whose-type-argument-could-be-object'><code>FutureOr&lt;T&gt;</code>의 매개변수 `T`가 <code>Object</code> 타입일 수 있음을 명학히 하기 위해 <code>Future&lt;T&gt;</code>를 테스트 하십시오.</a>
 
 </div>
 <div class='effective_dart--summary_column' markdown='1'>

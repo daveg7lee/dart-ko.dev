@@ -49,7 +49,7 @@ Dart가 어떤 변수를 non-nullable로 결정할 때,
 추가적인 Dart 피처들의 예제를 보고 싶다면,
 [샘플 페이지](/samples)를 참고하세요.
 언어에 대해 더 학습하고 싶다면,
-[Dart 언어 투어](/guides/language/language-tour)를 참고하세요.
+[Dart 언어 개요](/guides/language/language-tour)를 참고하세요.
 
 <?code-excerpt "misc/lib/overview_pi.dart"?>
 ```dart:run-dartpad:ga_id-overview
