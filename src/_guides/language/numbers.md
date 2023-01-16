@@ -1,6 +1,6 @@
 ---
 title: Dart의 숫자
-description: Learn how Dart numbers are slightly different on the web, when that might matter, and how you might adjust your code.
+description: Dart의 숫자가 웹에서 어떻게 다른지, 그 차이가 언제 중요한지, 그리고 코드를 조정하는 방법에 대해 알아봅니다.
 ---
 
 Dart 앱들은 대게 다수의 플랫폼을 타겟으로 합니다.
@@ -177,22 +177,21 @@ Dart에서 모든 숫자는 일반 `Object` 타입 계층의 부분이고,
 
 ### Identity
 
-On native platforms, `double` and `int` are distinct types:
-no value can be both a `double` and an `int` at the same time.
-On the web, that isn't true.
-Because of this difference,
-identity can differ between platforms,
-although equality (`==`) doesn't.
+네이티브 플랫폼에서 `double`과 `int`는 구분되는 타입입니다:
+어떤 값도 `double`이면서 동시에 `int`일 수 없습니다.
+하지만 웹에서는 그렇지 않습니다.
+이런 차이 때문에 플랫폼마다 참조하는 객체가 다를 수 있지만,
+동등성 (`==`)은 그렇지 않습니다.
 
-The following table shows some expressions that use equality and identity.
-The equality expressions are the same on native and web;
-the identity expressions are usually different.
+다음 표는 `==`과 `identical()`을 사용한 표현식의 결과를 보여줍니다.
+`==`를 사용한 표현식은 네이티브와 웹에서의 결과가 같지만,
+`identical()`을 사용한 표현식의 결과는 보통 다릅니다.
 
 <table class="table table-striped nowrap">
   <tr>
-   <th>Expression</th>
-   <th>Native</th>
-   <th>Web</th>
+   <th>표현식</th>
+   <th>네이티브</th>
+   <th>웹</th>
   </tr>
   <tr>
    <td><code>1.0 == 1</code></td>
@@ -237,29 +236,27 @@ the identity expressions are usually different.
 </table>
 
 
-### Types and type checking
+### 타입과 타입 체킹
 
-On the web, the underlying `int` type is like a subtype of `double`:
-it’s a double-precision value without a fractional part.
-In fact, a type check on the web of the form `x is int`
-returns true if `x` is a number (`double`) with
-a zero-valued fractional part.
+웹의 기본 `int` 타입은 분수 부분이 없는 배정도 값을 가지며 `double`의 서브타입과 비슷합니다.
+사실 웹에서 `x is int` 형태의 타입 체킹은 `x`가 분수 부분이 0인 숫자 (`double`)라면
+true를 반환합니다.
 
-As a result, the following are true on the web:
 
-* All Dart numbers (values of type `num`) are `double`.
-* A Dart number can be both a `double` and an `int` at the same time.
+결과적으로 웹에서는 다음 사항이 해당됩니다:
 
-These facts affect `is` checks and `runtimeType` properties.
-A side effect is that `double.infinity` is interpreted as an `int`.
-Because this is a platform-specific behavior,
-it might change in the future.
+* 모든 Dart 숫자 (`num` 타입의 값)은 `double` 입니다.
+* Dart 숫자는 `double`이면서 동시에 `int` 입니다.
+
+이런 사항들은 `is` 체킹과 `runtimeType` 프로퍼티에 영향을 미칩니다.
+`double.infinity`가 `int`로 평가되는 것은 부작용이고,
+이런 결과는 플랫폼별 동작이므로 미래에 변경될 것입니다.
 
 <table class="table table-striped nowrap">
   <tr>
-   <th>Expression</th>
-   <th>Native</th>
-   <th>Web</th>
+   <th>표현식</th>
+   <th>네이티브</th>
+   <th>웹</th>
   </tr>
   <tr>
    <td><code>1 is int</code></td>
@@ -329,26 +326,24 @@ it might change in the future.
 </table>
 
 
-### Bitwise operations
+### 비트 단위 연산
 
-For performance reasons on the web,
-bitwise (`&`, `|`, `^`, `~`) and shift (`<<`,`>>`, `>>>`) operators on `int`
-use the native JavaScript equivalents.
-In JavaScript, the operands are truncated to 32-bit integers
-that are treated as unsigned.
-This treatment can lead to surprising results on larger numbers.
-In particular, if operands are negative or don't fit into 32 bits,
-they're likely to produce different results between native and web.
+웹에서는 성능의 이유로
+`int`에 대한 비트 단위 (`&`, `|`, `^`, `~`) 그리고 쉬프트 (`<<`,`>>`, `>>>`) 연산자는
+네이티브 JavaScript의 연산자를 사용합니다.
+JavaScript에서 피연산자는 부호가 없는 32-bit 정수로 잘립니다.
+이런 처리는 더 큰 수에서 예상하지 못한 결과를 가져올 수 있습니다.
+특히 피연산자가 음수이거나 32 비트에 맞지 않으면,
+네이티브와 웹에서 서로 다른 결과를 만들 수도 있습니다.
 
-The following table shows how native and web platforms
-treat bitwise and shift operators when the operands
-are either negative or close to 32 bits:
+다음 표는 네이티브와 웹 플랫폼에서 피연산자가 음수이거나 32 비트에
+가까운 수 일 때 비트 단위, 쉬프트 연산자를 어떻게 처리하는지 보여줍니다:
 
 <table class="table table-striped nowrap">
   <tr>
-   <th>Expression</th>
-   <th>Native</th>
-   <th>Web</th>
+   <th>표현식</th>
+   <th>네이티브</th>
+   <th>웹</th>
   </tr>
   <tr>
    <td><code>-1 >> 0</code></td>
@@ -378,18 +373,16 @@ are either negative or close to 32 bits:
 </table>
 
 
-### String representation
+### 문자열 표현
 
-On the web, Dart generally defers to JavaScript to convert a number to a string
-(for example, for a `print`).
-The following table demonstrates how
-converting the expressions in the first column can lead to different results.
+웹에서 Dart는 일반적으로 숫자를 문자열로 변환하기 위해 JavaScript의 방법을 따릅니다. (예를 들어, `print`)
+다음 표는 첫 번째 열의 표현식의 변환이 플랫폼에 따라 어떻게 다른지 보여줍니다.
 
 <table class="table table-striped nowrap">
   <tr>
-   <th>Expression</th>
-   <th>Native <code>toString()</code></th>
-   <th>Web <code>toString()</code></th>
+   <th>표현식</th>
+   <th>네이티브 <code>toString()</code></th>
+   <th>웹 <code>toString()</code></th>
   </tr>
   <tr>
    <td><code>1</code></td>
@@ -429,18 +422,15 @@ converting the expressions in the first column can lead to different results.
 </table>
 
 
-## What should you do?
+## 어떻게 해야 할까요?
 
-Usually, you don't need to change your numeric code.
-Dart code has been running on both native and web platforms for years,
-and number implementation differences are rarely a problem.
-Common, typical code—such as iterating through a range of small integers 
-and indexing a list—behaves the same.
+일반적으로 숫자 코드를 수정할 필요가 없습니다.
+Dart 코드는 수년 동안 네이티브와 웹 플랫폼에서 모두 실행되어 왔고,
+숫자 구현의 차이는 거의 문제가 되지 않았습니다. 좁은 정수 범위를 반복하고
+리스트를 인덱싱하는 것과 같은 일반적이고 흔한 코드는 동일하게 작동합니다.
 
-If you have tests or assertions that compare string results,
-write them in a platform-resilient manner.
-For example, suppose you're testing the value of string expressions
-that have embedded numbers:
+문자열 결과를 비교하는 테스트 또는 assertion이 있는 경우 플랫폼 복원 방식으로 작성하세요.
+예를 들어 숫자가 포함된 문자열 표현식의 값을 테스트한다고 가정해 봅시다:
 
 ```dart
 void main() {
@@ -450,28 +440,21 @@ void main() {
 }
 ```
 
-The preceding code succeeds on native platforms but throws on the web
-because `message` is `"20 cows"` (no decimal) on the web.
-As an alternative, you might write the condition as follows,
-so it passes on both native and web platforms:
+앞선 코드는 네이티브에서 에러가 발생하지 않지만,
+웹에서 `message`는 `"20 cows"`(소수점 없음)이기 때문에 예외가 발생합니다.
+또는 다음과 같이 조건을 작성하면 네이티브와 웹 플랫폼 모두에서 통과할 수 있습니다:
 
 ```dart
 if (message != "${20.0} cows") throw ... 
 ```
 
-For bit manipulation, consider explicitly operating on 32-bit chunks,
-which are consistent on all platforms.
-To force a signed interpretation of a 32-bit chunk,
-use `int.toSigned(32)`.
+비트 조작의 경우 모든 플랫폼에서 일관된 32-bit 청크에 명시적으로 연산하는 것을 고려하세요.
+32-bit 청크의 부호화된 결과를 원한다면 `int.toSigned(32)`를 사용하세요.
 
-For other cases where precision matters,
-consider other numeric types.
-The [`BigInt`][] type
-provides arbitrary-precision integers on both native and web.
-The [`fixnum`][] package
-provides strict 64-bit signed numbers, even on the web.
-Use these types with care, though:
-they often result in significantly bigger and slower code.
+정밀도가 중요한 경우에는 다른 숫자 타입을 고려하세요.
+[`BigInt`][] 타입은 네이티브와 웹에서 임의 정밀도 정수를 제공합니다.
+[`fixnum`][] 패키지는 웹에서 엄격한 64-bit 부호화된 숫자를 제공합니다.
+이러한 타입은 코드가 훨씬 크고 느려지는 경우가 많기 때문에 사용에 주의하세요.
 
 [`BigInt`]: {{site.dart-api}}/{{site.data.pkg-vers.SDK.channel}}/dart-core/BigInt-class.html
 [`fixnum`]: {{site.pub-pkg}}/fixnum
