@@ -1,43 +1,35 @@
 ---
-title: Sound null safety
-description: Information about Dart's null safety feature
+title: 견고한 null 안전성
+description: Dart의 null 안전성 기능에 대해 살펴봅니다.
 ---
 
-The Dart language comes with sound null safety.
+Dart 언어는 견고한 null 안전성을 가지고 있습니다.
 
-Null safety prevents errors that result from unintentional access
-of variables set to `null`.
-For example, if a method expects an integer but receives `null`,
-your app causes a runtime error. This type of error, a null dereference error,
-can be difficult to debug.
+Null 안전성은 `null`로 설정된 변수에 예기치 않게 액세스하는 오류를 방지합니다.
+예를 들어, 정수를 기대하는 메서드가 `null`을 넘겨 받는다면, 런타임 에러가 발생합니다.
+이러한 역참조 에러는 디버깅하기 어렵습니다.
 
-With sound null safety variables are 'non-nullable' by default:
-They can be assigned only values of the declared type
-(e.g. `int i=42`), and never be assigned `null`.
-You can specify that a type of a variable is nullable
-(e.g. `int? i`),
-and only then can they contain either a `null` *or*
-a value of the defined type.
+견고한 null 안전성을 사용하면 변수는 디폴트로 null이 될 수 없습니다:
+절대 `null`로 할당될 수 없고, 선언된 타입의 값(예: `int i=42`)을 할당받아야만 합니다.
+변수를 Null이 될 수 있는 타입으로 선언하는 것도 가능합니다(예: `int? i`).
+이런 식으로 선언하면 해당 변수는 `null` *또는* 정의된 타입의 값을 가질 수 있습니다.
 
-Sound null safety changes potential **runtime errors**
-into **edit-time** analysis errors, by flagging when
-any non-nullable variable hasn't been initialized with a 
-non-null value or is being assigned a `null`.
-This allows you to fix these errors before deploying your app.
+견고한 null 안전성은 null일 수 없는 변수가 null이 아닌 값으로 초기화 되지 않았거나
+`null`이 할당되는 경우를 표시하여 잠재적인 **런타임 에러**를 *편집 시* 분석 에러로 변환합니다.
+이런 기능을 사용하여 앱을 개발하는 과정에서 에러를 수정하는 것이 가능합니다.
 
 {{site.alert.warn}}
-In Dart 2.x SDKs, you can enable or disable sound null safety 
-through configuration of the project SDK constraint.
-To learn more, see [Enabling/disabling null safety](#enable-null-safety).
+Dart 2.x SDK에서 프로젝트의 SDK 제한을 설정하여
+견고한 null 안전성을 활성화 또는 비활성화할 수 있습니다.
+[null 안전성의 활성화/비활성화](#enable-null-safety)을 참고하세요.
 
-Dart 3--planned for a mid-2023 release--
-will require sound null safety. It will prevent code from running without it.
-All existing code must be [migrated](#migrate) to sound null safety
-to be compatible with Dart 3.
-To learn more, see the [Dart 3 sound null safety tracking issue][].
+2023년에 출시될 예정인 Dart 3은 견고한 null 안전성을 강제합니다. Dart 3는 견고한 null 안전성 없이
+코드를 실행할 수 없습니다. Dart 3과 호환하기 위해서 기존의 코드들은 견고한 null 안전성을
+[사용](#migrate)해야합니다. 
+더 자세한 정보는, [Dart 3 견고한 null 안전성 트래킹 이슈][]를 참고하세요.
 {{site.alert.end}}
 
-[Dart 3 sound null safety tracking issue]: https://github.com/dart-lang/sdk/issues/49530
+[Dart 3 견고한 null 안전성 트래킹 이슈]: https://github.com/dart-lang/sdk/issues/49530
 
 ## Introduction through examples
 

@@ -26,7 +26,7 @@
 - title: 언어
   expanded: false
   children:
-    - title: 개요
+    - title: 투어
       permalink: /guides/language/language-tour
     - title: 타입 시스템
       permalink: /guides/language/type-system
@@ -58,10 +58,10 @@
       permalink: /guides/language/concurrency
     - title: 숫자
       permalink: /guides/language/numbers
-    - title: Null safety
+    - title: Null 안전성
       expanded: false
       children:
-        - title: "Overview: Sound null safety"
+        - title: "개요: 견고한 null 안전성"
           urlExactMatch: true
           match-page-url-exactly: true
           permalink: /null-safety
@@ -84,7 +84,7 @@
 
     - title: Evolution
       permalink: /guides/language/evolution
-    - title: Specification
+    - title: 설명서
       permalink: /guides/language/spec
 
 - title: 핵심 라이브러리
