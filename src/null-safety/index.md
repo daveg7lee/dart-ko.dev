@@ -50,14 +50,14 @@ final b = Foo();
 int? aNullableInt = null;
 ```
 
-- [Null 안전성 codelab][Null safety codelab]에 대한 예제를 체험해보세요.
+- [Null 안전성 codelab][Null 안전성 codelab]에 대한 예제를 체험해보세요.
 - Null 안전성에 대해 더 자세히 알고 싶다면,
   [null 안전성의 이해](/null-safety/understanding-null-safety)를 참고하세요.
 
 
 ## Null 안전성 원칙
 
-Dart null 안전성 지원은 다음 세 가지 핵심 디자인 원칙을 기반으로 합니다:
+Dart의 null 안전성 지원은 다음 세 가지 핵심 디자인 원칙을 기반으로 합니다:
 
 * **Null이 될 수 없는 것이 기본입니다**. Dart 코드에 명시적으로 null이 될 수 있다고 표시하는 것이 아니라면,
    기본적으로 null이 될 수 없는 값으로 인지합니다. 현재 API에서 null이 아닌 값이 가장 일반적인 선택임을 발견하였고
@@ -76,7 +76,7 @@ Dart null 안전성 지원은 다음 세 가지 핵심 디자인 원칙을 기�
 ## Null 안전성 활성화/비활성화 {#enable-null-safety}
 
 견고한 null 안전성은 Dart 2.12와 Flutter 2.0 또는 이후의 버전부터 사용 가능합니다.
-Dart 3와 이후의 버전은 [_오직_ 견고한 null 안전성만을 지원할 것입니다.][Dart 3 sound null safety tracking issue].
+Dart 3와 이후의 버전은 [_오직_ 견고한 null 안전성만을 지원할 것입니다][Dart 3 견고한 null 안전성 이슈 트래킹].
 
 <a id="constraints"></a>
 
@@ -113,7 +113,7 @@ Null-safe한 코드로 마이그레이션하는 방법은
 
 * [Null 안전성 codelab][]
 * [Null 안전성의 이해][]
-* [기존의 코드를 위한 마이그레이션 가이드][migration guide]
+* [기존의 코드를 위한 마이그레이션 가이드][마이그레이션 가이드]
 * [Null 안전성 FAQ][]
 * [Null 안전성을 지원하는 DartPad]({{site.dartpad}})
 * [Null 안전성 코드 샘플][calculate_lix]
