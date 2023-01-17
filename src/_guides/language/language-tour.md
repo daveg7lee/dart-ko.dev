@@ -2717,7 +2717,7 @@ void main() {
 
 인스턴스 변수는 `final`로 선언할 수 있고, 그런 경우에는 단 한 번만 값이 정확하게 할당됩니다.
 `final`과 non-`late` 인스턴스 변수를 선언할 때 생성자 매개변수나,
-생성자의 [initializer list](#initializer-list)를 사용하여 초기화하세요:
+생성자의 [initializer 목록](#initializer-list)를 사용하여 초기화하세요:
 
 <?code-excerpt "misc/lib/effective_dart/usage_good.dart (field-init-at-decl)"?>
 ```dart
@@ -2894,7 +2894,7 @@ class Employee extends Person {
 super-initializer 매개변수를 superclass의 생성자로 넘겨주면 됩니다.
 이 피처를 리다이렉팅 생성자와 함께 사용하는 것은 불가능합니다.
 Super-initializer 매개변수는
-[initializing formal parameters](#initializing-formal-매개변수)와 비슷한 문법과 의미를 가집니다:
+[형식 매개변수 초기화](#형식-매개변수-초기화)와 비슷한 문법과 의미를 가집니다:
 
 <?code-excerpt "misc/lib/language_tour/classes/super_initializer_parameters.dart (positional)" plaster="none"?>
 ```dart
