@@ -43,6 +43,7 @@ final b = Foo();
 ```
 
 <a id="creating-variables"></a>
+
 어떤 변수가 `null`일 수도 있다는 것을 나타내고 싶다면,
 타입 선언에 `?`를 추가하세요:
 
@@ -50,7 +51,7 @@ final b = Foo();
 int? aNullableInt = null;
 ```
 
-- [Null 안전성 codelab][Null 안전성 codelab]에 대한 예제를 체험해보세요.
+- [Null 안전성 codelab][Null 안전성 codelab]에서 예제를 체험해보세요.
 - Null 안전성에 대해 더 자세히 알고 싶다면,
   [null 안전성의 이해](/null-safety/understanding-null-safety)를 참고하세요.
 
