@@ -52,7 +52,7 @@ void main() {
 
 <code>// <em>이건 주석입니다.</em> </code>
 :   단일행 주석입니다.
-    Dart에서는 다중행 그리고 문서 주석도 지원합니다.
+    Dart에서는 다중행 그리고 문서화 주석도 지원합니다.
     주석에 대해 더 자세히 알고 싶다면, [주석](#주석)을 참고하세요.
 
 `void`
@@ -100,30 +100,30 @@ Dart 언어를 학습 할 때 다음을 잘 기억해야합니다:
 
 -   변수로 할당 할 수 있는 모든 것은 *객체*이고, 모든 객체는 *클래스*의 인스턴스입니다.
     숫자, 함수 그리고 `null`까지 모두 객체입니다.
-    `null`을 제외하고 ([sound null safety][ns]를 활성화했다면),
+    `null`을 제외하고 ([견고한 null 안전성][ns]를 활성화했다면),
      모든 객체들은 [`Object`][] 클래스를 상속받습니다.
 
     {{site.alert.version-note}}
-      [Null safety][ns]는 Dart 2.12에 처음 소개되었습니다.
+      [Null 안전성][ns]는 Dart 2.12에 처음 소개되었습니다.
       null safety를 사용하려면 최소 2.12의 [language version][]이 필요합니다.
     {{site.alert.end}}
 
 -   Dart는 타입에 엄격하지만, 추론할 수 있기 때문에 타입 어노테이션은 자율에 맡깁니다.
     위의 코드에서 `number`는 `int` 타입으로 추론됩니다.
 
--   [Null safety][ns]를 활성화했다면,
-    어떤 변수가 null 값을 갖는 것을 허락하지 않았을 때 
+-   [Null 안전성][ns]을 활성화했다면,
+    변수가 null 값을 갖는 것을 허락하지 않았을 때 
     그 변수가 null 값을 가질 수 없게 할 수 있습니다.
     타입의 끝에 물음표 (`?`)를 추가하면 해당 변수를
     nullable로 만들 수 있습니다.
     예를 들어, `int?` 타입의 변수는 정수 또는 `null` 값을 가집니다.
     만약 표현식이 null로 평가되지 않지만 Dart가 이에 동의하지 않는다는 것을
     *알고* 있다면, `!`을 추가하여 null이 아니라고 주장(assert) 할 수 있습니다
-    (만약 null이라면 예외를 throw 합니다).
+    (null이라면 예외를 발생시킵니다).
     예시: `int x = nullableButNotNullInt!`
 
 -   어떤 타입이든 적용이 가능하다고 명시하고 싶다면, 
-    `Object?` ([null safety][ns-enable]를 활성화했다면)
+    `Object?` ([null 안전성][ns-enable]를 활성화했다면)
     또는 `Object`를 타입으로 설정해주면 된다.
     런타임까지 타입 체킹을 미뤄야 한다면,
     [특수 타입인 `dynamic`][ObjectVsDynamic]을 사용하세요.
@@ -149,10 +149,10 @@ Dart 언어를 학습 할 때 다음을 잘 기억해야합니다:
     어떠한 문자와 숫자의 결합이 가능합니다.
 
 -   Dart는 런타임 값을 가지는 *식 (expression)*과
-    그렇지 않은 *문 (statement)*를 가지고 있습니다.
-    예를 들어, [조건식 (conditional expression)](#조건-표현식)인
+    그렇지 않은 *문 (statement)*을 가지고 있습니다.
+    예를 들어, [조건 표현식 (conditional expression)](#조건-표현식)인
     `condition ? expr1 : expr2` 은 `expr1` 또는 `expr2`의 값을 가집니다.
-    위의 expression과 값을 가지지 않는 
+    위의 표현식과 값을 가지지 않는 
     [if-else 문](#if-else)를 비교해봅시다.
     문은 때로 하나 혹은 그 이상의 식을 포함하지만,
     식은 직접적으로 문을 포함할 수 없습니다.
@@ -271,7 +271,7 @@ Dart 언어를 학습 할 때 다음을 잘 기억해야합니다:
 
 * **2**로 표시된 단어들은 **내장 식별자(built-in identifiers)**로
   이 키워드들은 거의 모든 곳에서 식별자로 사용이 가능하지만,
-  클래스나 타입의 이름, import prefix로 사용은 불가능합니다.
+  클래스나 타입의 이름, import 프리픽스로 사용은 불가능합니다.
 
 * **3**으로 표시된 단어들은 [비동기 지원](#비동기-지원)과
   관련된 제한된 단어들 입니다. `await` 또는 `yield`를
@@ -291,7 +291,7 @@ Dart 언어를 학습 할 때 다음을 잘 기억해야합니다:
 var name = 'Bob';
 ```
 
-변수는 레퍼런스(reference)를 저장합니다. `name`이라는 변수는 "Bob"이라는 값을
+변수는 레퍼런스를 저장합니다. `name`이라는 변수는 "Bob"이라는 값을
 가지고 있는 `String` 객체의 레퍼런스를 포함합니다.
 
 `name`의 타입은 `String`으로 추론되지만, 구체적으로 명시하여 타입을 변경 할 수 있습니다.
@@ -320,7 +320,7 @@ String name = 'Bob';
 
 Nullable 타입을 가지는 초기화되지 않은 변수는
 초기 값으로 `null`을 가질 수 있습니다.
-([Null safety][ns]를 사용하지 않는다면,
+([Null 안전성][ns]을 사용하지 않는다면,
 모든 변수는 nullable 타입을 가집니다.)
 Dart의 다른 모든 것과 마찬가지로 숫자도 객체이기 때문에,
 숫자 타입의 변수도 처음에는 null 입니다.
@@ -337,7 +337,7 @@ assert(lineCount == null);
   throw 합니다. 더 자세한 것은, [Assert](#assert)를 참고하세요.
 {{site.alert.end}}
 
-Null safety를 활성화 했다면, non-nullable 변수를 사용하기 전에
+Null 안전성을 활성화 했다면, non-nullable 변수를 사용하기 전에
 값들을 초기화해야만 합니다:
 
 <?code-excerpt "misc/lib/language_tour/variables.dart (var-ns-init)"?>
@@ -424,8 +424,8 @@ void main() {
 
 변수를 변경할 생각이 없다면, `var` 대신 `final`이나 `const`를 사용하거나,
 지정한 타입에 추가하여 사용하세요.
-final 변수는 오직 한 번만 설정될 수 있습니다; const 변수는 컴파일 타임 상수입니다.
-(const 변수는 내부적으로 final입니다)
+final 변수는 오직 한 번만 설정될 수 있습니다; const 변수는 컴파일 타임 상수입니다
+(const 변수는 내부적으로 final입니다).
 
 {{site.alert.note}}
   [인스턴스 변수](#인스턴스-변수)는 `final`로 설정될 수 있지만, `const`는 될 수 없습니다.
@@ -493,7 +493,7 @@ baz = [42]; // 에러: 상수 변수는 값이 할당될 수 없습니다.
 [타입 체크와 캐스트](#타입-테스트-연산자) (`is` 그리고 `as`),
 [컬렉션 `if`](#컬렉션-연산자),
 그리고 [전개 연산자](#전개-연산자) (`...` 그리고 `...?`)를
-사용하는 상수 정의가 가능합니다.:
+사용하는 상수 정의가 가능합니다:
 
 <?code-excerpt "misc/lib/language_tour/variables.dart (const-dart-25)"?>
 ```dart
@@ -544,8 +544,8 @@ Dart 언어의 일부 타입들은 특수한 역할을 수행합니다:
 * `Future`, `Stream`: [비동기 지원](#비동기-지원)에서 사용됩니다.
 * `Iterable`: [for-in 루프][iteration] 그리고
   동기식 [제너레이터 함수](#제너레이터)에서 사용됩니다.
-* `Never`: 식(expression)의 평가(evaluating)를 완료할 수 없음을 나타냅니다.
-  항상 예외를 throw하는 함수에서 보통 사용됩니다.
+* `Never`: 식(expression)의 평가를 완료할 수 없음을 나타냅니다.
+  항상 예외를 발생시키는 함수에서 보통 사용됩니다.
 * `dynamic`: 정적 타입 체킹의 비활성화를 의미합니다.
   대개 `Object` 또는 `Object?`를 대신 사용하세요.
 * `void`: 값이 사용되지 않는다는 것을 의미합니다.

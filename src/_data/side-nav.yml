@@ -65,7 +65,7 @@
           urlExactMatch: true
           match-page-url-exactly: true
           permalink: /null-safety
-        - title: Migrating to null safety
+        - title: Null 안전성으로 마이그레이션
           urlExactMatch: true
           match-page-url-exactly: true
           permalink: /null-safety/migration-guide
