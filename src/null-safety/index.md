@@ -115,7 +115,7 @@ $ dart analyze / flutter analyze     # 에러없이 통과해야 합니다
 `analyze` 단계에서 실패한다면, 애널라이저가 표시하는 문제를 코드에서 해결하세요.
 
 [다운로드 페이지]: /get-dart/archive#dart-3-alpha
-[종속성 상태]: /null-safety/migration-guide#check-dependency-status
+[종속성 상태]: /null-safety/migration-guide#종속-상태-확인
 
 ### Dart 3 역호환성
 
