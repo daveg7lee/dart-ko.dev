@@ -31,36 +31,36 @@ ENV DART_CHANNEL=$DART_CHANNEL
 ENV DART_SDK=/usr/lib/dart
 ENV PATH=$DART_SDK/bin:$PATH
 RUN set -eu; \
-    case "$(dpkg --print-architecture)_${DART_CHANNEL}" in \
-amd64_stable) \
+  case "$(dpkg --print-architecture)_${DART_CHANNEL}" in \
+  amd64_stable) \
   DART_SHA256="337de0ad3ee66dca7ffa81fc3cd9ecd53d4593384da9d1dfcf4b68f69559fa2b"; \
   SDK_ARCH="x64";; \
-arm64_stable) \
+  arm64_stable) \
   DART_SHA256="684092802f280ca7a64b111da647bbd380d2ce5adf8a23bcd70cc902a3c4a495"; \
   SDK_ARCH="arm64";; \
-amd64_beta) \
+  amd64_beta) \
   DART_SHA256="a7154a06224168546f75b7f6294e9630f18da7ab33d28912a1bc5fab076f9da4"; \
   SDK_ARCH="x64";; \
-arm64_beta) \
+  arm64_beta) \
   DART_SHA256="edc4bf48b3bc3999caf8c3093dffffb960369699bc5ab912ebfd153cf02cbd35"; \
   SDK_ARCH="arm64";; \
-amd64_dev) \
+  amd64_dev) \
   DART_SHA256="221a06947f3918d02ce0c3e47a479e03ac46d0eb758b569c2995616bd23a618b"; \
   SDK_ARCH="x64";; \
-arm64_dev) \
+  arm64_dev) \
   DART_SHA256="9c62c518ad7bd9789b85d7e47fdbdbeb9dc228e6bad2602888a422594313d908"; \
   SDK_ARCH="arm64";; \
-    esac; \
-    SDK="dartsdk-linux-${SDK_ARCH}-release.zip"; \
-    BASEURL="https://storage.googleapis.com/dart-archive/channels"; \
-    URL="$BASEURL/$DART_CHANNEL/release/$DART_VERSION/sdk/$SDK"; \
-    curl -fsSLO "$URL"; \
-    echo "$DART_SHA256 *$SDK" | sha256sum --check --status --strict - || (\
-        echo -e "\n\nDART CHECKSUM FAILED! Run 'make fetch-sums' for updated values.\n\n" && \
-        rm "$SDK" && \
-        exit 1 \
-    ); \
-    unzip "$SDK" > /dev/null && mv dart-sdk "$DART_SDK" && rm "$SDK";
+  esac; \
+  SDK="dartsdk-linux-${SDK_ARCH}-release.zip"; \
+  BASEURL="https://storage.googleapis.com/dart-archive/channels"; \
+  URL="$BASEURL/$DART_CHANNEL/release/$DART_VERSION/sdk/$SDK"; \
+  curl -fsSLO "$URL"; \
+  echo "$DART_SHA256 *$SDK" | sha256sum --check --status --strict - || (\
+  echo -e "\n\nDART CHECKSUM FAILED! Run 'make fetch-sums' for updated values.\n\n" && \
+  rm "$SDK" && \
+  exit 1 \
+  ); \
+  unzip "$SDK" > /dev/null && mv dart-sdk "$DART_SDK" && rm "$SDK";
 ENV PUB_CACHE="${HOME}/.pub-cache"
 RUN dart --disable-analytics
 RUN echo -e "Successfully installed Dart SDK:" && dart --version
@@ -79,18 +79,18 @@ CMD ["./tool/test.sh"]
 # ============== NODEJS INSTALL ==============
 FROM dart as node
 RUN set -eu; \
-    NODE_PPA="node_ppa.sh"; \
-    NODE_SHA256=061519c83ce8799cc00d36e3bab85ffcb9a8b4164c57b536cc2837048de9939f; \
-    curl -fsSL https://deb.nodesource.com/setup_lts.x -o "$NODE_PPA"; \
-    echo "$NODE_SHA256 $NODE_PPA" | sha256sum --check --status --strict - || (\
-        echo -e "\n\nNODE CHECKSUM FAILED! Run tool/fetch-node-ppa-sum.sh for updated values.\n\n" && \
-        rm "$NODE_PPA" && \
-        exit 1 \
-    ); \
-    sh "$NODE_PPA" && rm "$NODE_PPA"; \
-    apt-get update -q && apt-get install -yq --no-install-recommends \
-      nodejs \
-    && rm -rf /var/lib/apt/lists/*
+  NODE_PPA="node_ppa.sh"; \
+  NODE_SHA256=061519c83ce8799cc00d36e3bab85ffcb9a8b4164c57b536cc2837048de9939f; \
+  curl -fsSL https://deb.nodesource.com/setup_lts.x -o "$NODE_PPA"; \
+  echo "$NODE_SHA256 $NODE_PPA" | sha256sum --check --status --strict - || (\
+  echo -e "\n\nNODE CHECKSUM FAILED! Run tool/fetch-node-ppa-sum.sh for updated values.\n\n" && \
+  rm "$NODE_PPA" && \
+  exit 1 \
+  ); \
+  sh "$NODE_PPA" && rm "$NODE_PPA"; \
+  apt-get update -q && apt-get install -yq --no-install-recommends \
+  nodejs \
+  && rm -rf /var/lib/apt/lists/*
 # Ensure latest NPM
 RUN npm install -g npm
 

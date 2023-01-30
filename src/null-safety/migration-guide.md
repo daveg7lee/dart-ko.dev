@@ -61,11 +61,13 @@ description: 기존의 코드를 null 안전성을 준수하는 코드로 수정
 
 ### 최신 stable Dart 릴리즈로 전환
 
-Dart SDK 또는 Flutter SDK를 **최신 stable 릴리즈**로 전환하세요.
+Dart SDK를 **Dart 2.19 stable 릴리즈**로 전환하세요.
+이 버전은 Flutter 3.7 SDK에 포함되어있습니다.
 
-Dart 버전이 2.12 이상인지 확인합니다:
+Dart 버전이 2.19 이상인지 확인하세요:
   ```terminal
 $ dart --version
+Dart SDK version: 2.19.0
 ```
 
 ### 종속 상태 확인
@@ -313,6 +315,9 @@ except for a 2.9 [version comment][].
 For more information about incremental migration, see
 [Unsound null safety][].
 
+Note that only fully migrated apps and packages 
+are compatible with Dart 3.
+
 [version comment]: /guides/language/evolution#per-library-language-version-selection
 
 
@@ -460,7 +465,13 @@ we strongly recommend following these pubspec rules:
 
 If you made it this far,
 you should have a fully migrated, null-safe Dart package.
+
 If all of the packages you depend on are migrated too,
 then your program is sound with respect to null-reference errors.
+You should see output like this when running or compiling your code:
+
+```terminal
+Compiling with sound null safety
+```
 
 From all of the Dart team, *thank you* for migrating your code.

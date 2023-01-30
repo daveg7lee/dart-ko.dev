@@ -6,9 +6,9 @@ toc: false
 
 Dart 문서에 오신 것을 환영합니다!
 새로운 페이지, 가이드라인 등 이 사이트의 변경사항을 보고 싶다면, 
-[What's new page][]을 참고하세요.
+[What's new][]을 참고하세요.
 
-[What's new page]: /guides/whats-new
+[What's new]: /guides/whats-new
 
 아래는 이 사이트에서 가장 많이 방문되는 페이지들입니다:
 

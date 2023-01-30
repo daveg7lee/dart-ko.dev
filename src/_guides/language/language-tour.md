@@ -3890,7 +3890,7 @@ var foo = [!Foo<Object>!]();
 `import`와 `library` 명령어는 코드를 모듈화하고 공유하는 것을 도와줍니다.
 라이브러리는 API를 제공할 뿐만 아니라, 관리(privacy)의 단위가 됩니다:
 언더스코어(`_`)로 시작하는 식별자들은 오직 그 라이브러리 안에서만 보입니다.
-`library` 명령어를 사용하지 않았다고 해도, *모든 Dart 앱은 라이브러리*입니다.
+[`library`](#library-directive) 명령어를 사용하지 않았다고 해도, *모든 Dart 앱은 라이브러리*입니다.
 
 라이브러리들은 [packages](/guides/packages)를 사용해 분산 될 수 있습니다.
 
@@ -3929,7 +3929,6 @@ import 'package:test/test.dart';
   *URI*는 stands for uniform resource identifier의 준말입니다.
   *URLs* (uniform resource locators)은 URI의 종류입니다.
 {{site.alert.end}}
-
 
 #### 라이브러리 프리픽스 지정
 
@@ -4017,6 +4016,20 @@ Future<void> greet() async {
   를 사용하여 정의한 네임스페이스에 삽입합니다.
   `loadLibrary()`는 [`Future`](/guides/libraries/library-tour#future)를 반환합니다.
 
+#### `library` 명령어 {#library-directive}
+
+라이브러리 수준의 [문서화 주석][] or [메타데이터 어노테이션][]를
+지정하고 싶다면, 파일의 시작에 `library` 선언을 추가하세요.
+
+<?code-excerpt "misc/lib/effective_dart/docs_good.dart (library-doc)"?>
+{% prettify dart tag=pre+code %}
+/// A really great test library.
+@TestOn('browser')
+library;
+{% endprettify %}
+
+[문서화 주석]: /guides/language/effective-dart/documentation#consider-writing-a-library-level-doc-comment
+[메타데이터 어노테이션]: /guides/language/language-tour#메타데이터
 
 ### 라이브러리 구현
 
@@ -4025,9 +4038,8 @@ Future<void> greet() async {
 [라이브러리 패키지 만들기](/guides/libraries/create-library-packages)를 살펴보세요:
 
 * 라이브러리 소스 코드 구성법.
-* `export` 디렉티브 사용법.
-* `part` 디렉티브를 사용해야할 때.
-* `library` 디렉티브를 사용해야할 때.
+* `export` 명령어 사용법.
+* `part` 명령어를 사용해야할 때.
 * 다수의 플랫폼을 지원하는 라이브러리를 구현 할 때
   조건적인 import와 export의 사용법.
 

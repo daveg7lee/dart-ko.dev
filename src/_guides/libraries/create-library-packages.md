@@ -45,12 +45,6 @@ lib 디렉토리
   lib/src 디렉토리의 API 공개는 lib/scr 디렉토리의 파일을 lib 디렉토리의 파일로
   내보냄으로써 달성됩니다.
 
-{{site.alert.note}}
-  `library` 명령어가 지정되지 않으면, 각 라이브러리의 경로와 파일 이름을 기반으로 고유한 태그가 생성됩니다.
-  그러므로, [라이브러리 레벨의 문서화를 생성](#documenting-a-library)하는 것이 아니라면,
-  `libaray` 명령어의 생략을 추천합니다.
-{{site.alert.end}}
-
 ## 라이브러리 패키지 구성
 
 _미니 라이브러리_ 라고 하는 작고 독립된 라이브러리를 만들 때는 라이브러리 패키지의
@@ -254,11 +248,11 @@ void updateBadge() {
 For an example of generated docs, see the
 [shelf documentation.]({{site.pub-api}}/shelf/latest)
 
-{{site.alert.note}}
-  To include any library-level documentation in the generated docs,
-  you must specify the `library` directive.
-  See [issue 1082.](https://github.com/dart-lang/dartdoc/issues/1082)
-{{site.alert.end}}
+To include any *library-level* documentation in the generated docs,
+add a `library` directive and attach the comment directly above it.
+For the how-and-why of documenting libraries, see
+[Effective Dart: Documentation](/guides/language/effective-dart/documentation#consider-writing-a-library-level-doc-comment).
+
 
 ## Distributing an open source library {#distributing-a-library}
 
