@@ -296,7 +296,7 @@ main isolate를 구현합니다.
 {{site.alert.end}}
 
 [네이티브와 네이티브가 아닌 플랫폼]: /overview#platform
-[Flutter의 `compute()` 함수]: {{site.flutter-api}}/flutter/foundation/compute.html
+[Flutter의 `compute()` 함수]: {{site.flutter-api}}/flutter/foundation/compute-constant.html
 
 #### 새로운 isolate에서 메소드 실행
 

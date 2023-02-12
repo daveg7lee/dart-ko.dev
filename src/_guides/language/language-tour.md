@@ -2698,6 +2698,7 @@ Final이 아닌 변수 그리고 Initializers가 없는
 
 Non-`late` 변수가 선언된 동시에 초기화되면
 인스턴스가 생성될 때, 생성자와 해당 initializer 목록이 실행되기 전에 값이 설정됩니다.
+결과적으로, non-`late` 인스턴스 변수 initializer는 `this`에 접근할 수 없습니다.
 
 <?code-excerpt "misc/lib/language_tour/classes/point_with_main.dart (class+main)" replace="/(double .*?;).*/$1/g" plaster="none"?>
 ```dart
