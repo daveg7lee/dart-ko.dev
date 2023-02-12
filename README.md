@@ -4,12 +4,14 @@
 [![OpenSSF Scorecard SVG][]][Scorecard Results]
 [![first-timers SVG][]][first-timers]
 
-This repo translates https://dart.dev into Korean !
+이 저장소는 Dart 팀에게 승인된 dart.dev 한국어 번역 프로젝트입니다.
+
+자유롭게 PR 해주세요!
+
+
+This repo is a dart.dev Korean translation project approved by the Dart team.
 
 Feel free to PR !
-
-[We welcome contributions](CONTRIBUTING.md), 
-and we're [first-timer friendly][first-timers]!
 
 ## Getting started
 
