@@ -3,6 +3,15 @@ title: Null 안전성으로 마이그레이션
 description: 기존의 코드를 null 안전성을 준수하는 코드로 수정하는 방법을 배웁니다.
 ---
 
+{{site.alert.version-note}}
+  Dart 2.19는 `dart migrate` 툴을 포함하며,
+  null 안전성 마이그레이션을 지원하는 마지막 릴리즈입니다.
+  패키지를 null 안전성으로 마이그레이트하고 싶다면,
+  최신 Dart 2.19 SDK를 사용하세요.
+  더 자세한 사항은,
+  [Dart 3와 null 안전성](/null-safety#dart-3-and-null-safety)을 참고하세요.
+{{site.alert.end}}
+
 이 페이지는 언제 어떻게 [null 안전성][]을 준수하는 코드로 마이그레이션 해야 하는지 설명합니다.
 각 패키지를 마이그레이션하기 위한 기본 단계는 다음과 같습니다:
 
@@ -64,10 +73,11 @@ description: 기존의 코드를 null 안전성을 준수하는 코드로 수정
 Dart SDK를 **Dart 2.19 stable 릴리즈**로 전환하세요.
 이 버전은 Flutter 3.7 SDK에 포함되어있습니다.
 
-Dart 버전이 2.19 이상인지 확인하세요:
-  ```terminal
+Dart 버전이 2.19인지 확인하세요:
+
+```terminal
 $ dart --version
-Dart SDK version: 2.19.0
+Dart SDK version: 2.19.2
 ```
 
 ### 종속 상태 확인
@@ -155,7 +165,7 @@ adding [hint markers][] to your Dart code.
 
 Before starting the tool, make sure you're ready:
 
-* Use the latest stable release of the Dart SDK.
+* Use the latest 2.19 release of the Dart SDK.
 * Use `dart pub outdated --mode=null-safety` to make sure that
   all dependencies are null safe and up-to-date.
   

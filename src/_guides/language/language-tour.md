@@ -802,7 +802,7 @@ var hitPoints = 0;
 assert(hitPoints <= 0);
 
 // null인지 확인합니다.
-var unicorn;
+var unicorn = null;
 assert(unicorn == null);
 
 // NaN인지 확인합니다.
