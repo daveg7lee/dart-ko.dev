@@ -491,8 +491,8 @@ baz = [42]; // 에러: 상수 변수는 값이 할당될 수 없습니다.
 ```
 
 [타입 체크와 캐스트](#타입-테스트-연산자) (`is` 그리고 `as`),
-[컬렉션 `if`](#컬렉션-연산자),
-그리고 [전개 연산자](#전개-연산자) (`...` 그리고 `...?`)를
+[컬렉션 `if`](#collection-operators),
+그리고 [전개 연산자](#spread-operator) (`...` 그리고 `...?`)를
 사용하는 상수 정의가 가능합니다:
 
 <?code-excerpt "misc/lib/language_tour/variables.dart (const-dart-25)"?>
@@ -1009,8 +1009,8 @@ final constantSet = const {
 Set은 list 처럼 전개 연산자 (`...` 그리고 `...?`)와
 컬렉션 `if` and `for`을 지원합니다.
 더 많은 정보를 원한다면,
-[list 전개 연산자](#전개-연산자) 그리고
-[list 컬렉션 연산자](#컬렉션-연산자)를 참고하세요.
+[list 전개 연산자](#spread-operator) 그리고
+[list 컬렉션 연산자](#collection-operators)를 참고하세요.
 
 Set에 대한 더 많은 정보를 원한다면,
 [제네릭](#제네릭) 과
