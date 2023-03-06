@@ -3,7 +3,7 @@
     To re-generate it, please run the following command from root of
     the project:
 
-      $ dart run tool/effective-dart-rules/bin/main.dart
+      $ dart run tool/effective_dart_rules/bin/main.dart
 
     {% endcomment %}
     
@@ -15,15 +15,16 @@
 **식별자**
 
 * <a href='/guides/language/effective-dart/style#do-name-types-using-uppercamelcase'><code>UpperCamelCase</code>를 사용하여 타입을 명명하십시오.</a>
-* <a href='/guides/language/effective-dart/style#do-name-extensions-using-uppercamelcase'><code>UpperCamelCase</code>를 사용하여 extensions을 명명하십시오.</a>
-* <a href='/guides/language/effective-dart/style#do-name-libraries-and-source-files-using-lowercase_with_underscores'><code>lowercase_with_underscores</code>를 사용하여 라이브러리, 패키지, 디렉토리 그리고 소스 파일을 명명하십시오..</a>
-* <a href='/guides/language/effective-dart/style#do-name-import-prefixes-using-lowercase_with_underscores'><code>lowercase_with_underscores</code>를 사용하여 import prefix를 명명하십시오.</a>
+* <a href='/guides/language/effective-dart/style#do-name-extensions-using-uppercamelcase'><code>UpperCamelCase</code>를 사용하여 확장을 명명하십시오.</a>
+* <a href='/guides/language/effective-dart/style#do-name-libraries-and-source-files-using-lowercase_with_underscores'><code>lowercase_with_underscores</code>를 사용하여 라이브러리, 패키지, 디렉토리 그리고 소스 파일을 명명하십시오.</a>
+* <a href='/guides/language/effective-dart/style#do-name-import-prefixes-using-lowercase_with_underscores'><code>lowercase_with_underscores</code>를 사용하여 import 프리픽스를 명명하십시오.</a>
 * <a href='/guides/language/effective-dart/style#do-name-other-identifiers-using-lowercamelcase'>다른 식별자들은 <code>lowerCamelCase</code>를 사용하여 명명하십시오.</a>
-* <a href='/guides/language/effective-dart/style#prefer-using-lowercamelcase-for-constant-names'>상수인 변수는 <code>lowerCamelCase</code>를 사용하여 명명하는 것을 지향하십시오.</a>
-* <a href='/guides/language/effective-dart/style#do-capitalize-acronyms-and-abbreviations-longer-than-two-letters-like-words'>두 글자 이상의 두문자어(acronym)와 약어(abbreviation)는 대문자로 명명하십시오.</a>
-* <a href='/guides/language/effective-dart/style#prefer-using-_-__-etc-for-unused-callback-parameters'>사용하지 않는 콜백 파라미터을 <code>_</code>, <code>__</code> 와 같이 나타내는 것을 지향하십시오.</a>
+* <a href='/guides/language/effective-dart/style#prefer-using-lowercamelcase-for-constant-names'>상수는 <code>lowerCamelCase</code>를 사용하여 명명하는 것을 지향하십시오.</a>
+* <a href='/guides/language/effective-dart/style#do-capitalize-acronyms-and-abbreviations-longer-than-two-letters-like-words'>두 글자보다 긴 두문자어(acronym)와 약어(abbreviation)는 대문자로 명명하십시오.</a>
+* <a href='/guides/language/effective-dart/style#prefer-using-_-__-etc-for-unused-callback-parameters'>사용하지 않는 콜백 파라미터를 <code>_</code>, <code>__</code> 로 나타내는 것을 지향하십시오.</a>
 * <a href='/guides/language/effective-dart/style#dont-use-a-leading-underscore-for-identifiers-that-arent-private'>Private이 아닌 식별자의 앞에 언더스코어(_)를 사용하지 마십시오.</a>
-* <a href='/guides/language/effective-dart/style#dont-use-prefix-letters'>Prefix 문자를 사용하지 마십시오.</a>
+* <a href='/guides/language/effective-dart/style#dont-use-prefix-letters'>프리픽스 문자를 사용하지 마십시오.</a>
+* <a href='/guides/language/effective-dart/style#dont-explicitly-name-libraries'>명시적으로 라이브러리를 명명하지마십시오.</a>
 
 **순서**
 

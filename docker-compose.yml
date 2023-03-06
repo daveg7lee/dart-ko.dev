@@ -1,12 +1,11 @@
 version: "3"
 services:
-
   site:
     image: dart-dev:stable
     build:
       context: .
       target: dev
-    command: ["make", "serve"]
+    command: [ "make", "serve" ]
     env_file: .env
     environment:
       - JEKYLL_ENV=development

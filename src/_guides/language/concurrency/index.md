@@ -169,7 +169,9 @@ Isolate를 사용하면 Dart 코드가 가능한 추가 프로세서 코어를 �
 ### Main isolate
 
 경우에 따라 isolate에 대해 전혀 고려할 필요가 없습니다.
-다음 그림과 같이 보통 Dart 앱은 모든 코드를 앱의 main isolate에서 실행합니다:
+기본적으로 Dart 프로그램은 main isolate에서 실행됩니다.
+다음 그림에서 볼 수 있듯이 main isolate는 프로그램의 실행이
+시작되는 스레드 입니다.
 
 ![A figure showing a main isolate, which runs `main()`, responds to events, and then exits](/guides/language/concurrency/images/basics-main-isolate.png)
 
@@ -269,13 +271,131 @@ isolate를 구현하는 예제에 대해 이야기 해봅니다.
 
 ### 간단한 워커 isolate 구현
 
-이번 섹션에서 main isolate와 main isolate가 생성하는
-워커 isolate를 구현합니다.
+이번 섹션에서 워커 isolate를 생성하는
+main isolate를 구현합니다.
 워커 isolate는 함수를 실행하고 main isolate에게 단일 메시지를
-전송하며 종료합니다.
-([Flutter `compute()` function][]가 비슷한 방식으로 작동합니다.)
+전송하며 종료합니다. [`Isolate.run()`][] 함수는 워커 isolate를
+설정하고 관리하는 단계를 단순화 시켜줍니다:
 
-이번 예제에서는 isolate와 관련된 다음 API를 사용합니다:
+1. Isolate를 시작하고 생성합니다
+2. 생성된 isolate에서 함수를 실행합니다
+3. 결과를 캡처합니다
+4. Main isolate로 결과를 반환합니다
+5. 작업이 완료되면 isolate를 종료합니다.
+6. 예외와 에러를 확인, 캡처 그리고 발생시켜 main isolate에 알립니다.
+
+[`Isolate.run()`]: {{site.dart-api}}/dev/dart-isolate/Isolate/run.html
+
+{{site.alert.flutter-note}}
+  Flutter를 사용하고 있다면,
+  `Isolate.run()` 대신에
+  [Flutter의 `compute()` 함수][]의 사용을 고려해보세요.
+  `compute` 함수는 [네이티브와 네이티브가 아닌 플랫폼][]에서
+  모두 사용이 가능합니다. 보다 사용자 친화적인 API를 위해 네이티브 플랫폼을
+  대상으로 할 때 `Isolate.run()`을 사용하세요.
+{{site.alert.end}}
+
+[네이티브와 네이티브가 아닌 플랫폼]: /overview#platform
+[Flutter의 `compute()` 함수]: {{site.flutter-api}}/flutter/foundation/compute-constant.html
+
+#### 새로운 isolate에서 메소드 실행
+
+아래의 main isolate는 새로운 isolate를 생성합니다:
+
+<?code-excerpt "lib/simple_worker_isolate.dart (main)"?>
+```dart
+void main() async {
+  // 데이터 읽기.
+  final jsonData = await Isolate.run(_readAndParseJson);
+
+  // 데이터 사용.
+  print('Number of JSON keys: ${jsonData.length}');
+}
+```
+
+생성된 isolate는 첫 번째 인자로 주어진
+함수인 `_readAndParseJson`을 실행합니다:
+
+<?code-excerpt "lib/simple_worker_isolate.dart (spawned)"?>
+```dart
+Future<Map<String, dynamic>> _readAndParseJson() async {
+  final fileData = await File(filename).readAsString();
+  final jsonData = jsonDecode(fileData) as Map<String, dynamic>;
+  return jsonData;
+}
+```
+
+1. `Isolate.run()`은 백그라운드 워커인 isolate를 생성하고
+   `main()`은 결과를 기다립니다.
+
+2. 생성된 isolate는 `run()`의 인자로 넘겨진 함수를 (위에서는 `_readAndParseJson()`) 실행합니다.
+
+3. `Isolate.run()`은 `return`이 반환하는 결과를 main isolate에 전달하고
+   워커 isolate를 셧다운합니다.
+
+4. 워커 isolate는 결과를 홀딩하고 있는 메모리를 main isolate에게 *전달*합니다.
+   데이터를 *복사하지 않습니다*. 워커 isolate는 해당 객체를
+   전달할 수 있는지 검증하는 작업을 수행합니다.
+
+`_readAndParseJson()` 함수는 main isolate에서 직접
+실행할 수도 있는 비동기 함수입니다. 하지만 `Isolate.run()`을 사용하여
+실행하면 동시성이 활성화됩니다. 워커 isolate는 `_readAndParseJson()`의
+계산을 완전히 추상화하며 main isolate를 블락하지 않고 작업을 완료할 수 있습니다.
+
+Main isolate의 코드는 계속해서 실행되기 때문에 `Isolate.run()`의 결과는 항상 Future 입니다.
+Main isolate와 워커 isolate는 동시에 실행되기 때문에
+워커 isolate가 실행하는 계산이 동기적이든 아니든 main isolate에 영향을 주지 않습니다.
+
+{% comment %}
+TODO:
+Should create a diagram for the current example.
+Previous example's diagram and text for reference:
+
+  The following figure illustrates the communication between
+  the main isolate and the worker isolate:
+  
+  ![A figure showing the previous snippets of code running in the main isolate and in the worker isolate](/guides/language/concurrency/images/isolate-api.png)
+{% endcomment %}
+
+#### Isolate에 클로저 전달
+
+`run()`을 사용하여 Main isolate에서 워커 isolate를 생성할 때,
+직접적으로 함수 리터럴 또는 클로저를 사용할 수 있습니다.
+
+<?code-excerpt "lib/simple_isolate_closure.dart (main)"?>
+```dart
+void main() async {
+  // 데이터 읽기.
+  final jsonData = await Isolate.run(() async {
+    final fileData = await File(filename).readAsString();
+    final jsonData = jsonDecode(fileData) as Map<String, dynamic>;
+    return jsonData;
+  });
+
+  // 데이터 사용.
+  print('Number of JSON keys: ${jsonData.length}');
+}
+```
+
+이 예제는 이전의 예제외 같은 작업을 수행합니다.
+새로운 isolate를 생성하고 작업을 수행하며 마지막으로 결과를 반환합니다.
+
+그러나, 이번 예제에서는 isolate에 [클로저][]를 전달합니다.
+클로저는 작성하는 방법과 기능적으로 일반적인 named 함수보다 제약이 적습니다.
+이번 예제에서, `Isolate.run()`은 로컬 코드처럼 보이는 코드를 동시에 실행합니다.
+이런 맥락에서 `run()`이 코드를 "병렬적으로 실행"하기 위해 [흐름 제어 연산자][] 처럼
+작동한다고 생각할 수도 있습니다.
+
+[클로저]: /guides/language/language-tour#익명-함수
+[흐름 제어 연산자]: /guides/language/language-tour#흐름-제어문
+
+### Isolate 사이에 다수의 메시지 전송
+
+`Isolate.run()`은 isolate를 관리하는
+다음과 같은 유용한 저수준의 API들을 추상화합니다:
+
+* [`Isolate.spawn()`][], [`Isolate.exit()`][]
+* [`ReceivePort`][], [`SendPort`][]
 
 * [`Isolate.spawn()`][], [`Isolate.exit()`][]
 * [`ReceivePort`][], [`SendPort`][]
@@ -285,79 +405,14 @@ isolate를 구현하는 예제에 대해 이야기 해봅니다.
 [`ReceivePort`]: {{site.dart-api}}/{{site.data.pkg-vers.SDK.channel}}/dart-isolate/ReceivePort-class.html
 [`SendPort`]: {{site.dart-api}}/{{site.data.pkg-vers.SDK.channel}}/dart-isolate/SendPort-class.html
 
-다음은 main isolate 코드입니다:
+Isolate 기능을 더 정밀하게 제어하고 싶다면 위의 저수준 API를 사용하면 됩니다.
+예를 들어, `run()`은 하나의 메시지를 반환한 후 isolate를 셧다운합니다.
+Isolate 사이에 다수의 메시지를 전송하고 싶다면 어떻게 해야할까요?
+`run()`의 구현에서 `SendPort`의 [`send()` 메소드][]를 조금 다르게 수정하여
+isolate를 설정하면 됩니다.
 
-<?code-excerpt "lib/simple_worker_isolate.dart (main)"?>
-```dart
-void main() async {
-  // 데이터 읽기.
-  final jsonData = await _parseInBackground();
-
-  // 데이터 사용.
-  print('Number of JSON keys: ${jsonData.length}');
-}
-
-// Isolate를 생성하고 첫 메시지를 기다립니다.
-Future<Map<String, dynamic>> _parseInBackground() async {
-  final p = ReceivePort();
-  await Isolate.spawn(_readAndParseJson, p.sendPort);
-  return await p.first as Map<String, dynamic>;
-}
-```
-
-`_parseInBackground()` 함수는 백그라운드 워커로 사용할
-isolate를 _생성_ 하고 결과를 반환합니다:
-
-1. 코드는 isolate를 생성하기 전에
-   워커 isolate가 main isolate로
-   메시지를 보낼 수 있게 해주는 `ReceivePort`를 생성합니다.
-
-2. 다음으로 백그라운드 워커로 사용할 isolate를 생성하고 시작하는 `Isolate.spawn()`을 호출합니다.
-   `Isolate.spawn()`의 첫 번째 인자는 워커 isolate가 실행할 함수입니다.
-   위의 예제에서는 `_readAndParseJson` 입니다.
-   두 번째 인자는 `SendPort`로 min isolate로 메시지를 전송할 때 사용합니다.
-   위의 코드는 `SendPort`를 _생성_ 하지 않고
-   `ReceivePort`의 `sendPort` 프로퍼티를 사용합니다.
-
-3. Isolate가 생성되면, main isolate는 그 결과를 기다립니다.
-   `ReceivePort` 클래스는 `Stream`을 구현하기 때문에,
-   [`first`][] 프로퍼티를 사용하면 워커 isolate가 전송하는
-   메시지를 쉽게 얻을 수 있습니다.
-
-[`first`]: {{site.dart-api}}/{{site.data.pkg-vers.SDK.channel}}/dart-async/Stream/first.html
-
-생성된 isolate는 다음 코드를 실행합니다:
-
-<?code-excerpt "lib/simple_worker_isolate.dart (spawned)"?>
-```dart
-Future<void> _readAndParseJson(SendPort p) async {
-  final fileData = await File(filename).readAsString();
-  final jsonData = jsonDecode(fileData);
-  Isolate.exit(p, jsonData);
-}
-```
-마지막 코드 이후에 isolate가 종료되고 `jsonData`를 `SendPort`로 전송합니다.
-`SendPort.send`를 사용하는 메시지 패싱은 보통 데이터의 복사를 동반하기 때문에
-느립니다. 그러나, `Isolate.exit()`을 사용하여 데이터를 전송하면,
-isolate에 있는 메시지의 복사가 발생하지 않고 수신하는 isolate로 직접 전달됩니다.
-그럼에도 불구하고 전송자는 해당 객체가 전송할 수 있는 것인지 검증하는 과정을 수행합니다.
-
-{{site.alert.version-note}}
-  `Isolate.exit()`는 2.15 버전에 추가되었습니다.
-  이전 릴리즈에서는 `Isolate.send()`를 사용한 명시적 메시지 패싱만을 지원합니다.
-{{site.alert.end}}
-
-다음 그림은 main isolate와 워커 isolate의 커뮤니케이션에 대한 삽화입니다.
-
-![A figure showing the previous snippets of code running in the main isolate and in the worker isolate](/guides/language/concurrency/images/isolate-api.png)
-
-
-### Isolate에 다수의 메시지 전송하기
-
-Isolate 사이에서 더 많은 커뮤니케이션을 원한다면,
-`SendPort`의 [`send()` method][]를 사용하세요.
-다음 그림은 main isolate가 워커 isolate로 요청 메시지를 보낸 다음
-요청 및 응답을 위해 여러 번 통신하는 패턴을 보여줍니다.
+다음과 그림과 같이 main isolate에서 워커 isolate로
+요청 메시지를 보낸 후 하나 또는 다수의 응답 메시지를 보내는 패턴이 자주 사용됩니다.
 
 ![A figure showing the main isolate spawning the isolate and then sending a request message, which the worker isolate responds to with a reply message; two request-reply cycles are shown](/guides/language/concurrency/images/isolate-custom-bg-worker.png)
 
@@ -365,7 +420,7 @@ Isolate 사이에서 더 많은 커뮤니케이션을 원한다면,
 
 * [send_and_receive.dart][]:
   main isolate에서 생성된 isolate로 메시지를 보내는 방법을 알려줍니다.
-  앞선 예제와 비슷합니다.
+  앞선 예제와 비슷하지만 `run()`을 사용하지 않습니다.
 * [long_running_isolate.dart][]:
   메시지를 여러 번 송수신하는 장기 실행 isolate를 생성하는 방법을 알려줍니다.
 

@@ -3,11 +3,11 @@ description: Builds a file with all the rules in the different sections of Effec
 version: 0.0.3
 
 environment:
-  sdk: '>=2.16.0 <3.0.0'
+  sdk: '>=2.19.0 <3.0.0'
 
 dependencies:
   html_unescape: ^2.0.0
-  markdown: ^5.0.0
+  markdown: ^6.0.0
   path: ^1.8.0
 
 dev_dependencies:

@@ -1,7 +1,7 @@
 ---
 title: Dart로 떠나는 여행
 description: Dart 언어의 중요한 기능에 대해 학습합니다.
-short-title: 언어 개요
+short-title: 언어 투어
 js: [{url: 'https://dartpad.dev/inject_embed.dart.js', defer: true}]
 ---
 <?code-excerpt replace="/ *\/\/\s+ignore_for_file:[^\n]+\n//g; /(^|\n) *\/\/\s+ignore:[^\n]+\n/$1/g; /(\n[^\n]+) *\/\/\s+ignore:[^\n]+\n/$1\n/g; / *\/\/\s+ignore:[^\n]+//g; /([A-Z]\w*)\d\b/$1/g"?>
@@ -52,7 +52,7 @@ void main() {
 
 <code>// <em>이건 주석입니다.</em> </code>
 :   단일행 주석입니다.
-    Dart에서는 다중행 그리고 문서 주석도 지원합니다.
+    Dart에서는 다중행 그리고 문서화 주석도 지원합니다.
     주석에 대해 더 자세히 알고 싶다면, [주석](#주석)을 참고하세요.
 
 `void`
@@ -100,31 +100,31 @@ Dart 언어를 학습 할 때 다음을 잘 기억해야합니다:
 
 -   변수로 할당 할 수 있는 모든 것은 *객체*이고, 모든 객체는 *클래스*의 인스턴스입니다.
     숫자, 함수 그리고 `null`까지 모두 객체입니다.
-    `null`을 제외하고 ([sound null safety][ns]를 활성화했다면),
+    `null`을 제외하고 ([견고한 null 안전성][ns]를 활성화했다면),
      모든 객체들은 [`Object`][] 클래스를 상속받습니다.
 
     {{site.alert.version-note}}
-      [Null safety][ns]는 Dart 2.12에 처음 소개되었습니다.
+      [Null 안전성][ns]는 Dart 2.12에 처음 소개되었습니다.
       null safety를 사용하려면 최소 2.12의 [language version][]이 필요합니다.
     {{site.alert.end}}
 
 -   Dart는 타입에 엄격하지만, 추론할 수 있기 때문에 타입 어노테이션은 자율에 맡깁니다.
     위의 코드에서 `number`는 `int` 타입으로 추론됩니다.
 
--   [Null safety][ns]를 활성화했다면,
-    어떤 변수가 null 값을 갖는 것을 허락하지 않았을 때 
+-   [Null 안전성][ns]을 활성화했다면,
+    변수가 null 값을 갖는 것을 허락하지 않았을 때 
     그 변수가 null 값을 가질 수 없게 할 수 있습니다.
     타입의 끝에 물음표 (`?`)를 추가하면 해당 변수를
     nullable로 만들 수 있습니다.
     예를 들어, `int?` 타입의 변수는 정수 또는 `null` 값을 가집니다.
     만약 표현식이 null로 평가되지 않지만 Dart가 이에 동의하지 않는다는 것을
     *알고* 있다면, `!`을 추가하여 null이 아니라고 주장(assert) 할 수 있습니다
-    (만약 null이라면 예외를 throw 합니다).
+    (null이라면 예외를 발생시킵니다).
     예시: `int x = nullableButNotNullInt!`
 
 -   어떤 타입이든 적용이 가능하다고 명시하고 싶다면, 
-    `Object?` ([null safety][ns-enable]를 활성화했다면)
-    또는 `Object`를 타입으로 설정해주면 된다.
+    `Object?` ([null 안전성][ns-enable]를 활성화했다면)
+    또는 `Object`를 타입으로 설정하면 됩니다.
     런타임까지 타입 체킹을 미뤄야 한다면,
     [특수 타입인 `dynamic`][ObjectVsDynamic]을 사용하세요.
 
@@ -149,10 +149,10 @@ Dart 언어를 학습 할 때 다음을 잘 기억해야합니다:
     어떠한 문자와 숫자의 결합이 가능합니다.
 
 -   Dart는 런타임 값을 가지는 *식 (expression)*과
-    그렇지 않은 *문 (statement)*를 가지고 있습니다.
-    예를 들어, [조건식 (conditional expression)](#조건-표현식)인
+    그렇지 않은 *문 (statement)*을 가지고 있습니다.
+    예를 들어, [조건 표현식 (conditional expression)](#조건-표현식)인
     `condition ? expr1 : expr2` 은 `expr1` 또는 `expr2`의 값을 가집니다.
-    위의 expression과 값을 가지지 않는 
+    위의 표현식과 값을 가지지 않는 
     [if-else 문](#if-else)를 비교해봅시다.
     문은 때로 하나 혹은 그 이상의 식을 포함하지만,
     식은 직접적으로 문을 포함할 수 없습니다.
@@ -271,7 +271,7 @@ Dart 언어를 학습 할 때 다음을 잘 기억해야합니다:
 
 * **2**로 표시된 단어들은 **내장 식별자(built-in identifiers)**로
   이 키워드들은 거의 모든 곳에서 식별자로 사용이 가능하지만,
-  클래스나 타입의 이름, import prefix로 사용은 불가능합니다.
+  클래스나 타입의 이름, import 프리픽스로 사용은 불가능합니다.
 
 * **3**으로 표시된 단어들은 [비동기 지원](#비동기-지원)과
   관련된 제한된 단어들 입니다. `await` 또는 `yield`를
@@ -291,7 +291,7 @@ Dart 언어를 학습 할 때 다음을 잘 기억해야합니다:
 var name = 'Bob';
 ```
 
-변수는 레퍼런스(reference)를 저장합니다. `name`이라는 변수는 "Bob"이라는 값을
+변수는 레퍼런스를 저장합니다. `name`이라는 변수는 "Bob"이라는 값을
 가지고 있는 `String` 객체의 레퍼런스를 포함합니다.
 
 `name`의 타입은 `String`으로 추론되지만, 구체적으로 명시하여 타입을 변경 할 수 있습니다.
@@ -320,7 +320,7 @@ String name = 'Bob';
 
 Nullable 타입을 가지는 초기화되지 않은 변수는
 초기 값으로 `null`을 가질 수 있습니다.
-([Null safety][ns]를 사용하지 않는다면,
+([Null 안전성][ns]을 사용하지 않는다면,
 모든 변수는 nullable 타입을 가집니다.)
 Dart의 다른 모든 것과 마찬가지로 숫자도 객체이기 때문에,
 숫자 타입의 변수도 처음에는 null 입니다.
@@ -337,7 +337,7 @@ assert(lineCount == null);
   throw 합니다. 더 자세한 것은, [Assert](#assert)를 참고하세요.
 {{site.alert.end}}
 
-Null safety를 활성화 했다면, non-nullable 변수를 사용하기 전에
+Null 안전성을 활성화 했다면, non-nullable 변수를 사용하기 전에
 값들을 초기화해야만 합니다:
 
 <?code-excerpt "misc/lib/language_tour/variables.dart (var-ns-init)"?>
@@ -424,8 +424,8 @@ void main() {
 
 변수를 변경할 생각이 없다면, `var` 대신 `final`이나 `const`를 사용하거나,
 지정한 타입에 추가하여 사용하세요.
-final 변수는 오직 한 번만 설정될 수 있습니다; const 변수는 컴파일 타임 상수입니다.
-(const 변수는 내부적으로 final입니다)
+final 변수는 오직 한 번만 설정될 수 있습니다; const 변수는 컴파일 타임 상수입니다
+(const 변수는 내부적으로 final입니다).
 
 {{site.alert.note}}
   [인스턴스 변수](#인스턴스-변수)는 `final`로 설정될 수 있지만, `const`는 될 수 없습니다.
@@ -491,9 +491,9 @@ baz = [42]; // 에러: 상수 변수는 값이 할당될 수 없습니다.
 ```
 
 [타입 체크와 캐스트](#타입-테스트-연산자) (`is` 그리고 `as`),
-[컬렉션 `if`](#컬렉션-연산자),
-그리고 [전개 연산자](#전개-연산자) (`...` 그리고 `...?`)를
-사용하는 상수 정의가 가능합니다.:
+[컬렉션 `if`](#collection-operators),
+그리고 [전개 연산자](#spread-operator) (`...` 그리고 `...?`)를
+사용하는 상수 정의가 가능합니다:
 
 <?code-excerpt "misc/lib/language_tour/variables.dart (const-dart-25)"?>
 ```dart
@@ -539,13 +539,13 @@ Dart의 모든 변수는 객체 (*클래스*의 인스턴스)이기 때문에,
 
 Dart 언어의 일부 타입들은 특수한 역할을 수행합니다:
 
-* `Object`: `Null`을 제외한 모든 Dart 클래스의 superclass.
-* `Enum`: 모든 eunm의 superclass.
+* `Object`: `Null`을 제외한 모든 Dart 클래스의 부모 클래스.
+* `Enum`: 모든 eunm의 부모 클래스.
 * `Future`, `Stream`: [비동기 지원](#비동기-지원)에서 사용됩니다.
 * `Iterable`: [for-in 루프][iteration] 그리고
   동기식 [제너레이터 함수](#제너레이터)에서 사용됩니다.
-* `Never`: 식(expression)의 평가(evaluating)를 완료할 수 없음을 나타냅니다.
-  항상 예외를 throw하는 함수에서 보통 사용됩니다.
+* `Never`: 식(expression)의 평가를 완료할 수 없음을 나타냅니다.
+  항상 예외를 발생시키는 함수에서 보통 사용됩니다.
 * `dynamic`: 정적 타입 체킹의 비활성화를 의미합니다.
   대개 `Object` 또는 `Object?`를 대신 사용하세요.
 * `void`: 값이 사용되지 않는다는 것을 의미합니다.
@@ -802,7 +802,7 @@ var hitPoints = 0;
 assert(hitPoints <= 0);
 
 // null인지 확인합니다.
-var unicorn;
+var unicorn = null;
 assert(unicorn == null);
 
 // NaN인지 확인합니다.
@@ -1009,8 +1009,8 @@ final constantSet = const {
 Set은 list 처럼 전개 연산자 (`...` 그리고 `...?`)와
 컬렉션 `if` and `for`을 지원합니다.
 더 많은 정보를 원한다면,
-[list 전개 연산자](#전개-연산자) 그리고
-[list 컬렉션 연산자](#컬렉션-연산자)를 참고하세요.
+[list 전개 연산자](#spread-operator) 그리고
+[list 컬렉션 연산자](#collection-operators)를 참고하세요.
 
 Set에 대한 더 많은 정보를 원한다면,
 [제네릭](#제네릭) 과
@@ -1645,30 +1645,29 @@ Dart는 다음 표의 연산자들을 지원합니다.
 |-----------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------|
 | 설명                                     | 연산자                                                                                                                                                                                              | 결합법칙        |
 |-----------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------|
-| unary postfix                           | <code><em>expr</em>++</code>    <code><em>expr</em>--</code>    `()`    `[]`    `?[]`    `.`    `?.`    `!`                                                                                       | 없음          |
-| unary prefix                            | <code>-<em>expr</em></code>    <code>!<em>expr</em></code>    <code>~<em>expr</em></code>    <code>++<em>expr</em></code>    <code>--<em>expr</em></code>      <code>await <em>expr</em></code>    | 없음          |
-| multiplicative                          | `*`    `/`    `%`    `~/`                                                                                                                                                                         | 왼쪽          |
-| additive                                | `+`    `-`                                                                                                                                                                                        | 왼쪽          |
-| shift                                   | `<<`    `>>`    `>>>`                                                                                                                                                                             | 왼쪽          |
-| bitwise AND                             | `&`                                                                                                                                                                                               | 왼쪽          |
-| bitwise XOR                             | `^`                                                                                                                                                                                               | 왼쪽          |
-| bitwise OR                              | `|`                                                                                                                                                                                               | 왼쪽          |
-| relational&nbsp;and&nbsp;type&nbsp;test | `>=`    `>`    `<=`    `<`    `as`    `is`    `is!`                                                                                                                                               | 없음          |
-| equality                                | `==`    `!=`                                                                                                                                                                                      | 없음          |
-| logical AND                             | `&&`                                                                                                                                                                                              | 왼쪽          |
-| logical OR                              | `||`                                                                                                                                                                                              | 왼쪽          |
-| if null                                 | `??`                                                                                                                                                                                              | 왼쪽          |
-| conditional                             | <code><em>expr1</em> ? <em>expr2</em> : <em>expr3</em></code>                                                                                                                                     | 오른쪽         |
-| cascade                                 | `..` &nbsp;&nbsp; `?..`                                                                                                                                                                           | 오른쪽         |
-| assignment                              | `=`    `*=`    `/=`    `+=`    `-=`    `&=`    `^=`    <em>etc.</em>                                                                                                                              | 오른쪽         |
+| unary postfix                           | <code><em>expr</em>++</code>    <code><em>expr</em>--</code>    `()`    `[]`    `?[]`    `.`    `?.`    `!`                                                                                       | None          |
+| unary prefix                            | <code>-<em>expr</em></code>    <code>!<em>expr</em></code>    <code>~<em>expr</em></code>    <code>++<em>expr</em></code>    <code>--<em>expr</em></code>      <code>await <em>expr</em></code>    | None          |
+| multiplicative                          | `*`    `/`    `%`    `~/`                                                                                                                                                                         | Left          |
+| additive                                | `+`    `-`                                                                                                                                                                                        | Left          |
+| shift                                   | `<<`    `>>`    `>>>`                                                                                                                                                                             | Left          |
+| bitwise AND                             | `&`                                                                                                                                                                                               | Left          |
+| bitwise XOR                             | `^`                                                                                                                                                                                               | Left          |
+| bitwise OR                              | `|`                                                                                                                                                                                               | Left          |
+| relational&nbsp;and&nbsp;type&nbsp;test | `>=`    `>`    `<=`    `<`    `as`    `is`    `is!`                                                                                                                                               | None          |
+| equality                                | `==`    `!=`                                                                                                                                                                                      | None          |
+| logical AND                             | `&&`                                                                                                                                                                                              | Left          |
+| logical OR                              | `||`                                                                                                                                                                                              | Left          |
+| if null                                 | `??`                                                                                                                                                                                              | Left          |
+| conditional                             | <code><em>expr1</em> ? <em>expr2</em> : <em>expr3</em></code>                                                                                                                                     | Right         |
+| cascade                                 | `..` &nbsp;&nbsp; `?..`                                                                                                                                                                           | Left          |
+| assignment                              | `=`    `*=`    `/=`    `+=`    `-=`    `&=`    `^=`    <em>etc.</em>                                                                                                                              | Right         |
 {:.table .table-striped}
 
-<!-- Authoritative -> 정직한 ? -->
 {{site.alert.warning}}
-  위의 표는 유용한 가이드로만 사용해야 합니다.
-  연산자 우선순위와 결합법칙에 대한 개념은 언어 문법의 사실을 기반으로 한
+  위의 표는 실용적인 가이드라인일 뿐이며,
+  연산자 우선순위와 결합법칙에 대한 개념은 문법적인 사실을 기반으로 한
   근사입니다. [Dart 언어 설명서][]에 정의된 문법에서
-  Dart 연산자 관계의 정직한 동작에 대해 확인할 수 있습니다.
+  더 신뢰할 수 있는 설명을 찾을 수 있습니다.
 {{site.alert.end}}
 
 연산자를 사용할 때는 식을 만듭니다. 다음은 연산자 식의 예제입니다:
@@ -2088,7 +2087,7 @@ The `sb.write()` 호출은 void를 반환하고,
 아마 다른 예제에서 아래의 연산자들을 본 경험이 있을 것 입니다:
 
 |----------+------------------------------+--------------------|
-| 연산자     | 이름                          | 의미                |
+| Operator     | 이름                          | 의미                |
 |----------+------------------------------+--------------------|
 | `()`     | Function application         | 함수 호출을 나타냅니다.
 | `[]`     | Subscript access             | 재정의 할 수 있는 연산자 `[]`의 호출을 나타냅니다; 예제: `fooList[1]`는 `fooList`의 인덱스 `1`에 위치한 요소에 접근하기 위해 정수 `1`을 전달합니다.
@@ -2550,7 +2549,7 @@ try {
 
 Dart는 클래스와 mixin 기반 상속을 지원하는 객체지향언어입니다.
 모든 객체는 클래스의 인스턴스이고, `Null`을 제외한 클래스는 모두 [`Object`][]에서 비롯합니다.
-*Mixin 기반 상속*이란 말은, 모든 클래스가 하나의 superclass를 가지고 있지만
+*Mixin 기반 상속*이란 말은, 모든 클래스가 하나의 부모 클래스를 가지고 있지만
 ([최상위 클래스][top-and-bottom]인 `Object?`를 제외한) 클래스의 바디는 다양한 클래스 계층에서 재사용 될 수 있음을 의미합니다.
 [확장 메서드](#확장-메서드)는 서브 클래스를 추가하거나, 클래스를 바꾸지 않고 클래스에 기능을 추가하는 방법입니다.
 
@@ -2699,6 +2698,7 @@ Final이 아닌 변수 그리고 Initializers가 없는
 
 Non-`late` 변수가 선언된 동시에 초기화되면
 인스턴스가 생성될 때, 생성자와 해당 initializer 목록이 실행되기 전에 값이 설정됩니다.
+결과적으로, non-`late` 인스턴스 변수 initializer는 `this`에 접근할 수 없습니다.
 
 <?code-excerpt "misc/lib/language_tour/classes/point_with_main.dart (class+main)" replace="/(double .*?;).*/$1/g" plaster="none"?>
 ```dart
@@ -2717,7 +2717,7 @@ void main() {
 
 인스턴스 변수는 `final`로 선언할 수 있고, 그런 경우에는 단 한 번만 값이 정확하게 할당됩니다.
 `final`과 non-`late` 인스턴스 변수를 선언할 때 생성자 매개변수나,
-생성자의 [initializer list](#initializer-list)를 사용하여 초기화하세요:
+생성자의 [initializer 목록](#initializer-list)를 사용하여 초기화하세요:
 
 <?code-excerpt "misc/lib/effective_dart/usage_good.dart (field-init-at-decl)"?>
 ```dart
@@ -2792,13 +2792,13 @@ Initializing formal로 주어진 변수는 초기화 리스트 범위에서 암�
 #### 디폴트 생성자
 
 생성자를 선언하지 않았다면, 디폴트 생성자가 주어집니다.
-디폴트 생성자는 인자가 없고, 인자가 없는 superclass의 생성자를 호출합니다.
+디폴트 생성자는 인자가 없고, 인자가 없는 부모 클래스의 생성자를 호출합니다.
 
 
 #### 생성자는 상속되지 않습니다
 
-Subclass는 superclass로 부터 생성자를 상속받지 않습니다.
-생성자를 선언하지 않은 subclass는 이름과 인자가 없는 디폴트 생성자만을 가집니다.
+자식 클래스는 부모 클래스로 부터 생성자를 상속받지 않습니다.
+생성자를 선언하지 않은 자식 클래스는 이름과 인자가 없는 디폴트 생성자만을 가집니다.
 
 
 #### Named 생성자
@@ -2823,30 +2823,30 @@ class Point {
 }
 {% endprettify %}
 
-Superclass의 생성자는 subclass로 상속되지 않는다는 것을 꼭 기억하세요.
-Subclass에서 superclass와 같은 Named 생성자를 사용하고 싶다면, subclass에서도 똑같이 구현해야 합니다.
+부모 클래스의 생성자는 자식 클래스로 상속되지 않는다는 것을 꼭 기억하세요.
+자식 클래스에서 부모 클래스와 같은 Named 생성자를 사용하고 싶다면, 자식 클래스에서도 똑같이 구현해야 합니다.
 
 
-#### Superclass의 Non-default 생성자 호출
+#### 부모 클래스의 Non-default 생성자 호출
 
-Subclass의 생성자는 superclass의 이름이 없고(unnamed), 인수가 없는(no-argument) 생성자를 디폴트로 호출합니다.
-Superclass의 생성자는 subclass 생성자 바디의 처음에 호출됩니다.
-[initializer list](#initializer-list)가 사용되면, superclass가 호출되기 전에 실행됩니다.
+자식 클래스의 생성자는 부모 클래스의 이름이 없고(unnamed), 인수가 없는(no-argument) 생성자를 디폴트로 호출합니다.
+부모 클래스의 생성자는 자식 클래스 생성자 바디의 처음에 호출됩니다.
+[initializer list](#initializer-list)가 사용되면, 부모 클래스가 호출되기 전에 실행됩니다.
 요약하자면, 실행 순서는 다음과 같습니다:
 
 1. initializer list
-1. superclass의 인자가 없는 생성자
+1. 부모 클래스의 인자가 없는 생성자
 1. 메인 클래스의 인자가 없는 생성자
 
-Superclass가 이름과 인자가 없는 생성자를 가지고 있지 않는다면,
-반드시 superclass의 생성자 중 하나를 선택해서 호출해야 합니다.
-생성자 바디에 콜론(`:`)을 추가해 선택한 superclass의 생성자를 명시하세요.
+부모 클래스가 이름과 인자가 없는 생성자를 가지고 있지 않는다면,
+반드시 부모 클래스의 생성자 중 하나를 선택해서 호출해야 합니다.
+생성자 바디에 콜론(`:`)을 추가해 선택한 부모 클래스의 생성자를 명시하세요.
 
-다음 예제에서 Employee는 자신의 superclass인 Person의 named 생성자를 호출합니다.
+다음 예제에서 Employee는 자신의 부모 클래스인 Person의 named 생성자를 호출합니다.
 코드를 실행하고 싶다면 **Run**을 클릭하세요.
 
 <?code-excerpt "misc/lib/language_tour/classes/employee.dart (super)" plaster="none"?>
-```dart:run-dartpad:height-450px:ga_id-non_default_superclass_constructor
+```dart:run-dartpad:height-450px:ga_id-non_default_부모 클래스_constructor
 class Person {
   String? firstName;
 
@@ -2873,7 +2873,7 @@ void main() {
 }
 ```
 
-생성자가 실행되기 전에 superclass의 생성자로 전해지는 인자가
+생성자가 실행되기 전에 부모 클래스의 생성자로 전해지는 인자가
 평가되기 때문에 인자는 함수 호출처럼 표현식이 될 수 있습니다:
 
 <?code-excerpt "misc/lib/language_tour/classes/employee.dart (method-then-constructor)"?>
@@ -2885,16 +2885,16 @@ class Employee extends Person {
 ```
 
 {{site.alert.warning}}
-  Superclass의 생성자로 전달되는 인수는 `this`에 접근할 수 없습니다.
+  부모 클래스의 생성자로 전달되는 인수는 `this`에 접근할 수 없습니다.
   예를 들면, 인자는 정적 메서드를 호출할 수 있지만, 인스턴스 메서드는 불가능합니다.
 {{site.alert.end}}
 
 <a name="super-parameters"></a>
-수동으로 superclass의 생성자 매개변수를 넘겨주는 것을 피하고 싶다면,
-super-initializer 매개변수를 superclass의 생성자로 넘겨주면 됩니다.
+수동으로 부모 클래스의 생성자 매개변수를 넘겨주는 것을 피하고 싶다면,
+super-initializer 매개변수를 부모 클래스의 생성자로 넘겨주면 됩니다.
 이 피처를 리다이렉팅 생성자와 함께 사용하는 것은 불가능합니다.
 Super-initializer 매개변수는
-[initializing formal parameters](#initializing-formal-매개변수)와 비슷한 문법과 의미를 가집니다:
+[형식 매개변수 초기화](#형식-매개변수-초기화)와 비슷한 문법과 의미를 가집니다:
 
 <?code-excerpt "misc/lib/language_tour/classes/super_initializer_parameters.dart (positional)" plaster="none"?>
 ```dart
@@ -2943,7 +2943,7 @@ class Vector3d extends Vector2d {
 
 #### Initializer list
 
-Superclass 생성자를 호출할 뿐만 아니라
+부모 클래스 생성자를 호출할 뿐만 아니라
 생성자 바디가 실행되기 전에 인스턴스 변수를 초기화할 수도 있습니다. Initializer는 쉼표로 구분합니다.
 
 {% comment %}
@@ -3303,8 +3303,8 @@ class Point implements Comparable, Location {...}
 
 ### 클래스 확장
 
-Subclass를 만들고 싶다면, `extends`를 사용하세요.
-해당 클래스 안에서 superclass를 참조하고 싶다면 `super`를 사용하면 됩니다:
+자식 클래스를 만들고 싶다면, `extends`를 사용하세요.
+해당 클래스 안에서 부모 클래스를 참조하고 싶다면 `super`를 사용하면 됩니다:
 
 <?code-excerpt "misc/lib/language_tour/classes/extends.dart" replace="/extends|super/[!$&!]/g"?>
 {% prettify dart tag=pre+code %}
@@ -3335,7 +3335,7 @@ class SmartTelevision [!extends!] Television {
 
 #### 멤버 재정의
 
-Subclasses는 [연산자](#_operators)를 포함한 인스턴스 메서드, getter, setter를 오버라이드 하는 것이 가능합니다.
+자식 클래스es는 [연산자](#_operators)를 포함한 인스턴스 메서드, getter, setter를 오버라이드 하는 것이 가능합니다.
 `@override` 표기를 사용하여 의도적으로 멤버를 재정의 할 수 있습니다:
 
 <?code-excerpt "misc/lib/language_tour/metadata/television.dart (override)" replace="/@override/[!$&!]/g"?>
@@ -3428,7 +3428,7 @@ print('42'.parseInt()); // 확장 메서드 사용.
 
 {{site.alert.note}}
   모든 enums은 자동적으로 [`Enum`][] 클래스를 확장합니다.
-  이들은 가려져 있으며, 이는 subclass가 될 수 없고 implement,
+  이들은 가려져 있으며, 이는 자식 클래스가 될 수 없고 implement,
   mix 또는 명시적으로 인스턴스화할 수 없다는 것을 의미합니다.
 
   추상 클래스와 mixin은 명시적으로 `Enum`을 구현하거나 확장합니다.
@@ -3600,7 +3600,7 @@ mixin Musical {
 
 Mixin을 사용할 수 있는 타입을 제한할 수도 있습니다.
 예를 들어, mixin이 정의하지 않은 메서드를 호출할 수 있는지에 따라 달라질 수 있습니다.
-다음 예제처럼 `on` 키워드로 사용할 수 있는 superclass를 제한함으로써 mixin의 사용을 제한할 수 있습니다:
+다음 예제처럼 `on` 키워드로 사용할 수 있는 부모 클래스를 제한함으로써 mixin의 사용을 제한할 수 있습니다:
 
 <?code-excerpt "misc/lib/language_tour/classes/orchestra.dart (mixin-on)" plaster="none" replace="/on Musician2/[!on Musician!]/g" ?>
 ```dart
@@ -3891,7 +3891,7 @@ var foo = [!Foo<Object>!]();
 `import`와 `library` 명령어는 코드를 모듈화하고 공유하는 것을 도와줍니다.
 라이브러리는 API를 제공할 뿐만 아니라, 관리(privacy)의 단위가 됩니다:
 언더스코어(`_`)로 시작하는 식별자들은 오직 그 라이브러리 안에서만 보입니다.
-`library` 명령어를 사용하지 않았다고 해도, *모든 Dart 앱은 라이브러리*입니다.
+[`library`](#library-directive) 명령어를 사용하지 않았다고 해도, *모든 Dart 앱은 라이브러리*입니다.
 
 라이브러리들은 [packages](/guides/packages)를 사용해 분산 될 수 있습니다.
 
@@ -3930,7 +3930,6 @@ import 'package:test/test.dart';
   *URI*는 stands for uniform resource identifier의 준말입니다.
   *URLs* (uniform resource locators)은 URI의 종류입니다.
 {{site.alert.end}}
-
 
 #### 라이브러리 프리픽스 지정
 
@@ -4018,6 +4017,20 @@ Future<void> greet() async {
   를 사용하여 정의한 네임스페이스에 삽입합니다.
   `loadLibrary()`는 [`Future`](/guides/libraries/library-tour#future)를 반환합니다.
 
+#### `library` 명령어 {#library-directive}
+
+라이브러리 수준의 [문서화 주석][] or [메타데이터 어노테이션][]를
+지정하고 싶다면, 파일의 시작에 `library` 선언을 추가하세요.
+
+<?code-excerpt "misc/lib/effective_dart/docs_good.dart (library-doc)"?>
+{% prettify dart tag=pre+code %}
+/// A really great test library.
+@TestOn('browser')
+library;
+{% endprettify %}
+
+[문서화 주석]: /guides/language/effective-dart/documentation#consider-writing-a-library-level-doc-comment
+[메타데이터 어노테이션]: /guides/language/language-tour#메타데이터
 
 ### 라이브러리 구현
 
@@ -4026,9 +4039,8 @@ Future<void> greet() async {
 [라이브러리 패키지 만들기](/guides/libraries/create-library-packages)를 살펴보세요:
 
 * 라이브러리 소스 코드 구성법.
-* `export` 디렉티브 사용법.
-* `part` 디렉티브를 사용해야할 때.
-* `library` 디렉티브를 사용해야할 때.
+* `export` 명령어 사용법.
+* `part` 명령어를 사용해야할 때.
 * 다수의 플랫폼을 지원하는 라이브러리를 구현 할 때
   조건적인 import와 export의 사용법.
 

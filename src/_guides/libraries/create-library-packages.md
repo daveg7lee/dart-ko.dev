@@ -1,20 +1,18 @@
 ---
-title: Creating packages
-description: Learn how to create library packages in Dart.
+title: 패키지 생성
+description: Dart 라이브러리 패키지 생성 방법을 학습합니다.
 ---
 
-The Dart ecosystem uses [packages](/guides/packages)
-to share software such as libraries and tools.
-This page tells you how to create a package,
-with a focus on the most common kind of package,
-[_library_ packages](/tools/pub/glossary#library-package).
+Dart 생태계는 라이브러리나 툴 같은 소프트웨어를
+공유하기 위해 [패키지](/guides/packages)를 사용합니다.
+이 페이지는 가장 일반적인 패키지인 [_라이브러리_ 패키지](/tools/pub/glossary#library-package)에
+초점을 맞춰 패키지 생성 방법을 알려줍니다.
 
 
-## Creating a new package
+## 새로운 패키지 생성
 
-To create the initial directory and structure for a package,
-use the [`dart create`](/tools/dart-create) command
-and the `package` template:
+생성할 패키지의 초기 디렉토리와 구조를 만들고 싶다면,
+[`dart create`](/tools/dart-create) 커맨드와 `package` 템플릿을 사용하세요:
 
 ```terminal
 $ dart create -t package <PACKAGE_NAME>
@@ -24,82 +22,66 @@ $ dart create -t package <PACKAGE_NAME>
 TODO: Add coverage of packages that contain tools.
 {% endcomment %}
 
-## What makes a library package
+## 라이브러리 패키지를 구성하는 것
 
-The following diagram shows the layout of the simplest
-library package:
+다음은 다이어그램은 간단한 라이브러리 패키지의 레이아웃을 나타냅니다:
 
 <img 
   src="/assets/img/libraries/simple-lib2.png" 
   alt="root directory contains pubspec.yaml and lib/file.dart">
 
-The minimal requirements for a library are:
+라이브러리를 위한 최소한의 요구사항은 다음과 같습니다:
 
-pubspec file
-: The `pubspec.yaml` file for a library is the same
-  as for an application package—there is no special
-  designation to indicate that the package is a library.
+pubspec 파일
+: 라이브러리의 `pubspec.yaml` 파일은 애플리케이션의 `pubspec.yaml`과 같습니다.
+  `pubspec.yaml` 파일에는 이 패키지가 라이브러리라고 명시되어 있지 않습니다.
 
-lib directory
-: As you might expect, the library code lives under the _lib_
-  directory and is public to other packages.
-  You can create any hierarchy under lib, as needed.
-  By convention, implementation code is placed under _lib/src_.
-  Code under lib/src is considered private;
-  other packages should never need to import `src/...`.
-  To make APIs under lib/src public, you can export lib/src files
-  from a file that's directly under lib.
+lib 디렉토리
+: 예상대로 라이브러리의 코드는 _lib_ 디렉토리 아래에 있으며 다른 패키지에 대해서는 공개되어 있습니다.
+  필요에 따라 lib에서 파일 계층을 임의로 만들 수 있습니다.
+  관례에 따라 구현 코드는 _lib/src_ 아래에 위치합니다.
+  _lib/src_ 에 잇는 코드들은 private로 간주됩니다.
+  다른 패키지는 `src/...` 디렉토리에서 코드를 가져올 필요가 없습니다.
+  lib/src 디렉토리의 API 공개는 lib/scr 디렉토리의 파일을 lib 디렉토리의 파일로
+  내보냄으로써 달성됩니다.
 
-{{site.alert.note}}
-  When the `library` directive isn't specified, a unique
-  tag is generated for each library based on its path and filename.
-  Therefore, we suggest that you omit the `library` directive from
-  your code unless you plan to
-  [generate library-level documentation](#documenting-a-library).
-{{site.alert.end}}
+## 라이브러리 패키지 구성
 
-## Organizing a library package
-
-Library packages are easiest to maintain, extend, and test
-when you create small, individual libraries, referred to as
-_mini libraries_.
-In most cases, each class should be in its own mini library, unless
-you have a situation where two classes are tightly coupled.
+_미니 라이브러리_ 라고 하는 작고 독립된 라이브러리를 만들 때는 라이브러리 패키지의
+유지 관리, 확장 및 테스트가 매우 쉽습니다.
+대부분의 경우, 각 클래스가 밀접하게 결합된 상황이 아닌 한 자신을
+미니 라이브러리로 간주해야 합니다.
 
 {{site.alert.note}}
-  You may have heard of the `part` directive, which allows
-  you to split a library into multiple Dart files. We recommend
-  that you avoid using `part` and create mini libraries instead.
+  파일의 앞 부분에 `part` 명령을 사용하여 하나의 라이브러리를 여러 개의 Dart
+  파일로 분할할 수 있습니다. `part` 명령을 사용하지 않고 미니 라이브러리를
+  생성하는 것을 추천합니다.
 {{site.alert.end}}
 
-Create a "main" library file directly under lib,
-lib/_&lt;package-name&gt;_.dart, that
-exports all of the public APIs.
-This allows the user to get all of a library's functionality
-by importing a single file.
+모든 공개 API를 내보내는 lib/_&lt;package-name&gt;_.dart의
+"main" 라이브러리 파일을 lib 디렉토리에 직접 만드세요.
+이를 통해 사용자는 하나의 파일을 가져오면 라이브러리의 모든
+기능을 사용할 수 있습니다.
 
-The lib directory might also include other importable, non-src, libraries.
-For example, perhaps your main library works across platforms, but
-you create separate libraries that rely on `dart:io` or `dart:html`.
-Some packages have separate libraries that are meant to be imported
-with a prefix, when the main library is not.
+lib 디렉토리는 src 라이브러리 외에도 다른 중요한 것들을 가지고 있습니다.
+예를 들어, 메인 라이브러리가 크로스 플랫폼이지만, 생성된 독립 라이브러리는
+`dart:io` 또는 `dart:html`에 의존할 수도 있습니다.
+몇몇 패키지들은 프리픽스를 사용하여 가져와야하는 독립된 라이브러리와 그렇지 않은
+메인 라이브러리를 가집니다.
 
-Let's look at the organization of a real-world library package: shelf. The
+다음으로 shelf라는 실제 라이브러리 패키지의 구조를 살펴봅시다.
 [shelf](https://github.com/dart-lang/shelf)
-package provides an easy way to create web servers using Dart,
-and is laid out in a structure that is commonly used for Dart
-library packages:
+패키지는 Dart를 사용하여 웹 서버를 쉽게 만들 수 있는 방법을 제공하고,
+Dart 라이브러리 패키지에서 자주 사용되는 구조를 가지고 있습니다:
 
 <img 
   src="/assets/img/libraries/shelf.png"
   alt="shelf root directory contains example, lib, test, and tool subdirectories">
 
-Directly under lib, the main library file,
-`shelf.dart`, exports API from several files in `lib/src`.
-To avoid exposing more API than intended—and 
-to give developers an overview of the entire
-public API of the package—`shelf.dart` 
-uses `show` to specify exactly which symbols to export:
+lib 바로 아래에 메인 라이브러리 파일인 `shelf.dart`는
+`lib/src`의 여러 API 파일들을 내보냅니다.
+과도하게 API를 내보내지 않고 개발자에게 공개 API의 개요를 제공하기 위해
+`shelf.dart`는 `show`를 사용하여 내보낼 코드를 지정합니다.
 
 ```dart
 export 'src/cascade.dart' show Cascade;
@@ -116,79 +98,74 @@ export 'src/server.dart' show Server;
 export 'src/server_handler.dart' show ServerHandler;
 ```
 
-The shelf package also contains a mini library: shelf_io.
-This adapter handles HttpRequest objects from `dart:io`.
+shelf 패키지는 shelf_io라는 미니 라이브러리를 포함하고 있습니다.
+이 어댑터는 `dart:io`의 HttpRequest 객체를 처리합니다.
 
 {{site.alert.tip}}
-  For the best performance when developing with [dartdevc,](/tools/dartdevc)
-  put [implementation files](/tools/pub/package-layout#implementation-files) 
-  under `/lib/src`, instead of elsewhere under `/lib`.
-  Also, avoid imports of <code>package:<em>package_name</em>/src/...</code>.
+  [dartdevc](/tools/dartdevc)를 사용하여 개발할 때 최고의 성능을 위해
+  [구현 파일](/tools/pub/package-layout#implementation-files)을
+  `/lib` 대신 `/lib/src` 아래에 위치시키세요.
+  또한, <code>package:<em>package_name</em>/src/...</code>를 사용하여 파일을 가져오지 마세요.
 {{site.alert.end}}
 
 
-## Importing library files
+## 라이브러리 파일 가져오기
 
-When importing a library file from another package, use the
-the `package:` directive to specify the URI of that file.
+다른 패키지에서 라이브러리 파일을 가져올 때,
+`package:` 명령어로 파일의 URI를 지정하세요.
 
 ```dart
 import 'package:utilities/utilities.dart';
 ```
 
-When importing a library file from your own package,
-use a relative path when both files are inside of lib,
-or when both files are outside of lib. 
-Use `package:` when the imported file is in lib and the importer is outside.
+작성하고 있는 패키지의 라이브러리 파일을 가져오고 싶다면
+두 파일 모두 lib 디렉토리에 있거나 lib 디렉토리 밖에 있을 때,
+상대 경로로 라이브러리 파일을 가져올 수 있습니다.
+Import되는 파일이 lib에 있고 import하는 파일이 밖에 있다면, `package:`를 사용하여 가져오세요.
 
-The following graphic shows how
-to import `lib/foo/a.dart` from both lib and web.
+다음 그림은 web과 lib에서 `lib/foo/a.dart`를 가져오는 방법을 보여줍니다.
 
 <img 
   src="/assets/img/libraries/import-lib-rules.png"
   alt="lib/bar/b.dart uses a relative import; web/main.dart uses a package import">
 
 
-## Conditionally importing and exporting library files
+## 라이브러리 파일을 조건부로 가져오고 내보내기
 
-If your library supports multiple platforms,
-then you might need to conditionally import or export library files.
-A common use case is a library that supports both web and native platforms.
+라이브러리가 멀티 플랫폼을 지원한다면,
+라이브러리 파일을 조건부로 가져오고 내보내는 것이 필요합니다.
+웹과 네이티브 플랫폼을 모두 지원하는 라이브러리가 흔한 예시입니다.
 
-To conditionally import or export,
-you need to check for the presence of `dart:*` libraries.
-Here's an example of conditional export code that
-checks for the presence of `dart:io` and `dart:html`:
+조건부로 내보내고 가져오고 싶다면,
+`dart:*` 라이브러리가 존재하는지 확인해야합니다.
+다음은 `dart:io`과 `dart:html`의 존재 여부를 확인하는
+조건부 내보내기의 예제입니다:
 
 <?code-excerpt "create_libraries/lib/hw_mp.dart (export)"?>
 ```dart
-export 'src/hw_none.dart' // Stub implementation
-    if (dart.library.io) 'src/hw_io.dart' // dart:io implementation
-    if (dart.library.html) 'src/hw_html.dart'; // dart:html implementation
+export 'src/hw_none.dart' // 스텁 구현
+    if (dart.library.io) 'src/hw_io.dart' // dart:io 구현
+    if (dart.library.html) 'src/hw_html.dart'; // dart:html 구현
 ```
 <div class="prettify-filename">lib/hw_mp.dart</div>
 
-Here's what that code does:
+코드 설명은 다음과 같습니다:
 
-* In an app that can use `dart:io`
-  (for example, a command-line app),
-  export `src/hw_io.dart`.
-* In an app that can use `dart:html`
-  (a web app),
-  export `src/hw_html.dart`.
-* Otherwise, export `src/hw_none.dart`.
+* 커맨드 라인 앱 처럼 `dart:io`를 사용하는 앱은
+  `src/hw_io.dart`를 내보냅니다.
+* `dart:html`를 사용하는 웹앱은
+  `src/hw_html.dart`를 내보냅니다.
+* 모두 해당하지 않는다면, `src/hw_none.dart`를 내보냅니다.
 
-To conditionally import a file, use the same code as above,
-but change `export` to `import`.
+파일을 조건부로 가져오고 싶다면, 위의 코드에서 `export`를 `import`로 교체하세요.
 
 {{site.alert.note}}
-  The conditional import or export checks only whether the library is
-  _available for use_ on the current platform,
-  not whether it's actually imported or used.
+  조건부 가져오기 또는 내보내기는 실제 가져오기 또는 사용 여부에 관계없이
+  라이브러리가 현재 플랫폼에서 _사용 가능한지_ 여부만 확인합니다.
 {{site.alert.end}}
 
-All of the conditionally exported libraries must implement the same API.
-For example, here's the `dart:io` implementation:
+조건부로 내보낸 모든 라이브러리는 동일한 API를 구현해야 합니다.
+예를 들어, 다음 `dart:io` 구현을 살펴봅시다:
 
 <?code-excerpt "create_libraries/lib/src/hw_io.dart"?>
 ```dart
@@ -202,8 +179,7 @@ String get message => 'Hello World from the VM!';
 ```
 <div class="prettify-filename">lib/src/hw_io.dart</div>
 
-And here's the default implementation,
-which uses stubs that throw `UnsupportedError`:
+다음은 `UnsupportedError`를 발생시키는 스텁을 사용하는 기본 구현입니다:
 
 <?code-excerpt "create_libraries/lib/src/hw_none.dart"?>
 ```dart
@@ -213,8 +189,8 @@ String get message => throw UnsupportedError('hw_none message');
 ```
 <div class="prettify-filename">lib/src/hw_none.dart</div>
 
-On any platform,
-you can import the library that has the conditional export code:
+모든 플랫폼에서
+조건부 내보내기 코드를 가지고 있는 라이브러리를 가져오는 것이 가능합니다:
 
 <?code-excerpt "create_libraries/example/hw_example.dart" replace="/create_libraries/hw_mp/g"?>
 ```dart
@@ -272,11 +248,11 @@ void updateBadge() {
 For an example of generated docs, see the
 [shelf documentation.]({{site.pub-api}}/shelf/latest)
 
-{{site.alert.note}}
-  To include any library-level documentation in the generated docs,
-  you must specify the `library` directive.
-  See [issue 1082.](https://github.com/dart-lang/dartdoc/issues/1082)
-{{site.alert.end}}
+To include any *library-level* documentation in the generated docs,
+add a `library` directive and attach the comment directly above it.
+For the how-and-why of documenting libraries, see
+[Effective Dart: Documentation](/guides/language/effective-dart/documentation#consider-writing-a-library-level-doc-comment).
+
 
 ## Distributing an open source library {#distributing-a-library}
 

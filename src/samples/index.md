@@ -8,10 +8,10 @@ description: 더 큰 예제로 이어질수 있는 자연스러운 Dart 예제.
 
 <div class="card-grid no_toc_section">
   <div class="card">
-    <h3><a href="/guides/language/language-tour">언어 개요</a></h3>
+    <h3><a href="/guides/language/language-tour">언어투어</a></h3>
     <p>
       예제가 있는 Dart 언어의 포괄적인 투어.
-      이 페이지 대부분의 <em>더보기</em>는 언어 개요로 이동합니다.
+      이 페이지 대부분의 <em>더보기</em>는 언어 투어로 이동합니다.
     </p>
   </div>
   <div class="card">
@@ -453,6 +453,6 @@ Future<void> describeFlybyObjects(List<String> flybyObjects) async {
 
 ## 다른 토픽
 
-[언어 개요](/guides/language/language-tour)와
-[라이브러리 개요](/guides/libraries/library-tour)에 많은 코드 샘플이 존재합니다.
+[언어 투어](/guides/language/language-tour)와
+[라이브러리 투어](/guides/libraries/library-tour)에 많은 코드 샘플이 존재합니다.
 [Dart API reference]({{site.dart-api}})에도 종종 샘플이 등장합니다.

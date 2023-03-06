@@ -1,132 +1,129 @@
 ---
-title: Migrating to null safety
-description: How to move your existing Dart code to the world of null safety
+title: Null 안전성으로 마이그레이션
+description: 기존의 코드를 null 안전성을 준수하는 코드로 수정하는 방법을 배웁니다.
 ---
 
-This page describes how and when to migrate your code to [null safety][].
-Here are the basic steps for migrating each package that you own:
+{{site.alert.version-note}}
+  Dart 2.19는 `dart migrate` 툴을 포함하며,
+  null 안전성 마이그레이션을 지원하는 마지막 릴리즈입니다.
+  패키지를 null 안전성으로 마이그레이트하고 싶다면,
+  최신 Dart 2.19 SDK를 사용하세요.
+  더 자세한 사항은,
+  [Dart 3와 null 안전성](/null-safety#dart-3-and-null-safety)을 참고하세요.
+{{site.alert.end}}
 
-1. [**Wait**](#step1-wait) for the packages
-   that you depend on to migrate.
-2. [**Migrate**](#step2-migrate) your package's code,
-   preferably using the interactive migration tool.
-3. [**Statically analyze**](#step3-analyze) your package's code.
-4. [**Test**](#step4-test) to make sure your changes work.
-5. If the package is already on pub.dev,
-   [**publish**](#step5-publish) the null-safe version
-   as a **prerelease** version.
+이 페이지는 언제 어떻게 [null 안전성][]을 준수하는 코드로 마이그레이션 해야 하는지 설명합니다.
+각 패키지를 마이그레이션하기 위한 기본 단계는 다음과 같습니다:
+
+1. 의존하는 패키지 마이그레이션이 완료될 때까지 [**기다리세요**](#step1-wait).
+2. 상호작용형 마이그레이션 도구를 사용하여 패키지 코드를 [**마이그레이션 하세요**](#step2-migrate).
+3. 패키지 코드를 [**정적으로 분석하세요**](#step3-analyze).
+4. 변경 사항이 제대로 작동하는지 [**테스트 하세요**](#step4-test).
+5. 해당 패키지가 이미 pub.dev에 있다면,
+   null-safe 버전을 **프리릴리즈** 버전으로 [**퍼블리시 하세요**](#step5-publish).
 
 {{site.alert.tip}}
-  If your application or library is large, check out
-  [Gradual null safety migration for large Dart projects][].
+  애플리케이션이나 라이브러리가 크다면, 
+  [큰 Dart 프로젝트를 위한 점진적인 null 안전성 마이그레이션][]을 참고하세요.
 {{site.alert.end}}
 
 {{site.alert.info}}
-  **Migrating an app is technically the same as migrating a package.**
-  Before migrating an app,
-  make sure that all of your dependencies are ready.
+  **앱을 마이그레이션하는 것은 패키지를 마이그레이션하는 것과 기술적으로 동일합니다.**
+  앱을 마이그레이션하기 전에,
+  의존하는 모든 패키지 마이그레이션이 준비되었는지 확인하세요.
 {{site.alert.end}}
 
-For an informal look at the experience of using the migration tool, watch this video:
+다음 영상은 마이그레이션 툴의 사용법을 알려줍니다:
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/eBr5tlumwlg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-[null safety]: /null-safety
-[Gradual null safety migration for large Dart projects]: https://medium.com/dartlang/gradual-null-safety-migration-for-large-dart-projects-85acb10b64a9
+[null 안전성]: /null-safety
+[큰 Dart 프로젝트를 위한 점진적인 null 안전성 마이그레이션]: https://medium.com/dartlang/gradual-null-safety-migration-for-large-dart-projects-85acb10b64a9
 
 
-## 1. Wait to migrate {#step1-wait}
+## 1. 마이그레이션을 대기하세요 {#step1-wait}
 
-We strongly recommend migrating code in order, 
-with the leaves of the dependency graph being migrated first.
-For example, if package C depends on package B, which depends on package A,
-then A should be migrated to null safety first, then B, then C.
+우리는 개발자들이 코드를 순차적으로 마이그레이션할 것을 권고하며,
+먼저 의존 관계의 가장 말단에 있는 의존성을 마이그레이션할 것을 권장합니다.
+예를 들어, C가 B에 의존하고 B가 A에 의존하는 경우 A -> B -> C의 순서로
+마이그레이션 해야 합니다.
 
 ![Illustration of C/B/A sentence](/null-safety/null-safety-migration-order.png){:width="454px"}<br>
 
-Although you [_can_ migrate][Unsound null safety]
-before your dependencies support null safety,
-you might have to change your code when your dependencies migrate.
-For example, if you predict that a function will take a nullable parameter but
-the package migrates it to be non-nullable,
-then passing a nullable argument becomes a compile error.
+모든 의존성의 마이그레이션이 완료되기 전에 [마이그레이션을 _수행할 수 있지만_][Unsound null safety],
+그렇게 하면 마이그레이션이 완료된 후에 코드를 다시 변경해야 할 수 있습니다.
+예를 들어, 함수가 nullable 매개변수를 받을 수 있다고 추측할 경우, 의존 관계에 있는
+패키지의 마이그레이션으로 인해 해당 매개변수가 non-nullable로 변경되면, nullable 매개변수를 전달할 때
+컴파일 에러가 발생합니다.
 
 {{site.alert.info}}
-  **You can—and should—migrate your package before
-  packages that depend on it are migrated.**
-  Your null-safe package is usable by packages and apps that
-  don't use null safety yet,
-  as long as they use Dart 2.12 or later.
-  For example, the Dart and Flutter core libraries are null safe,
-  and they're still usable by apps that haven't migrated to null safety.
+  **당신의 패키지에 의존하는 패키지를 마이그레이션하기 전에 당신의 패키지를 먼저 마이그레이션 해야합니다.**
+  Dart 2.12 이상을 사용하는 경우에 마이그레이션된 패키지는 마이그레이션되지 않은 패키지와 앱에
+  사용할 수 있습니다. 예를 들어, Dart와 Flutter의 핵심 라이브러리는 이제 null 안전성을
+  준수하도록 마이그레이션되었으며 마이그레이션되지 않은 앱도 여전히 사용할 수 있습니다.
 {{site.alert.end}}
 
-This section tells you how to
-check and update your package's dependencies,
-with the help of the `dart pub outdated` command in null-safety mode.
-The instructions assume your code is under **source control**,
-so that you can easily undo any changes.
+이 섹션에서는 null 안전성 모드에서 `dart pub outdated`를 사용하여
+종속성을 확인하고 업데이트하는 방법에 대해 설명합니다. 다음 지침은
+코드의 **버전 관리**가 되고 있고, 언제든지 모든 변경을 롤백할 수 있다고 가정합니다.
 
 
-### Switch to the latest stable Dart release
+### 최신 stable Dart 릴리즈로 전환
 
-Switch to the **latest stable release**
-of either the Dart SDK or the Flutter SDK.
+Dart SDK를 **Dart 2.19 stable 릴리즈**로 전환하세요.
+이 버전은 Flutter 3.7 SDK에 포함되어있습니다.
 
-Check that you have Dart 2.12 or later:
-  ```terminal
+Dart 버전이 2.19인지 확인하세요:
+
+```terminal
 $ dart --version
+Dart SDK version: 2.19.2
 ```
 
-### Check dependency status
+### 종속 상태 확인
 
-Get the migration state of your package's dependencies,
-using the following command:
+다음 커맨드를 사용하여 패키지 의존성의 마이그레이션 상태를 체크합니다:
 
 ```terminal
 $ dart pub outdated --mode=null-safety
 ```
 
-If the output says that all the packages support null safety,
-then you can start migrating.
-Otherwise, use the **Resolvable** column to find
-null-safe releases, if they exist.
+모든 패키지가 null 안전성을 지원한다면, 마이그레이션을 진행하면 됩니다.
+그렇지 않는다면 **Resolvable** 열에 나열된 null 안전성 버전으로
+마이그레이션 하세요.
 
 {{site.alert.info}}
-  **Why do all dependencies need to support null safety?**
-  When all of an app's direct dependencies support null safety,
-  you can _run the app_ with sound null safety.
-  When all the dev dependencies support null safety,
-  you can _run tests_ with sound null safety.
-  You might also need null-safe dev dependencies for other reasons,
-  such as code generation.
+  **왜 모든 의존성이 null 안전성을 지원해야 할까요?**
+  앱의 모든 의존성이 null 안전성을 지원하는 경우 견고한 null 안전성을 만족하는
+  환경에서 _앱을 실행_ 할 수 있습니다. 마찬가지로 개발 의존성이 null 안전성을 지원하면,
+  견고한 null 안전성을 만족하는 환경에서 앱을 _테스트_ 할 수 있습니다.
+  코드 생성과 같은 이유로 null-safe한 개발 의존성이 필요한 경우가 있습니다.
 {{site.alert.end}}
 
-Here's an example of the output for a simple package.
-The green checkmarked version for each package supports null safety:
+다음은 간단한 패키지에 대한 예제입니다.
+각 패키지의 녹색 체크 표시는 해당 버전이 null 안전성을 지원함을 나타냅니다:
 
 ![Output of dart pub outdated](/null-safety/pub-outdated-output.png)
 
-The output shows that all of the package's dependencies
-have resolvable prereleases that support null safety.
+위의 출력은 패키지의 의존성이 사용 가능한 null 안전성을 지원하는 프리 릴리즈 버전을
+가지고 있음을 보여줍니다.
 
-If any of your package's dependencies _don't_ yet support null safety,
-we encourage you to reach out to the package owner.
-You can find contact details on the package page on [pub.dev][].
+패키지 의존성 중 일부가 아직 null 안전성을 지원하지 않는 경우,
+해당 패키지 작성자에게 연락하는 것을 추천합니다.
+[pub.dev][]의 패당 패키지 페이지에서 작성자의 연락처를 찾을 수 있습니다.
 
 [pub.dev]: {{site.pub}}
 
 
-### Update dependencies
+### 의존성 업데이트
 
-Before migrating your package's code,
-update its dependencies to null-safe versions:
+패키지 코드를 마이그레이션하기 전에,
+패키지의 의존성을 null-safe한 버전으로 업데이트 하세요:
 
-1. Run `dart pub upgrade --null-safety` to upgrade to the latest versions
-   supporting null safety.
-   **Note:** This command changes your `pubspec.yaml` file.
+1. Null 안전성을 지원하는 최신 버전으로 업그레이드하고 싶다면 `dart pub upgrade --null-safety` 커맨드를 실행하세요.
+   **Note:** 이 커맨드는 `pubspec.yaml` 파일을 수정합니다.
 
-2. Run `dart pub get`.
+2. `dart pub get` 커맨드를 실행하세요.
 
 
 ## 2. Migrate {#step2-migrate}
@@ -168,7 +165,7 @@ adding [hint markers][] to your Dart code.
 
 Before starting the tool, make sure you're ready:
 
-* Use the latest stable release of the Dart SDK.
+* Use the latest 2.19 release of the Dart SDK.
 * Use `dart pub outdated --mode=null-safety` to make sure that
   all dependencies are null safe and up-to-date.
   
@@ -328,6 +325,9 @@ except for a 2.9 [version comment][].
 For more information about incremental migration, see
 [Unsound null safety][].
 
+Note that only fully migrated apps and packages 
+are compatible with Dart 3.
+
 [version comment]: /guides/language/evolution#per-library-language-version-selection
 
 
@@ -475,7 +475,13 @@ we strongly recommend following these pubspec rules:
 
 If you made it this far,
 you should have a fully migrated, null-safe Dart package.
+
 If all of the packages you depend on are migrated too,
 then your program is sound with respect to null-reference errors.
+You should see output like this when running or compiling your code:
+
+```terminal
+Compiling with sound null safety
+```
 
 From all of the Dart team, *thank you* for migrating your code.
