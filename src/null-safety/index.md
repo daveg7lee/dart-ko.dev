@@ -175,17 +175,17 @@ Null-safe한 코드로 마이그레이션하는 방법은
 
 다음 리소스를 참고하여 null 안전성에 대해 자세히 학습하세요:
 
-* [Null 안전성 codelab][]
-* [Null 안전성의 이해][]
-* [기존의 코드를 위한 마이그레이션 가이드][마이그레이션 가이드]
-* [Null 안전성 FAQ][]
+* [Null 안전성 codelab][Null safety codelab]
+* [Null 안전성의 이해][Understanding null safety]
+* [기존의 코드를 위한 마이그레이션 가이드][migration guide]
+* [Null 안전성 FAQ][Null safety FAQ]
 * [Null 안전성 코드 샘플][calculate_lix]
 
-[calculate_lix]: https://github.com/dart-lang/samples/tree/master/null_safety/calculate_lix
-[마이그레이션 가이드]: /null-safety/migration-guide
-[Null 안전성 FAQ]: /null-safety/faq
-[Null 안전성 codelab]: /codelabs/null-safety
-[Null 안전성의 이해]: /null-safety/understanding-null-safety
+[calculate_lix]: https://github.com/dart-lang/samples/tree/main/null_safety/calculate_lix
+[migration guide]: /null-safety/migration-guide
+[Null safety FAQ]: /null-safety/faq
+[Null safety codelab]: /codelabs/null-safety
+[Understanding null safety]: /null-safety/understanding-null-safety
 [#34233]: https://github.com/dart-lang/sdk/issues/34233
 [#49529]: https://github.com/dart-lang/sdk/issues/49529
 [#2357]: https://github.com/dart-lang/language/issues/2357

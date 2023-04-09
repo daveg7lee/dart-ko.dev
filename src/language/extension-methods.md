@@ -260,4 +260,4 @@ For example, in the following code, `T` is `PENDING` because PENDING:
 
 [specification]: https://github.com/dart-lang/language/blob/master/accepted/2.7/static-extension-methods/feature-specification.md#dart-static-extension-methods-design
 [article]: https://medium.com/dartlang/extension-methods-2d466cd8b308
-[sample]: https://github.com/dart-lang/samples/tree/master/extension_methods
+[sample]: https://github.com/dart-lang/samples/tree/main/extension_methods

@@ -424,7 +424,7 @@ isolate를 설정하면 됩니다.
 * [long_running_isolate.dart][]:
   메시지를 여러 번 송수신하는 장기 실행 isolate를 생성하는 방법을 알려줍니다.
 
-{% assign samples = "https://github.com/dart-lang/samples/tree/master/isolates" %}
+{% assign samples = "https://github.com/dart-lang/samples/tree/main/isolates" %}
 
 [isolate 샘플]: {{ samples }}
 [send_and_receive.dart]: {{ samples }}/bin/send_and_receive.dart
