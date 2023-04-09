@@ -530,12 +530,12 @@ Dart 언어를 학습 할 때 다음을 잘 기억하세요:
 [Comments]: /language/comments
 [built-in types]: /language/built-in-types
 [Strings]: /language/built-in-types#strings
-[main() 함수]: /language/functions#the-main-function
+[main() 함수]: /language/functions#main-함수
 [ns]: /null-safety
 [`Object`]: {{site.dart-api}}/{{site.data.pkg-vers.SDK.channel}}/dart-core/Object-class.html
 [language version]: /guides/language/evolution#language-versioning
 [ObjectVsDynamic]: /guides/language/effective-dart/design#avoid-using-dynamic-unless-you-want-to-disable-static-checking
 [라이브러리와 임포트]: /language/libraries
-[조건 표현식 (conditional expression)]: /language/operators#conditional-expressions
-[if-else 문]: /language/control-flow#if-and-else
-[예외]: /language/error-handling#exceptions
+[조건 표현식 (conditional expression)]: /language/operators#조건-표현식
+[if-else 문]: /language/control-flow#if-else
+[예외]: /language/error-handling#예외

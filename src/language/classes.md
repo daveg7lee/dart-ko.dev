@@ -331,9 +331,9 @@ void main() {
 [Extension methods]: /language/extension-methods
 [constant constructors]: /language/constructors#constant-constructors
 [`Type`]: {{site.dart-api}}/{{site.data.pkg-vers.SDK.channel}}/dart-core/Type-class.html
-[type test operator]: /language/operators#type-test-operators
-[Getters and setters]: /language/methods#getters-and-setters
-[initializer list]: /language/constructors#initializer-list
-[factory constructor]: /language/constructors#factory-constructors
+[type test operator]: /language/operators#타입-테스트-연산자
+[Getters and setters]: /language/methods#getter-setter
+[initializer list]: /language/constructors#이니셜라이저-리스트
+[factory constructor]: /language/constructors#factory-생성자
 [late-final-ivar]: /guides/language/effective-dart/design#avoid-public-late-final-fields-without-initializers
-[abstract methods]: /language/methods#abstract-methods
+[abstract methods]: /language/methods#추상-메서드

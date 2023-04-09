@@ -161,7 +161,7 @@ try {
 라이브러리 투어의 [예외](/guides/libraries/library-tour#exceptions)
 를 통해 더 자세히 학습하세요.
 
-[isolate]: /language/concurrency#how-isolates-work
+[isolate]: /language/concurrency#Isolate-작동-방식
 [`Error`]: {{site.dart-api}}/{{site.data.pkg-vers.SDK.channel}}/dart-core/Error-class.html
 [`Exception`]: {{site.dart-api}}/{{site.data.pkg-vers.SDK.channel}}/dart-core/Exception-class.html
 [`StackTrace`]: {{site.dart-api}}/{{site.data.pkg-vers.SDK.channel}}/dart-core/StackTrace-class.html

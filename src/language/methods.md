@@ -145,4 +145,4 @@ class EffectiveDoer extends Doer {
 ```
 
 [operators]: /language/operators
-[abstract classes]: /language/classes#abstract-classes
+[abstract classes]: /language/classes#추상-클래스

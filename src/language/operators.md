@@ -470,11 +470,11 @@ The `sb.write()` 호출은 void를 반환하고,
 [클래스][Classes]를 참고하세요.
 
 
-[operators as class members]: /language/methods#operators
+[operators as class members]: /language/methods#연산자
 [Dart language specification]: /guides/language/spec
 [identical()]: {{site.dart-api}}/{{site.data.pkg-vers.SDK.channel}}/dart-core/identical.html
-[Operators]: /language/methods#operators
+[Operators]: /language/methods#연산자
 [library prefixes]: /language/libraries#specifying-a-library-prefix
-[if-else]: /language/control-flow#if-and-else
+[if-else]: /language/control-flow#if-else
 [language version]: /guides/language/evolution#language-versioning
 [Classes]: /language/classes

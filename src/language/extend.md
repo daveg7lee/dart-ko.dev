@@ -100,7 +100,7 @@ class A {
 더 자세한 정보를 원한다면, [noSuchMethod forwarding specification](https://github.com/dart-lang/language/blob/master/archive/feature-specifications/nosuchmethod-forwarding.md)을
 참고하세요.
 
-[parameterized types]: /language/generics#restricting-the-parameterized-type
-[operators]: /language/methods#operators
-[generic method]: /language/generics#using-generic-methods
+[parameterized types]: /language/generics#매개변수화된-타입-제한하기
+[operators]: /language/methods#연산자
+[generic method]: /language/generics#제네릭-메서드-사용하기
 [Dart language specification]: /guides/language/spec

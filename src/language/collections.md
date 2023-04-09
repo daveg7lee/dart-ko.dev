@@ -317,10 +317,10 @@ Map에 대한 더 많은 정보를 원한다면,
 [`Maps` API](/guides/libraries/library-tour#maps)를
 참고하세요.
 
-[type inference]: /language/type-system#type-inference
+[type inference]: /language/type-system#타입-추론
 [`List`]: {{site.dart-api}}/{{site.data.pkg-vers.SDK.channel}}/dart-core/List-class.html
 [`Map`]: {{site.dart-api}}/{{site.data.pkg-vers.SDK.channel}}/dart-core/Map-class.html
-[Using constructors]: /language/classes#using-constructors
+[Using constructors]: /language/classes#생성자-사용하기
 [collections proposal]: https://github.com/dart-lang/language/blob/master/accepted/2.3/control-flow-collections/feature-specification.md
 [spread proposal]: https://github.com/dart-lang/language/blob/master/accepted/2.3/spread-collections/feature-specification.md
 [generics]: /language/generics

@@ -137,8 +137,8 @@ print(Color.blue.name); // 'blue'
 [trailing commas]: /language/collections#lists
 [classes]: /language/classes
 [mixins]: /language/mixins
-[generative constructors]: /language/constructors#constant-constructors
-[Factory constructors]: /language/constructors#factory-constructors
+[generative constructors]: /language/constructors#상수-생성자
+[Factory constructors]: /language/constructors#factory-생성자
 [language version]: /guides/language/evolution#language-versioning
-[static variable]: /language/classes#class-variables-and-methods
-[switch statements]: /language/control-flow#switch-and-case
+[static variable]: /language/classes#클래스-변수와-메서드
+[switch statements]: /language/control-flow#switch-case

@@ -283,8 +283,8 @@ Assertion의 역할이 정확하게 무엇일까요?
 프로덕션 코드에서 assertion은 무시되고
 `assert`의 인자는 평가되지 않습니다.
 
-[Exceptions]: /language/error-handling#exceptions
-[conditional expressions]: /language/operators#conditional-expressions
+[Exceptions]: /language/error-handling#예외
+[conditional expressions]: /language/operators#조건-표현식
 [Booleans]: /language/built-in-types#booleans
 [iteration]: /guides/libraries/library-tour#iteration
 [forEach()]: {{site.dart-api}}/{{site.data.pkg-vers.SDK.channel}}/dart-core/Iterable/forEach.html
