@@ -1,8 +1,10 @@
-- title: 샘플 & 튜토리얼
+- title: 튜토리얼 & 코드랩
   expanded: false
   children:
-    - title: 언어 샘플
-      permalink: /samples
+    - title: 튜토리얼
+      urlExactMatch: true
+      match-page-url-exactly: true
+      permalink: /tutorials
     - title: Codelabs
       expanded: true
       children:
@@ -14,48 +16,86 @@
           permalink: /codelabs/dart-cheatsheet
         - title: Iterable collections
           permalink: /codelabs/iterables
-        - title: Asynchronous programming
+        - title: 비동기 프로그래밍
           permalink: /codelabs/async-await
-        - title: Null safety
+        - title: Null 안전성
           permalink: /codelabs/null-safety
-    - title: 튜토리얼
-      urlExactMatch: true
-      match-page-url-exactly: true
-      permalink: /tutorials
-
 - title: 언어
   expanded: false
   children:
-    - title: 투어
-      permalink: /guides/language/language-tour
-    - title: 타입 시스템
-      permalink: /guides/language/type-system
-    - title: 확장 메서드
-      permalink: /guides/language/extension-methods
+    - title: 소개
+      match-page-url-exactly: true
+      permalink: /language
+    - title: 기초 문법
+      children:
+        - title: 변수
+          permalink: /language/variables
+        - title: 연산자
+          permalink: /language/operators
+        - title: 주석
+          permalink: /language/comments
+        - title: 메타데이터
+          permalink: /language/metadata
+        - title: 라이브러리 & 임포트
+          permalink: /language/libraries
+        - title: 키워드
+          permalink: /language/keywords 
+    - title: 타입
+      children:
+        - title: 내장 타입
+          permalink: /language/built-in-types
+        - title: Collections
+          permalink: /language/collections
+        - title: Typedefs
+          permalink: /language/typedefs
+        - title: Generics
+          permalink: /language/generics
+        - title: 타입 시스템
+          permalink: /language/type-system 
+    - title: 함수
+      permalink: /language/functions
+    - title: 흐름 제어
+      permalink: /language/control-flow
+    - title: 에러 핸들링
+      permalink: /language/error-handling
+    - title: 클래스 & 객체
+      children: 
+        - title: 클래스
+          permalink: /language/classes
+        - title: 생성자
+          permalink: /language/constructors
+        - title: 메소드
+          permalink: /language/methods
+        - title: 클래스 확장
+          permalink: /language/extend
+        - title: 확장 메소드
+          permalink: /language/extension-methods
+        - title: Enum 타입
+          permalink: /language/enum
+        - title: Mixins
+          permalink: /language/mixins
+        - title: 호출 가능한 클래스
+          permalink: /language/callable-classes
     - title: 동시성
-      permalink: /guides/language/concurrency
+      children: 
+        - title: 비동기 지원
+          permalink: /language/async
+        - title: Isolates
+          permalink: /language/concurrency
     - title: Null 안전성
       expanded: false
       children:
-        - title: "개요: 견고한 null 안전성"
+        - title: 견고한 null 안전성
           urlExactMatch: true
           match-page-url-exactly: true
           permalink: /null-safety
         - title: Null 안전성으로 마이그레이션
-          urlExactMatch: true
-          match-page-url-exactly: true
           permalink: /null-safety/migration-guide
-        - title: Understanding null safety
-          urlExactMatch: true
-          match-page-url-exactly: true
+        - title: Null 안전성이란?
           permalink: /null-safety/understanding-null-safety
-        - title: Unsound null safety
-          urlExactMatch: true
-          match-page-url-exactly: true
+        - title: 견고하지 않은 null 안전성
           permalink: /null-safety/unsound-null-safety
         - title: FAQ
-          urlExactMatch: true
-          match-page-url-exactly: true
           permalink: /null-safety/faq
 
 - title: 효과적인 Dart
@@ -280,7 +320,7 @@
   expanded: false
   children:
     - title: FAQ
-      permalink: /faq
+      permalink: /resources/faq
     - title: Language evolution
       permalink: /guides/language/evolution
     - title: Language specification

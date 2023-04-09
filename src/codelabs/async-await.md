@@ -12,8 +12,8 @@ js: [{url: 'https://dartpad.dev/inject_embed.dart.js', defer: true}]
 
 이 코드랩을 최대한 활용하려면 다음을 알고 있어야 합니다:
 
-* [기본 Dart 문법](/samples)에 대한 지식.
-* 다른 언어에서 비동기 코드를 작성해 본 경험.
+* [기초 Dart 문법](/language)에 대한 지식.
+* 다른 언어에서 비동기 코드를 작성해본 경험.
 
 이 코드랩에서는 다음의 주제를 다룹니디:
 
@@ -594,7 +594,7 @@ try {
 ```
 
 Within an `async` function, you can write 
-[try-catch clauses](/guides/language/language-tour#catch)
+[try-catch clauses](/language/error-handling#catch)
 the same way you would in synchronous code.
 
 ### Example: async and await with try-catch
@@ -1059,7 +1059,7 @@ are some suggestions for where to go next:
 - Learn more about futures and asynchrony:
   - [Streams tutorial](/tutorials/language/streams):
     Learn how to work with a sequence of asynchronous events.
-  - [Concurrency in Dart](/guides/language/concurrency)
+  - [Concurrency in Dart](/language/concurrency)
     Understand and learn how to implement concurrency in Dart.
   - [Dart videos from Google:][Dart videos]
     Watch one or more of the videos about asynchronous coding.
@@ -1070,7 +1070,7 @@ are some suggestions for where to go next:
 If you're interested in using embedded DartPads, like this codelab does, see
 [best practices for using DartPad in tutorials][].
 
-[best practices for using DartPad in tutorials]: /resources/dartpad-best-practices
+[best practices for using DartPad in tutorials]: /tools/dartpad/dartpad-best-practices
 [Dart videos]: https://www.youtube.com/playlist?list=PLjxrf2q8roU0Net_g1NT5_vOO3s_FR02J
 [article]: https://medium.com/dartlang/dart-asynchronous-programming-isolates-and-event-loops-bffc3e296a6a
 [Future]: {{site.dart-api}}/{{site.data.pkg-vers.SDK.channel}}/dart-async/Future-class.html
