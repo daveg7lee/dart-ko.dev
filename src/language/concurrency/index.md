@@ -346,6 +346,8 @@ Main isolate의 코드는 계속해서 실행되기 때문에 `Isolate.run()`의
 Main isolate와 워커 isolate는 동시에 실행되기 때문에
 워커 isolate가 실행하는 계산이 동기적이든 아니든 main isolate에 영향을 주지 않습니다.
 
+For the complete program, check out the [send_and_receive.dart][] sample.
+
 {% comment %}
 TODO:
 Should create a diagram for the current example.
@@ -416,13 +418,8 @@ isolate를 설정하면 됩니다.
 
 ![A figure showing the main isolate spawning the isolate and then sending a request message, which the worker isolate responds to with a reply message; two request-reply cycles are shown](/language/concurrency/images/isolate-custom-bg-worker.png)
 
-다수의 메시지를 전송하는 예제는 [isolate 샘플][]을 참고하세요:
-
-* [send_and_receive.dart][]:
-  main isolate에서 생성된 isolate로 메시지를 보내는 방법을 알려줍니다.
-  앞선 예제와 비슷하지만 `run()`을 사용하지 않습니다.
-* [long_running_isolate.dart][]:
-  메시지를 여러 번 송수신하는 장기 실행 isolate를 생성하는 방법을 알려줍니다.
+Isolate 사이에서 다수의 메시지를 송수신하는
+장기 실행 isolate를 생성하는 방법은 [long_running_isolate.dart][] 샘플에서 확인하세요.
 
 {% assign samples = "https://github.com/dart-lang/samples/tree/main/isolates" %}
 
