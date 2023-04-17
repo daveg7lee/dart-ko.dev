@@ -33,10 +33,10 @@ Dart는 변수의 값이 _항상_ 변수의 정적 타입과 매치됨을 보장
 Dart 타이핑(typing) 시스템은 유연하여 런타임 검사와 결합된
 `dynamic` 타입을 사용할 수 있으며, 이는 실험 중에 또는 동적인 코드에 유용할 수 있습니다.
 
-Dart는 [sound null safety](/null-safety)를 지원합니다.
+Dart는 [견고한 null 안전성](/null-safety)을 지원합니다.
 이는 개발자가 해당 변수의 값이 null 일 수 있음을 표시하지 않는다면,
 null 값을 가지지 못하게 한다는 것을 의미합니다.
-Sound null safety를 사용하여 Dart는 정적 코드 분석을 통해
+견고한 null 안전성를 사용하여 Dart는 정적 코드 분석을 통해
 런타임에서 null exception으로부터 개발자들을 보호합니다.
 Null-safe한 다른 언어들과 다르게,
 Dart가 어떤 변수를 non-nullable로 결정할 때,
@@ -46,10 +46,8 @@ Dart가 어떤 변수를 non-nullable로 결정할 때,
 
 다음 코드 샘플은 라이브러리, async 호출, nullable 그리고 non-nullable 타입,
 화살표 문법, 재네레이터, 스트림, getter와 같은 다양한 Dart 언어의 피쳐를 포함합니다.
-추가적인 Dart 피처들의 예제를 보고 싶다면,
-[샘플 페이지](/samples)를 참고하세요.
 언어에 대해 더 학습하고 싶다면,
-[Dart 언어 투어](/guides/language/language-tour)를 참고하세요.
+[Dart 언어 투어](/language)를 참고하세요.
 
 <?code-excerpt "misc/lib/overview_pi.dart"?>
 ```dart:run-dartpad:ga_id-overview
@@ -233,10 +231,10 @@ Dart 웹은 두개의 컴파일 모드를 가지고 있습니다:
   Dart의 타입 체킹은 대부분 정적이지만 (컴파일 타임),
   몇몇 타입 체킹은 유동적입니다 (런타임).
   예를 들어, Dart 런타임은
-  [타입 체크와 캐스트 연산자](/guides/language/language-tour#type-test-operators)로
+  [타입 체크와 캐스트 연산자](/language/operators#타입-테스트-연산자)로
   동적인 체크를 수행합니다.
 
-* [Isolate](/guides/language/language-tour#isolates) 관리:
+* [Isolate](/language/concurrency) 관리:
   Dart 런타임은 일반적으로 코드를 실행하는 메인 isolate와
   앱을 생성하는 다른 isolate를 제어합니다.
 
@@ -249,7 +247,7 @@ Dart VM의 일부입니다.
 Dart를 학습하는 여러가지 방법이 있습니다. 다음은 우리가 추천하는 방법입니다:
 
 * Dart 코드를 위한 웹 기반 실행 환경인 DartPad를 사용해 [브라우저에서 Dart를 체험하세요]({{site.dartpad}}/).
-* [Dart 언어의 주요 기능 사용법 배우세요](/guides/language/language-tour).
+* [Dart 언어의 주요 기능 사용법 배우세요](/language).
 * 커맨드 라인 프로그램을 만들기 위한 Dart의 기본인 [Dart 튜토리얼 완료하세요](/tutorials/server/cmdline).
 * Dart 전문가의 [온라인 교육][udemy]을 참고하세요.
 * Dart 핵심 라이브러리에 대한 [API 문서 살펴보세요]({{site.dart-api}}).

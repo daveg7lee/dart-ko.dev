@@ -1,32 +1,23 @@
 ---
-title: 언어 샘플
-description: 더 큰 예제로 이어질수 있는 자연스러운 Dart 예제.
+title: Dart 언어 소개
+description: Dart 프로그램과 주요 개념에 대한 간결한 소개.
+short-title: Dart 언어 기초
 ---
 
-이 컬렉션은 완전하지 않습니다—예제를 통해 Dart를 배우고 싶은 사람들을 위한 간단한 소개 입니다.
-[Dart cheatsheet codelab](/codelabs/dart-cheatsheet) 또는 언어, 라이브러리 투어도 참고해보세요.
+이 페이지에서는 Dart 언어의 주요 기능에 대한 예제를 통해 Dart 언어를 간결하게 소개합니다.
 
-<div class="card-grid no_toc_section">
-  <div class="card">
-    <h3><a href="/guides/language/language-tour">언어투어</a></h3>
-    <p>
-      예제가 있는 Dart 언어의 포괄적인 투어.
-      이 페이지 대부분의 <em>더보기</em>는 언어 투어로 이동합니다.
-    </p>
-  </div>
-  <div class="card">
-    <h3><a href="/guides/libraries/library-tour">라이브러리 투어</a></h3>
-    <p>
-      예제를 기반으로한 Dart 핵심 라이브러리 소개.
-      내장 타입, 컬렉션, 날짜와 시간, 스트림 등을 어떻게 사용하는지 배울 수 있습니다.
-    </p>
-  </div>
-</div>
+Dart 언어에 대해 더 자세히 배우고 싶다면,
+왼쪽 사이드 메뉴의 **언어**에 나열된 토픽들을 참고하세요.
+
+Dart의 코어 라이브러리에 대해 배우고 싶다면, [라이브러리 투어](/guides/libraries/library-tour)를 참고하세요.
+직접 Dart 언어를 사용하여 학습하고 싶다면, [Dart cheatsheet codelab](/codelabs/dart-cheatsheet)를
+참고하세요.
 
 
 ## Hello World
 
-모든 앱은 `main()` 함수를 가지고 있습니다.
+모든 앱은 코드의 실행이 시작되는 최상위 `main()` 함수를 가지고 있습니다.
+명시적으로 값을 반환하지 않는 함수는 `void`를 반환 타입으로 가집니다.
 콘솔에 텍스트를 띄우고 싶다면, 최상위 `print()` 함수를 사용하세요:
 
 <?code-excerpt "misc/test/samples_test.dart (hello-world)"?>
@@ -37,9 +28,16 @@ void main() {
 ```
 
 
+커맨드 라인 인수에 대한 선택적 매개 변수를 포함하여 Dart의 [`main()` 함수][]에
+대해 자세히 알아보세요.
+
+[`main()` 함수]: /language/functions#the-main-function
+
 ## 변수
 
-타입 안정성이 높은 Dart 코드일지라도, 대부분의 변수는 타입 추론 덕분에 명시적인 타입을 가질 필요가 없습니다:
+[타입 안전성이 높은](https://dart.dev/language/type-system) Dart 코드일지라도,
+`var`를 사용하여 명시적으로 타입을 지정하지 않고 변수를 선언할 수 있습니다.
+타입 추론 덕분에 이런 변수들의 타입은 초기 값을 통해 결정됩니다.
 
 <?code-excerpt "misc/test/samples_test.dart (var)"?>
 ```dart
@@ -54,7 +52,7 @@ var image = {
 ```
 
 정적 타입, `final`, `const` 키워드 디폴트 값을 포함한 Dart의 변수에 대해 
-[더보기](/guides/language/language-tour#변수).
+[더보기](/language/variables).
 
 ## 흐름 제어문
 
@@ -83,8 +81,7 @@ while (year < 2016) {
 
 `break`과 `continue`, `switch`와 `case`, `assert`를
 가지는 Dart 흐름 제어문에 대해 
-[더보기](/guides/language/language-tour#흐름-제어문) 
-
+[더보기](/language/control-flow)
 
 ## 함수
 
@@ -114,7 +111,7 @@ flybyObjects.where((name) => name.contains('turn')).forEach(print);
 최상위 `print()` 함수는 `forEach()`의 인자가 됩니다.
 
 Optional 매개변수, 디폴트 매개변수 값 그리고 렉시컬 스코프를 포함하는 Dart의 함수에 대해
-[더보기](/guides/language/language-tour#함수).
+[더보기](/language/functions).
 
 ## 주석
 
@@ -130,7 +127,7 @@ Dart의 주석은 보통 `//`로 시작합니다.
 ```
 
 문서화 도구의 작동 방식을 비록해 Dart의 주석에 대한 자세한 내용
-[더보기](/guides/language/language-tour#주석)
+[더보기](/language/comments)
 
 ## Imports
 
@@ -150,14 +147,14 @@ import 'path/to/my_other_file.dart';
 
 라이브러리 prefix, `show`와 `hide`, `deferred` 키워드를 사용한 지연 로딩을 비롯한
 Dart 라이브러리와 가시성에 대해
-[더보기](/guides/language/language-tour#라이브러리와-가시성) 
-
+[더보기](/language/libraries) 
 
 ## 클래스
 
 다음은 메서드, 두개의 생성자, 세개의 프로퍼티를 가지는 클래스 예제입니다.
 하나의 프로퍼티는 직접적으로 설정이 불가능하여,
 변수가 아닌 getter 메서드를 사용하여 정의됩니다.
+메소드는 문자열 리터럴 안에서 변수를 문자열 형태로 출력하기 위해 문자열 보간을 사용합니다.
 
 <?code-excerpt "misc/lib/samples/spacecraft.dart (class)"?>
 ```dart
@@ -191,6 +188,7 @@ class Spacecraft {
 }
 ```
 
+문자열 보간, 리터럴, 표현식과 `toString()` 메소드를 포함하여 문자열에 대해 [더보기](/language/built-in-types#strings).
 `Spacecraft` 클래스를 다음과 같이 사용할 수 있습니다:
 
 <?code-excerpt "misc/test/samples_test.dart (use class)" plaster="none"?>
@@ -203,8 +201,7 @@ voyager3.describe();
 ```
 
 Getter, setter, 리디렉팅 생성자, `factory` 생성자, 선택적인 `new`와 `const`, initializer list
-를 비롯하여 Dart의 클래스에 대해 [더보기](/guides/language/language-tour#클래스).
-
+를 비롯하여 Dart의 클래스에 대해 [더보기](/language/classes).
 
 ## Enum
 
@@ -258,7 +255,7 @@ if (!yourPlanet.isGiant) {
 
 발전된 enum의 요구 사항, 자동으로 도입된 프로퍼티, 열거된 값을 이름으로 접근,
 switch문 지원 등을 포함한 Dart의 enum에 대해 
-[더보기](/guides/language/language-tour#enums)
+[더보기](/language/enum)
 
 
 ## 상속
@@ -275,7 +272,7 @@ class Orbiter extends Spacecraft {
 ```
 
 선택적인 `@override` 어노테이션, 클래스 확장 등에 대해 
-[더보기](/guides/language/language-tour#클래스-확장) 
+[더보기](/language/extend) 
 
 
 ## Mixin
@@ -306,7 +303,7 @@ class PilotedCraft extends Spacecraft [!with!] Piloted {
 이제 `PilotedCraft`는 `astronauts` 필드와 `describeCrew()` 메서드를 가집니다.
 
 Mixin에 대해
-[더보기](/guides/language/language-tour#클래스에-피처-추가하기-mixins).
+[더보기](/language/mixins).
 
 
 ## 인터페이스와 추상 클래스
@@ -323,7 +320,7 @@ class MockSpaceship implements Spacecraft {
 ```
 
 암묵적 인터페이스에 대해
-[더보기](/guides/language/language-tour#암묵적-인터페이스).
+[더보기](/language/classes#암묵적-인터페이스).
 
 구체적인 클래스로 확장 또는 구현되는 추항 클래스를 생성하는 것이 가능합니다.
 추상 클래스는 바디가 비어있는 추상 메서드를 가지는 것이 가능합니다.
@@ -346,7 +343,7 @@ Abstract classes can contain abstract methods (with empty bodies).
 `describeWithEmphasis()` 메서드를 가집니다.
 
 추상 클래스와 메서드에 대해
-[더보기](/guides/language/language-tour#추상-클래스).
+[더보기](/language/classes#추상-클래스).
 
 
 ## Async
@@ -411,7 +408,7 @@ Stream<String> report(Spacecraft craft, Iterable<String> objects) async* {
 
 `async` 함수, `Future`, `Stream` 그리고 비동기 루프 (`await for`)을 비롯한
 비동기 지원에 대해
-[더보기](/guides/language/language-tour#비동기-지원)
+[더보기](/language/async)
 
 
 ## 예외
@@ -448,11 +445,97 @@ Future<void> describeFlybyObjects(List<String> flybyObjects) async {
 
 스택 트레이스, `rethrow`, 그리고 `Error`와 `Exception`의 차이를 비롯하여
 예외에 대해 
-[더보기](/guides/language/language-tour#예외).
+[더보기](/language/error-handling#예외).
 
 
-## 다른 토픽
+## 주요 컨셉
 
-[언어 투어](/guides/language/language-tour)와
-[라이브러리 투어](/guides/libraries/library-tour)에 많은 코드 샘플이 존재합니다.
-[Dart API reference]({{site.dart-api}})에도 종종 샘플이 등장합니다.
+Dart 언어를 학습 할 때 다음을 잘 기억하세요:
+
+-   변수로 할당 할 수 있는 모든 것은 *객체*이고, 모든 객체는 *클래스*의 인스턴스입니다.
+    숫자, 함수 그리고 `null`까지 모두 객체입니다.
+    `null`을 제외하고 ([견고한 null 안전성][ns]를 활성화했다면),
+     모든 객체들은 [`Object`][] 클래스를 상속받습니다.
+
+    {{site.alert.version-note}}
+      [Null 안전성][ns]는 Dart 2.12에 처음 도입되었습니다.
+      null safety를 사용하려면 최소 2.12의 [language version][]이 필요합니다.
+    {{site.alert.end}}
+
+-   Dart는 타입에 엄격하지만, 추론할 수 있기 때문에 타입 어노테이션은 자율에 맡깁니다.
+    `var number = 101`의 `number`는 `int` 타입으로 추론됩니다.
+
+-   [Null 안전성][ns]을 활성화했다면,
+    변수가 null 값을 갖는 것을 허락하지 않았을 때 
+    해당 변수가 null 값을 가질 수 없습니다.
+    타입의 끝에 물음표 (`?`)를 추가하면 해당 변수를
+    nullable로 만들 수 있습니다.
+    예를 들어, `int?` 타입의 변수는 정수 또는 `null` 값을 가집니다.
+    만약 표현식이 null로 평가되지 않지만 Dart가 이에 동의하지 않는다는 것을
+    _알고_ 있다면, `!`을 추가하여 null이 아니라고 주장(assert) 할 수 있습니다
+    (null이라면 예외를 발생시킵니다).
+    예시: `int x = nullableButNotNullInt!`
+
+-   어떤 타입이든 적용이 가능하다고 명시하고 싶다면,
+    `Object?` (null 안전성을 활성화했다면)
+    또는 `Object`를 타입으로 설정하면 됩니다.
+    런타임까지 타입 체킹을 미뤄야 한다면,
+    [특수 타입인 `dynamic`][ObjectVsDynamic]을 사용하세요.
+
+-   Dart는 `List<int>` (정수의 list)
+    또는 `List<Object>` (아무 타입의 list) 같은 제네릭 타입을 지원합니다.
+
+-   Dart는 클래스나 객체에 묶여있는 함수들
+    (각각 *static*, *instance* 메서드) 뿐만 아니라,
+    `main()` 같은 최상위 함수를 지원합니다.
+    *중첩 함수* 또는 *지역 함수*처럼 함수 안에 함수를 생성할 수 있습니다.
+
+-   유사하게, Dart는 클래스나 객체에 묶여있는 변수들 (각각 static, instance 변수)
+    뿐만 아니라, 최상위 *변수* 또한 지원합니다. 
+    Instance 변수들은 *필드*, *프로퍼티* 로도 알려져있습니다.
+
+-   Java와 다르게, Dart는 `public`, `projected` 그리고 `private` 같은 키워드가 없습니다.
+    식별자가 언더 스코어 (`_`)로 시작한다면, 이것은 해당 라이브러리에 귀속된(private) 것입니다.
+    더 자세한 정보를 원한다면, [라이브러리와 임포트][]
+    를 참고하세요.
+
+-   *식별자*는 문자 또는 언더 스코어 (`_`)로 시작 할 수 있고,
+    어떠한 문자와 숫자의 결합이 가능합니다.
+
+-   Dart는 런타임 값을 가지는 *식 (expression)*과
+    그렇지 않은 *문 (statement)*을 가지고 있습니다.
+    예를 들어, [조건 표현식 (conditional expression)][]인
+    `condition ? expr1 : expr2` 은 `expr1` 또는 `expr2`의 값을 가집니다.
+    위의 표현식과 값을 가지지 않는 
+    [if-else 문][]를 비교해봅시다.
+    문은 때로 하나 혹은 그 이상의 식을 포함하지만,
+    식은 직접적으로 문을 포함할 수 없습니다.
+
+-   Dart tools는 _경고_ 와 _에러_ 로 이슈를 리포트 해줍니다.
+    경고는 코드가 제대로 작동하지 않을 수도 있다는 것을 의미하지만,
+    프로그램의 실행을 막지 않습니다. 에러는 컴파일 타임 또는 런타임으로 구분됩니다.
+    컴파일 타임 에러는 코드가 실행되는 것을 막습니다;
+    런타임 에러는 코드가 실행되는 동안 [예외][]를 발생시킵니다.
+
+
+## 추가적인 리소스
+
+추가적인 코드 샘플은
+[라이브러리 투어](/guides/libraries/library-tour)와
+[Dart API 레퍼런스,]({{site.dart-api}})에서 확인할 수 있습니다.
+이 사이트의 코드들은 
+[Dart 스타일 가이드](/guides/language/effective-dart/style)의 컨벤션을 준수합니다.
+
+[Dart language specification]: /guides/language/spec
+[Comments]: /language/comments
+[built-in types]: /language/built-in-types
+[Strings]: /language/built-in-types#strings
+[main() 함수]: /language/functions#main-함수
+[ns]: /null-safety
+[`Object`]: {{site.dart-api}}/{{site.data.pkg-vers.SDK.channel}}/dart-core/Object-class.html
+[language version]: /guides/language/evolution#language-versioning
+[ObjectVsDynamic]: /guides/language/effective-dart/design#avoid-using-dynamic-unless-you-want-to-disable-static-checking
+[라이브러리와 임포트]: /language/libraries
+[조건 표현식 (conditional expression)]: /language/operators#조건-표현식
+[if-else 문]: /language/control-flow#if-else
+[예외]: /language/error-handling#예외

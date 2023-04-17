@@ -492,8 +492,8 @@ var counts = Set<int>();
 접근이 가능하고 요소를 빌드 하는 동안 [`if` 그리고 `for`]를 사용하여
 흐름 제어를 수행할 수 있기 때문에 Dart에서 특히 유용합니다:
 
-[spread]: /guides/language/language-tour#spread-operator
-[control]: /guides/language/language-tour#collection-operators
+[spread]: /language/collections#spread-operators
+[control]: /language/collections#collection-operators
 
 {:.good}
 <?code-excerpt "usage_good.dart (spread-etc)"?>

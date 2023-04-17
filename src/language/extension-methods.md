@@ -4,17 +4,17 @@ description: 존재하는 API에 기능을 추가하는 법을 배웁니다.
 ---
 확장 메서드는 이미 존재하는 라이브러리에 기능을 추가합니다.
 확장 메서드가 무엇인지 모르는 상태에서 사용하고 있을 수도 있습니다.
-예를 들어, IDE의 코드 완성을 사용할 때,
+예를 들어, IDE에서 코드 완성을 사용할 때,
 IDE가 일반적인 메서드와 함께 확장 메서드를 추천합니다.
 
 <iframe width="560" height="315"
-  src="https://www.youtube.com/embed/D3j0OSfT9ZI"
-  frameborder="0"
-  allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
-  allowfullscreen>
+src="https://www.youtube.com/embed/D3j0OSfT9ZI"
+frameborder="0"
+allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
+allowfullscreen>
 </iframe>
-<em>비디오를 통해 학습하고 싶다면 위의 영상을 참고하세요.</em>
 
+_비디오를 통해 학습하고 싶다면 위의 영상을 참고하세요._
 
 ## 개요
 
@@ -36,7 +36,7 @@ int.parse('42')
 ```
 
 위의 코드를 사용하려면
-`String` 클래스의 확장이 포함된 라이브러리를 import하면 됩니다:
+`String` 클래스의 확장이 포함된 라이브러리를 임포트하면 됩니다:
 
 <?code-excerpt "extension_methods/lib/string_extensions/usage_simple_extension.dart (basic)" replace="/  print/print/g"?>
 ```dart
@@ -70,7 +70,7 @@ extension NumberParsing on String {
 
 모든 Dart 코드와 마찬가지로 확장 메서드는 라이브러리 안에 있습니다.
 우리는 이미 확장 메서드를 어떻게 사용하는지 배웠습니다.
-해당 메서드가 있는 라이브러리를 import하고 일반 메서드처럼 사용하면 됩니다:
+해당 메서드가 있는 라이브러리를 임포트하고 일반 메서드처럼 사용하면 됩니다:
 
 <?code-excerpt "extension_methods/lib/string_extensions/usage_simple_extension.dart (import-and-use)" replace="/  print/print/g"?>
 ```dart
@@ -109,7 +109,7 @@ print(v.parseInt()); // Output: 2
 확장 메서드는 정적으로 생성되기 때문에, static 함수를 호출하는 것만큼 빠릅니다.
 
 정적 타입과 `dynamic`에 대해 더 알고 싶다면,
-[Dart 타입 시스템](/guides/language/type-system)을 참고하세요.
+[Dart 타입 시스템](/language/type-system)을 참고하세요.
 
 ### API 충돌
 
@@ -182,7 +182,7 @@ print('42'.parseNum());
 다음 문법을 사용하여 확장을 생성하세요:
 
 ```
-extension <extension name> on <type> {
+extension <extension name>? on <type> {
   (<member definition>)*
 }
 ```
@@ -203,11 +203,27 @@ extension NumberParsing on String {
 ```
 <div class="prettify-filename">lib/string_apis.dart</div>
 
-확장이 생성된 라이브러리에서만 사용할 수 있는 지역 확장을 생성하고 싶다면,
-확장의 이름을 생략하거나 확장의 이름 앞에 언더 스코더(`_`)를 추가하세요.
+연산자, getter, setter 또는 메서드가 확장의 멤버가 될 수 있습니다.
+확장은 정적 필드와 정적 헬퍼 메서드를 가질 수 있습니다.
 
-확장은 메서드, getter, setter, 연산자를 멤버로 가질 수 있습니다.
-확장은 static 필드와 static 헬퍼 메서드를 가질 수 있습니다.
+### 이름 없는 확장
+
+확장을 선언할 때, 이름을 생략할 수 있습니다.
+이름 없는 확장은 선언된 라이브러리 안에서만 사용이 가능합니다.
+이런 확장은 이름이 없기 때문에,
+[API 충돌](#api-충돌)을 해결할 때
+명시적으로 적용될 수 없습니다.
+
+<?code-excerpt "extension_methods/lib/string_extensions/string_apis_unnamed.dart (unnamed)"?>
+```dart
+extension on String {
+  bool get isBlank => trim().isEmpty;
+}
+```
+
+{{site.alert.note}}
+  이름 없는 확장의 정적 멤버는 확장 선언 안에서만 호출이 가능합니다.
+{{site.alert.end}}
 
 ## 제네릭 확장 구현
 
@@ -242,15 +258,6 @@ For example, in the following code, `T` is `PENDING` because PENDING:
 * [Feature specification][specification]
 * [Extension methods sample][sample]
 
-{% comment %}
-* Video
-* 2.7 blog post?
-* Release notes?
-* Examples?
-{% endcomment %}
-
 [specification]: https://github.com/dart-lang/language/blob/master/accepted/2.7/static-extension-methods/feature-specification.md#dart-static-extension-methods-design
-
 [article]: https://medium.com/dartlang/extension-methods-2d466cd8b308
-
-[sample]: https://github.com/dart-lang/samples/tree/master/extension_methods
+[sample]: https://github.com/dart-lang/samples/tree/main/extension_methods

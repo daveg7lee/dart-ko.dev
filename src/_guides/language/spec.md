@@ -6,7 +6,7 @@ description: Dart 언어의 공식 설명서.
 
 이 페이지에서는 공식 Dart 언어 설명서를 찾을 수 있습니다.
 Dart에 대한 가벼운 소개는
-[언어 개요](/guides/language/language-tour)를 참고하세요.
+[언어 개요](/language)를 참고하세요.
 
 ## Dart 2
 

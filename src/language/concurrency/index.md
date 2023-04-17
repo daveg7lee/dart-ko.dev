@@ -129,7 +129,7 @@ Dart 가상 머신 (VM) 또는 운영 체제(OS)에서 `readAsString()`이 non-D
 Dart 코드는 중단됩니다.
 `readAsString()`이 값을 반환하고 나면, Dart 코드는 재개됩니다.
 
-![Flowchart-like figure showing app code executing from start to exit, waiting for native I/O in between](/guides/language/concurrency/images/basics-await.png)
+![Flowchart-like figure showing app code executing from start to exit, waiting for native I/O in between](/language/concurrency/images/basics-await.png)
 
 `async`, `await`, 그리고 future에 대해 더 학습하고 싶다면,
 [비동기 프로그래밍 codelab][]을 방문하세요.
@@ -173,7 +173,7 @@ Isolate를 사용하면 Dart 코드가 가능한 추가 프로세서 코어를 �
 다음 그림에서 볼 수 있듯이 main isolate는 프로그램의 실행이
 시작되는 스레드 입니다.
 
-![A figure showing a main isolate, which runs `main()`, responds to events, and then exits](/guides/language/concurrency/images/basics-main-isolate.png)
+![A figure showing a main isolate, which runs `main()`, responds to events, and then exits](/language/concurrency/images/basics-main-isolate.png)
 
 단일 isolate 프로그램도 async-await를 사용하여 비동기 작업이
 완료될 때까지 기다렸다가 다음 코드를 진행하면 원할하게 실행할 수 있습니다.
@@ -191,7 +191,7 @@ Isolate에서 실행된 Dart 코드가 종료된 후에도
 이벤트를 처리해야 하는 경우에는 isolate가 계속 유지됩니다.
 이벤트의 처리가 끝난 후, isolate는 종료됩니다.
 
-![A more general figure showing that any isolate runs some code, optionally responds to events, and then exits](/guides/language/concurrency/images/basics-isolate.png)
+![A more general figure showing that any isolate runs some code, optionally responds to events, and then exits](/language/concurrency/images/basics-isolate.png)
 
 
 ### 이벤트 처리
@@ -201,13 +201,13 @@ Isolate에서 실행된 Dart 코드가 종료된 후에도
 리페인트 이벤트 이후 하나의 탭 이벤트 그리고 두 개의 리페인트 이벤트가 큐에 진입합니다.
 이벤트 루프는 FIFO(First In First Out) 순서로 큐에 있는 이벤트를 처리합니다.
 
-![A figure showing events being fed, one by one, into the event loop](/guides/language/concurrency/images/event-loop.png)
+![A figure showing events being fed, one by one, into the event loop](/language/concurrency/images/event-loop.png)
 
 `main()` 메서드가 실행된 후에 이벤트 큐의 처리가 시작되며,
 이때 리페인트 이벤트가 첫 번째로 처리됩니다. 그 뒤로 main isolate는
 탭 이벤트를 처리하고 이어서 리페인트 이벤트를 처리합니다.
 
-![A figure showing the main isolate executing event handlers, one by one](/guides/language/concurrency/images/event-handling.png)
+![A figure showing the main isolate executing event handlers, one by one](/language/concurrency/images/event-handling.png)
 
 동기 명령이 긴 처리 시간을 소요한다면,
 앱의 반응성은 떨어집니다.
@@ -216,7 +216,7 @@ Isolate에서 실행된 Dart 코드가 종료된 후에도
 앱은 마치 멈춰있는 것처럼 보일 것이고,
 앱이 수행하는 애니메이션은 버벅거릴 것입니다.
 
-![A figure showing a tap handler with a too-long execution time](/guides/language/concurrency/images/event-jank.png)
+![A figure showing a tap handler with a too-long execution time](/language/concurrency/images/event-jank.png)
 
 클라이언트 앱에서, 너무 긴 동기 명령은
 [버벅거리는 UI 애니메이션][jank]을 야기합니다.
@@ -235,7 +235,7 @@ UI가 반응하지 않는다면, 해당 계산을 워커 isolate로 옮기는 �
 
 [json]: {{site.flutter-docs}}/cookbook/networking/background-parsing
 
-![A figure showing a main isolate and a simple worker isolate](/guides/language/concurrency/images/isolate-bg-worker.png)
+![A figure showing a main isolate and a simple worker isolate](/language/concurrency/images/isolate-bg-worker.png)
 
 각 Isolate는 메시지를 통해 객체를 전달할 수 있으며,
 이 객체의 모든 내용은 전달 가능한 조건을 만족해야합니다.
@@ -346,6 +346,8 @@ Main isolate의 코드는 계속해서 실행되기 때문에 `Isolate.run()`의
 Main isolate와 워커 isolate는 동시에 실행되기 때문에
 워커 isolate가 실행하는 계산이 동기적이든 아니든 main isolate에 영향을 주지 않습니다.
 
+For the complete program, check out the [send_and_receive.dart][] sample.
+
 {% comment %}
 TODO:
 Should create a diagram for the current example.
@@ -354,7 +356,7 @@ Previous example's diagram and text for reference:
   The following figure illustrates the communication between
   the main isolate and the worker isolate:
   
-  ![A figure showing the previous snippets of code running in the main isolate and in the worker isolate](/guides/language/concurrency/images/isolate-api.png)
+  ![A figure showing the previous snippets of code running in the main isolate and in the worker isolate](/language/concurrency/images/isolate-api.png)
 {% endcomment %}
 
 #### Isolate에 클로저 전달
@@ -386,8 +388,8 @@ void main() async {
 이런 맥락에서 `run()`이 코드를 "병렬적으로 실행"하기 위해 [흐름 제어 연산자][] 처럼
 작동한다고 생각할 수도 있습니다.
 
-[클로저]: /guides/language/language-tour#익명-함수
-[흐름 제어 연산자]: /guides/language/language-tour#흐름-제어문
+[클로저]: /language/functions#익명-함수
+[흐름 제어 연산자]: /language/control-flow
 
 ### Isolate 사이에 다수의 메시지 전송
 
@@ -414,17 +416,12 @@ isolate를 설정하면 됩니다.
 다음과 그림과 같이 main isolate에서 워커 isolate로
 요청 메시지를 보낸 후 하나 또는 다수의 응답 메시지를 보내는 패턴이 자주 사용됩니다.
 
-![A figure showing the main isolate spawning the isolate and then sending a request message, which the worker isolate responds to with a reply message; two request-reply cycles are shown](/guides/language/concurrency/images/isolate-custom-bg-worker.png)
+![A figure showing the main isolate spawning the isolate and then sending a request message, which the worker isolate responds to with a reply message; two request-reply cycles are shown](/language/concurrency/images/isolate-custom-bg-worker.png)
 
-다수의 메시지를 전송하는 예제는 [isolate 샘플][]을 참고하세요:
+Isolate 사이에서 다수의 메시지를 송수신하는
+장기 실행 isolate를 생성하는 방법은 [long_running_isolate.dart][] 샘플에서 확인하세요.
 
-* [send_and_receive.dart][]:
-  main isolate에서 생성된 isolate로 메시지를 보내는 방법을 알려줍니다.
-  앞선 예제와 비슷하지만 `run()`을 사용하지 않습니다.
-* [long_running_isolate.dart][]:
-  메시지를 여러 번 송수신하는 장기 실행 isolate를 생성하는 방법을 알려줍니다.
-
-{% assign samples = "https://github.com/dart-lang/samples/tree/master/isolates" %}
+{% assign samples = "https://github.com/dart-lang/samples/tree/main/isolates" %}
 
 [isolate 샘플]: {{ samples }}
 [send_and_receive.dart]: {{ samples }}/bin/send_and_receive.dart

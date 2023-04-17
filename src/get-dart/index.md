@@ -63,8 +63,7 @@ Dart SDK는 윈도우, 리눅스, 그리고 macOS를 지원합니다.
 
 * **지원 버전:** 표준 버전의 [Debian stable][]과 [Ubuntu LTS][]가 지원됩니다.
 * **지원 아키텍쳐:** x64, IA32, ARM64, ARM, RISC-V (RV64GC).<br>
-  RISC-V의 지원은 실험 단계에 있으며,
-  dev 채널에서만 사용할 수 있습니다.
+  RISC-V의 지원은 실험 단계에 있으며, dev와 beta 채널에서만 사용할 수 있습니다.
 
 {{site.alert.note}}
   [다이나믹 링커 버그](https://sourceware.org/bugzilla/show_bug.cgi?id=14341)

@@ -80,7 +80,7 @@ Dart는 아래의 내장 타입들을 지원합니다:
 - Symbols (`Symbol`)
 - `null` (`Null`)
 
-내장 타입에 대해 더 알고 싶다면 [Dart로 떠나는 여행][]의 [내장 타입][]을 읽어보십시오.
+내장 타입에 대해 더 알고 싶다면 [Dart 언어 투어][]의 [내장 타입][]을 읽어보십시오.
 
 Dart의 모든 `Null`이 아닌 타입들은 Object 타입의 하위 타입들입니다.
 따라서 모든 값들도 오브젝트입니다.
@@ -95,8 +95,8 @@ Dart는 두 값이 같은 개채인지 확인하기 위해 `identical` 이라는
 또한 `==` 연산자를 사용하여 개채가 서로를 동일하다고 간주하는지 확인합니다.
 {{site.alert.end}}
 
-[내장 타입]: /guides/language/language-tour#내장-타입
-[dart로 떠나는 여행]: /guides/language
+[내장 타입]: /language/language-tour#내장-타입
+[Dart 언어 투어]: /guides/language
 
 예를 들어:
 비교 연산자 `==`와 `identical()` 함수는 숫자 타입의 동일한 값에 대해 `true`를 리턴합니다. 다음 코드에 표시된 예시를 참고하십시오:
@@ -185,7 +185,7 @@ To learn more about working with unicode characters,
 see [Runes and grapheme clusters][].
 {{site.alert.end}}
 
-[runes and grapheme clusters]: /guides/language/language-tour#characters
+[Runes and grapheme clusters]: /language/built-in-types#runes-and-grapheme-clusters
 
 ##### String interpolation
 
@@ -199,9 +199,9 @@ These use backtick (`` ` ``) character delimiters for the following reasons:
 In Dart, you don't need to enclose a string in backticks to concatenate
 strings or use interpolations within string literals.
 
-To learn more, see [Strings][] in the [Dart Language Tour][].
+To learn more, check out [Strings][] in the Dart Language Tour.
 
-[strings]: /guides/language/language-tour#strings
+[Strings]: /language/built-in-types#strings
 
 As in JavaScript template literals,
 you can use the `${<expression>}` syntax to insert expressions into
@@ -790,7 +790,7 @@ and return an `Iterable`.
 Add items to the final iterable using the
 `yield` keyword, or add whole sets of items using `yield*`.
 
-[_generator functions_]: /guides/language/language-tour#generators
+[_generator functions_]: /language/functions#generators
 
 The following example shows how to write a
 basic generator function:
@@ -1150,7 +1150,7 @@ let visibility = isPublic ? "public" : "private";
 final visibility = isPublic ? 'public' : 'private';
 ```
 
-[if-else]: /guides/language/language-tour#if-and-else
+[if-else]: /language/control-flow#if-and-else
 
 ### Assignment operators
 
@@ -2012,7 +2012,7 @@ class Point {
 Point p = Point(3, 5);
 ```
 
-[initializing parameters]: /guides/language/language-tour#constructors
+[initializing parameters]: /language/constructors
 
 Similar to functions, constructors have the
 option to take positioned or named parameters:
@@ -2726,7 +2726,7 @@ Some possible next steps:
 - [Effective Dart][] to learn about common conventions
   and guidelines when writing Dart code
 
-[language tour]: /guides/language/language-tour
-[library tour]: /guides/libraries/library-tour
-[dart codelabs]: /codelabs
-[effective dart]: /guides/language/effective-dart
+[Language tour]:  /language
+[Library tour]:   /guides/libraries/library-tour
+[Dart codelabs]:  /codelabs
+[Effective Dart]: /guides/language/effective-dart

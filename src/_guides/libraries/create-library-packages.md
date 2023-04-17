@@ -111,7 +111,7 @@ shelf 패키지는 shelf_io라는 미니 라이브러리를 포함하고 있습�
 
 ## 라이브러리 파일 가져오기
 
-다른 패키지에서 라이브러리 파일을 가져올 때,
+다른 패키지에서 라이브러리 파일을 임포트할 때,
 `package:` 명령어로 파일의 URI를 지정하세요.
 
 ```dart
@@ -287,8 +287,7 @@ follow these steps:
 
 Use the following resources to learn more about library packages:
 
-* [Libraries and visibility](/guides/language/language-tour#libraries-and-visibility)
-  in the [language tour](/guides/language/language-tour) covers
+* [Libraries and imports](/language/libraries) covers
   using library files.
 * The [package](/guides/packages) documentation is useful, particularly the
   [package layout conventions](/tools/pub/package-layout).
